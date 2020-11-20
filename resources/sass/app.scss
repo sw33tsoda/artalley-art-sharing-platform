@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin:0;
+    padding:0;
+    background:#d8d8d8;
+}
+
+
+// +++++++++++ GLOBAL +++++++++++ //
+// UTILITIES
+@import './utilities.scss';
+
+// FORM INPUT
+@import './form.scss';
+
+// REGISTER
+@import './register.scss';
+
+// LOGIN
+@import './login.scss';
+
+
+// ++++++++++++ ADMIN +++++++++++ //
+// BODY
+@import './admin/body.scss';

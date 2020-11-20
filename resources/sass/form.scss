@@ -1,0 +1,131 @@
+.label {
+    font-weight: bold;
+    font-size: 0.85em;
+    color:#747373;
+    // text-transform: uppercase;
+}
+
+.text-input {
+    width: 100%;
+    box-sizing: border-box;
+    height: 2rem;
+    font-size: 12pt;
+    text-indent: 0.35em;
+    background:#ededed;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.15);
+    border:#b1b1b1 solid 1px;
+    border-radius: 0.25em;
+    &::placeholder {
+        font-size: 0.75em;
+    }
+    &:focus {
+        box-shadow: inset 0 1px 3px rgba(0,0,0,1);
+    }
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-error {
+    position: absolute;
+    right:0;
+    top:50%;
+    transform: translate(-3%, 4%);
+    background:#BA0F30;
+    font-weight: bold;
+    color:white;
+    border-radius: 0.25em;
+    padding: 0.30em;
+    opacity: 0.8;
+}
+
+.form-button {
+    font-size: 20px;
+    width: 100%;
+    height: 50px;
+    border-radius: 0.25em;
+}
+
+.button {
+    font-weight: bold;
+    color:white;
+    text-shadow: 0px 2px 7px #747373;
+    cursor: pointer;
+    box-shadow: 0px 2px 3px #747373;
+}
+
+.success {
+    background: linear-gradient(#9fbf00, #80ab00);
+    background-color: #9fbf00;
+    border:1px solid  #7ca600;
+    &:hover {
+        background: linear-gradient(#9bce01, #b7db01);
+    }
+}
+
+.danger {
+    background: linear-gradient(#f04946, #e43333);
+    background-color: #eb2929;
+    border:1px solid #B71C1C;
+    &:hover {
+        background: linear-gradient(#e72323, #f02420);
+    }
+}
+
+.scroll {
+    padding: 0.25em 0.5em 0.25em 0.5em;
+    // box-shadow: inset 0 0 5px #000000;
+    // color:#212121 !important;
+    &::-webkit-scrollbar {
+        width: 0.5em;
+    }
+      
+      /* Track */
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+    }
+       
+      /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background:white; 
+        border-radius: 10px;
+    }
+      
+      /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+        background: white; 
+    }
+}
+
+.checkbox {
+    width:15px;
+    height:15px;
+    box-shadow: 0px 0px 0px 2px #f0f0f0 !important;
+    border-radius: 0.15em;
+    margin-right: 0.5em;
+    float:left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .checkbox-tick {
+        background:#f0f0f0;
+        width: 13px;
+        height: 13px;
+        border-radius: 0.15em;
+    }
+}
+
+.close {
+    color:#212121;
+    box-shadow: 0px 2px 3px #747373;
+    cursor: pointer;
+    background:#747373;
+    color:#d8d8d8;
+    border-radius: 0.25em;
+    padding: 4px 10px 4px 10px;
+    &:hover {
+        background:#212121;
+        color: #747373;
+    }
+}
