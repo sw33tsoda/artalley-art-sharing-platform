@@ -95961,10 +95961,10 @@ function Pagination(props) {
 
 /***/ }),
 
-/***/ "./resources/js/src/components/Admin/Content/User/List/AddUser/index.js":
-/*!******************************************************************************!*\
-  !*** ./resources/js/src/components/Admin/Content/User/List/AddUser/index.js ***!
-  \******************************************************************************/
+/***/ "./resources/js/src/components/Admin/Content/User/List/AddEditForm/index.js":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/src/components/Admin/Content/User/List/AddEditForm/index.js ***!
+  \**********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -96016,21 +96016,27 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-AddUser.propTypes = {
-  closeAddUserForm: prop_types__WEBPACK_IMPORTED_MODULE_11___default.a.func.isRequired,
-  listRefresh: prop_types__WEBPACK_IMPORTED_MODULE_11___default.a.func.isRequired
+AddEditForm.propTypes = {
+  closeAddEditForm: prop_types__WEBPACK_IMPORTED_MODULE_11___default.a.func.isRequired,
+  listRefresh: prop_types__WEBPACK_IMPORTED_MODULE_11___default.a.func.isRequired,
+  formType: prop_types__WEBPACK_IMPORTED_MODULE_11___default.a.string.isRequired,
+  userInfo: prop_types__WEBPACK_IMPORTED_MODULE_11___default.a.object
 };
-AddUser.defaultProps = {
-  closeAddUserForm: null,
-  listRefresh: null
+AddEditForm.defaultProps = {
+  closeAddEditForm: null,
+  listRefresh: null,
+  formType: 'add',
+  userInfo: {}
 };
 
-function AddUser(props) {
-  var closeAddUserForm = props.closeAddUserForm,
-      listRefresh = props.listRefresh;
+function AddEditForm(props) {
+  var closeAddEditForm = props.closeAddEditForm,
+      listRefresh = props.listRefresh,
+      formType = props.formType,
+      userInfo = props.userInfo;
   var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["useDispatch"])(); // Kiểm tra hợp lệ
 
-  var validationSchema = _Auth_Validation__WEBPACK_IMPORTED_MODULE_6__["RegisterValidationSchema"]; // File
+  var validationSchema = _Auth_Validation__WEBPACK_IMPORTED_MODULE_6__["EditUserValidationSchema"]; // File
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])({}),
       _useState2 = _slicedToArray(_useState, 2),
@@ -96060,7 +96066,13 @@ function AddUser(props) {
   }(); // => Hình Preview
 
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(''),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(function () {
+    if (!userInfo.profile_picture) {
+      return '';
+    }
+
+    return '/storage/app/public/profilePictures/' + userInfo.profile_picture;
+  }()),
       _useState4 = _slicedToArray(_useState3, 2),
       preview = _useState4[0],
       setPreview = _useState4[1];
@@ -96084,7 +96096,15 @@ function AddUser(props) {
     password_confirmation: '',
     email: '',
     profile_picture: ''
-  }; // Lựa chọn
+  };
+
+  if (formType == 'edit') {
+    for (var key in initialValues) {
+      if (key == 'profile_picture') continue;
+      initialValues[key] = userInfo[key] == null ? '' : userInfo[key];
+    }
+  } // Lựa chọn
+
 
   var options = [{
     value: 'user',
@@ -96094,9 +96114,10 @@ function AddUser(props) {
     label: 'Quản trị viên'
   }]; // Xử lý thêm người dùng
 
-  var handleOnSubmitAddUser = /*#__PURE__*/function () {
+  var handleSubmitForm = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(values) {
-      var apiToken, data, key;
+      var apiToken, data, _key;
+
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -96104,22 +96125,30 @@ function AddUser(props) {
               apiToken = localStorage.getItem('authenticatedUserToken');
               data = new FormData();
 
-              for (key in values) {
-                if (key !== 'password_confirmation') {
-                  if (key == 'profile_picture') {
-                    data.append(key, file);
+              for (_key in values) {
+                if (_key !== 'password_confirmation') {
+                  if (_key == 'profile_picture') {
+                    data.append(_key, file);
                   } else {
-                    data.append(key, values[key]);
+                    data.append(_key, values[_key]);
                   }
                 }
               }
 
-              axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/admin/resources/users?api_token=".concat(apiToken), data).then(function (response) {
+              (function () {
+                if (formType == 'edit') {
+                  data.append('_method', 'PATCH');
+                  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/admin/resources/users/".concat(userInfo.id, "?api_token=").concat(apiToken), data);
+                }
+
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/admin/resources/users?api_token=".concat(apiToken), data);
+              })().then(function (response) {
                 var message = response.data.message;
                 var action = Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_5__["setAnnouncerMessage"])(message);
                 dispatch(action);
                 listRefresh();
-                closeAddUserForm();
+                closeAddEditForm(formType);
+                console.log(response);
               })["catch"](function (error) {
                 var message = error.response.data.message;
                 var action = Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_5__["setAnnouncerMessage"])(message);
@@ -96134,7 +96163,7 @@ function AddUser(props) {
       }, _callee2);
     }));
 
-    return function handleOnSubmitAddUser(_x2) {
+    return function handleSubmitForm(_x2) {
       return _ref2.apply(this, arguments);
     };
   }();
@@ -96142,7 +96171,7 @@ function AddUser(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["Formik"], {
     initialValues: initialValues,
     validationSchema: validationSchema,
-    onSubmit: handleOnSubmitAddUser
+    onSubmit: handleSubmitForm
   }, function (_ref3) {
     var handleSubmit = _ref3.handleSubmit;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("form", {
@@ -96181,7 +96210,7 @@ function AddUser(props) {
       labelClassName: "label",
       disabled: false,
       options: options,
-      defaultValue: options[0].value
+      defaultValue: formType == 'add' ? options[0].value : userInfo.role
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
       name: "password",
       component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_8__["default"],
@@ -96217,7 +96246,7 @@ function AddUser(props) {
       type: "file",
       disabled: false,
       setFile: handleSetFile
-    }), preview ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("img", {
+    }), preview !== '' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("img", {
       className: "profile-picture-preview",
       src: preview
     }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("p", {
@@ -96226,13 +96255,15 @@ function AddUser(props) {
       className: "form-buttons-group"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("button", {
       type: "submit"
-    }, "TH\xCAM"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("button", {
-      onClick: closeAddUserForm
+    }, formType == 'add' ? 'THÊM' : 'SỬA'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("button", {
+      onClick: function onClick() {
+        return closeAddEditForm(formType);
+      }
     }, "\u0110\xD3NG")));
   });
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (AddUser);
+/* harmony default export */ __webpack_exports__["default"] = (AddEditForm);
 
 /***/ }),
 
@@ -96257,7 +96288,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_moment__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_admin_users__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../store/admin/users */ "./resources/js/src/store/admin/users.js");
-/* harmony import */ var _AddUser__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./AddUser */ "./resources/js/src/components/Admin/Content/User/List/AddUser/index.js");
+/* harmony import */ var _AddEditForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./AddEditForm */ "./resources/js/src/components/Admin/Content/User/List/AddEditForm/index.js");
 /* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
 /* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../Pagination */ "./resources/js/src/components/Admin/Content/Pagination/index.js");
@@ -96316,10 +96347,14 @@ function List() {
       setListRefresh = _useState2[1]; // Toggle Form thêm người dùng
 
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
+    add: false,
+    edit: false,
+    userInfo: {}
+  }),
       _useState4 = _slicedToArray(_useState3, 2),
-      isAddingUser = _useState4[0],
-      setIsAddingUser = _useState4[1]; // Toggle Delete Modal
+      addEditFormToggle = _useState4[0],
+      setAddEditFormToggle = _useState4[1]; // Toggle Delete Modal
 
 
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
@@ -96480,15 +96515,18 @@ function List() {
   }(); // Xử lý đóng Form
 
 
-  var handleCloseAddUserForm = /*#__PURE__*/function () {
-    var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+  var handleCloseAddEditForm = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(formType) {
+      var toggleSettings;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              setIsAddingUser(false);
+              toggleSettings = _objectSpread({}, addEditFormToggle);
+              toggleSettings[formType] = false;
+              setAddEditFormToggle(_objectSpread({}, toggleSettings));
 
-            case 1:
+            case 3:
             case "end":
               return _context5.stop();
           }
@@ -96496,7 +96534,7 @@ function List() {
       }, _callee5);
     }));
 
-    return function handleCloseAddUserForm() {
+    return function handleCloseAddEditForm(_x3) {
       return _ref5.apply(this, arguments);
     };
   }(); // Xử lý chuyển trang
@@ -96523,7 +96561,7 @@ function List() {
       }, _callee6);
     }));
 
-    return function handlePaginationChange(_x3) {
+    return function handlePaginationChange(_x4) {
       return _ref6.apply(this, arguments);
     };
   }(); // Xử lý bật Modal
@@ -96548,7 +96586,7 @@ function List() {
       }, _callee7);
     }));
 
-    return function handleDeleteUserModal(_x4) {
+    return function handleDeleteUserModal(_x5) {
       return _ref7.apply(this, arguments);
     };
   }(); // Xử lý đóng Modal
@@ -96572,7 +96610,7 @@ function List() {
       }, _callee8);
     }));
 
-    return function handleCloseDeleteUserModal(_x5) {
+    return function handleCloseDeleteUserModal(_x6) {
       return _ref8.apply(this, arguments);
     };
   }(); // Xử lý xóa người dùng
@@ -96678,7 +96716,13 @@ function List() {
     }, user.updated_at)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", {
       className: "action"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
-      href: "# "
+      href: "# ",
+      onClick: function onClick() {
+        return setAddEditFormToggle(_objectSpread(_objectSpread({}, addEditFormToggle), {}, {
+          edit: true,
+          userInfo: user
+        }));
+      }
     }, "S\u1EEDa"), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
       href: "# ",
       onClick: function onClick() {
@@ -96697,13 +96741,23 @@ function List() {
     href: "# ",
     className: "add-new-member",
     onClick: function onClick() {
-      return setIsAddingUser(true);
+      return setAddEditFormToggle(_objectSpread(_objectSpread({}, addEditFormToggle), {}, {
+        add: true
+      }));
     }
-  }, "TH\xCAM NG\u01AF\u1EDCI D\xD9NG")), isAddingUser && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_draggable__WEBPACK_IMPORTED_MODULE_3___default.a, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+  }, "TH\xCAM NG\u01AF\u1EDCI D\xD9NG")), addEditFormToggle.add && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_draggable__WEBPACK_IMPORTED_MODULE_3___default.a, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "add-user"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, "TH\xCAM NG\u01AF\u1EDCI D\xD9NG"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_AddUser__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    closeAddUserForm: handleCloseAddUserForm,
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, "TH\xCAM NG\u01AF\u1EDCI D\xD9NG"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_AddEditForm__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    closeAddEditForm: handleCloseAddEditForm,
+    formType: "add",
     listRefresh: handleListRefresh
+  }))), addEditFormToggle.edit && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_draggable__WEBPACK_IMPORTED_MODULE_3___default.a, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "add-user"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, "S\u1EECA NG\u01AF\u1EDCI D\xD9NG"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_AddEditForm__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    closeAddEditForm: handleCloseAddEditForm,
+    formType: "edit",
+    listRefresh: handleListRefresh,
+    userInfo: addEditFormToggle.userInfo
   }))), isDeletingUser.isActive && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_draggable__WEBPACK_IMPORTED_MODULE_3___default.a, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "delete-modal"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_AlertModal__WEBPACK_IMPORTED_MODULE_10__["default"], {
@@ -97538,12 +97592,13 @@ function Register(props) {
 /*!**************************************************************!*\
   !*** ./resources/js/src/components/Auth/Validation/index.js ***!
   \**************************************************************/
-/*! exports provided: RegisterValidationSchema, LoginValidationSchema */
+/*! exports provided: RegisterValidationSchema, EditUserValidationSchema, LoginValidationSchema */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegisterValidationSchema", function() { return RegisterValidationSchema; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditUserValidationSchema", function() { return EditUserValidationSchema; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginValidationSchema", function() { return LoginValidationSchema; });
 /* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! yup */ "./node_modules/yup/es/index.js");
 
@@ -97553,6 +97608,14 @@ var RegisterValidationSchema = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shap
   username: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(30, 'Tên quá dài').required('Không được bỏ trống'),
   email: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().email('Địa chỉ Email không hợp lệ').max(60, 'Địa chỉ Email quá dài').required('Không được bỏ trống'),
   password: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(8, 'Tối thiểu tám ký tự').max(64, 'Mật khẩu quá dài').required('Không được bỏ trống'),
+  password_confirmation: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().oneOf([yup__WEBPACK_IMPORTED_MODULE_0__["ref"]('password'), null], 'Mật khẩu không giống nhau')
+});
+var EditUserValidationSchema = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({
+  firstname: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(30, 'Tên quá dài').required('Không được bỏ trống'),
+  lastname: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(30, 'Tên quá dài').required('Không được bỏ trống'),
+  username: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(30, 'Tên quá dài').required('Không được bỏ trống'),
+  email: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().email('Địa chỉ Email không hợp lệ').max(60, 'Địa chỉ Email quá dài').required('Không được bỏ trống'),
+  password: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(8, 'Tối thiểu tám ký tự').max(64, 'Mật khẩu quá dài'),
   password_confirmation: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().oneOf([yup__WEBPACK_IMPORTED_MODULE_0__["ref"]('password'), null], 'Mật khẩu không giống nhau')
 });
 var LoginValidationSchema = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({

@@ -4,7 +4,7 @@ import Draggable from 'react-draggable';
 import Moment from 'react-moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { setList } from '../../../../../store/admin/users';
-import AddUser from './AddUser';
+import AddEditForm from './AddEditForm';
 import queryString from 'query-string';
 import Pagination from '../../Pagination';
 import AlertModal from '../../AlertModal';
@@ -23,7 +23,11 @@ function List() {
     const [listRefresh,setListRefresh] = useState(true);
 
     // Toggle Form thêm người dùng
-    const [isAddingUser,setIsAddingUser] = useState(false);
+    const [addEditFormToggle,setAddEditFormToggle] = useState({
+        add: false,
+        edit: false,
+        userInfo: {},
+    });
     // Toggle Delete Modal
     const [isDeletingUser,setIsDeletingUser] = useState({
         isActive : false,
@@ -109,8 +113,12 @@ function List() {
     }
 
     // Xử lý đóng Form
-    const handleCloseAddUserForm = async () => {
-        setIsAddingUser(false);
+    const handleCloseAddEditForm = async (formType) => {
+        const toggleSettings = {
+            ...addEditFormToggle,
+        }
+        toggleSettings[formType] = false;
+        setAddEditFormToggle({...toggleSettings});
     }
 
     // Xử lý chuyển trang
@@ -159,7 +167,7 @@ function List() {
             console.log(error);
         });
     }
-
+    
     return (
         <div className="list">
             <div className="filter">
@@ -205,22 +213,30 @@ function List() {
                             <td>{user.api_token == null ? 'Chưa được cấp' : 'Đang sử dụng'}</td>
                             <td><Moment format="h:m:s:A DD/MM/YYYY">{user.created_at}</Moment></td>
                             <td><Moment format="h:m:s:A DD/MM/YYYY">{user.updated_at}</Moment></td>
-                            <td className="action"><a href="# ">Sửa</a> <a href="# " onClick={() => handleDeleteUserModal(user)}>Xóa</a></td>
+                            <td className="action"><a href="# " onClick={() => setAddEditFormToggle({...addEditFormToggle,edit:true,userInfo:user})}>Sửa</a> <a href="# " onClick={() => handleDeleteUserModal(user)}>Xóa</a></td>
                         </tr>
                     )) : <tr><td className="no-record" colSpan="11"><p>KHÔNG CÓ KẾT QUẢ NÀO</p></td></tr>}
                 </tbody>
             </table>
             <div className="pagination-and-adduser">
                 <Pagination links={pagination} pageChange={handlePaginationChange}/>
-                <a href="# " className="add-new-member" onClick={() => setIsAddingUser(true)}>THÊM NGƯỜI DÙNG</a>
+                <a href="# " className="add-new-member" onClick={() => setAddEditFormToggle({...addEditFormToggle,add:true})}>THÊM NGƯỜI DÙNG</a>
             </div>
 
-            {isAddingUser && <Draggable>
+            {addEditFormToggle.add && <Draggable>
                 <div className="add-user">
                     <h1>THÊM NGƯỜI DÙNG</h1>
-                    <AddUser closeAddUserForm={handleCloseAddUserForm} listRefresh={handleListRefresh}/>
+                    <AddEditForm closeAddEditForm={handleCloseAddEditForm} formType='add' listRefresh={handleListRefresh}/>
                 </div>
             </Draggable>}
+
+            {addEditFormToggle.edit && <Draggable>
+                <div className="add-user">
+                    <h1>SỬA NGƯỜI DÙNG</h1>
+                    <AddEditForm closeAddEditForm={handleCloseAddEditForm} formType='edit' listRefresh={handleListRefresh} userInfo={addEditFormToggle.userInfo}/>
+                </div>
+            </Draggable>}
+
             {isDeletingUser.isActive && <Draggable>
                 <div className="delete-modal">
                     <AlertModal title="Nhắc nhở" body={`Bạn có chấp nhận xóa người dùng này (${isDeletingUser.userInfo.username})`} userInfo={isDeletingUser.userInfo} submit={handleDeleteUser} closeModal={handleCloseDeleteUserModal}/>

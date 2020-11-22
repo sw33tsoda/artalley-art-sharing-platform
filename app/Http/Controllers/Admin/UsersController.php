@@ -7,6 +7,9 @@ use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+
+use function PHPUnit\Framework\isEmpty;
 
 class UsersController extends Controller
 {
@@ -115,7 +118,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -127,7 +130,31 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $getUser = User::find($id);
+        if ($getUser) {
+            if ($request->hasFile('profile_picture')) {
+                if (!is_null($getUser->profile_picture)) {
+                    Storage::delete("/public/profilePictures/$getUser->profile_picture");
+                }
+                $getUser->profile_picture = $request->file('profile_picture')->hashName();
+                $request->file('profile_picture')->store('/public/profilePictures');
+            }
+            if (is_null($request->password)) {
+                $getUser->password = Hash::make($request->password);
+            }
+            $getUser->firstname = $request->firstname;
+            $getUser->lastname = $request->lastname;
+            $getUser->username = $request->username;
+            $getUser->email = $request->email;
+            $getUser->role = $request->role;
+
+            $save = $getUser->save();
+
+            if ($save) {
+                return response()->json(['message' => 'Sửa thành công'],200);
+            }
+        }
+        return response()->json(['message' => 'Sửa thất bại'],500);
     }
 
     /**
@@ -138,16 +165,22 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $deleteUser = User::destroy($id);
-
-        if (!$deleteUser) {
-            return response()->json([
-                'message' => 'Xóa thất bại',
-            ],500);
+        $getUser = User::find($id);
+        if ($getUser) {
+            if (!is_null($getUser->profile_picture)) {
+                Storage::delete("/public/profilePictures/$getUser->profile_picture");
+            }
+            $deleteUser = User::destroy($id);
+            if ($deleteUser) {
+                return response()->json([
+                    'message' => 'Đã xóa',
+                ],200);   
+            }
         }
+        
 
         return response()->json([
-            'message' => 'Xóa thành công',
-        ],200);
+            'message' => 'Xóa thất bại',
+        ],500);
     }
 }

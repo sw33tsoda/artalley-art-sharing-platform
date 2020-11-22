@@ -3,30 +3,34 @@ import { FastField, Formik } from 'formik';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setAnnouncerMessage } from '../../../../../../store/admin/announcer';
-import { RegisterValidationSchema } from '../../../../../Auth/Validation';
+import { EditUserValidationSchema } from '../../../../../Auth/Validation';
 import FileUploader from '../../../../../CustomFields/FileUploader';
 import InputField from '../../../../../CustomFields/InputField';
 import SelectField from '../../../../../CustomFields/SelectField';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 
-AddUser.propTypes = {
-    closeAddUserForm: PropTypes.func.isRequired,
+AddEditForm.propTypes = {
+    closeAddEditForm: PropTypes.func.isRequired,
     listRefresh: PropTypes.func.isRequired,
+    formType: PropTypes.string.isRequired,
+    userInfo: PropTypes.object,
 }
 
-AddUser.defaultProps = {
-    closeAddUserForm: null,
+AddEditForm.defaultProps = {
+    closeAddEditForm: null,
     listRefresh: null,
+    formType:'add',
+    userInfo: {},
 }
 
 
-function AddUser(props) {
-    const {closeAddUserForm, listRefresh} = props;
+function AddEditForm(props) {
+    const {closeAddEditForm, listRefresh, formType, userInfo} = props;
     const dispatch = useDispatch();
 
     // Kiểm tra hợp lệ
-    const validationSchema = RegisterValidationSchema;
+    const validationSchema = EditUserValidationSchema;
 
     // File
     const [file,setFile] = useState({});
@@ -35,7 +39,12 @@ function AddUser(props) {
         setFile(event.target.files[0]);
     }
     // => Hình Preview
-    const [preview,setPreview] = useState('');
+    const [preview,setPreview] = useState((function () {
+        if (!userInfo.profile_picture) {
+            return '';
+        }
+        return '/storage/app/public/profilePictures/' + userInfo.profile_picture;
+    })());
     if (_.isEmpty(file.name) == false) {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -56,6 +65,13 @@ function AddUser(props) {
         profile_picture:'',
     }
 
+    if (formType == 'edit') {
+        for (const key in initialValues) {
+            if (key == 'profile_picture') continue;
+            initialValues[key] = userInfo[key] == null ? '' : userInfo[key];
+        }
+    }
+
     // Lựa chọn
     const options = [
         {value:'user',label:'Người dùng'},
@@ -63,7 +79,7 @@ function AddUser(props) {
     ]
 
     // Xử lý thêm người dùng
-    const handleOnSubmitAddUser = async (values) => {
+    const handleSubmitForm = async (values) => {
         const apiToken = localStorage.getItem('authenticatedUserToken');
         const data = new FormData();
         for (const key in values) {
@@ -75,12 +91,20 @@ function AddUser(props) {
                 }
             }
         }
-        Axios.post(`/public/api/admin/resources/users?api_token=${apiToken}`,data).then(response => {
+
+        (function () {
+            if (formType == 'edit') {
+                data.append('_method','PATCH');
+                return Axios.post(`/public/api/admin/resources/users/${userInfo.id}?api_token=${apiToken}`,data);
+            }
+            return Axios.post(`/public/api/admin/resources/users?api_token=${apiToken}`,data);
+        })().then(response => {
             const {data:{message}} = response;
             const action = setAnnouncerMessage(message);
             dispatch(action);
             listRefresh();
-            closeAddUserForm();
+            closeAddEditForm(formType);
+            console.log(response);
         }).catch(error => {
             const {data:{message}} = error.response;
             const action = setAnnouncerMessage(message);
@@ -90,7 +114,7 @@ function AddUser(props) {
 
 
     return (
-        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleOnSubmitAddUser}>
+        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmitForm}>
             {({handleSubmit}) => {
                 return (
                     <form onSubmit={handleSubmit}>
@@ -140,7 +164,7 @@ function AddUser(props) {
                             labelClassName='label'
                             disabled={false}
                             options={options}
-                            defaultValue={options[0].value}
+                            defaultValue={formType == 'add' ? options[0].value : userInfo.role}
                         />
 
                         <FastField
@@ -190,10 +214,10 @@ function AddUser(props) {
                             setFile={handleSetFile}
                         />
 
-                        {preview ? <img className="profile-picture-preview" src={preview}></img> : <p className="no-file">Chưa có ảnh</p>}
+                        {preview !== '' ? <img className="profile-picture-preview" src={preview}></img> : <p className="no-file">Chưa có ảnh</p>}
 
                         <div className="form-buttons-group">
-                            <button type="submit">THÊM</button><button onClick={closeAddUserForm}>ĐÓNG</button>
+                            <button type="submit">{formType == 'add' ? 'THÊM' : 'SỬA'}</button><button onClick={() => closeAddEditForm(formType)}>ĐÓNG</button>
                         </div>
                     </form>
                 );
@@ -202,4 +226,4 @@ function AddUser(props) {
     );
 }
 
-export default AddUser;
+export default AddEditForm;
