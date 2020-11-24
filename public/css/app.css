@@ -323,7 +323,30 @@
   }
 }
 
-.add-user {
+.art-channel {
+  background: #1e3799;
+  padding: 25px;
+  border-radius: 0.25em;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.art-channel .form-buttons-group {
+  text-align: center;
+}
+
+.art-channel .profile-picture-preview {
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 25px;
+}
+
+.art-channel .no-file,
+.art-channel .upload-button {
+  text-align: center;
+}
+
+.user-crud {
   -webkit-animation: 1s fadeIn;
           animation: 1s fadeIn;
   width: 500px;
@@ -339,33 +362,63 @@
   border-radius: 0.25em;
 }
 
-.add-user h1 {
+.user-crud h1 {
+  text-align: center;
+}
+
+.user-crud button {
+  margin-right: 25px;
+}
+
+.user-crud button:first-child {
+  float: left;
+}
+
+.user-crud button:last-child {
+  float: right;
+}
+
+.user-crud .form-buttons-group {
+  margin-top: 25px;
+}
+
+.user-crud .upload-button {
+  text-align: center;
+}
+
+.user-crud .no-file {
+  text-align: center;
+}
+
+.user-crud .profile-picture-preview {
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.admin-form h1 {
   margin-bottom: 25px;
   text-align: center;
   text-shadow: 0px 2px 3px #101010;
 }
 
-.add-user label {
+.admin-form label {
   color: #b2bec3;
   font-weight: bold;
   font-size: 0.85em !important;
 }
 
-.add-user label,
-.add-user button {
+.admin-form label,
+.admin-form button {
   margin: 0;
   text-shadow: 0px 2px 3px #101010;
 }
 
-.add-user input {
+.admin-form input {
   margin: 5px 0 0 0;
 }
 
-.add-user .form-buttons-group {
-  margin-top: 25px;
-}
-
-.add-user button {
+.admin-form button {
   margin-right: 25px;
   text-shadow: 0px 2px 3px #101010;
   color: #b2bec3;
@@ -382,56 +435,43 @@
   cursor: pointer;
 }
 
-.add-user button.active {
+.admin-form button.active {
   color: white !important;
 }
 
-.add-user button:hover {
+.admin-form button:hover {
   color: white;
 }
 
-.add-user button:first-child {
-  float: left;
-}
-
-.add-user button:last-child {
-  float: right;
-}
-
-.add-user .upload-button {
-  text-align: center;
+.admin-form .upload-button {
   text-transform: uppercase;
 }
 
-.add-user .no-file {
-  text-align: center;
+.admin-form .no-file {
   font-style: italic;
 }
 
-.add-user .profile-picture-preview {
-  width: 100px;
+.admin-form .profile-picture-preview {
   -webkit-animation: 1s fadeIn;
           animation: 1s fadeIn;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-.add-user .form-group {
+.admin-form .form-group {
   margin-bottom: 10px;
 }
 
-.add-user .form-group:hover label {
+.admin-form .form-group:hover label {
   color: white;
 }
 
-.add-user .form-group select {
+.admin-form .form-group select {
   height: 35px;
   width: 100%;
   border-radius: 0.25em;
 }
 
-.add-user .form-group small {
+.admin-form .form-group small {
   top: 48.5% !important;
   background: #1e3799;
 }
@@ -516,6 +556,7 @@
   text-decoration: none;
   color: #b2bec3;
   text-shadow: 0px 2px 3px #101010;
+  cursor: pointer;
   margin-right: 15px;
   font-weight: bold;
   font-size: 1.5em;
@@ -543,8 +584,8 @@
   color: white;
   text-shadow: 0px 2px 3px #101010;
   border-radius: 0.25em;
-  -webkit-animation: 1s fadeIn;
-          animation: 1s fadeIn;
+  -webkit-animation: 0.5s fadeIn;
+          animation: 0.5s fadeIn;
 }
 
 .admin .announcer .message span {
@@ -584,31 +625,24 @@
   padding: 0 25px 0 25px;
 }
 
-.admin .navbar .panel .resources .resource-control h2.resource-name {
+.admin .navbar .panel .resources .resource h2.resource-name {
   transition: 0.5s;
   color: #b2bec3;
   text-shadow: 0px 2px 3px #101010;
 }
 
-.admin .navbar .panel .resources .resource-control h2.resource-name:hover {
+.admin .navbar .panel .resources .resource h2.resource-name:hover {
   text-indent: 10px;
   cursor: pointer;
   border-left: 25px solid white;
   color: white;
 }
 
-.admin .navbar .panel .resources .resource-control h2.resource-name.active {
+.admin .navbar .panel .resources .resource h2.resource-name.active {
   text-indent: 10px;
   cursor: pointer;
   border-left: 25px solid white;
   color: white;
-}
-
-.admin .navbar .panel .resources .resource-control div.resource-stats {
-  color: #b2bec3;
-  -webkit-animation: fadeIn 1s;
-          animation: fadeIn 1s;
-  text-shadow: 0px 2px 3px #101010;
 }
 
 .admin .content {
@@ -646,11 +680,12 @@
 }
 
 .admin .content .top-nav .admin-info .profile-picture {
-  width: 50px;
-  height: 50px;
-  background-size: cover !important;
   border-radius: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
   background-position: center;
+  height: 45px;
+  width: 45px;
 }
 
 .admin .content .top-nav .admin-info .info {
@@ -670,20 +705,20 @@
   margin: 20px;
 }
 
-.admin .content .resource .user {
-  -webkit-animation: 1s fadeIn;
-          animation: 1s fadeIn;
+.admin .content .resource .control {
+  -webkit-animation: 0.5s fadeIn;
+          animation: 0.5s fadeIn;
   display: inline-block;
   margin-left: 20px;
   width: auto;
 }
 
-.admin .content .resource .user .navbar .nav-item {
+.admin .content .resource .control .navbar .nav-item {
   float: left;
   padding: 10px;
 }
 
-.admin .content .resource .user .navbar .nav-item a {
+.admin .content .resource .control .navbar .nav-item a {
   text-shadow: 0px 2px 3px #101010;
   color: #b2bec3;
   margin: 0;
@@ -692,28 +727,28 @@
   cursor: pointer;
 }
 
-.admin .content .resource .user .navbar .nav-item a.active {
+.admin .content .resource .control .navbar .nav-item a.active {
   color: white !important;
 }
 
-.admin .content .resource .user .navbar .nav-item:hover a {
+.admin .content .resource .control .navbar .nav-item:hover a {
   color: white !important;
 }
 
-.admin .content .resource .user .manager {
+.admin .content .resource .control .manager {
   padding: 10px;
-  -webkit-animation: 1s fadeIn;
-          animation: 1s fadeIn;
+  -webkit-animation: 0.5s fadeIn;
+          animation: 0.5s fadeIn;
   padding-top: 100px;
 }
 
-.admin .content .resource .user .manager .list {
+.admin .content .resource .control .manager > div {
   display: inline-block;
-  -webkit-animation: 1s fadeIn;
-          animation: 1s fadeIn;
+  -webkit-animation: 0.5s fadeIn;
+          animation: 0.5s fadeIn;
 }
 
-.admin .content .resource .user .manager .list .filter .search {
+.admin .content .resource .control .manager .users-list .filter .search {
   background: none;
   border: none;
   box-shadow: none;
@@ -724,41 +759,41 @@
   margin-bottom: 10px;
 }
 
-.admin .content .resource .user .manager .list .filter .search:hover::-moz-placeholder {
+.admin .content .resource .control .manager .users-list .filter .search:hover::-moz-placeholder {
   color: white;
 }
 
-.admin .content .resource .user .manager .list .filter .search:hover:-ms-input-placeholder {
+.admin .content .resource .control .manager .users-list .filter .search:hover:-ms-input-placeholder {
   color: white;
 }
 
-.admin .content .resource .user .manager .list .filter .search:hover::placeholder {
+.admin .content .resource .control .manager .users-list .filter .search:hover::placeholder {
   color: white;
 }
 
-.admin .content .resource .user .manager .list .filter .search::-moz-placeholder {
+.admin .content .resource .control .manager .users-list .filter .search::-moz-placeholder {
   color: #b2bec3;
   text-shadow: 0px 2px 3px #101010;
   font-weight: bold;
 }
 
-.admin .content .resource .user .manager .list .filter .search:-ms-input-placeholder {
+.admin .content .resource .control .manager .users-list .filter .search:-ms-input-placeholder {
   color: #b2bec3;
   text-shadow: 0px 2px 3px #101010;
   font-weight: bold;
 }
 
-.admin .content .resource .user .manager .list .filter .search::placeholder {
+.admin .content .resource .control .manager .users-list .filter .search::placeholder {
   color: #b2bec3;
   text-shadow: 0px 2px 3px #101010;
   font-weight: bold;
 }
 
-.admin .content .resource .user .manager .list .filter .select {
+.admin .content .resource .control .manager .users-list .filter .select {
   float: right;
 }
 
-.admin .content .resource .user .manager .list .filter .select select {
+.admin .content .resource .control .manager .users-list .filter .select select {
   height: 50px;
   background: none;
   border-radius: 0.25em;
@@ -772,62 +807,66 @@
   text-shadow: 0px 2px 3px #101010;
 }
 
-.admin .content .resource .user .manager .list .filter .select select:first-child {
+.admin .content .resource .control .manager .users-list .filter .select select:first-child {
   margin-right: 10px;
 }
 
-.admin .content .resource .user .manager .list .filter .select select:hover {
+.admin .content .resource .control .manager .users-list .filter .select select:hover {
   color: white;
 }
 
-.admin .content .resource .user .manager .list .filter .select select:focus {
+.admin .content .resource .control .manager .users-list .filter .select select:focus {
   border: none;
   outline: none;
   box-shadow: none;
 }
 
-.admin .content .resource .user .manager .list .filter .select select option {
+.admin .content .resource .control .manager .users-list .filter .select select option {
   background: white;
   border-radius: 100%;
   color: #101010;
 }
 
-.admin .content .resource .user .manager .list .table {
+.admin .content .resource .control .manager .users-list .table {
   width: 100%;
   table-layout: fixed;
   border-spacing: 0 10px;
 }
 
-.admin .content .resource .user .manager .list .table thead {
+.admin .content .resource .control .manager .users-list .table * {
+  text-shadow: 0px 2px 3px #101010;
+}
+
+.admin .content .resource .control .manager .users-list .table thead {
   font-weight: bold;
   text-transform: uppercase;
   font-size: 0.85em;
 }
 
-.admin .content .resource .user .manager .list .table thead .email {
+.admin .content .resource .control .manager .users-list .table thead .email {
   width: 15%;
 }
 
-.admin .content .resource .user .manager .list .table thead .username {
+.admin .content .resource .control .manager .users-list .table thead .username {
   width: 10%;
 }
 
-.admin .content .resource .user .manager .list .table thead .date {
+.admin .content .resource .control .manager .users-list .table thead .date {
   width: 10%;
 }
 
-.admin .content .resource .user .manager .list .table thead .id,
-.admin .content .resource .user .manager .list .table thead .firstname,
-.admin .content .resource .user .manager .list .table thead .lastname {
+.admin .content .resource .control .manager .users-list .table thead .id,
+.admin .content .resource .control .manager .users-list .table thead .firstname,
+.admin .content .resource .control .manager .users-list .table thead .lastname {
   width: 5%;
 }
 
-.admin .content .resource .user .manager .list .table .action {
+.admin .content .resource .control .manager .users-list .table .action {
   text-align: center;
   width: 7.5%;
 }
 
-.admin .content .resource .user .manager .list .table .action a {
+.admin .content .resource .control .manager .users-list .table .action a {
   text-decoration: none;
   text-transform: uppercase;
   font-size: 1.25em;
@@ -835,35 +874,41 @@
   font-weight: bold;
 }
 
-.admin .content .resource .user .manager .list .table .action a:hover {
+.admin .content .resource .control .manager .users-list .table .action a:hover {
   color: white;
 }
 
-.admin .content .resource .user .manager .list .table tbody {
+.admin .content .resource .control .manager .users-list .table tbody {
   font-size: 0.75em;
 }
 
-.admin .content .resource .user .manager .list .table tbody tr .no-record {
+.admin .content .resource .control .manager .users-list .table tbody tr .no-record {
   text-align: center;
   font-weight: bold;
   font-size: 1.25em;
 }
 
-.admin .content .resource .user .manager .list .table tbody tr:hover {
+.admin .content .resource .control .manager .users-list .table tbody tr:hover {
   background: rgba(255, 255, 255, 0.1);
   color: white;
 }
 
-.admin .content .resource .user .manager .list .table tbody tr td {
+.admin .content .resource .control .manager .users-list .table tbody tr td {
   word-wrap: break-word;
 }
 
-.admin .content .resource .user .manager .list .table tbody img {
+.admin .content .resource .control .manager .users-list .table tbody tr .profile_picture img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  /*magic*/
+}
+
+.admin .content .resource .control .manager .users-list .table tbody img {
   margin-left: 25px;
   border-radius: 100%;
 }
 
-.admin .content .resource .user .manager .list .add-new-member {
+.admin .content .resource .control .manager .users-list .add-new-member {
   text-shadow: 0px 2px 3px #101010;
   color: #b2bec3;
   margin: 0;
@@ -874,16 +919,21 @@
   cursor: pointer;
 }
 
-.admin .content .resource .user .manager .list .add-new-member.active {
+.admin .content .resource .control .manager .users-list .add-new-member.active {
   color: white !important;
 }
 
-.admin .content .resource .user .manager .list .add-new-member:hover {
+.admin .content .resource .control .manager .users-list .add-new-member:hover {
   color: white;
 }
 
-.admin .content .resource .user .manager .list .add-new-member::before {
+.admin .content .resource .control .manager .users-list .add-new-member::before {
   content: "+ ";
+}
+
+.handle {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
 }
 
 @-webkit-keyframes fadeIn {
@@ -903,6 +953,26 @@
 
   100% {
     opacity: 1;
+  }
+}
+
+@-webkit-keyframes slide {
+  0% {
+    height: 0%;
+  }
+
+  100% {
+    height: 100%;
+  }
+}
+
+@keyframes slide {
+  0% {
+    height: 0%;
+  }
+
+  100% {
+    height: 100%;
   }
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Switch, useRouteMatch,Route, Redirect } from 'react-router-dom';
+import Art from './Art';
 import User from './User';
 
 function Content(props) {
@@ -14,14 +15,14 @@ function Content(props) {
                         <p className="fullname">{lastname + ' ' + firstname}</p>
                     </div>
                     <div className="profile-picture" style={{
-                        background:`url(https://cdn.jpegmini.com/user/images/slider_puffin_before_mobile.jpg)`,
+                        backgroundImage:`url('/storage/app/public/profilePictures/${profile_picture}')`,
                     }}></div>
                 </div>
             </div>
             <div className="resource">
                 <Switch>
                     <Route path={`${match.url}/user`} component={User}></Route>
-                    <Route path={`${match.url}/product`} component={null}></Route>
+                    <Route path={`${match.url}/art`} component={Art}></Route>
                     <Route path={`${match.url}/community`} component={null}></Route>
                 </Switch>
             </div>

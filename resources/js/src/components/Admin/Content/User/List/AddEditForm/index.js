@@ -112,10 +112,10 @@ function AddEditForm(props) {
         }); 
     }
 
-
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmitForm}>
-            {({handleSubmit}) => {
+            {({handleSubmit,values}) => {
+                console.log(values);
                 return (
                     <form onSubmit={handleSubmit}>
 
@@ -164,7 +164,7 @@ function AddEditForm(props) {
                             labelClassName='label'
                             disabled={false}
                             options={options}
-                            defaultValue={formType == 'add' ? options[0].value : userInfo.role}
+                            // defaultValue={formType == 'add' ? options[0].value : userInfo.role}
                         />
 
                         <FastField

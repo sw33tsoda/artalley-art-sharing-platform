@@ -1,4 +1,26 @@
-.add-user {
+.art-channel {
+    background:#1e3799;
+    padding: 25px;
+    border-radius: 0.25em;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.3);
+    .form-buttons-group {
+        text-align: center;
+        // float:left;
+    }
+
+    .profile-picture-preview {
+        width: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 25px;
+    }
+
+    .no-file, .upload-button {
+        text-align: center;
+    }
+}
+
+.user-crud {
     animation: 1s fadeIn;
     width: 500px;
     background:#1e3799;
@@ -11,9 +33,46 @@
     left: 37%;
     transform: translate(-50%, -50%);
     border-radius: 0.25em;
+
+    h1 {
+        text-align: center; 
+    }
+
+    button {
+        margin-right: 25px;
+        &:first-child {
+            float:left;
+        }
+
+        &:last-child {
+            float:right;
+        }
+    }
+
+    .form-buttons-group {
+        margin-top: 25px;
+    }
+
+    .upload-button {
+        text-align: center;
+    }
+
+    .no-file {
+        text-align: center;
+    }
+
+    .profile-picture-preview {
+        width: 100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.admin-form {
+    
     h1 {
         margin-bottom: 25px;
-        text-align: center;
+        text-align: center; 
         text-shadow: 0px 2px 3px #101010;
     }
 
@@ -33,7 +92,7 @@
     }
 
     .form-buttons-group {
-        margin-top: 25px;
+        
     }
 
     button {
@@ -57,32 +116,19 @@
         &:hover {
             color:white;
         }
-
-        &:first-child {
-            float:left;
-        }
-
-        &:last-child {
-            float:right;
-        }
     }
     
     .upload-button {
-        text-align: center;
         text-transform: uppercase;
     }
     
     .no-file {
-        text-align: center;
         font-style: italic;
     }
     
     .profile-picture-preview {
-        width: 100px;
         animation: 1s fadeIn;
         display: block;
-        margin-left: auto;
-        margin-right: auto;
     }
 
     .form-group {

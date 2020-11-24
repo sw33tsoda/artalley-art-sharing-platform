@@ -7,6 +7,7 @@ AlertModal.propTypes = {
     closeModal: PropTypes.func,
     submit: PropTypes.func,
     // userInfo: PropTypes.object,
+    headerClassName: PropTypes.string,
 }
 
 AlertModal.defaultProps = {
@@ -14,16 +15,17 @@ AlertModal.defaultProps = {
     body: 'no description',
     closeModal: null,
     submit: null,
+    headerClassName: '',
     // userInfo: {},
 }
 
 
 function AlertModal(props) {
-    const { title, body, closeModal, submit } = props;
+    const { title, body, closeModal, submit, headerClassName } = props;
 
     return (
         <div className="alert-modal">
-            <div className="header">
+            <div className={`header ${headerClassName}`}>
                 <p>{title}</p>
             </div>
             <div className="body">

@@ -25,7 +25,7 @@ SelectField.defaultProps = {
 }
 
 function SelectField(props) {
-    const {form,field,label,labelClassName,placeholder,className,disabled,type,options,defaultValue} = props;
+    const {form,field,label,labelClassName,placeholder,className,disabled,type,options} = props;
     const {name} = field;
     // const {errors,touched} = form;
     // const hasError = errors[name] && touched[name];
@@ -40,7 +40,6 @@ function SelectField(props) {
                 {...field}
                 className={className}
                 type={type}
-                value={defaultValue}
                 placeholder={placeholder}
                 disabled={disabled}
             >

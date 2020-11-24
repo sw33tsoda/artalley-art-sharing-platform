@@ -10,6 +10,7 @@
             text-decoration: none;
             color:#b2bec3;
             text-shadow: 0px 2px 3px #101010;
+            cursor: pointer;
             &:hover {
                 color:white;
             }
@@ -38,7 +39,7 @@
             color:white;
             text-shadow: 0px 2px 3px #101010;
             border-radius: 0.25em;
-            animation:1s fadeIn;
+            animation:0.5s fadeIn;
             span {
                 font-weight: bold;
             }
@@ -73,7 +74,7 @@
 
             .resources {
                 padding: 0 25px 0 25px;
-                .resource-control {
+                .resource {
                     h2.resource-name {
                         transition: 0.5s;
                         color:#b2bec3;
@@ -93,11 +94,11 @@
                         }
                     }
 
-                    div.resource-stats {
-                        color:#b2bec3;
-                        animation: fadeIn 1s;
-                        text-shadow: 0px 2px 3px #101010;
-                    }
+                    // div.resource-stats {
+                    //     color:#b2bec3;
+                    //     animation: fadeIn 1s;
+                    //     text-shadow: 0px 2px 3px #101010;
+                    // }
                 }
             }
         }
@@ -133,11 +134,12 @@
                 }
 
                 .profile-picture {
-                    width: 50px;
-                    height: 50px;
-                    background-size: cover !important;
                     border-radius: 100%;
+                    background-size: cover;
+                    background-repeat: no-repeat;
                     background-position: center;
+                    height: 45px;
+                    width: 45px;
                 }
                 .info {
                     margin-right: 10px;
@@ -154,8 +156,8 @@
         }
         .resource {
             margin: 20px;
-            .user {
-                animation: 1s fadeIn;
+            .control {
+                animation: 0.5s fadeIn;
                 display: inline-block;
                 margin-left: 20px;
                 width: auto;
@@ -186,11 +188,19 @@
 
                 .manager {
                     padding:10px;
-                    animation: 1s fadeIn;
+                    animation: 0.5s fadeIn;
                     padding-top: 100px;
-                    .list {
+
+                    > div {
                         display: inline-block;
-                        animation: 1s fadeIn;
+                        animation: 0.5s fadeIn;
+                    }
+
+                    .channel {
+                        
+                    }
+
+                    .users-list {
                         .filter {
                             .search {
                                 background:none;
@@ -256,6 +266,11 @@
                             width: 100%;
                             table-layout: fixed;
                             border-spacing: 0 10px;
+
+                            * {
+                                text-shadow: 0px 2px 3px #101010;
+                            }
+
                             thead {
                                 font-weight: bold;
                                 text-transform: uppercase;
@@ -311,6 +326,12 @@
                                             // background:rgba(255,255,255,0.3);
                                         }
                                     }
+
+                                    .profile_picture {
+                                        img {
+                                            object-fit: cover; /*magic*/
+                                        }
+                                    }
                                 }
                                 img {
                                     margin-left: 25px;
@@ -347,7 +368,16 @@
     }
 }
 
+.handle {
+    cursor: grabbing;
+}
+
 @keyframes fadeIn {
     0% {opacity: 0;}
     100% {opacity: 1;}
+}
+
+@keyframes slide {
+    0% {height: 0%;}
+    100% {height: 100%;}
 }

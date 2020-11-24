@@ -21,7 +21,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         $query = User::query();
-        $columns = ['id','firstname','lastname','username','email','role'];
+        $columns = ['id','firstname','lastname','username','email','role','created_at','updated_at'];
 
         foreach ($columns as $column) {
             // Tìm từng cột

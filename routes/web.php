@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +23,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/{path?}', function () {
     return view('index');
 })->where('path', '.*');
+
+// Route::get('/test', function() {
+//     $post = Post::find(1);
+//     echo $post->art_channels;
+// });

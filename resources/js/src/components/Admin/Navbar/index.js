@@ -5,18 +5,18 @@ import Stats from './Stats';
 
 function Navbar() {
     const match = useRouteMatch();
-    const CurrentPageSlug = CurrentPageSlug;
 
     const [resourceToggle,setResourceToggle] = useState({
+        current:    '',
         user:       false,
         product:    false,
         community:  false,
     });
 
-    const handleResourceStatsToggle = async (resource_name) => {
-        const stateChanges = resourceToggle;
-        stateChanges[resource_name] = !stateChanges[resource_name];
-        setResourceToggle({...stateChanges});
+    const handleResourceToggle = async (resource_name) => {
+        const newState = resourceToggle;
+        newState['current'] = resource_name;
+        setResourceToggle({...newState});
     }
 
     return (
@@ -27,30 +27,30 @@ function Navbar() {
                 </div>
 
                 <div className="resources">
-                    <div className="resource-control" >
+                    <div className="resource" >
                         <Link to={`${match.url}/user`} style={{ textDecoration: 'none' }}>
-                            <h2 className={`resource-name ${CurrentPageSlug == 'user' && 'active'}`} onClick={() => handleResourceStatsToggle('user')}>
+                            <h2 className={`resource-name ${resourceToggle.current == 'user' && 'active'}`} onClick={() => handleResourceToggle('user')}>
                                 NGƯỜI DÙNG
                             </h2>
                         </Link>
                         
-                        {resourceToggle.user && <Stats/>}
+                        {/* {resourceToggle.user && <Stats/>} */}
                     </div>
-                    <div className="resource-control" >
-                        <Link to={`${match.url}/product`} style={{ textDecoration: 'none' }}>
-                            <h2 className={`resource-name ${CurrentPageSlug == 'product' && 'active'}`} onClick={() => handleResourceStatsToggle('product')}>
+                    <div className="resource" >
+                        <Link to={`${match.url}/art`} style={{ textDecoration: 'none' }}>
+                            <h2 className={`resource-name ${resourceToggle.current == 'product' && 'active'}`} onClick={() => handleResourceToggle('product')}>
                                 SẢN PHẨM
                             </h2>
                         </Link>
-                        {resourceToggle.product && <Stats/>}
+                        {/* {resourceToggle.product && <Stats/>} */}
                     </div>
-                    <div className="resource-control" >
+                    <div className="resource" >
                         <Link to={`${match.url}/community`} style={{ textDecoration: 'none' }}>
-                            <h2 className={`resource-name ${CurrentPageSlug == 'community' && 'active'}`} onClick={() => handleResourceStatsToggle('community')}>
+                            <h2 className={`resource-name ${resourceToggle.current == 'community' && 'active'}`} onClick={() => handleResourceToggle('community')}>
                                 CỘNG ĐỒNG
                             </h2>
                         </Link>
-                        {resourceToggle.community && <Stats/>}
+                        {/* {resourceToggle.community && <Stats/>} */}
                     </div>
                 </div>
             </div>
