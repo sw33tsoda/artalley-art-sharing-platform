@@ -44,6 +44,7 @@ function Channel() {
     }
 
     const handleSubmitForm = async (values) => {
+        console.log(file);
         const apiToken = localStorage.getItem('authenticatedUserToken');
         const data = new FormData();
         data.append('channel_name',values.channel_name);
@@ -51,7 +52,7 @@ function Channel() {
         Axios.post(`/public/api/admin/resources/art_channels?api_token=${apiToken}`,data).then(response => {
             console.log(response);
         }).catch(error => {
-            console.log(error);
+            console.log(error.response);
         });
     }
 

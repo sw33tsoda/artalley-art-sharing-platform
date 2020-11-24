@@ -60,14 +60,15 @@ class ArtChannelsController extends Controller
 
         // Data đợi để lưu vào Database
         $data = [
-            'channel_name' => Str::slug($request->channel_name,'-'),
+            'channel_name' => $request->channel_name,
+            'channel_slug' => Str::slug($request->channel_name,'-'),
         ];
 
         // Xử lý File
         if ($request->hasFile('thumbnail')) {
-            $fileName = $request->file('thunbmail')->hashName();
+            $fileName = $request->file('thumbnail')->hashName();
             $data['thumbnail'] = $fileName;
-            $saveFile = $request->file('thumbnail')->store('/public/artChannelThumbNail');
+            $saveFile = $request->file('thumbnail')->store('/public/artChannelThumbnails');
             if (!$saveFile) {
                 return response()->json([
                     'message' => "Lưu File thất bại",
@@ -78,15 +79,15 @@ class ArtChannelsController extends Controller
         // Tiến hành lưu vào Database
         $createChannel = ArtChannel::create($data);
 
-        if ($createChannel) {
+        if (!$createChannel) {
             return response()->json([
-                'message' => "Tạo [$request->channel_name] thành công",
-            ],200);
+                'message' => "Tạo [$request->channel_name] thất bại",
+            ],500);
         }
 
         return response()->json([
-            'message' => "Tạo [$request->channel_name] thất bại",
-        ]);
+            'message' => "Tạo [$request->channel_name] thành công",
+        ],200);
     }
 
     /**

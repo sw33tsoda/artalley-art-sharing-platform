@@ -95993,6 +95993,7 @@ function Channel() {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
+              console.log(file);
               apiToken = localStorage.getItem('authenticatedUserToken');
               data = new FormData();
               data.append('channel_name', values.channel_name);
@@ -96000,10 +96001,10 @@ function Channel() {
               axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/admin/resources/art_channels?api_token=".concat(apiToken), data).then(function (response) {
                 console.log(response);
               })["catch"](function (error) {
-                console.log(error);
+                console.log(error.response);
               });
 
-            case 5:
+            case 6:
             case "end":
               return _context2.stop();
           }
