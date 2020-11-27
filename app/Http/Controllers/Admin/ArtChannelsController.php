@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ArtChannelRequest;
 use App\Models\ArtChannel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -15,18 +16,26 @@ class ArtChannelsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $getArtChannelsList = ArtChannel::all();
+        $query = ArtChannel::query();
+        $columns = ['id','channel_name','channel_slug','created_at'];
 
-        if ($getArtChannelsList->isEmpty()) {
-            return response()->json([
-                'list' => 'yes',
-            ],200);
+        foreach($columns as $column) {
+            // Tìm từng cột
+            $query->orWhere($column,'LIKE',"%$request->searchInput%");
+        }
+        // Thứ tự
+        $list = $query->orderBy('created_at',$request->date)->paginate(16)->onEachSide(1);  
+
+        if (!$list) {
+            response()->json([
+                'Lấy danh sách thất bại',
+            ],500);
         }
 
         return response()->json([
-            'list' => 'no',
+            'list' => $list,
         ],200);
     }
 
@@ -46,8 +55,9 @@ class ArtChannelsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ArtChannelRequest $request)
     {
+        
         // Tạo Slug
         $channel_slug = Str::slug($request->channel_name,'-');
 

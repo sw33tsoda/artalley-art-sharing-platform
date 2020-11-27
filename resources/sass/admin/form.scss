@@ -1,24 +1,4 @@
-.art-channel {
-    background:#1e3799;
-    padding: 25px;
-    border-radius: 0.25em;
-    box-shadow: 0 0 15px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.3);
-    .form-buttons-group {
-        text-align: center;
-        // float:left;
-    }
 
-    .profile-picture-preview {
-        width: 100px;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 25px;
-    }
-
-    .no-file, .upload-button {
-        text-align: center;
-    }
-}
 
 .user-crud {
     animation: 1s fadeIn;

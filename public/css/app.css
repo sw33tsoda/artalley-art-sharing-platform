@@ -323,29 +323,6 @@
   }
 }
 
-.art-channel {
-  background: #1e3799;
-  padding: 25px;
-  border-radius: 0.25em;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-.art-channel .form-buttons-group {
-  text-align: center;
-}
-
-.art-channel .profile-picture-preview {
-  width: 100px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 25px;
-}
-
-.art-channel .no-file,
-.art-channel .upload-button {
-  text-align: center;
-}
-
 .user-crud {
   -webkit-animation: 1s fadeIn;
           animation: 1s fadeIn;
@@ -544,6 +521,184 @@
   float: right;
 }
 
+.channel {
+  width: 100% !important;
+}
+
+.channel .filter .search {
+  background: none;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  color: #b2bec3;
+  height: 50px;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.channel .filter .search:hover::-moz-placeholder {
+  color: white;
+}
+
+.channel .filter .search:hover:-ms-input-placeholder {
+  color: white;
+}
+
+.channel .filter .search:hover::placeholder {
+  color: white;
+}
+
+.channel .filter .search::-moz-placeholder {
+  color: #b2bec3;
+  text-shadow: 0px 2px 3px #101010;
+  font-weight: bold;
+}
+
+.channel .filter .search:-ms-input-placeholder {
+  color: #b2bec3;
+  text-shadow: 0px 2px 3px #101010;
+  font-weight: bold;
+}
+
+.channel .filter .search::placeholder {
+  color: #b2bec3;
+  text-shadow: 0px 2px 3px #101010;
+  font-weight: bold;
+}
+
+.channel .filter .select {
+  float: right;
+}
+
+.channel .filter .select select {
+  height: 50px;
+  background: none;
+  border-radius: 0.25em;
+  padding: 5px 5px 5px 0;
+  color: #b2bec3;
+  border: none;
+  width: auto;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-shadow: 0px 2px 3px #101010;
+}
+
+.channel .filter .select select:first-child {
+  margin-right: 10px;
+}
+
+.channel .filter .select select:hover {
+  color: white;
+}
+
+.channel .filter .select select:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.channel .filter .select select option {
+  background: white;
+  border-radius: 100%;
+  color: #101010;
+}
+
+.channel .art-channels-form {
+  -webkit-animation: 1s fadeIn;
+          animation: 1s fadeIn;
+  position: absolute;
+  top: 25%;
+  left: 42.5%;
+  background: #1e3799;
+  padding: 25px;
+  box-sizing: border-box;
+  border-radius: 0.25em;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.channel .art-channels-form .add-channel-title {
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.channel .art-channels-form .form-buttons-group button:last-child {
+  float: right;
+}
+
+.channel .art-channels-form .profile-picture-preview {
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 25px;
+}
+
+.channel .art-channels-form .no-file,
+.channel .art-channels-form .upload-button {
+  text-align: center;
+}
+
+.channel .art-channels-list {
+  box-sizing: border-box;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  row-gap: 10px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  margin-bottom: 20px;
+}
+
+.channel .art-channels-list .channel {
+  border-radius: 0.25em;
+  height: 100px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 5px 0 0 10px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.channel .art-channels-list .channel p {
+  margin: 0;
+  padding: 0;
+  word-wrap: break-word;
+  text-shadow: 0px 2px 3px #101010;
+  color: white;
+}
+
+.channel .art-channels-list .channel .name {
+  font-size: 1.25em;
+  font-weight: bold;
+}
+
+.channel .art-channels-list .channel .date {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+}
+
+.channel .show-add-channel-form {
+  text-shadow: 0px 2px 3px #101010;
+  color: #b2bec3;
+  margin: 0;
+  font-size: 1.5em;
+  font-weight: bolder;
+  text-decoration: none;
+  float: right;
+  cursor: pointer;
+}
+
+.channel .show-add-channel-form::before {
+  content: "+ ";
+}
+
+.channel .show-add-channel-form:hover {
+  color: white;
+}
+
 .admin {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -709,8 +864,8 @@
   -webkit-animation: 0.5s fadeIn;
           animation: 0.5s fadeIn;
   display: inline-block;
-  margin-left: 20px;
-  width: auto;
+  padding-right: 25px;
+  width: 100%;
 }
 
 .admin .content .resource .control .navbar .nav-item {

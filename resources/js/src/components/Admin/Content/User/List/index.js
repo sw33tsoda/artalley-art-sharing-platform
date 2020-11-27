@@ -79,6 +79,8 @@ function List() {
 
     },[filter,listRefresh]);
 
+    console.log(filter);
+
     // Xử lý gọi refresh
     const handleListRefresh = async () => {
         setListRefresh(!listRefresh);
@@ -124,7 +126,7 @@ function List() {
     }
 
     // Xử lý chuyển trang
-    const handlePaginationChange = async (pageUrl) => {
+    const handlePageChange = async (pageUrl) => {
         const { page } = queryString.parseUrl(pageUrl).query;
         setFilter({
             ...filter,
@@ -193,7 +195,7 @@ function List() {
             <TableList list={list} deleteUserModal={handleDeleteUserModal} setAddEditFormToggle={handleSetAddEditFormToggle}/>
             
             <div className="pagination-and-adduser">
-                <Pagination links={pagination} pageChange={handlePaginationChange}/>
+                <Pagination links={pagination} pageChange={handlePageChange}/>
                 <a href="# " className="add-new-member" onClick={() => setAddEditFormToggle({...addEditFormToggle,add:true})}>THÊM NGƯỜI DÙNG</a>
             </div>
 

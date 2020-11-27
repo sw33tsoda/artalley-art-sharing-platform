@@ -95902,7 +95902,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../CustomFields/InputField */ "./resources/js/src/components/CustomFields/InputField/index.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _store_admin_announcer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../store/admin/announcer */ "./resources/js/src/store/admin/announcer.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_draggable__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-draggable */ "./node_modules/react-draggable/build/cjs/cjs.js");
+/* harmony import */ var react_draggable__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react_draggable__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var react_moment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-moment */ "./node_modules/react-moment/dist/index.js");
+/* harmony import */ var react_moment__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_moment__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../Pagination */ "./resources/js/src/components/Admin/Content/Pagination/index.js");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_13__);
 
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -95928,33 +95943,106 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
+
+
+
 function Channel() {
-  // const [channels,setChannels] = useState([]);
-  // useEffect(() => {
-  //     const getChannelsList = async () => {
-  //         const apiToken = localStorage.getItem('authenticatedUserToken');
-  //         Axios.get(`/public/api/admin/resources/art_channels?api_token=${apiToken}`).then(response => {
-  //             console.log(response);
-  //         }).catch(error => {
-  //             console.log(error);
-  //         });
-  //     }
-  //     getChannelsList();
-  // },[]);
+  // State danh sách
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      list = _useState2[0],
+      setList = _useState2[1]; // Trigger List Refresh
+
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      listRefresh = _useState4[0],
+      setListRefresh = _useState4[1]; // Form Toggle
+
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      addFormToggle = _useState6[0],
+      setAddFormToggle = _useState6[1];
+
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_9__["useDispatch"])(); // Phân trang
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])([]),
+      _useState8 = _slicedToArray(_useState7, 2),
+      pagination = _useState8[0],
+      setPagination = _useState8[1]; // Lọc (filter)    
+
+
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])({
+    searchInput: '',
+    date: 'desc',
+    page: 1
+  }),
+      _useState10 = _slicedToArray(_useState9, 2),
+      filter = _useState10[0],
+      setFilter = _useState10[1];
+
   var initialValues = {
     channel_name: '',
     thumbnail: ''
   };
+  Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
+    var getArtChannelsList = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var apiToken, queryParams;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                apiToken = localStorage.getItem('authenticatedUserToken');
+                queryParams = query_string__WEBPACK_IMPORTED_MODULE_13___default.a.stringify(_objectSpread(_objectSpread({}, filter), {}, {
+                  api_token: apiToken
+                }));
+                _context.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/admin/resources/art_channels?".concat(queryParams)).then(function (response) {
+                  var _response$data$list = response.data.list,
+                      data = _response$data$list.data,
+                      links = _response$data$list.links;
+                  setList(data);
+                  setPagination(links);
+                })["catch"](function (error) {
+                  var message = error.response.data.message;
+                  dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_8__["setAnnouncerMessage"])(message));
+                });
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])({}),
-      _useState2 = _slicedToArray(_useState, 2),
-      file = _useState2[0],
-      setFile = _useState2[1];
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(''),
-      _useState4 = _slicedToArray(_useState3, 2),
-      preview = _useState4[0],
-      setPreview = _useState4[1];
+      return function getArtChannelsList() {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    getArtChannelsList();
+  }, [listRefresh, filter]); // Xử lý File
+
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])({}),
+      _useState12 = _slicedToArray(_useState11, 2),
+      file = _useState12[0],
+      setFile = _useState12[1];
+
+  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(''),
+      _useState14 = _slicedToArray(_useState13, 2),
+      preview = _useState14[0],
+      setPreview = _useState14[1];
+
+  var resetFile = function resetFile() {
+    setFile({});
+    setPreview('');
+  };
 
   if (!lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(file.name)) {
     var reader = new FileReader();
@@ -95965,70 +96053,78 @@ function Channel() {
     };
   }
 
-  var handleSetFile = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(event) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              setFile(event.target.files[0]);
+  var handleSetFile = function handleSetFile(event) {
+    setFile(event.target.files[0]);
+  }; // Xử lý Form
 
-            case 1:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
+
+  var handleSubmitForm = function handleSubmitForm(values, _ref2) {
+    var resetForm = _ref2.resetForm;
+    var apiToken = localStorage.getItem('authenticatedUserToken');
+    var data = new FormData();
+    data.append('channel_name', values.channel_name);
+
+    if (!lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(file.name)) {
+      data.append('thumbnail', file);
+    }
+
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/admin/resources/art_channels?api_token=".concat(apiToken), data).then(function (response) {
+      var message = response.data.message;
+      dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_8__["setAnnouncerMessage"])(message));
+      resetForm();
+      resetFile();
+      setListRefresh(!listRefresh);
+    })["catch"](function (error) {
+      var _error$response$data = error.response.data,
+          errors = _error$response$data.errors,
+          message = _error$response$data.message;
+
+      if (!lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(errors)) {
+        dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_8__["setAnnouncerMessage"])(errors[Object.keys(errors)[0]]));
+      } else {
+        dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_8__["setAnnouncerMessage"])(message));
+      }
+    });
+  }; // Xử lý chuyển trang
+
+
+  var handlePageChange = function handlePageChange(pageUrl) {
+    var page = query_string__WEBPACK_IMPORTED_MODULE_13___default.a.parseUrl(pageUrl).query.page;
+    setFilter(_objectSpread(_objectSpread({}, filter), {}, {
+      page: page
     }));
+  }; // Xử lý lọc
 
-    return function handleSetFile(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
 
-  var handleSubmitForm = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(values) {
-      var apiToken, data;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              console.log(file);
-              apiToken = localStorage.getItem('authenticatedUserToken');
-              data = new FormData();
-              data.append('channel_name', values.channel_name);
-              data.append('thumbnail', file);
-              axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/admin/resources/art_channels?api_token=".concat(apiToken), data).then(function (response) {
-                console.log(response);
-              })["catch"](function (error) {
-                console.log(error.response);
-              });
-
-            case 6:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
+  var handleOrderByDate = function handleOrderByDate(event) {
+    var value = event.target.value;
+    setFilter(_objectSpread(_objectSpread({}, filter), {}, {
+      date: value
     }));
+  }; // Xử lý tìm kiếm
 
-    return function handleSubmitForm(_x2) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
+
+  var handleSearchInput = function handleSearchInput(event) {
+    var value = event.target.value;
+    setFilter(_objectSpread(_objectSpread({}, filter), {}, {
+      searchInput: value
+    }));
+  };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
     className: "channel"
+  }, addFormToggle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_draggable__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    handle: ".add-channel-title"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
-    className: "admin-form art-channel"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["Formik"], {
+    className: "admin-form art-channels-form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("h1", {
+    className: "add-channel-title"
+  }, "TH\xCAM LO\u1EA0I \u1EA2NH"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["Formik"], {
     validationSchema: _Auth_Validation__WEBPACK_IMPORTED_MODULE_4__["ArtChannelValidaitonSchema"],
     initialValues: initialValues,
     onSubmit: handleSubmitForm
   }, function (_ref3) {
-    var handleSubmit = _ref3.handleSubmit,
-        values = _ref3.values;
-    console.log(values);
+    var handleSubmit = _ref3.handleSubmit;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("form", {
       onSubmit: handleSubmit
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
@@ -96057,8 +96153,58 @@ function Channel() {
       className: "form-buttons-group"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("button", {
       type: "submit"
-    }, "Th\xEAm")));
-  })));
+    }, "TH\xCAM"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("button", {
+      onClick: function onClick() {
+        return setAddFormToggle(false);
+      }
+    }, "\u0110\xD3NG")));
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+    className: "filter"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("input", {
+    className: "search",
+    type: "text",
+    placeholder: "T\xCCM KI\u1EBEM...",
+    onChange: handleSearchInput
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+    className: "select"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("select", {
+    onChange: handleOrderByDate,
+    defaultValue: filter.date
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("option", {
+    value: "desc"
+  }, "M\u1EDAI NH\u1EA4T"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("option", {
+    value: "asc"
+  }, "C\u0168 NH\u1EA4T")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+    className: "art-channels-list"
+  }, !lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(list) && list.map(function (channel, index) {
+    var thumbnail = channel.thumbnail == null ? 'https://lh6.ggpht.com/HlgucZ0ylJAfZgusynnUwxNIgIp5htNhShF559x3dRXiuy_UdP3UQVLYW6c=s1200' : "/storage/app/public/artChannelThumbnails/".concat(channel.thumbnail);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+      className: "channel",
+      style: {
+        backgroundImage: "url(".concat(thumbnail, ")")
+      },
+      key: index
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("p", {
+      className: "name"
+    }, channel.channel_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("p", {
+      className: "slug"
+    }, channel.channel_slug), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("p", {
+      className: "date"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_moment__WEBPACK_IMPORTED_MODULE_11___default.a, {
+      format: "h:mm:s A DD/MM/YYYY"
+    }, channel.created_at)));
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+    className: "pagination-and-add-form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_Pagination__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    links: pagination,
+    pageChange: handlePageChange
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("a", {
+    className: "show-add-channel-form",
+    href: "# ",
+    onClick: function onClick() {
+      return setAddFormToggle(true);
+    }
+  }, "TH\xCAM LO\u1EA0I \u1EA2NH")));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Channel);
@@ -96603,9 +96749,9 @@ function TableList(props) {
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
       className: "id"
     }, user.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, user.firstname), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, user.lastname), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, user.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, user.email), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, user.role == 'admin' ? 'Quản trị viên' : 'Người dùng'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, user.api_token == null ? 'Chưa được cấp' : 'Đang sử dụng'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_moment__WEBPACK_IMPORTED_MODULE_1___default.a, {
-      format: "h:m:s:A DD/MM/YYYY"
+      format: "h:mm:s:A DD/MM/YYYY"
     }, user.created_at)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_moment__WEBPACK_IMPORTED_MODULE_1___default.a, {
-      format: "h:m:s:A DD/MM/YYYY"
+      format: "h:mm:s:A DD/MM/YYYY"
     }, user.updated_at)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
       className: "action"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
@@ -96791,7 +96937,8 @@ function List() {
     }();
 
     getUsersList();
-  }, [filter, listRefresh]); // Xử lý gọi refresh
+  }, [filter, listRefresh]);
+  console.log(filter); // Xử lý gọi refresh
 
   var handleListRefresh = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
@@ -96904,7 +97051,7 @@ function List() {
   }(); // Xử lý chuyển trang
 
 
-  var handlePaginationChange = /*#__PURE__*/function () {
+  var handlePageChange = /*#__PURE__*/function () {
     var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(pageUrl) {
       var page;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
@@ -96924,7 +97071,7 @@ function List() {
       }, _callee6);
     }));
 
-    return function handlePaginationChange(_x4) {
+    return function handlePageChange(_x4) {
       return _ref6.apply(this, arguments);
     };
   }(); // Xử lý bật Modal
@@ -97072,7 +97219,7 @@ function List() {
     className: "pagination-and-adduser"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_Pagination__WEBPACK_IMPORTED_MODULE_8__["default"], {
     links: pagination,
-    pageChange: handlePaginationChange
+    pageChange: handlePageChange
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
     href: "# ",
     className: "add-new-member",

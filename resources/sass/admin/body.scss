@@ -1,5 +1,7 @@
 @import './form.scss';
 @import './alertModal.scss';
+@import './artChannel.scss';
+
 .admin {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     // font-family: 'Oswald', sans-serif;
@@ -159,8 +161,8 @@
             .control {
                 animation: 0.5s fadeIn;
                 display: inline-block;
-                margin-left: 20px;
-                width: auto;
+                padding-right: 25px;
+                width: 100%;
                 .navbar {
                     .nav-item {
                         float:left;
@@ -194,10 +196,6 @@
                     > div {
                         display: inline-block;
                         animation: 0.5s fadeIn;
-                    }
-
-                    .channel {
-                        
                     }
 
                     .users-list {

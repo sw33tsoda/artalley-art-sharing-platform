@@ -32,8 +32,8 @@ function TableList(props) {
                         <td>{user.email}</td>
                         <td>{user.role == 'admin' ? 'Quản trị viên' : 'Người dùng'}</td>
                         <td>{user.api_token == null ? 'Chưa được cấp' : 'Đang sử dụng'}</td>
-                        <td><Moment format="h:m:s:A DD/MM/YYYY">{user.created_at}</Moment></td>
-                        <td><Moment format="h:m:s:A DD/MM/YYYY">{user.updated_at}</Moment></td>
+                        <td><Moment format="h:mm:s:A DD/MM/YYYY">{user.created_at}</Moment></td>
+                        <td><Moment format="h:mm:s:A DD/MM/YYYY">{user.updated_at}</Moment></td>
                         <td className="action"><a href="# " onClick={() => setAddEditFormToggle(user)}>Sửa</a> <a href="# " onClick={() => deleteUserModal(user)}>Xóa</a></td>
                     </tr>
                 )) : <tr><td className="no-record" colSpan="11"><p>KHÔNG CÓ KẾT QUẢ NÀO</p></td></tr>}
