@@ -651,6 +651,7 @@
 }
 
 .channel .art-channels-list .channel {
+  cursor: pointer;
   border-radius: 0.25em;
   height: 100px;
   background-size: cover;

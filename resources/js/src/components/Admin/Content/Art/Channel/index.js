@@ -1,9 +1,5 @@
 import Axios from 'axios';
-import { FastField, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
-import { ArtChannelValidaitonSchema } from '../../../../Auth/Validation';
-import FileUploader from '../../../../CustomFields/FileUploader';
-import InputField from '../../../../CustomFields/InputField';
 import _ from 'lodash';
 import { setAnnouncerMessage } from '../../../../../store/admin/announcer';
 import { useDispatch } from 'react-redux';
@@ -11,6 +7,7 @@ import Draggable from 'react-draggable';
 import Moment from 'react-moment';
 import Pagination from '../../Pagination';
 import queryString from 'query-string';
+import AddEditForm from './AddEditForm';
 
 function Channel() {
     // State danh sách
@@ -18,8 +15,12 @@ function Channel() {
     // Trigger List Refresh
     const [listRefresh,setListRefresh] = useState(false);
     // Form Toggle
-    const [addFormToggle,setAddFormToggle] = useState(false);
-    const dispatch = useDispatch();
+    const [formToggle,setFormToggle] = useState({
+        add:false,
+        edit:false,
+        channelInfo:{}
+    });
+
     // Phân trang
     const [pagination,setPagination] = useState([]);
     // Lọc (filter)    
@@ -28,11 +29,8 @@ function Channel() {
         date:'desc',
         page:1,
     });
-
-    const initialValues = {
-        channel_name : '',
-        thumbnail : '',
-    }
+    // Debounce
+    let debounce = null;
     
     useEffect(() => {
         const getArtChannelsList = async () => {
@@ -52,53 +50,23 @@ function Channel() {
         }
         getArtChannelsList();
     },[listRefresh,filter]);
-    
-    // Xử lý File
-    const [file,setFile] = useState({});
-    const [preview,setPreview] = useState('');
-    const resetFile = () => {
-        setFile({});
-        setPreview('');
+
+    // Xử lý Refresh
+    const handleSetListRefresh = () => {
+        setListRefresh(!listRefresh);
     }
 
-    if (!_.isEmpty(file.name)) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            setPreview(reader.result);
+    // Xử lý Form Toggle
+    const handleFormToggle = (formType,toggle,channelInfo) => {
+        const toggleSettings = formToggle;
+        toggleSettings[formType] = toggle == 'open' ? true : false;
+        if (!_.isEmpty(channelInfo)) {
+            toggleSettings.channelInfo = channelInfo;
         }
-    }
-
-    const handleSetFile = (event) => {
-        setFile(event.target.files[0]);
-    }
-
-    // Xử lý Form
-    const handleSubmitForm = (values,{resetForm}) => {
-        const apiToken = localStorage.getItem('authenticatedUserToken');
-        const data = new FormData();
-        data.append('channel_name',values.channel_name);
-        if (!_.isEmpty(file.name)) {
-            data.append('thumbnail',file);
-        }
-        Axios.post(`/public/api/admin/resources/art_channels?api_token=${apiToken}`,data).then(response => {
-            const {data:{message}} = response;
-            dispatch(setAnnouncerMessage(message));
-            resetForm();
-            resetFile();
-            setListRefresh(!listRefresh);
-        }).catch(error => {
-            const {data:{errors,message}} = error.response;
-            if (!_.isEmpty(errors)) {
-                dispatch(setAnnouncerMessage(errors[Object.keys(errors)[0]]));
-            } else {
-                dispatch(setAnnouncerMessage(message));
-            }
-        });
+        setFormToggle({...toggleSettings});
     }
 
     // Xử lý chuyển trang
-
     const handlePageChange = (pageUrl) => {
         const { page } = queryString.parseUrl(pageUrl).query;
         setFilter({
@@ -119,51 +87,28 @@ function Channel() {
     // Xử lý tìm kiếm
     const handleSearchInput = (event) => {
         const { value } = event.target;
-        setFilter({
-            ...filter,
-            searchInput:value,
-        });
+        clearTimeout(debounce);
+        debounce = setTimeout(() => {
+            setFilter({
+                ...filter,
+                searchInput:value,
+            });
+        },250);
     }
+
     return (
         <div className="channel">
-            {addFormToggle && <Draggable handle='.add-channel-title'>
+            {formToggle.add && <Draggable handle='#add-channel'>
                 <div className="admin-form art-channels-form">
-                    <h1 className="add-channel-title">THÊM LOẠI ẢNH</h1>
-                    <Formik validationSchema={ArtChannelValidaitonSchema} initialValues={initialValues} onSubmit={handleSubmitForm}>
-                        {({handleSubmit}) => {
-                            return (
-                                <form onSubmit={handleSubmit}>
-                                    <FastField
-                                        name='channel_name'
-                                        component={InputField}
+                    <h1 id="add-channel" className="add-channel-title">THÊM LOẠI ẢNH</h1>
+                    <AddEditForm className="grab-area" listRefresh={handleSetListRefresh} formToggle={handleFormToggle} formType="add"/>
+                </div>
+            </Draggable>}
 
-                                        label='Tên thể loại'
-                                        labelClassName='label'
-                                        type='text'
-                                        placeholder='Nhập tên thể loại'
-                                        disabled={false}
-                                    />
-
-                                    <FastField
-                                        name='thumbnail'
-                                        component={FileUploader}
-
-                                        label='Ảnh đại diện'
-                                        labelClassName='label'
-                                        type='file'
-                                        disabled={false}
-                                        setFile={handleSetFile}
-                                    />
-
-                                    {preview !== '' ? <img className="profile-picture-preview" src={preview} width="35px"/> : <p className="no-file">Chưa có ảnh</p>}
-
-                                    <div className="form-buttons-group">
-                                        <button type="submit">THÊM</button><button onClick={() => setAddFormToggle(false)}>ĐÓNG</button>
-                                    </div>
-                                </form>
-                            )
-                        }}
-                    </Formik>
+            {formToggle.edit && <Draggable handle='#edit-channel'>
+                <div className="admin-form art-channels-form">
+                    <h1 id="edit-channel" className="add-channel-title">SỬA LOẠI ẢNH</h1>
+                    <AddEditForm listRefresh={handleSetListRefresh} formToggle={handleFormToggle} formType="edit" channelInfo={formToggle.channelInfo}/>
                 </div>
             </Draggable>}
             
@@ -180,7 +125,7 @@ function Channel() {
                 {!_.isEmpty(list) && list.map((channel,index) => {
                     const thumbnail = channel.thumbnail == null ? 'https://lh6.ggpht.com/HlgucZ0ylJAfZgusynnUwxNIgIp5htNhShF559x3dRXiuy_UdP3UQVLYW6c=s1200' : `/storage/app/public/artChannelThumbnails/${channel.thumbnail}`;
                     return (
-                        <div className="channel" style={{backgroundImage:`url(${thumbnail})`}} key={index}>
+                        <div onClick={() => handleFormToggle('edit','open',channel)} className="channel" style={{backgroundImage:`url(${thumbnail})`}} key={index}>
                             <p className="name">{channel.channel_name}</p>
                             <p className="slug">{channel.channel_slug}</p>
                             <p className="date" ><Moment format="h:mm:s A DD/MM/YYYY">{channel.created_at}</Moment></p>
@@ -191,7 +136,7 @@ function Channel() {
 
             <div className="pagination-and-add-form">
                 <Pagination links={pagination} pageChange={handlePageChange}/>
-                <a className="show-add-channel-form" href="# " onClick={() => setAddFormToggle(true)}>THÊM LOẠI ẢNH</a>
+                <a className="show-add-channel-form" href="# " onClick={() => handleFormToggle('add','open')}>THÊM LOẠI ẢNH</a>
             </div>
             
         </div>

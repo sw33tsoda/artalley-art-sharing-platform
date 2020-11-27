@@ -95881,6 +95881,180 @@ function AlertModal(props) {
 
 /***/ }),
 
+/***/ "./resources/js/src/components/Admin/Content/Art/Channel/AddEditForm/index.js":
+/*!************************************************************************************!*\
+  !*** ./resources/js/src/components/Admin/Content/Art/Channel/AddEditForm/index.js ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CustomFields_FileUploader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../CustomFields/FileUploader */ "./resources/js/src/components/CustomFields/FileUploader/index.js");
+/* harmony import */ var _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../CustomFields/InputField */ "./resources/js/src/components/CustomFields/InputField/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_admin_announcer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../../store/admin/announcer */ "./resources/js/src/store/admin/announcer.js");
+/* harmony import */ var _Auth_Validation__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../Auth/Validation */ "./resources/js/src/components/Auth/Validation/index.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+
+function AddEditForm(props) {
+  var listRefresh = props.listRefresh,
+      formToggle = props.formToggle,
+      formType = props.formType,
+      channelInfo = props.channelInfo;
+  var initialValues = {
+    channel_name: '',
+    thumbnail: ''
+  };
+
+  if (!_.isEmpty(channelInfo)) {
+    initialValues.channel_name = channelInfo.channel_name;
+  }
+
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_5__["useDispatch"])(); // Xử lý File
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])({}),
+      _useState2 = _slicedToArray(_useState, 2),
+      file = _useState2[0],
+      setFile = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(function () {
+    if (_.isEmpty(channelInfo) || _.isNull(channelInfo.thumbnail)) {
+      return '';
+    }
+
+    return '/storage/app/public/artChannelThumbnails/' + channelInfo.thumbnail;
+  }()),
+      _useState4 = _slicedToArray(_useState3, 2),
+      preview = _useState4[0],
+      setPreview = _useState4[1];
+
+  var resetFile = function resetFile() {
+    setFile({});
+    setPreview('');
+  };
+
+  if (!_.isEmpty(file.name)) {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = function () {
+      setPreview(reader.result);
+    };
+  }
+
+  var handleSetFile = function handleSetFile(event) {
+    setFile(event.target.files[0]);
+  }; // Xử lý Form
+
+
+  var handleSubmitForm = function handleSubmitForm(values, _ref) {
+    var resetForm = _ref.resetForm;
+    var apiToken = localStorage.getItem('authenticatedUserToken');
+    var data = new FormData();
+    data.append('channel_name', values.channel_name);
+
+    if (!_.isEmpty(file.name)) {
+      data.append('thumbnail', file);
+    }
+
+    (function () {
+      if (formType == 'edit') {
+        data.append('_method', 'PATCH');
+        return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/public/api/admin/resources/art_channels/".concat(channelInfo.id, "?api_token=").concat(apiToken), data);
+      }
+
+      return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/public/api/admin/resources/art_channels?api_token=".concat(apiToken), data);
+    })().then(function (response) {
+      var message = response.data.message;
+      dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_6__["setAnnouncerMessage"])(message));
+      resetForm();
+      resetFile();
+      formToggle(formType, 'close');
+      listRefresh();
+    })["catch"](function (error) {
+      var _error$response$data = error.response.data,
+          errors = _error$response$data.errors,
+          message = _error$response$data.message;
+
+      if (!_.isEmpty(errors)) {
+        dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_6__["setAnnouncerMessage"])(errors[Object.keys(errors)[0]]));
+      } else {
+        dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_6__["setAnnouncerMessage"])(message));
+      }
+    });
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_4__["Formik"], {
+    validationSchema: _Auth_Validation__WEBPACK_IMPORTED_MODULE_7__["ArtChannelValidaitonSchema"],
+    initialValues: initialValues,
+    onSubmit: handleSubmitForm
+  }, function (_ref2) {
+    var handleSubmit = _ref2.handleSubmit;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("form", {
+      onSubmit: handleSubmit
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_4__["FastField"], {
+      name: "channel_name",
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_1__["default"],
+      label: "T\xEAn th\u1EC3 lo\u1EA1i",
+      labelClassName: "label",
+      type: "text",
+      placeholder: "Nh\u1EADp t\xEAn th\u1EC3 lo\u1EA1i",
+      disabled: false
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_4__["FastField"], {
+      name: "thumbnail",
+      component: _CustomFields_FileUploader__WEBPACK_IMPORTED_MODULE_0__["default"],
+      label: "\u1EA2nh \u0111\u1EA1i di\u1EC7n",
+      labelClassName: "label",
+      type: "file",
+      disabled: false,
+      setFile: handleSetFile
+    }), preview !== '' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("img", {
+      className: "profile-picture-preview",
+      src: preview,
+      width: "35px"
+    }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("p", {
+      className: "no-file"
+    }, "Ch\u01B0a c\xF3 \u1EA3nh"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+      className: "form-buttons-group"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("button", {
+      type: "submit"
+    }, formType == 'add' ? 'THÊM' : 'SỬA'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("button", {
+      onClick: function onClick() {
+        return formToggle(formType, 'close');
+      }
+    }, "\u0110\xD3NG")));
+  });
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (AddEditForm);
+
+/***/ }),
+
 /***/ "./resources/js/src/components/Admin/Content/Art/Channel/index.js":
 /*!************************************************************************!*\
   !*** ./resources/js/src/components/Admin/Content/Art/Channel/index.js ***!
@@ -95894,23 +96068,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _Auth_Validation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../Auth/Validation */ "./resources/js/src/components/Auth/Validation/index.js");
-/* harmony import */ var _CustomFields_FileUploader__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../CustomFields/FileUploader */ "./resources/js/src/components/CustomFields/FileUploader/index.js");
-/* harmony import */ var _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../CustomFields/InputField */ "./resources/js/src/components/CustomFields/InputField/index.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _store_admin_announcer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../store/admin/announcer */ "./resources/js/src/store/admin/announcer.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_draggable__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-draggable */ "./node_modules/react-draggable/build/cjs/cjs.js");
-/* harmony import */ var react_draggable__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react_draggable__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var react_moment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-moment */ "./node_modules/react-moment/dist/index.js");
-/* harmony import */ var react_moment__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_moment__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../Pagination */ "./resources/js/src/components/Admin/Content/Pagination/index.js");
-/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
-/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _store_admin_announcer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../store/admin/announcer */ "./resources/js/src/store/admin/announcer.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_draggable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-draggable */ "./node_modules/react-draggable/build/cjs/cjs.js");
+/* harmony import */ var react_draggable__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_draggable__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react_moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-moment */ "./node_modules/react-moment/dist/index.js");
+/* harmony import */ var react_moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_moment__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../Pagination */ "./resources/js/src/components/Admin/Content/Pagination/index.js");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _AddEditForm__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./AddEditForm */ "./resources/js/src/components/Admin/Content/Art/Channel/AddEditForm/index.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -95946,50 +96117,48 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-
-
 function Channel() {
   // State danh sách
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])([]),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
       list = _useState2[0],
       setList = _useState2[1]; // Trigger List Refresh
 
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(false),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
       _useState4 = _slicedToArray(_useState3, 2),
       listRefresh = _useState4[0],
       setListRefresh = _useState4[1]; // Form Toggle
 
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(false),
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
+    add: false,
+    edit: false,
+    channelInfo: {}
+  }),
       _useState6 = _slicedToArray(_useState5, 2),
-      addFormToggle = _useState6[0],
-      setAddFormToggle = _useState6[1];
+      formToggle = _useState6[0],
+      setFormToggle = _useState6[1]; // Phân trang
 
-  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_9__["useDispatch"])(); // Phân trang
 
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])([]),
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
       _useState8 = _slicedToArray(_useState7, 2),
       pagination = _useState8[0],
       setPagination = _useState8[1]; // Lọc (filter)    
 
 
-  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])({
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
     searchInput: '',
     date: 'desc',
     page: 1
   }),
       _useState10 = _slicedToArray(_useState9, 2),
       filter = _useState10[0],
-      setFilter = _useState10[1];
+      setFilter = _useState10[1]; // Debounce
 
-  var initialValues = {
-    channel_name: '',
-    thumbnail: ''
-  };
-  Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
+
+  var debounce = null;
+  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
     var getArtChannelsList = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var apiToken, queryParams;
@@ -95998,7 +96167,7 @@ function Channel() {
             switch (_context.prev = _context.next) {
               case 0:
                 apiToken = localStorage.getItem('authenticatedUserToken');
-                queryParams = query_string__WEBPACK_IMPORTED_MODULE_13___default.a.stringify(_objectSpread(_objectSpread({}, filter), {}, {
+                queryParams = query_string__WEBPACK_IMPORTED_MODULE_9___default.a.stringify(_objectSpread(_objectSpread({}, filter), {}, {
                   api_token: apiToken
                 }));
                 _context.next = 4;
@@ -96010,7 +96179,7 @@ function Channel() {
                   setPagination(links);
                 })["catch"](function (error) {
                   var message = error.response.data.message;
-                  dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_8__["setAnnouncerMessage"])(message));
+                  dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_4__["setAnnouncerMessage"])(message));
                 });
 
               case 4:
@@ -96027,69 +96196,27 @@ function Channel() {
     }();
 
     getArtChannelsList();
-  }, [listRefresh, filter]); // Xử lý File
+  }, [listRefresh, filter]); // Xử lý Refresh
 
-  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])({}),
-      _useState12 = _slicedToArray(_useState11, 2),
-      file = _useState12[0],
-      setFile = _useState12[1];
-
-  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(''),
-      _useState14 = _slicedToArray(_useState13, 2),
-      preview = _useState14[0],
-      setPreview = _useState14[1];
-
-  var resetFile = function resetFile() {
-    setFile({});
-    setPreview('');
-  };
-
-  if (!lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(file.name)) {
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onloadend = function () {
-      setPreview(reader.result);
-    };
-  }
-
-  var handleSetFile = function handleSetFile(event) {
-    setFile(event.target.files[0]);
-  }; // Xử lý Form
+  var handleSetListRefresh = function handleSetListRefresh() {
+    setListRefresh(!listRefresh);
+  }; // Xử lý Form Toggle
 
 
-  var handleSubmitForm = function handleSubmitForm(values, _ref2) {
-    var resetForm = _ref2.resetForm;
-    var apiToken = localStorage.getItem('authenticatedUserToken');
-    var data = new FormData();
-    data.append('channel_name', values.channel_name);
+  var handleFormToggle = function handleFormToggle(formType, toggle, channelInfo) {
+    var toggleSettings = formToggle;
+    toggleSettings[formType] = toggle == 'open' ? true : false;
 
-    if (!lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(file.name)) {
-      data.append('thumbnail', file);
+    if (!lodash__WEBPACK_IMPORTED_MODULE_3___default.a.isEmpty(channelInfo)) {
+      toggleSettings.channelInfo = channelInfo;
     }
 
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/admin/resources/art_channels?api_token=".concat(apiToken), data).then(function (response) {
-      var message = response.data.message;
-      dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_8__["setAnnouncerMessage"])(message));
-      resetForm();
-      resetFile();
-      setListRefresh(!listRefresh);
-    })["catch"](function (error) {
-      var _error$response$data = error.response.data,
-          errors = _error$response$data.errors,
-          message = _error$response$data.message;
-
-      if (!lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(errors)) {
-        dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_8__["setAnnouncerMessage"])(errors[Object.keys(errors)[0]]));
-      } else {
-        dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_8__["setAnnouncerMessage"])(message));
-      }
-    });
+    setFormToggle(_objectSpread({}, toggleSettings));
   }; // Xử lý chuyển trang
 
 
   var handlePageChange = function handlePageChange(pageUrl) {
-    var page = query_string__WEBPACK_IMPORTED_MODULE_13___default.a.parseUrl(pageUrl).query.page;
+    var page = query_string__WEBPACK_IMPORTED_MODULE_9___default.a.parseUrl(pageUrl).query.page;
     setFilter(_objectSpread(_objectSpread({}, filter), {}, {
       page: page
     }));
@@ -96106,103 +96233,88 @@ function Channel() {
 
   var handleSearchInput = function handleSearchInput(event) {
     var value = event.target.value;
-    setFilter(_objectSpread(_objectSpread({}, filter), {}, {
-      searchInput: value
-    }));
+    clearTimeout(debounce);
+    debounce = setTimeout(function () {
+      setFilter(_objectSpread(_objectSpread({}, filter), {}, {
+        searchInput: value
+      }));
+    }, 250);
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "channel"
-  }, addFormToggle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_draggable__WEBPACK_IMPORTED_MODULE_10___default.a, {
-    handle: ".add-channel-title"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+  }, formToggle.add && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_draggable__WEBPACK_IMPORTED_MODULE_6___default.a, {
+    handle: "#add-channel"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "admin-form art-channels-form"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("h1", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", {
+    id: "add-channel",
     className: "add-channel-title"
-  }, "TH\xCAM LO\u1EA0I \u1EA2NH"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["Formik"], {
-    validationSchema: _Auth_Validation__WEBPACK_IMPORTED_MODULE_4__["ArtChannelValidaitonSchema"],
-    initialValues: initialValues,
-    onSubmit: handleSubmitForm
-  }, function (_ref3) {
-    var handleSubmit = _ref3.handleSubmit;
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("form", {
-      onSubmit: handleSubmit
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
-      name: "channel_name",
-      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_6__["default"],
-      label: "T\xEAn th\u1EC3 lo\u1EA1i",
-      labelClassName: "label",
-      type: "text",
-      placeholder: "Nh\u1EADp t\xEAn th\u1EC3 lo\u1EA1i",
-      disabled: false
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
-      name: "thumbnail",
-      component: _CustomFields_FileUploader__WEBPACK_IMPORTED_MODULE_5__["default"],
-      label: "\u1EA2nh \u0111\u1EA1i di\u1EC7n",
-      labelClassName: "label",
-      type: "file",
-      disabled: false,
-      setFile: handleSetFile
-    }), preview !== '' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("img", {
-      className: "profile-picture-preview",
-      src: preview,
-      width: "35px"
-    }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("p", {
-      className: "no-file"
-    }, "Ch\u01B0a c\xF3 \u1EA3nh"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
-      className: "form-buttons-group"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("button", {
-      type: "submit"
-    }, "TH\xCAM"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("button", {
-      onClick: function onClick() {
-        return setAddFormToggle(false);
-      }
-    }, "\u0110\xD3NG")));
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+  }, "TH\xCAM LO\u1EA0I \u1EA2NH"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_AddEditForm__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    className: "grab-area",
+    listRefresh: handleSetListRefresh,
+    formToggle: handleFormToggle,
+    formType: "add"
+  }))), formToggle.edit && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_draggable__WEBPACK_IMPORTED_MODULE_6___default.a, {
+    handle: "#edit-channel"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "admin-form art-channels-form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", {
+    id: "edit-channel",
+    className: "add-channel-title"
+  }, "S\u1EECA LO\u1EA0I \u1EA2NH"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_AddEditForm__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    listRefresh: handleSetListRefresh,
+    formToggle: handleFormToggle,
+    formType: "edit",
+    channelInfo: formToggle.channelInfo
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "filter"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("input", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", {
     className: "search",
     type: "text",
     placeholder: "T\xCCM KI\u1EBEM...",
     onChange: handleSearchInput
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "select"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("select", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("select", {
     onChange: handleOrderByDate,
     defaultValue: filter.date
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("option", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("option", {
     value: "desc"
-  }, "M\u1EDAI NH\u1EA4T"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("option", {
+  }, "M\u1EDAI NH\u1EA4T"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("option", {
     value: "asc"
-  }, "C\u0168 NH\u1EA4T")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+  }, "C\u0168 NH\u1EA4T")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "art-channels-list"
-  }, !lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(list) && list.map(function (channel, index) {
+  }, !lodash__WEBPACK_IMPORTED_MODULE_3___default.a.isEmpty(list) && list.map(function (channel, index) {
     var thumbnail = channel.thumbnail == null ? 'https://lh6.ggpht.com/HlgucZ0ylJAfZgusynnUwxNIgIp5htNhShF559x3dRXiuy_UdP3UQVLYW6c=s1200' : "/storage/app/public/artChannelThumbnails/".concat(channel.thumbnail);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      onClick: function onClick() {
+        return handleFormToggle('edit', 'open', channel);
+      },
       className: "channel",
       style: {
         backgroundImage: "url(".concat(thumbnail, ")")
       },
       key: index
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("p", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
       className: "name"
-    }, channel.channel_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("p", {
+    }, channel.channel_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
       className: "slug"
-    }, channel.channel_slug), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("p", {
+    }, channel.channel_slug), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
       className: "date"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_moment__WEBPACK_IMPORTED_MODULE_11___default.a, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_moment__WEBPACK_IMPORTED_MODULE_7___default.a, {
       format: "h:mm:s A DD/MM/YYYY"
     }, channel.created_at)));
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "pagination-and-add-form"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_Pagination__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_Pagination__WEBPACK_IMPORTED_MODULE_8__["default"], {
     links: pagination,
     pageChange: handlePageChange
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("a", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
     className: "show-add-channel-form",
     href: "# ",
     onClick: function onClick() {
-      return setAddFormToggle(true);
+      return handleFormToggle('add', 'open');
     }
   }, "TH\xCAM LO\u1EA0I \u1EA2NH")));
 }

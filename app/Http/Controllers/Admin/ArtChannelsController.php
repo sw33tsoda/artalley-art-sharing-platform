@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ArtChannelRequest;
 use App\Models\ArtChannel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
@@ -65,7 +66,7 @@ class ArtChannelsController extends Controller
         if (ArtChannel::where('channel_name',$request->channel_name)->orWhere('channel_slug',$channel_slug)->exists()) {
             return response()->json([
                 'message' => "[$request->channel_name] đã tồn tại"
-            ],500);
+            ],409);
         }
 
         // Data đợi để lưu vào Database
@@ -131,7 +132,58 @@ class ArtChannelsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $photoChange = false;
+        
+        // Tạo Slug
+        $channel_slug = Str::slug($request->channel_name,'-');
+        
+        // Kiểm tra tài nguyên cần cập nhật đã tồn tại
+        $artChannel = ArtChannel::find($id);
+        if (!$artChannel) {
+            return response()->json([
+                'message' => "Mã loại ảnh không tồn tại",
+            ],404);
+        }  
+
+        // Xử lý File
+        if ($request->hasFile('thumbnail')) {
+            $oldFileName = $artChannel->thumbnail;
+            $newFileName = $request->file('thumbnail')->hashName();
+            $saveFile = $request->file('thumbnail')->store("/public/artChannelThumbnails/");
+            if (!$saveFile) {
+                return response()->json([
+                    'message' => "Lưu File thất bại",
+                ],500);
+            }
+            $artChannel->thumbnail = $newFileName;
+            Storage::delete("/artChannelThumbnails/$oldFileName");
+            $photoChange = true;
+        }
+
+        
+        // Kiểm tra nếu tên mới có trùng lặp
+        if (ArtChannel::where('channel_slug',$channel_slug)->exists()) {
+            $saveToData = $artChannel->save();
+            $photoChangeMessage = $photoChange ? ", nên chỉ cập nhật ảnh" : "";
+            return response()->json([
+                'message' => "Tên thể loại đã tồn tại $photoChangeMessage",
+            ],200);
+        } else {
+            $artChannel->channel_name = $request->channel_name;
+            $artChannel->channel_slug = $channel_slug;
+        }
+
+        // Tiến hành sửa và lưu
+        $saveToData = $artChannel->save();
+        if (!$saveToData) {
+            return response()->json([
+                'message' => "Sửa thất bại",
+            ],500);
+        }
+        
+        return response()->json([
+            'message' => "Sửa thành công",
+        ],200);
     }
 
     /**

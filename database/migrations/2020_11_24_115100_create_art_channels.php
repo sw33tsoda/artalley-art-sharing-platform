@@ -15,7 +15,7 @@ class CreateArtChannels extends Migration
     {
         Schema::create('art_channels', function (Blueprint $table) {
             $table->id();
-            $table->string('channel_slug');
+            $table->string('channel_slug')->unique();
             $table->string('channel_name');
             $table->string('thumbnail')->nullable()->default(null);
             $table->timestamps();
