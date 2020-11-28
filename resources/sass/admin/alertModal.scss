@@ -4,16 +4,16 @@
     }
 
     animation: 1s fadeIn;
-    width: 300px;
-    background:#1e3799;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.3);
+    width: 100%;
     z-index: 1000;
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-75%, -300%);
     border-radius: 0.25em;
+    // background:#1e3799;
+    // padding: 20px;
+    // box-shadow: 0 0 15px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.3);
+    // position: absolute;
+    // top: 20%;
+    // left: 50%;
+    // transform: translate(-75%, 50%);
 
     .header {
         p {

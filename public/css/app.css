@@ -456,15 +456,8 @@
 .alert-modal {
   -webkit-animation: 1s fadeIn;
           animation: 1s fadeIn;
-  width: 300px;
-  background: #1e3799;
-  padding: 20px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
+  width: 100%;
   z-index: 1000;
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translate(-75%, -300%);
   border-radius: 0.25em;
 }
 
@@ -639,6 +632,12 @@
   text-align: center;
 }
 
+.channel .no-record {
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 0px 2px 3px #101010;
+}
+
 .channel .art-channels-list {
   box-sizing: border-box;
   width: 100%;
@@ -679,6 +678,18 @@
   position: absolute;
   bottom: 5px;
   right: 10px;
+}
+
+.channel .art-channels-list .channel .edit {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.channel .art-channels-list .channel .delete {
+  position: absolute;
+  left: 10px;
+  bottom: 5px;
 }
 
 .channel .show-add-channel-form {

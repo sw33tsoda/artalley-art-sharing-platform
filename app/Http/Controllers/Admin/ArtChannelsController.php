@@ -194,6 +194,22 @@ class ArtChannelsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $getChannel = ArtChannel::find($id);
+        if ($getChannel) {
+            if (!is_null($getChannel->thumbnail)) {
+                Storage::delete("/public/artChannelThumbnails/$getChannel->thumbnail");
+            }
+            $deleteChannel = ArtChannel::destroy($id);
+            if ($deleteChannel) {
+                return response()->json([
+                    'message' => 'Đã xóa',
+                ],200);   
+            }
+        }
+        
+
+        return response()->json([
+            'message' => 'Xóa thất bại',
+        ],500);
     }
 }

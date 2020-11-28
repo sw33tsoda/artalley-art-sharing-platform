@@ -96082,6 +96082,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
 /* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var _AddEditForm__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./AddEditForm */ "./resources/js/src/components/Admin/Content/Art/Channel/AddEditForm/index.js");
+/* harmony import */ var _AlertModal__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../AlertModal */ "./resources/js/src/components/Admin/Content/AlertModal/index.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -96117,8 +96118,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function Channel() {
-  // State danh sách
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_5__["useDispatch"])(); // State danh sách
+
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
       list = _useState2[0],
@@ -96132,9 +96135,17 @@ function Channel() {
 
 
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
-    add: false,
-    edit: false,
-    channelInfo: {}
+    add: {
+      isOpen: false
+    },
+    edit: {
+      isOpen: false,
+      data: {}
+    },
+    "delete": {
+      isOpen: false,
+      data: {}
+    }
   }),
       _useState6 = _slicedToArray(_useState5, 2),
       formToggle = _useState6[0],
@@ -96203,12 +96214,12 @@ function Channel() {
   }; // Xử lý Form Toggle
 
 
-  var handleFormToggle = function handleFormToggle(formType, toggle, channelInfo) {
+  var handleFormToggle = function handleFormToggle(formType, toggle, data) {
     var toggleSettings = formToggle;
-    toggleSettings[formType] = toggle == 'open' ? true : false;
+    toggleSettings[formType].isOpen = toggle == 'open' ? true : false;
 
-    if (!lodash__WEBPACK_IMPORTED_MODULE_3___default.a.isEmpty(channelInfo)) {
-      toggleSettings.channelInfo = channelInfo;
+    if (!lodash__WEBPACK_IMPORTED_MODULE_3___default.a.isEmpty(data)) {
+      toggleSettings[formType].data = _objectSpread({}, data);
     }
 
     setFormToggle(_objectSpread({}, toggleSettings));
@@ -96239,11 +96250,45 @@ function Channel() {
         searchInput: value
       }));
     }, 250);
-  };
+  }; // Xử lý xóa
+
+
+  var handleDeleteChannel = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var apiToken;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              apiToken = localStorage.getItem('authenticatedUserToken');
+              _context2.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/public/api/admin/resources/art_channels/".concat(formToggle["delete"].data.id, "?api_token=").concat(apiToken)).then(function (response) {
+                var message = response.data.message;
+                dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_4__["setAnnouncerMessage"])(message));
+                handleSetListRefresh();
+                handleFormToggle('delete', 'close');
+              })["catch"](function (error) {
+                console.log(error.response);
+                var message = error.response.data.message;
+                dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_4__["setAnnouncerMessage"])(message));
+              });
+
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function handleDeleteChannel() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "channel"
-  }, formToggle.add && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_draggable__WEBPACK_IMPORTED_MODULE_6___default.a, {
+  }, formToggle.add.isOpen && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_draggable__WEBPACK_IMPORTED_MODULE_6___default.a, {
     handle: "#add-channel"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "admin-form art-channels-form"
@@ -96255,7 +96300,7 @@ function Channel() {
     listRefresh: handleSetListRefresh,
     formToggle: handleFormToggle,
     formType: "add"
-  }))), formToggle.edit && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_draggable__WEBPACK_IMPORTED_MODULE_6___default.a, {
+  }))), formToggle.edit.isOpen && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_draggable__WEBPACK_IMPORTED_MODULE_6___default.a, {
     handle: "#edit-channel"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "admin-form art-channels-form"
@@ -96266,7 +96311,21 @@ function Channel() {
     listRefresh: handleSetListRefresh,
     formToggle: handleFormToggle,
     formType: "edit",
-    channelInfo: formToggle.channelInfo
+    channelInfo: formToggle.edit.data
+  }))), formToggle["delete"].isOpen && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_draggable__WEBPACK_IMPORTED_MODULE_6___default.a, {
+    handle: ".delete-channel"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "admin-form user-crud"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_AlertModal__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    headerClassName: 'delete-channel handle',
+    title: "Nh\u1EAFc nh\u1EDF",
+    body: "B\u1EA1n c\xF3 ch\u1EA5p nh\u1EADn x\xF3a lo\u1EA1i \u1EA3nh n\xE0y (".concat(formToggle["delete"].data.channel_slug, ")"),
+    submit: function submit() {
+      return handleDeleteChannel();
+    },
+    closeModal: function closeModal() {
+      return handleFormToggle('delete', 'close');
+    }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "filter"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", {
@@ -96283,14 +96342,11 @@ function Channel() {
     value: "desc"
   }, "M\u1EDAI NH\u1EA4T"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("option", {
     value: "asc"
-  }, "C\u0168 NH\u1EA4T")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+  }, "C\u0168 NH\u1EA4T")))), !lodash__WEBPACK_IMPORTED_MODULE_3___default.a.isEmpty(list) ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "art-channels-list"
-  }, !lodash__WEBPACK_IMPORTED_MODULE_3___default.a.isEmpty(list) && list.map(function (channel, index) {
+  }, list.map(function (channel, index) {
     var thumbnail = channel.thumbnail == null ? 'https://lh6.ggpht.com/HlgucZ0ylJAfZgusynnUwxNIgIp5htNhShF559x3dRXiuy_UdP3UQVLYW6c=s1200' : "/storage/app/public/artChannelThumbnails/".concat(channel.thumbnail);
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-      onClick: function onClick() {
-        return handleFormToggle('edit', 'open', channel);
-      },
       className: "channel",
       style: {
         backgroundImage: "url(".concat(thumbnail, ")")
@@ -96301,11 +96357,23 @@ function Channel() {
     }, channel.channel_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
       className: "slug"
     }, channel.channel_slug), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
+      className: "edit",
+      onClick: function onClick() {
+        return handleFormToggle('edit', 'open', channel);
+      }
+    }, "S\u1EEDa"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
+      className: "delete",
+      onClick: function onClick() {
+        return handleFormToggle('delete', 'open', channel);
+      }
+    }, "X\xF3a"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
       className: "date"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_moment__WEBPACK_IMPORTED_MODULE_7___default.a, {
       format: "h:mm:s A DD/MM/YYYY"
     }, channel.created_at)));
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+  })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
+    className: "no-record"
+  }, "KH\xD4NG C\xD3 K\u1EBET QU\u1EA2 N\xC0O"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "pagination-and-add-form"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_Pagination__WEBPACK_IMPORTED_MODULE_8__["default"], {
     links: pagination,
