@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import { FastField, Formik } from 'formik';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAnnouncerMessage } from '../../../../../../store/admin/announcer';
 import { EditUserValidationSchema } from '../../../../../Auth/Validation';
 import FileUploader from '../../../../../CustomFields/FileUploader';
@@ -9,17 +9,18 @@ import InputField from '../../../../../CustomFields/InputField';
 import SelectField from '../../../../../CustomFields/SelectField';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
+import { authRefresh } from '../../../../../../store/auth';
 
 AddEditForm.propTypes = {
     closeAddEditForm: PropTypes.func.isRequired,
-    listRefresh: PropTypes.func.isRequired,
+    listRefresh: PropTypes.func,
     formType: PropTypes.string.isRequired,
     userInfo: PropTypes.object,
 }
 
 AddEditForm.defaultProps = {
     closeAddEditForm: null,
-    listRefresh: null,
+    // listRefresh: null,
     formType:'add',
     userInfo: {},
 }
@@ -28,6 +29,8 @@ AddEditForm.defaultProps = {
 function AddEditForm(props) {
     const {closeAddEditForm, listRefresh, formType, userInfo} = props;
     const dispatch = useDispatch();
+
+    const { authenticatedUser } = useSelector(state => state.auth);
 
     // Kiểm tra hợp lệ
     const validationSchema = EditUserValidationSchema;
@@ -102,9 +105,13 @@ function AddEditForm(props) {
             const {data:{message}} = response;
             const action = setAnnouncerMessage(message);
             dispatch(action);
-            listRefresh();
+            if (listRefresh) {
+                listRefresh();
+            }
             closeAddEditForm(formType);
-            console.log(response);
+            if (formType == 'edit' && userInfo.id == authenticatedUser.id) {
+                dispatch(authRefresh());
+            }
         }).catch(error => {
             const {data:{message}} = error.response;
             const action = setAnnouncerMessage(message);
@@ -115,33 +122,34 @@ function AddEditForm(props) {
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmitForm}>
             {({handleSubmit,values}) => {
-                console.log(values);
                 return (
                     <form onSubmit={handleSubmit}>
 
-                        <FastField
-                            name='firstname'
-                            component={InputField}
-                            
-                            label='Tên'
-                            labelClassName='label'
-                            // placeholder='Tên của bạn?'
-                            // className='text-input mt1'
-                            type='text'
-                            disabled={false}
-                        />
+                        <div className="first-last-name">
+                            <FastField
+                                name='firstname'
+                                component={InputField}
+                                
+                                label='Tên'
+                                labelClassName='label'
+                                // placeholder='Tên của bạn?'
+                                // className='text-input mt1'
+                                type='text'
+                                disabled={false}
+                            />
 
-                        <FastField
-                            name='lastname'
-                            component={InputField}
-                            
-                            label='Họ'
-                            labelClassName='label'
-                            // placeholder='Tên họ của bạn?'
-                            // className='text-input mt1'
-                            type='text'
-                            disabled={false}
-                        />
+                            <FastField
+                                name='lastname'
+                                component={InputField}
+                                
+                                label='Họ'
+                                labelClassName='label'
+                                // placeholder='Tên họ của bạn?'
+                                // className='text-input mt1'
+                                type='text'
+                                disabled={false}
+                            />
+                        </div>
 
                         <FastField
                             name='username'
@@ -167,30 +175,32 @@ function AddEditForm(props) {
                             // defaultValue={formType == 'add' ? options[0].value : userInfo.role}
                         />
 
-                        <FastField
-                            name='password'
-                            component={InputField}
-                            
-                            label='Mật khẩu'
-                            labelClassName='label'
-                            // placeholder='Mật khẩu'
-                            // className='text-input mt1'
-                            type='password'
-                            disabled={false}
-                        />
+                        <div className="password-and-confirmation">
+                            <FastField
+                                name='password'
+                                component={InputField}
+                                
+                                label='Mật khẩu'
+                                labelClassName='label'
+                                // placeholder='Mật khẩu'
+                                // className='text-input mt1'
+                                type='password'
+                                disabled={false}
+                            />
 
 
-                        <FastField
-                            name='password_confirmation'
-                            component={InputField}
-                            
-                            label='Xác nhận mật khẩu'
-                            labelClassName='label'
-                            // placeholder='Điền lại mật khẩu'
-                            // className='text-input mt1'
-                            type='password'
-                            disabled={false}
-                        />
+                            <FastField
+                                name='password_confirmation'
+                                component={InputField}
+                                
+                                label='Xác nhận'
+                                labelClassName='label'
+                                // placeholder='Điền lại mật khẩu'
+                                // className='text-input mt1'
+                                type='password'
+                                disabled={false}
+                            />
+                        </div>
                         
                         <FastField
                             name='email'

@@ -47,8 +47,6 @@ function List() {
     // Phân trang
     const [pagination,setPagination] = useState([]);
 
-    console.log(filter);
-
     let debounce = null;
     useEffect(() => {
         const getUsersList = async () => {
@@ -64,7 +62,6 @@ function List() {
             // Gọi API
             Axios.get(`/public/api/admin/resources/users?${queryParams}`).then(response => {
                 const {data:{list:{data,links}}} = response;
-                console.log(response.data.list,queryParams);
                 // Phân trang
                 setPagination(links);
 
@@ -79,7 +76,6 @@ function List() {
 
     },[filter,listRefresh]);
 
-    console.log(filter);
 
     // Xử lý gọi refresh
     const handleListRefresh = async () => {
@@ -177,6 +173,39 @@ function List() {
     
     return (
         <div className="users-list">
+
+            {addEditFormToggle.add && (
+                <div className="draggable">
+                    <Draggable handle='.add-user-title'>
+                        <div className="admin-form user-crud">
+                            <h1 className="add-user-title handle">THÊM NGƯỜI DÙNG</h1>
+                            <AddEditForm closeAddEditForm={handleCloseAddEditForm} formType='add' listRefresh={handleListRefresh}/>
+                        </div>
+                    </Draggable>
+                </div>
+            )}
+
+            {addEditFormToggle.edit && (
+                <div className="draggable">
+                    <Draggable handle='.edit-user-title'>
+                        <div className="admin-form user-crud">
+                            <h1 className="edit-user-title handle">SỬA NGƯỜI DÙNG</h1>
+                            <AddEditForm closeAddEditForm={handleCloseAddEditForm} formType='edit' listRefresh={handleListRefresh} userInfo={addEditFormToggle.userInfo}/>
+                        </div>
+                    </Draggable>
+                </div>
+            )}
+
+            {isDeletingUser.isActive && (
+                <div className="draggable">
+                    <Draggable handle='.delete-user'>
+                        <div className="wrapper">
+                            <AlertModal headerClassName={'delete-user handle'} title="Nhắc nhở" body={`Bạn có chấp nhận xóa người dùng này (${isDeletingUser.userInfo.username})`} userInfo={isDeletingUser.userInfo} submit={handleDeleteUser} closeModal={handleCloseDeleteUserModal}/>
+                        </div>
+                    </Draggable>
+                </div>
+            )}
+
             <div className="filter">
                 <input className="search" type="text" placeholder="TÌM KIẾM..." onChange={handleSearchInput}/>
                 <div className="select">
@@ -198,26 +227,6 @@ function List() {
                 <Pagination links={pagination} pageChange={handlePageChange}/>
                 <a href="# " className="add-new-member" onClick={() => setAddEditFormToggle({...addEditFormToggle,add:true})}>THÊM NGƯỜI DÙNG</a>
             </div>
-
-            {addEditFormToggle.add && <Draggable handle='.add-user-title'>
-                <div className="admin-form user-crud">
-                    <h1 className="add-user-title handle">THÊM NGƯỜI DÙNG</h1>
-                    <AddEditForm closeAddEditForm={handleCloseAddEditForm} formType='add' listRefresh={handleListRefresh}/>
-                </div>
-            </Draggable>}
-
-            {addEditFormToggle.edit && <Draggable handle='.edit-user-title'>
-                <div className="admin-form user-crud">
-                    <h1 className="edit-user-title handle">SỬA NGƯỜI DÙNG</h1>
-                    <AddEditForm closeAddEditForm={handleCloseAddEditForm} formType='edit' listRefresh={handleListRefresh} userInfo={addEditFormToggle.userInfo}/>
-                </div>
-            </Draggable>}
-
-            {isDeletingUser.isActive && <Draggable handle='.delete-user'>
-                <div className="admin-form user-crud">
-                    <AlertModal headerClassName={'delete-user handle'} title="Nhắc nhở" body={`Bạn có chấp nhận xóa người dùng này (${isDeletingUser.userInfo.username})`} userInfo={isDeletingUser.userInfo} submit={handleDeleteUser} closeModal={handleCloseDeleteUserModal}/>
-                </div>
-            </Draggable>}
         </div>
     );
 }

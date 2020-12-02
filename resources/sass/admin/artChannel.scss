@@ -1,6 +1,6 @@
 .channel {
     width: 100% !important;
-    
+    animation: 1s fadeIn;
     .filter {
         .search {
             background:none;
@@ -11,6 +11,7 @@
             height: 50px;
             font-size: 1.5em;
             margin-bottom: 10px;
+            width: 50%;
             &:hover {
                 &::placeholder {
                     color: white;
@@ -26,10 +27,14 @@
 
         .select {
             float:right;
+            // @include tablet {
+            //     width: 50%;
+            // }
             select {
                 height: 50px;
                 background:none;
                 
+                margin: 0 !important;
                 border-radius: 0.25em;
                 padding: 5px 5px 5px 0;
                 color:#b2bec3;
@@ -64,15 +69,13 @@
 
     .art-channels-form {
         animation:1s fadeIn;
-        position: absolute;
-        top: 25%;
-        left: 42.5%;
+        margin: 0;
         background:#1e3799;
         padding: 25px;
         box-sizing: border-box;
         border-radius: 0.25em;
         box-shadow: 0 0 15px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.3);
-        z-index: 1000;
+        
         .add-channel-title {
             cursor: grab;
         }
@@ -112,15 +115,25 @@
         column-gap: 10px;
         margin-bottom: 20px;
 
-        .channel {
+        @include tablet {
+            grid-template-columns: auto auto;
+        }
+
+        @include mobile {
+            grid-template-columns: auto;
+        }
+
+        .channel-item {
+            animation: 1s fadeIn;
             cursor: pointer;
             border-radius: 0.25em;
-            height: 100px;
+            height: 75px;
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
             padding: 5px 0 0 10px;
             box-sizing: border-box;
+            position: relative;
 
             p {
                 margin:0;
@@ -134,8 +147,8 @@
                 font-size: 1.25em;
                 font-weight: bold;
             }
-            position: relative;
             .date {
+                font-size: 0.75em;
                 position: absolute;
                 bottom: 5px;
                 right: 10px;
@@ -145,12 +158,16 @@
                 position: absolute;
                 top: 5px;
                 right: 10px;
+                // color:orangered;
+                font-weight: bold;
             }
 
             .delete {
+                font-weight: bold;
                 position: absolute;
                 left: 10px;
                 bottom: 5px;
+                // color: crimson;
             }
         }
     }

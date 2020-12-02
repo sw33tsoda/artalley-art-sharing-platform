@@ -14,7 +14,7 @@ function User() {
                         DANH SÁCH
                     </Link>
                 </div>
-                <div className="nav-item">
+                {/* <div className="nav-item">
                     <Link className={`${PageSlug == 'add' && 'active'}`} to={`${match.url}/add`} style={{ textDecoration: 'none' }}>
                         THÊM NGƯỜI DÙNG
                     </Link>
@@ -23,19 +23,19 @@ function User() {
                     <Link className={`${PageSlug == 'role' && 'active'}`} to={`${match.url}/role`} style={{ textDecoration: 'none' }}>
                         ĐẶC QUYỀN
                     </Link>
-                </div>
+                </div> */}
             </div>
 
             <div className="manager">
                 <Switch>
                     <Redirect path={`${match.url}`} exact to={`${match.url}/list`} />
                     <Route path={`${match.url}/list`} component={List} />
-                    <Route path={`${match.url}/add`} component={() => <h1>Add</h1>}>
+                    {/* <Route path={`${match.url}/add`} component={() => <h1>Add</h1>}>
                         
                     </Route>
                     <Route path={`${match.url}/role`} component={() => <h1>Role</h1>}>
                         
-                    </Route>
+                    </Route> */}
                 </Switch>
             </div>
         </div>

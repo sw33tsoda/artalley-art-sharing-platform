@@ -5,6 +5,24 @@
 .admin {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     // font-family: 'Oswald', sans-serif;
+    .navbar-panel-toggle {
+        z-index: 200;
+        p {
+            margin:0;
+            font-weight: bold;
+            color:#b2bec3;
+            text-shadow: 0px 2px 3px #101010;
+            font-size: 1.25em;
+            &:hover {
+                color:white;
+            }
+        }
+
+        cursor: pointer;
+        position: absolute;
+        top: 30px;
+        left: 30px;
+    }
 
     .pagination {
         float:left;
@@ -27,6 +45,7 @@
     }
 
     .announcer {
+        z-index: 2000;
         .message {
             width: auto;
             height: auto;
@@ -54,23 +73,45 @@
     }
     .navbar {
         .panel {
+            z-index: 100;
+            position: absolute;
             background:#1e3799;
             width: 250px;
             height: 100vh;
             box-shadow: 0 0 15px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.3);
+
+            * {
+                text-shadow: 0px 2px 3px #101010;
+                text-transform: uppercase;
+            }
             .header {
                 box-shadow: 0 0 15px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.3);
+                height: 85px;
                 h1.title {
                     padding-top: 20px;
                     margin:0;
                     color:#b2bec3;
                     text-align: center;
-                    text-shadow: 0px 2px 3px #101010;
                     // background:#b2bec3;
                     // padding: 10px 5px 10px 5px;
                     // border-radius: 1em;
                     padding-bottom: 15px;
+                    font-size: 1em;
                     // border-bottom: 1px solid #a0a5a7;
+                }
+            }
+
+            .back-to-main-page {
+                text-decoration: none;
+                color: #b2bec3;
+                font-weight: bold;
+                font-style: italic;
+                &::before {
+                    content: "🞀 ";
+                    font-style: normal;
+                }
+                &:hover {
+                    color:white;
                 }
             }
 
@@ -80,7 +121,6 @@
                     h2.resource-name {
                         transition: 0.5s;
                         color:#b2bec3;
-                        text-shadow: 0px 2px 3px #101010;
                         &:hover {
                             text-indent: 10px;
                             cursor: pointer;
@@ -111,7 +151,30 @@
         height: 100vh;
         background:#0c2461;
         color:#b2bec3;
-        overflow: hidden;
+        overflow: scroll;
+        overflow-x: hidden;
+        padding: 0;
+
+        // &::-webkit-scrollbar {
+        //     width: 0.5em;
+        // }
+        
+        // /* Track */
+        // &::-webkit-scrollbar-track {
+        //     border-radius: 10px;
+        // }
+           
+        //   /* Handle */
+        // &::-webkit-scrollbar-thumb {
+        //     background:#b2bec3; 
+        //     border-radius: 10px;
+        // }
+          
+        //   /* Handle on hover */
+        // &::-webkit-scrollbar-thumb:hover {
+        //     background: white !important; 
+        // }
+
         .top-nav {
             height: 76px;
             background: rgb(12,36,97);
@@ -364,6 +427,22 @@
             }
         }
     }
+}
+
+.draggable {
+    position: absolute;
+    left: 50%;
+    height: 50%;
+    z-index: 1000;
+    transform: translate(-50%,-25%);
+    @include mobile {
+        width: 100%;
+        transform: translate(-50%,-50%);
+    }
+}
+
+.admin-edit-draggable {
+    transform: translate(-50%,20%);
 }
 
 .handle {

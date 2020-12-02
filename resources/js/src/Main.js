@@ -1,16 +1,17 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { Provider, useDispatch } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import Axios from 'axios';
 import store from './store';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import RetailStore from './components/RetailStore';
+import ArtShowcase from './components/ArtShowcase';
 import Admin from './components/Admin';
 import { setAuthenticatedUser } from './store/auth';
 import Utils from 'lodash';
 import Warning from './components/Errors/Warning';
 
 function Main() {
+    const authRefresh = useSelector(state => state.auth.sessionRefreshTimes);
     const dispatch = useDispatch();
     useEffect(() => {
         const apiToken = localStorage.getItem('authenticatedUserToken');
@@ -27,12 +28,12 @@ function Main() {
             }
             authCheck();
         }
-    },[]);
+    },[authRefresh]);
 
     return (
         <Router>
             <Switch>
-                <Route path="/public" exact component={RetailStore}/>
+                <Route path="/public" exact component={ArtShowcase}/>
                 <Route path="/public/admin" component={Admin}/>
                 <Route>
                     <Warning warning="404" description="Trang này không tồn tại"/>

@@ -1,10 +1,15 @@
 @import url(https://fonts.googleapis.com/css2?family=Lato&display=swap);@import url(https://fonts.googleapis.com/css2?family=Inter:wght@300;
 
-400&display=swap);@import url(https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap);@import url(https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);@import url(https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap);@import url(https://unpkg.com/basscss@8.0.2/css/basscss.min.css);body {
+400&display=swap);@import url(https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap);@import url(https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);@import url(https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap);@import url(https://fonts.googleapis.com/css2?family=Anton&display=swap);@import url(https://unpkg.com/basscss@8.0.2/css/basscss.min.css);@charset "UTF-8";
+body {
   font-family: "Roboto", sans-serif;
   margin: 0;
   padding: 0;
   background: #d8d8d8;
+}
+
+.drop-shadow {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .label {
@@ -91,6 +96,16 @@
 
 .danger:hover {
   background: linear-gradient(#e72323, #f02420);
+}
+
+.light {
+  background: linear-gradient(#C4C4C4, #BABABA);
+  background-color: #C4C4C4;
+  border: 1px solid #3B3B3B;
+}
+
+.light:hover {
+  background: white;
 }
 
 .scroll {
@@ -323,19 +338,142 @@
   }
 }
 
+.art-showcase {
+  height: 5000px;
+}
+
+.art-showcase .header {
+  height: 50px;
+  background-size: contain;
+  background-position-y: 0px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.art-showcase .header .navbar {
+  height: inherit;
+  background-color: rgba(20, 20, 20, 0.15);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.art-showcase .header .navbar .navbar-items {
+  max-width: 1000px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  height: inherit;
+}
+
+.art-showcase .header .navbar .navbar-items .left {
+  height: inherit;
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.art-showcase .header .navbar .navbar-items .left .name {
+  font-family: "Anton", sans-serif;
+  font-size: 1.5em;
+  color: #d9d9d9;
+  text-shadow: 0px 2px 7px black;
+  margin: 0;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.art-showcase .header .navbar .navbar-items .left .name span {
+  color: #FF9636;
+}
+
+.art-showcase .header .navbar .navbar-items .left .name:hover {
+  color: white;
+}
+
+.art-showcase .header .navbar .navbar-items .left .name:hover span {
+  color: #ffa856;
+}
+
+.art-showcase .header .navbar .navbar-items .center {
+  height: inherit;
+  color: #d9d9d9;
+  font-weight: bolder;
+  text-shadow: 0px 2px 7px black;
+  display: flex;
+  align-items: center;
+}
+
+.art-showcase .header .navbar .navbar-items .center .search {
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.art-showcase .header .navbar .navbar-items .center .search:hover {
+  color: white;
+}
+
+.art-showcase .header .navbar .navbar-items .right {
+  height: inherit;
+}
+
+.art-showcase .header .navbar .navbar-items .right .auth {
+  height: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.art-showcase .header .navbar .navbar-items .right .auth .user-info {
+  height: inherit;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.art-showcase .header .navbar .navbar-items .right .auth .user-info .username {
+  color: #D9D9D9;
+  text-shadow: 0px 2px 7px black;
+  font-weight: bolder;
+  margin: 0;
+  margin-right: 10px;
+  float: left;
+  font-size: 0.85em;
+}
+
+.art-showcase .header .navbar .navbar-items .right .auth .user-info .profile-picture {
+  margin-right: 10px;
+  width: 30px;
+  border-radius: 0.25em;
+}
+
+.art-showcase .header .navbar .navbar-items .right .auth .user-info:hover .username {
+  color: white;
+}
+
+.art-showcase .header .navbar .navbar-items .right .auth > .button {
+  height: 30px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
+  margin-right: 5px;
+  border: none;
+  background: rgba(217, 217, 217, 0.025);
+  color: #D9D9D9;
+  transition: 0.25s;
+  text-shadow: 0px 2px 7px black;
+  cursor: pointer;
+}
+
+.art-showcase .header .navbar .navbar-items .right .auth > .button:hover {
+  background: rgba(217, 217, 217, 0.1);
+  color: white;
+}
+
 .user-crud {
   -webkit-animation: 1s fadeIn;
           animation: 1s fadeIn;
-  width: 500px;
+  width: auto;
   background: #1e3799;
-  padding: 20px;
+  padding: 20px 20px 0 20px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
   z-index: 1000;
   margin: 0;
-  position: absolute;
-  top: 5%;
-  left: 37%;
-  transform: translate(-50%, -50%);
   border-radius: 0.25em;
 }
 
@@ -357,6 +495,21 @@
 
 .user-crud .form-buttons-group {
   margin-top: 25px;
+}
+
+.user-crud .first-last-name,
+.user-crud .password-and-confirmation {
+  display: grid;
+  grid-template-columns: auto auto;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+}
+
+@media (max-width: 479px) {
+  .user-crud .first-last-name,
+  .user-crud .password-and-confirmation {
+    display: block;
+  }
 }
 
 .user-crud .upload-button {
@@ -393,6 +546,10 @@
 
 .admin-form input {
   margin: 5px 0 0 0;
+}
+
+.admin-form .form-buttons-group {
+  height: 50px;
 }
 
 .admin-form button {
@@ -457,8 +614,12 @@
   -webkit-animation: 1s fadeIn;
           animation: 1s fadeIn;
   width: 100%;
-  z-index: 1000;
+  z-index: 1000 !important;
   border-radius: 0.25em;
+  background: #1e3799;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
 }
 
 .alert-modal * {
@@ -479,6 +640,10 @@
 .alert-modal .body p {
   text-shadow: 0px 2px 3px #101010;
   color: #b2bec3;
+}
+
+.alert-modal .footer {
+  height: 25px;
 }
 
 .alert-modal .footer button {
@@ -516,6 +681,8 @@
 
 .channel {
   width: 100% !important;
+  -webkit-animation: 1s fadeIn;
+          animation: 1s fadeIn;
 }
 
 .channel .filter .search {
@@ -527,6 +694,7 @@
   height: 50px;
   font-size: 1.5em;
   margin-bottom: 10px;
+  width: 50%;
 }
 
 .channel .filter .search:hover::-moz-placeholder {
@@ -566,6 +734,7 @@
 .channel .filter .select select {
   height: 50px;
   background: none;
+  margin: 0 !important;
   border-radius: 0.25em;
   padding: 5px 5px 5px 0;
   color: #b2bec3;
@@ -600,15 +769,12 @@
 .channel .art-channels-form {
   -webkit-animation: 1s fadeIn;
           animation: 1s fadeIn;
-  position: absolute;
-  top: 25%;
-  left: 42.5%;
+  margin: 0;
   background: #1e3799;
   padding: 25px;
   box-sizing: border-box;
   border-radius: 0.25em;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
 }
 
 .channel .art-channels-form .add-channel-title {
@@ -649,10 +815,24 @@
   margin-bottom: 20px;
 }
 
-.channel .art-channels-list .channel {
+@media (min-width: 768px) and (max-width: 1023px) {
+  .channel .art-channels-list {
+    grid-template-columns: auto auto;
+  }
+}
+
+@media (max-width: 479px) {
+  .channel .art-channels-list {
+    grid-template-columns: auto;
+  }
+}
+
+.channel .art-channels-list .channel-item {
+  -webkit-animation: 1s fadeIn;
+          animation: 1s fadeIn;
   cursor: pointer;
   border-radius: 0.25em;
-  height: 100px;
+  height: 75px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -661,7 +841,7 @@
   position: relative;
 }
 
-.channel .art-channels-list .channel p {
+.channel .art-channels-list .channel-item p {
   margin: 0;
   padding: 0;
   word-wrap: break-word;
@@ -669,24 +849,27 @@
   color: white;
 }
 
-.channel .art-channels-list .channel .name {
+.channel .art-channels-list .channel-item .name {
   font-size: 1.25em;
   font-weight: bold;
 }
 
-.channel .art-channels-list .channel .date {
+.channel .art-channels-list .channel-item .date {
+  font-size: 0.75em;
   position: absolute;
   bottom: 5px;
   right: 10px;
 }
 
-.channel .art-channels-list .channel .edit {
+.channel .art-channels-list .channel-item .edit {
   position: absolute;
   top: 5px;
   right: 10px;
+  font-weight: bold;
 }
 
-.channel .art-channels-list .channel .delete {
+.channel .art-channels-list .channel-item .delete {
+  font-weight: bold;
   position: absolute;
   left: 10px;
   bottom: 5px;
@@ -715,6 +898,26 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.admin .navbar-panel-toggle {
+  z-index: 200;
+  cursor: pointer;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+}
+
+.admin .navbar-panel-toggle p {
+  margin: 0;
+  font-weight: bold;
+  color: #b2bec3;
+  text-shadow: 0px 2px 3px #101010;
+  font-size: 1.25em;
+}
+
+.admin .navbar-panel-toggle p:hover {
+  color: white;
+}
+
 .admin .pagination {
   float: left;
 }
@@ -735,6 +938,10 @@
 
 .admin .pagination a.active {
   color: white;
+}
+
+.admin .announcer {
+  z-index: 2000;
 }
 
 .admin .announcer .message {
@@ -769,14 +976,22 @@
 }
 
 .admin .navbar .panel {
+  z-index: 100;
+  position: absolute;
   background: #1e3799;
   width: 250px;
   height: 100vh;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
+.admin .navbar .panel * {
+  text-shadow: 0px 2px 3px #101010;
+  text-transform: uppercase;
+}
+
 .admin .navbar .panel .header {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
+  height: 85px;
 }
 
 .admin .navbar .panel .header h1.title {
@@ -784,8 +999,24 @@
   margin: 0;
   color: #b2bec3;
   text-align: center;
-  text-shadow: 0px 2px 3px #101010;
   padding-bottom: 15px;
+  font-size: 1em;
+}
+
+.admin .navbar .panel .back-to-main-page {
+  text-decoration: none;
+  color: #b2bec3;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.admin .navbar .panel .back-to-main-page::before {
+  content: "\1F780   ";
+  font-style: normal;
+}
+
+.admin .navbar .panel .back-to-main-page:hover {
+  color: white;
 }
 
 .admin .navbar .panel .resources {
@@ -795,7 +1026,6 @@
 .admin .navbar .panel .resources .resource h2.resource-name {
   transition: 0.5s;
   color: #b2bec3;
-  text-shadow: 0px 2px 3px #101010;
 }
 
 .admin .navbar .panel .resources .resource h2.resource-name:hover {
@@ -816,7 +1046,9 @@
   height: 100vh;
   background: #0c2461;
   color: #b2bec3;
-  overflow: hidden;
+  overflow: scroll;
+  overflow-x: hidden;
+  padding: 0;
 }
 
 .admin .content .top-nav {
@@ -1096,6 +1328,25 @@
 
 .admin .content .resource .control .manager .users-list .add-new-member::before {
   content: "+ ";
+}
+
+.draggable {
+  position: absolute;
+  left: 50%;
+  height: 50%;
+  z-index: 1000;
+  transform: translate(-50%, -25%);
+}
+
+@media (max-width: 479px) {
+  .draggable {
+    width: 100%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.admin-edit-draggable {
+  transform: translate(-50%, 20%);
 }
 
 .handle {

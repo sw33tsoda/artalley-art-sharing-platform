@@ -4,10 +4,14 @@ const admin_usersSlice = createSlice({
     name: 'admin_users',
     initialState: {
         list: [],
+        listRefreshTimes:0,
     },
     reducers: {
         setList: (state,action) => {
             state.list = action.payload;
+        },
+        refreshList: (state,action) => {
+            state.listRefreshTimes += 1;
         }
     }
 });

@@ -3,12 +3,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
+// font ANTON
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
 $mobile-width: 480px; 
 $tablet-width: 768px; 
 $desktop-width: 1024px;  
 
-@mixin mobile { @media (max-width: #{$mobile -width - 1px}) {     
+@mixin mobile { @media (max-width: #{$mobile-width - 1px}) {     
   @content;   
  } 
 }  
@@ -28,6 +30,7 @@ body {
     margin:0;
     padding:0;
     background:#d8d8d8;
+    // overflow-y: hidden;
 }
 
 
@@ -43,6 +46,9 @@ body {
 
 // LOGIN
 @import './login.scss';
+
+// ++++++++++++ ART ++++++++++++++//
+@import './artShowcase.scss';
 
 
 // ++++++++++++ ADMIN +++++++++++ //

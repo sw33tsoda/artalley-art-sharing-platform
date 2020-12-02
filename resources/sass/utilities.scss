@@ -1,1 +1,5 @@
 @import url('https://unpkg.com/basscss@8.0.2/css/basscss.min.css');
+
+.drop-shadow {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.30), 0 1px 3px rgba(0, 0, 0, 0.30);
+}

@@ -1,0 +1,114 @@
+@mixin art-navbar {
+    height: inherit;
+    background-color: rgba(20, 20, 20,0.15);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.30), 0 1px 3px rgba(0, 0, 0, 0.30);
+    
+    .navbar-items {
+        max-width: 1000px;
+        margin:auto;
+        display: flex;
+        justify-content: space-between;
+        height: inherit;
+        .left {
+            height: inherit;
+            display: flex;
+            align-items: center;
+            margin-left: 5px;
+            .name {
+                font-family: 'Anton', sans-serif;
+                font-size: 1.5em;
+                color: #d9d9d9;
+                text-shadow: 0px 2px 7px black;
+                margin:0;
+                transition: 0.25s;
+                cursor: pointer;
+                span {
+                    color:#FF9636;
+                    // text-transform: lowercase;
+                }
+
+                &:hover {
+                    color:white;
+                    span {
+                        color:#ffa856;
+                    }
+                }
+            }
+        }
+    
+        .center {
+            height: inherit;
+            color: #d9d9d9;
+            font-weight: bolder;
+            text-shadow: 0px 2px 7px black;
+            display: flex;
+            align-items: center;
+
+            .search {
+                transition: 0.25s;
+                cursor: pointer;
+                &:hover {
+                    color:white;
+                }
+            }
+        }
+    
+        .right {
+            height: inherit;
+            .auth {
+                height: inherit;
+                display: flex;
+                align-items: center;
+                
+                .user-info {
+                    height: inherit;
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+
+                    .username {
+                        color:#D9D9D9;
+                        text-shadow: 0px 2px 7px black;
+                        font-weight: bolder;
+                        margin:0;
+                        margin-right: 10px;
+                        float:left;
+                        font-size: 0.85em;
+                    }
+    
+                    .profile-picture {
+                        margin-right: 10px;
+                        width: 30px;
+                        border-radius: 0.25em;
+                    }
+
+                    &:hover {
+                        .username {
+                            color:white;
+                        }
+                    }
+                }
+
+                .admin {
+                    //
+                }
+
+                > .button {
+                    height: 30px;
+                    box-shadow: 0 0 15px rgba(0, 0, 0, 0.30), 0 1px 3px rgba(0, 0, 0, 0.30);
+                    margin-right: 5px;
+                    border:none;
+                    background:rgba(217, 217, 217,0.025);
+                    color: #D9D9D9;
+                    transition: 0.25s;
+                    text-shadow: 0px 2px 7px black;
+                    cursor: pointer;
+                    &:hover {
+                        background:rgba(217, 217, 217,0.1);
+                        color:white;
+                    }
+                }
+            }
+        }
+    }
+}

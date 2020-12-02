@@ -56,7 +56,7 @@ function Channel() {
             }).catch(error => {
                 const {data:{message}} = error.response;
                 dispatch(setAnnouncerMessage(message));
-            })
+            });
         }
         getArtChannelsList();
     },[listRefresh,filter]);
@@ -123,25 +123,37 @@ function Channel() {
 
     return (
         <div className="channel">
-            {formToggle.add.isOpen && <Draggable handle='#add-channel'>
-                <div className="admin-form art-channels-form">
-                    <h1 id="add-channel" className="add-channel-title">THÊM LOẠI ẢNH</h1>
-                    <AddEditForm className="grab-area" listRefresh={handleSetListRefresh} formToggle={handleFormToggle} formType="add"/>
+            {formToggle.add.isOpen && (
+                <div className="draggable">
+                    <Draggable handle='#add-channel'>
+                        <div className="admin-form art-channels-form">
+                            <h1 id="add-channel" className="add-channel-title">THÊM LOẠI ẢNH</h1>
+                            <AddEditForm className="grab-area" listRefresh={handleSetListRefresh} formToggle={handleFormToggle} formType="add"/>
+                        </div>
+                    </Draggable>
                 </div>
-            </Draggable>}
+            )}
 
-            {formToggle.edit.isOpen && <Draggable handle='#edit-channel'>
-                <div className="admin-form art-channels-form">
-                    <h1 id="edit-channel" className="add-channel-title">SỬA LOẠI ẢNH</h1>
-                    <AddEditForm listRefresh={handleSetListRefresh} formToggle={handleFormToggle} formType="edit" channelInfo={formToggle.edit.data}/>
+            {formToggle.edit.isOpen && (
+                <div className="draggable">
+                    <Draggable handle='#edit-channel'>
+                        <div className="admin-form art-channels-form">
+                            <h1 id="edit-channel" className="add-channel-title">SỬA LOẠI ẢNH</h1>
+                            <AddEditForm listRefresh={handleSetListRefresh} formToggle={handleFormToggle} formType="edit" channelInfo={formToggle.edit.data}/>
+                        </div>
+                    </Draggable>
                 </div>
-            </Draggable>}
+            )}
 
-            {formToggle.delete.isOpen && <Draggable handle='.delete-channel'>
-                <div className="admin-form user-crud">
-                    <AlertModal headerClassName={'delete-channel handle'} title="Nhắc nhở" body={`Bạn có chấp nhận xóa loại ảnh này (${formToggle.delete.data.channel_slug})`} submit={() => handleDeleteChannel()} closeModal={() => handleFormToggle('delete','close')}/>
+            {formToggle.delete.isOpen && (
+                <div className="draggable">
+                    <Draggable handle='.delete-channel'>
+                        <div className="wrapper">
+                            <AlertModal headerClassName={'delete-channel handle'} title="Nhắc nhở" body={`Bạn có chấp nhận xóa loại ảnh này (${formToggle.delete.data.channel_slug})`} submit={() => handleDeleteChannel()} closeModal={() => handleFormToggle('delete','close')}/>
+                        </div>
+                    </Draggable>
                 </div>
-            </Draggable>}
+            )}
             
             <div className="filter">
                 <input className="search" type="text" placeholder="TÌM KIẾM..." onChange={handleSearchInput}/>
@@ -157,7 +169,7 @@ function Channel() {
                     {list.map((channel,index) => {
                         const thumbnail = channel.thumbnail == null ? 'https://lh6.ggpht.com/HlgucZ0ylJAfZgusynnUwxNIgIp5htNhShF559x3dRXiuy_UdP3UQVLYW6c=s1200' : `/storage/app/public/artChannelThumbnails/${channel.thumbnail}`;
                         return (
-                            <div className="channel" style={{backgroundImage:`url(${thumbnail})`}} key={index}>
+                            <div className="channel-item" style={{backgroundImage:`url(${thumbnail})`}} key={index}>
                                 <p className="name">{channel.channel_name}</p>
                                 <p className="slug">{channel.channel_slug}</p>
                                 <p className="edit" onClick={() => handleFormToggle('edit','open',channel)}>Sửa</p>

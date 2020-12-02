@@ -2,16 +2,16 @@
 
 .user-crud {
     animation: 1s fadeIn;
-    width: 500px;
+    width: auto;
     background:#1e3799;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     box-shadow: 0 0 15px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.3);
     z-index: 1000;
     margin: 0;
-    position: absolute;
-    top: 5%;
-    left: 37%;
-    transform: translate(-50%, -50%);
+    // position: absolute;
+    // top: 5%;
+    // left: 37%;
+    // transform: translate(-50%, -50%);
     border-radius: 0.25em;
 
     h1 {
@@ -31,6 +31,16 @@
 
     .form-buttons-group {
         margin-top: 25px;
+    }
+
+    .first-last-name, .password-and-confirmation {
+        display: grid;
+        grid-template-columns: auto auto;
+        column-gap: 10px;
+
+        @include mobile {
+            display: block;
+        }
     }
 
     .upload-button {
@@ -72,7 +82,7 @@
     }
 
     .form-buttons-group {
-        
+        height: 50px;
     }
 
     button {

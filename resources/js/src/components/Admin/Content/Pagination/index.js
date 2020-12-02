@@ -23,7 +23,7 @@ function Pagination(props) {
         <div className="pagination">
             {links.map((link,index) => (
                 <a key={index} onClick={() => change(link.url)} className={`${link.active && 'active'}`}>
-                    {index == 0 ? "Trước" : index == links.length - 1 ? "Sau" : link.label}
+                    {index == 0 ? "<" : index == links.length - 1 ? ">" : link.label}
                 </a>
             ))}
         </div>

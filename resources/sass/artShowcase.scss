@@ -1,0 +1,15 @@
+@import './navbar.scss';
+
+.art-showcase {
+    height: 5000px;
+    .header {
+        height: 50px;
+        background-size: contain;
+        background-position-y: 0px;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        .navbar {
+            @include art-navbar;
+        }
+    }
+}
