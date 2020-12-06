@@ -35,6 +35,7 @@ function Login(props) {
             }
         }).catch(error => {
             const {data:{login_status,message}} = error.response;
+            // console.log(error.response);
             if (login_status == 0) {
                 alert(message);
             }

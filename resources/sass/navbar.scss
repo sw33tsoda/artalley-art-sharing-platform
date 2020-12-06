@@ -1,14 +1,18 @@
-@mixin art-navbar {
+@mixin community-navbar {
     height: inherit;
     background-color: rgba(20, 20, 20,0.15);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.30), 0 1px 3px rgba(0, 0, 0, 0.30);
     
     .navbar-items {
-        max-width: 1000px;
-        margin:auto;
-        display: flex;
-        justify-content: space-between;
+        max-width: 1150px;
         height: inherit;
+        margin:auto;
+        display: grid;
+        grid-template-columns: 40% 20% 40%;
+        @include mobile {
+            grid-template-columns: 25% 10% 65%;
+        }
+
         .left {
             height: inherit;
             display: flex;
@@ -45,11 +49,32 @@
             align-items: center;
 
             .search {
+                margin: auto;
                 transition: 0.25s;
                 cursor: pointer;
                 &:hover {
                     color:white;
                 }
+
+                i {
+                    margin-right: 5px;
+                }
+
+                @include mobile {
+                    span.text {
+                        display: none;
+                    }
+                }
+            }
+
+            .search-overlay {
+                position: fixed;
+                top:0;
+                left:0;
+                height: 100%;
+                width: 100%;
+                background:rgba(0, 0, 0, 0.50);
+                z-index: 1000;
             }
         }
     
@@ -59,6 +84,7 @@
                 height: inherit;
                 display: flex;
                 align-items: center;
+                justify-content: flex-end;
                 
                 .user-info {
                     height: inherit;
@@ -78,8 +104,10 @@
     
                     .profile-picture {
                         margin-right: 10px;
+                        height: 30px;
                         width: 30px;
                         border-radius: 0.25em;
+                        object-fit: cover;
                     }
 
                     &:hover {
@@ -89,8 +117,8 @@
                     }
                 }
 
-                .admin {
-                    //
+                > .admin {
+                    
                 }
 
                 > .button {
@@ -103,9 +131,25 @@
                     transition: 0.25s;
                     text-shadow: 0px 2px 7px black;
                     cursor: pointer;
+                    i {
+                        margin-right: 5px;
+                    }
+
+                    @include mobile {
+                        i {
+                            margin:0;
+                        }
+
+                        span.text {
+                            display: none;
+                        }
+                    }
                     &:hover {
                         background:rgba(217, 217, 217,0.1);
                         color:white;
+                        a {
+                            color:white !important;
+                        }
                     }
                 }
             }

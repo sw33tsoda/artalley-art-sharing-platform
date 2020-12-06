@@ -25,7 +25,10 @@
         "sass-loader": "^8.0.0"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^23.1.0",
+        "@ckeditor/ckeditor5-react": "^3.0.0",
         "@reduxjs/toolkit": "^1.4.0",
+        "classnames": "^2.2.6",
         "formik": "^2.2.1",
         "moment": "^2.29.1",
         "query-string": "^6.13.7",

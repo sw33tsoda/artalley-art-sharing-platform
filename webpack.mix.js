@@ -15,8 +15,19 @@ const mix = require('laravel-mix');
 mix.react('resources/js/app.js', 'public/js').sass('resources/sass/app.scss', 'public/css');
 // mix.webpackConfig({
 //    resolve: {
-//       alias : {
-//          output: { path: path.resolve(__dirname, 'dist'), filename: "app.js", publicPath:"/" },
-//       }
+//         alias : {
+//             output: { 
+//                 path: path.resolve(__dirname, 'dist'), 
+//                 filename: "app.js", 
+//                 publicPath:"/"
+//             },
+//         }
 //    }
 // });
+
+mix.webpackConfig({
+	output: {
+		publicPath: '/public/',
+		chunkFilename: 'js/chunks/[name].js',
+	},
+});

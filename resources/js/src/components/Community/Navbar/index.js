@@ -1,15 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Auth from '../../Auth';
+import Search from './Search';
 
 function Navbar() {
     return (
         <nav className="navbar">
             <div className="navbar-items">
                 <div className="left">
-                    <p className="name"><span>ART</span>ALLEY</p>
+                    <Link to="/public" style={{textDecoration:'none'}}>
+                        <p className="name"><span>ART</span>ALLEY</p>
+                    </Link>
                 </div>
                 <div className="center">
-                    <p className="search"><i class="fas fa-search"></i> TÌM KIẾM</p>
+                    <Search/>
                 </div>
                 <div className="right">
                     <Auth/>

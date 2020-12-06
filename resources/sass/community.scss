@@ -1,7 +1,7 @@
 @import './navbar.scss';
+@import './upload.scss';
 
-.art-showcase {
-    height: 5000px;
+.community {
     .header {
         height: 50px;
         background-size: contain;
@@ -9,7 +9,13 @@
         background-repeat: no-repeat;
         background-attachment: fixed;
         .navbar {
-            @include art-navbar;
+            @include community-navbar;
+        }
+    }
+
+    .body {
+        .upload {
+            @include community-upload;
         }
     }
 }

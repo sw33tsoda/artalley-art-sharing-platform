@@ -1,0 +1,161 @@
+@mixin community-upload {
+    max-width: 1150px;
+    margin:auto;
+    
+    .page-title {
+        color:#212121;
+    }
+    
+    .page-path {
+        color:#212121;
+    }
+    
+    .upload-options {
+        display: grid;
+        height: 75px;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 10px;
+        .option {
+            height: inherit;
+            position: relative;
+            text-align: center;
+            background-color: rgba(217, 217, 217, 0.025);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position-y: -100px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+            padding: 0px 25px 0 25px;
+            border-radius: 0.25em;
+            color: #D9D9D9;
+            text-shadow: 0px 2px 4px black;
+            filter:saturate(0);
+            transition: 0.25s;
+            cursor: pointer;
+            &:hover {
+                filter:saturate(1);
+                color:white;
+                
+                > div > .title {
+                    top: 25%;
+                }
+                
+                > div > .caption {
+                    opacity: 1;
+                }
+            }
+            
+            &.active {
+                filter:saturate(1);
+                color:white;
+                > div > .title {
+                    top: 25%;
+                }
+                
+                > div > .caption {
+                    opacity: 1;
+                }
+            }
+            
+            > div > .title, .caption {
+                transition: 0.25s;
+                width: 100%;
+                margin:0;
+                position: absolute;
+                transform: translate(50%,-50%);
+                right: 50%;
+            }
+            
+            > div > .title {
+                top: 50%;
+            }
+
+            > div > .caption {
+                top: 65%;
+            }
+
+            > div > .caption {
+                opacity: 0;
+            }
+
+            .create-showcase {
+
+            }
+    
+            .upload-single-art {
+    
+            }
+        }
+
+    }
+
+    .upload-area {
+        padding-top: 10px;
+        .upload-single-art {
+            .title {
+                border-bottom: 1px solid #bfbfbf;
+                padding-bottom: 10px;
+            }
+            
+            .upload-form {
+                .form {
+
+                    input,textarea,select {
+                        margin-top: 8px;
+                    }
+
+                    textarea {
+                        resize: vertical;
+                        height: 100px;
+                        padding-top: 5px;
+                        &::placeholder {
+                            font-size: 1em;
+                        }
+                    }
+
+                    .split {
+                        // display:grid; // check React code
+                        grid-template-columns: 1fr 1fr;
+                        grid-gap: 10px;
+                    }
+
+                    .upload-image {
+                        text-align: center;
+                        // border:5px dashed #bfbfbf;
+                        border-radius: 0.25em;
+                        padding: 15px;
+                        margin-bottom: 5px;
+                        background:#bbbbbb;
+                        .preview-image {
+                            // width: 100%;
+                            height: 500px;
+                            box-shadow: 0 0 15px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+                        }
+                        
+                        .icon {
+                            display:block;
+                            color:#d8d8d8;
+                            transition: 0.25s;
+        
+                            &:hover {
+                                color:#212121;
+                                // text-shadow: 5px 5px 1px white;
+                            }
+                            i {
+                                font-size: 5em;
+                                cursor: pointer;
+                            }
+        
+                            p {
+                                cursor: pointer;
+                                margin:0;
+                                margin-top: 10px;
+                                text-transform: uppercase;
+                                font-weight: bold;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

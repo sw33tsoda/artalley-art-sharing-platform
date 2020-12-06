@@ -10,7 +10,7 @@ import _ from 'lodash';
 function Auth() {
     const authenticatedUser = useSelector(state => state.auth.authenticatedUser);
     const dispatch = useDispatch();
-    const match = useRouteMatch();
+    const { url } = useRouteMatch();
     const [isRegister,setIsRegister] = useState(false);
     const [isLogin,setIsLogin] = useState(false);
 
@@ -45,6 +45,12 @@ function Auth() {
                         <p className="username">{authenticatedUser.username}</p>
                         <img className="profile-picture" src={`/storage/app/public/profilePictures/${authenticatedUser.profile_picture}`}/>
                     </div>
+                        <button className="button">
+                            <Link to={url + '/upload'} style={{textDecoration:'none',color:'#D9D9D9'}}>
+                                <i className="fas fa-plus"></i>
+                                <span className="text">Upload</span>
+                            </Link>
+                        </button>
                 </React.Fragment>
             )}
             
@@ -52,7 +58,10 @@ function Auth() {
             {/* ADMIN */}
             {authenticatedUser.role == 'admin' && (
                 <button className="button admin">
-                    <Link to={`${match.url}admin`} style={{textDecoration:'none',color:'#D9D9D9'}}>Quản trị</Link>
+                    <Link to={`/public/admin`} style={{textDecoration:'none',color:'#D9D9D9'}}>
+                        <i className="fa fa-user-shield" aria-hidden="true"></i>
+                        <span className="text">Quản trị</span>
+                    </Link>
                 </button>
             )}
 
@@ -65,9 +74,14 @@ function Auth() {
                 <Login closeLogin={handleCloseLogin}/>
             )}
 
-            {/* BUTTONS */}
+            {/* REG/LOG */}
             {!_.isEmpty(authenticatedUser) ? (
-                <button className="button" onClick={handleLogout}>Đăng xuất</button>
+                <React.Fragment>
+                    <button className="button" onClick={handleLogout}>
+                        <i className="fa fa-sign-out" aria-hidden="true"></i>
+                        <span className="text">Đăng xuất</span>
+                    </button>
+                </React.Fragment>
             ) : (
                 <React.Fragment>
                     <button className="button" onClick={() => setIsRegister(!isRegister)}>Đăng ký</button>

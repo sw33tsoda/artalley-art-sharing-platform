@@ -2,13 +2,13 @@ import React from 'react';
 import Body from './Body';
 import Header from './Header';
 
-function ArtShowcase() {
+function Community() {
     return (
-        <div className="art-showcase">
+        <div className="community">
             <Header/>
             <Body/>
         </div>
     )
 }
 
-export default ArtShowcase;
+export default Community;
