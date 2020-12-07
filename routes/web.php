@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ArtChannel;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,18 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // Route::view('/{path?}', 'index');
+
+Route::get('/playground', function() {
+    $list = ArtChannel::all();
+    function newList($channel) {
+        return [
+            'label' => $channel['channel_name'],
+            'value' => $channel['id'],
+        ];
+    }
+    $finalList = array_map('newList',$list->toArray());
+    dd($finalList);
+});
 
 Route::get('/{path?}', function () {
     return view('index');

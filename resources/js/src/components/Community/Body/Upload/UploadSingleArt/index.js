@@ -7,14 +7,14 @@ import TextareaField from '../../../../CustomFields/TextareaField';
 import _ from 'lodash';
 
 const dimensionalOptions = [
-    {label:'2D',value:'2d'},
-    {label:'2.5D',value:'2.5d'},
-    {label:'3D',value:'3d'}
+    {label:'2D',value:1},
+    {label:'2.5D',value:2},
+    {label:'3D',value:3}
 ];
 
 const privacyOptions = [
-    {label:'Mọi người',value:'public'},
-    {label:'Chỉ mình tôi',value:'private'}
+    {label:'Mọi người',value:1},
+    {label:'Chỉ mình tôi',value:0}
 ];
 
 function UploadSingleArt() {
@@ -116,31 +116,31 @@ function UploadSingleArt() {
                                             disabled={false}
                                             options={dimensionalOptions}
                                         />
+
                                         <FastField
-                                            name='privacy'
+                                            name="channel"
                                             component={SelectField}
 
-                                            label="Ai có thể xem?"
+                                            label="Kênh ảnh"
                                             labelClassName="label"
                                             className="text-input"
                                             disabled={false}
-                                            options={privacyOptions}
                                         />
                                     </div>
                                 </div>
 
                                 <div className="split" style={{display: !_.isEmpty(file.name) ? 'grid' : 'none'}}>
+                                    
                                     <FastField
-                                        name="channel"
-                                        component={InputField}
+                                        name='privacy'
+                                        component={SelectField}
 
-                                        label="Loại ảnh"
+                                        label="Ai có thể xem?"
                                         labelClassName="label"
                                         className="text-input"
                                         disabled={false}
-                                        placeholder="Nhập loại ảnh" 
+                                        options={privacyOptions}
                                     />
-
                                     <FastField
                                         name="tags"
                                         component={InputField}
