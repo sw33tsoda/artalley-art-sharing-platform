@@ -11,6 +11,7 @@ InputField.propTypes = {
     className:  PropTypes.string,
     disabled:   PropTypes.bool,
     type:   PropTypes.string,
+    debounce: PropTypes.object,
 }
 
 InputField.defaultProps = {
@@ -20,13 +21,21 @@ InputField.defaultProps = {
     className:  'text-input',
     disabled:   false,
     type:   'text',
+    debounce: null,
 }
 
+let debounceTimeout = null;
 function InputField(props) {
-    const {form,field,label,labelClassName,placeholder,className,disabled,type} = props;
+    const {form,field,label,labelClassName,placeholder,className,disabled,type,debounce} = props;
     const {name} = field;
     const {errors,touched} = form;
     const hasError = errors[name] && touched[name];
+
+    if (debounce !== null) {
+        clearTimeout(debounceTimeout);
+        console.log('rerednder');
+        debounceTimeout = setTimeout(() => debounce.callback(field.value),debounce.ms);
+    }
 
     return (
         <div className="form-group mb1">

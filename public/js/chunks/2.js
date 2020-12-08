@@ -2409,7 +2409,6 @@ FileUploader.propTypes = {
   labelClassName: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   className: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   disabled: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
-  type: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   setFile: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired,
   hidden: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool
 };
@@ -2418,7 +2417,6 @@ FileUploader.defaultProps = {
   labelClassName: 'label',
   className: 'file-input',
   disabled: false,
-  type: 'file',
   setFile: null,
   hidden: false
 };
@@ -2431,9 +2429,19 @@ function FileUploader(props) {
       labelClassName = props.labelClassName,
       className = props.className,
       disabled = props.disabled,
-      type = props.type,
-      setFile = props.setFile;
+      setFile = props.setFile,
+      setFieldValue = props.setFieldValue;
   var name = field.name;
+
+  var handleSetFile = function handleSetFile(event) {
+    var file = event.target.files[0];
+    setFile(file);
+    setFieldValue('art', {
+      tes: 'worked'
+    });
+  }; ///////////////////// fixx
+
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
   }, label && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -2448,8 +2456,8 @@ function FileUploader(props) {
   }, field, {
     className: className,
     disabled: disabled,
-    type: type,
-    onChange: setFile,
+    type: "file",
+    onChange: handleSetFile,
     hidden: hidden
   })));
 }
@@ -2483,7 +2491,8 @@ InputField.propTypes = {
   placeholder: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   className: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   disabled: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
-  type: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string
+  type: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
+  debounce: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object
 };
 InputField.defaultProps = {
   label: '',
@@ -2491,8 +2500,10 @@ InputField.defaultProps = {
   placeholder: '',
   className: 'text-input',
   disabled: false,
-  type: 'text'
+  type: 'text',
+  debounce: null
 };
+var debounceTimeout = null;
 
 function InputField(props) {
   var form = props.form,
@@ -2502,11 +2513,21 @@ function InputField(props) {
       placeholder = props.placeholder,
       className = props.className,
       disabled = props.disabled,
-      type = props.type;
+      type = props.type,
+      debounce = props.debounce;
   var name = field.name;
   var errors = form.errors,
       touched = form.touched;
   var hasError = errors[name] && touched[name];
+
+  if (debounce !== null) {
+    clearTimeout(debounceTimeout);
+    console.log('rerednder');
+    debounceTimeout = setTimeout(function () {
+      return debounce.callback(field.value);
+    }, debounce.ms);
+  }
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group mb1"
   }, label && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {

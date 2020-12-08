@@ -99,12 +99,24 @@
             .upload-form {
                 .form {
 
+                    .button-group {
+                        width: 100%;
+                        display:grid;
+                        grid-template-columns: 0.75fr 0.25fr;
+                        grid-gap: 10px;
+                        margin-bottom: 20px;
+                        .submit, .reset {
+                            height: 50px;
+                            font-size: 1.75em;
+                        }
+                    }
+
                     input,textarea,select {
                         margin-top: 8px;
                     }
 
                     textarea {
-                        resize: vertical;
+                        resize: none;
                         height: 100px;
                         padding-top: 5px;
                         &::placeholder {
@@ -113,9 +125,42 @@
                     }
 
                     .split {
-                        // display:grid; // check React code
+                        display:grid; // check React code
                         grid-template-columns: 1fr 1fr;
                         grid-gap: 10px;
+
+                        .tags {
+                            font-style: italic;
+                            > small {
+                                display: block;
+                            }
+                            .caption {
+                                margin-bottom: 15px;
+                                span {
+                                    border-radius: 0.25em;
+                                    text-transform: uppercase;
+                                    background-color: #ff7e06;
+                                    color: #D9D9D9;
+                                    font-size: 0.75em;
+                                    padding: 3px 5px 3px 5px;
+                                    font-style: normal !important;
+                                    font-weight: bold;
+                                }
+                            }
+
+                            .tags-list {
+                                font-style: normal;
+                                .tag {
+                                    border-radius: 0.25em;
+                                    display: inline-block;
+                                    padding: 3px 5px 3px 5px;
+                                    background: #212121;
+                                    color:#D9D9D9;
+                                    margin-right: 5px;
+                                    margin-bottom: 5px;
+                                }
+                            }
+                        }
                     }
 
                     .upload-image {

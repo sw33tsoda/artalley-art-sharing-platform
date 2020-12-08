@@ -9,7 +9,6 @@ FileUploader.propTypes = {
     labelClassName: PropTypes.string,
     className:  PropTypes.string,
     disabled:   PropTypes.bool,
-    type:   PropTypes.string,
     setFile: PropTypes.func.isRequired,
     hidden: PropTypes.bool,
 }
@@ -19,15 +18,22 @@ FileUploader.defaultProps = {
     labelClassName: 'label',
     className:  'file-input',
     disabled:   false,
-    type:   'file',
     setFile:    null,
     hidden: false,
 }
 
 
 function FileUploader(props) {
-    const { form,hidden,field,label,labelClassName,className,disabled,type,setFile } = props;
+    const { form,hidden,field,label,labelClassName,className,disabled,setFile,setFieldValue } = props;
     const { name } = field;
+
+    const handleSetFile = (event) => {
+        const file = event.target.files[0];
+        setFile(file);
+        setFieldValue('art',{tes:'worked'});
+    }
+
+    ///////////////////// fixx
 
     return (
         <div className="form-group">
@@ -42,8 +48,8 @@ function FileUploader(props) {
                 {...field}
                 className={className}
                 disabled={disabled}
-                type={type}
-                onChange={setFile}
+                type='file'
+                onChange={handleSetFile}
                 hidden={hidden}
             />
         </div>

@@ -10,6 +10,7 @@ TextareaField.propTypes = {
     placeholder:    PropTypes.string,
     className:  PropTypes.string,
     disabled:   PropTypes.bool,
+    formErrorClass: PropTypes.string,
 }
 
 TextareaField.defaultProps = {
@@ -18,11 +19,11 @@ TextareaField.defaultProps = {
     placeholder:    '',
     className:  'text-input',
     disabled:   false,
-
+    formErrorClass: 'form-error',
 }
 
 function TextareaField(props) {
-    const {form,field,label,labelClassName,placeholder,className,disabled,rows,cols} = props;
+    const {form,field,label,labelClassName,placeholder,className,disabled,formErrorClass} = props;
     const {name} = field;
     const {errors,touched} = form;
     const hasError = errors[name] && touched[name];
@@ -38,7 +39,7 @@ function TextareaField(props) {
                 placeholder={placeholder}
                 disabled={disabled}
             />
-            {hasError && <small className="form-error">{errors[name]}</small>}
+            {hasError && <small className={formErrorClass}>{errors[name]}</small>}
         </div>
     );
 }

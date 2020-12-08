@@ -944,7 +944,8 @@ InputField.propTypes = {
   placeholder: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   className: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   disabled: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
-  type: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string
+  type: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
+  debounce: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object
 };
 InputField.defaultProps = {
   label: '',
@@ -952,8 +953,10 @@ InputField.defaultProps = {
   placeholder: '',
   className: 'text-input',
   disabled: false,
-  type: 'text'
+  type: 'text',
+  debounce: null
 };
+var debounceTimeout = null;
 
 function InputField(props) {
   var form = props.form,
@@ -963,11 +966,21 @@ function InputField(props) {
       placeholder = props.placeholder,
       className = props.className,
       disabled = props.disabled,
-      type = props.type;
+      type = props.type,
+      debounce = props.debounce;
   var name = field.name;
   var errors = form.errors,
       touched = form.touched;
   var hasError = errors[name] && touched[name];
+
+  if (debounce !== null) {
+    clearTimeout(debounceTimeout);
+    console.log('rerednder');
+    debounceTimeout = setTimeout(function () {
+      return debounce.callback(field.value);
+    }, debounce.ms);
+  }
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group mb1"
   }, label && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {

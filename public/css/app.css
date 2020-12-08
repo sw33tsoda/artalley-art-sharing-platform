@@ -12,6 +12,12 @@ body {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
+.hide {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+}
+
 .label {
   font-weight: bold;
   font-size: 0.85em;
@@ -101,7 +107,7 @@ body {
 .light {
   background: linear-gradient(#C4C4C4, #BABABA);
   background-color: #C4C4C4;
-  border: 1px solid #3B3B3B;
+  border: 0px solid #3B3B3B;
 }
 
 .light:hover {
@@ -336,6 +342,10 @@ body {
     width: 100%;
     float: none;
   }
+}
+
+.community {
+  height: 5000px;
 }
 
 .community .header {
@@ -605,6 +615,20 @@ body {
   padding-bottom: 10px;
 }
 
+.community .body .upload .upload-area .upload-single-art .upload-form .form .button-group {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 0.75fr 0.25fr;
+  grid-gap: 10px;
+  margin-bottom: 20px;
+}
+
+.community .body .upload .upload-area .upload-single-art .upload-form .form .button-group .submit,
+.community .body .upload .upload-area .upload-single-art .upload-form .form .button-group .reset {
+  height: 50px;
+  font-size: 1.75em;
+}
+
 .community .body .upload .upload-area .upload-single-art .upload-form .form input,
 .community .body .upload .upload-area .upload-single-art .upload-form .form textarea,
 .community .body .upload .upload-area .upload-single-art .upload-form .form select {
@@ -612,7 +636,7 @@ body {
 }
 
 .community .body .upload .upload-area .upload-single-art .upload-form .form textarea {
-  resize: vertical;
+  resize: none;
   height: 100px;
   padding-top: 5px;
 }
@@ -630,8 +654,46 @@ body {
 }
 
 .community .body .upload .upload-area .upload-single-art .upload-form .form .split {
+  display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
+}
+
+.community .body .upload .upload-area .upload-single-art .upload-form .form .split .tags {
+  font-style: italic;
+}
+
+.community .body .upload .upload-area .upload-single-art .upload-form .form .split .tags > small {
+  display: block;
+}
+
+.community .body .upload .upload-area .upload-single-art .upload-form .form .split .tags .caption {
+  margin-bottom: 15px;
+}
+
+.community .body .upload .upload-area .upload-single-art .upload-form .form .split .tags .caption span {
+  border-radius: 0.25em;
+  text-transform: uppercase;
+  background-color: #ff7e06;
+  color: #D9D9D9;
+  font-size: 0.75em;
+  padding: 3px 5px 3px 5px;
+  font-style: normal !important;
+  font-weight: bold;
+}
+
+.community .body .upload .upload-area .upload-single-art .upload-form .form .split .tags .tags-list {
+  font-style: normal;
+}
+
+.community .body .upload .upload-area .upload-single-art .upload-form .form .split .tags .tags-list .tag {
+  border-radius: 0.25em;
+  display: inline-block;
+  padding: 3px 5px 3px 5px;
+  background: #212121;
+  color: #D9D9D9;
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 .community .body .upload .upload-area .upload-single-art .upload-form .form .upload-image {

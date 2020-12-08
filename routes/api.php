@@ -39,6 +39,7 @@ Route::group(['prefix' => '/community/resources'],function(){
     // [PUBLIC] ART CHANNELS
     Route::group(['prefix' => '/art_channels'], function() {
         Route::get('/upload-select-list', [\App\Http\Controllers\Community\ArtChannelsController::class, 'uploadSelectList']);
+        Route::middleware('auth:api')->post('/upload-new-single-art',[\App\Http\Controllers\Community\ArtsController::class, 'uploadNewSingleArt']);
     });
 
     // [AUTH ONLY]
