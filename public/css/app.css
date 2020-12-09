@@ -704,6 +704,11 @@ body {
   background: #bbbbbb;
 }
 
+.community .body .upload .upload-area .upload-single-art .upload-form .form .upload-image .error {
+  color: crimson;
+  font-weight: bold;
+}
+
 .community .body .upload .upload-area .upload-single-art .upload-form .form .upload-image .preview-image {
   height: 500px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);

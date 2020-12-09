@@ -57,8 +57,7 @@ function UploadSingleArt() {
         // Xử lý Data chuẩn bị gửi đi
         const data = new FormData();
         for (const key in values) {
-            if (key == 'art') data.append(key,file); 
-            else data.append(key,values[key]);
+            data.append(key,values[key]);
         }
 
         const newTags = values.tags.split(',').filter(tag => tag !== '').join(',');
@@ -86,9 +85,9 @@ function UploadSingleArt() {
 
     // File Uplaod
     const [file,setFile] = useState([]);
-    const handleSetFile = (theFile) => {
-        const chosenFile = theFile;
-        setFile(chosenFile);
+    const handleSetFile = (selectedFile) => {
+        const theFile = selectedFile;
+        setFile(theFile);
     }
     
     // File Preview
@@ -106,145 +105,165 @@ function UploadSingleArt() {
             <h1 className="title">Tác phẩm đơn</h1>
             <div className="upload-form">
                 <Formik initialValues={initialValues} onSubmit={handleSubmitForm} validationSchema={SingleArtValidation}>
-                    {({handleSubmit,values,errors,setFieldValue}) => {
-                        console.log(values,errors);
-
-                        const handleSetFieldValue = (field,value) => {
-                            setFieldValue(field,value);
-                        }
-
+                    {({handleSubmit,errors,resetForm,isSubmitting}) => {
+                        console.log(errors);
                         return (
-                            <form className="form" onSubmit={handleSubmit}> 
-                                <div className="button-group">
-                                    <button className={classnames('submit button success',{hide: _.isEmpty(file.name)})} type="submit">Bất đầu Upload <i className="fas fa-rocket"></i></button>
-                                    <button className={classnames('reset button light',{hide: _.isEmpty(file.name)})} type="submit"><i className="fas fa-undo"></i></button>
-                                </div>
-                                <div className={classnames('split',{hide: _.isEmpty(file.name)})}>
-                                    <FastField
-                                        name="title"
-                                        component={InputField}
-
-                                        label="Tiêu đề"
-                                        labelClassName="label"
-                                        className="text-input"
-                                        disabled={false}
-                                        placeholder="Nhập tiêu đề" 
-                                    />
-
-                                    <FastField
-                                        name="caption"
-                                        component={InputField}
-
-                                        label="Chú thích"
-                                        labelClassName="label"
-                                        className="text-input"
-                                        disabled={false}
-                                        placeholder="Nhập chú thích" 
-                                    />
-                                </div>
-
-                                <div className="upload-image">
-                                    {!_.isEmpty(file.name) ? (
-                                        <img className="preview-image" src={preview}/>
-                                    ) : (
-                                        <div className="icon">
-                                            <label htmlFor="art">
-                                                <i className="fas fa-upload"></i>
-                                                <p>Nhấn vào đây</p>
-                                            </label>
-                                        </div>
-                                    )}
-                                </div>
-
-                                <div className={classnames('split',{hide: _.isEmpty(file.name)})}>
-                                    <div className="description">
-                                        <FastField
-                                            name='description'
-                                            component={TextareaField}
-
-                                            label="Mô tả"
-                                            labelClassName="label"
-                                            className="text-input"
-                                            disabled={false}
-                                            placeholder="Nhập mô tả (không bắt buộc)"
-                                            formErrorClass="form-error textarea-error"
-                                        />
+                            isSubmitting ? (
+                                <React.Fragment>
+                                    <i className="fas fa-circle-notch fa-spin"></i>
+                                </React.Fragment>
+                            ) : (
+                                <form className="form" onSubmit={handleSubmit}> 
+                                    <div className={classnames('button-group',{hide: _.isEmpty(file.name) || !_.isEmpty(errors['art'])})}>
+                                        <button className='submit button success' type="submit">{isSubmitting ? (
+                                            <React.Fragment>
+                                                <i className="fas fa-circle-notch fa-spin"></i>
+                                            </React.Fragment>
+                                        ) : (
+                                            <React.Fragment>
+                                                <i className="fas fa-paper-plane"></i>
+                                            </React.Fragment>
+                                        )} </button>
+                                        <button className='reset button light' onClick={resetForm}><i className="fas fa-undo"></i></button>
                                     </div>
-                                    <div className="privacy-and-dimensional">
+                                    <div className={classnames('split',{hide: _.isEmpty(file.name) || !_.isEmpty(errors['art'])})}>
                                         <FastField
-                                            name='dimensional'
-                                            component={SelectField}
-
-                                            label="Không gian"
-                                            labelClassName="label"
-                                            className="text-input"
-                                            disabled={false}
-                                            options={dimensionalOptions}
-                                        />
-
-                                        {artChannelOptions.length > 0 && <FastField
-                                            name="channel"
-                                            component={SelectField}
-
-                                            label="Kênh ảnh"
-                                            labelClassName="label"
-                                            className="text-input"
-                                            disabled={false}
-                                            options={artChannelOptions}
-                                        />}
-                                    </div>
-                                </div>
-
-                                <div className={classnames('split',{hide: _.isEmpty(file.name)})}>
-                                    
-                                    <FastField
-                                        name='privacy'
-                                        component={SelectField}
-
-                                        label="Ai có thể xem?"
-                                        labelClassName="label"
-                                        className="text-input"
-                                        disabled={false}
-                                        options={privacyOptions}
-                                    />
-
-                                    
-                                    
-                                    <div>
-                                        <FastField
-                                            name="tags"
+                                            name="title"
                                             component={InputField}
 
-                                            label="Thẻ"
+                                            label="Tiêu đề"
                                             labelClassName="label"
                                             className="text-input"
                                             disabled={false}
-                                            placeholder="Nhập thẻ"
-                                            debounce={tagsDebounce}
+                                            placeholder="Nhập tiêu đề" 
                                         />
 
-                                        <legend className="tags">
-                                            <small className="caption"><span>Chú thích</span> Sử dụng thẻ để tăng sự tương tác giữa tác phẩm với người xem</small>
+                                        <FastField
+                                            name="caption"
+                                            component={InputField}
 
-                                            <small className="tags-list">{tags[0] !== '' ? tags.map((tag,index) => tag !== '' && (
-                                                <div className="tag" key={index}>{tag}</div>
-                                            )) : 'Chưa có thẻ nào.'}</small>
-                                        </legend>
+                                            label="Chú thích"
+                                            labelClassName="label"
+                                            className="text-input"
+                                            disabled={false}
+                                            placeholder="Nhập chú thích" 
+                                        />
                                     </div>
-                                </div>
+
+                                    <div className="upload-image">
+                                        {!_.isEmpty(file.name) ? (
+                                            <React.Fragment>
+                                                {!_.isEmpty(errors['art']) ? (
+                                                    <React.Fragment>
+                                                        <p className="error">{errors['art']}</p>
+                                                        <div className="icon">
+                                                            <label htmlFor="art">
+                                                                <i className="fas fa-upload"></i>
+                                                                <p>Chọn File khác</p>
+                                                            </label>
+                                                        </div>
+                                                    </React.Fragment>
+                                                ) : <img className="preview-image" src={preview}/>}
+                                            </React.Fragment>
+                                        ) : (
+                                            <div className="icon">
+                                                <label htmlFor="art">
+                                                    <i className="fas fa-upload"></i>
+                                                    <p>Nhấn vào đây</p>
+                                                </label>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className={classnames('split',{hide: _.isEmpty(file.name) || !_.isEmpty(errors['art'])})}>
+                                        <div className="description">
+                                            <FastField
+                                                name='description'
+                                                component={TextareaField}
+
+                                                label="Mô tả"
+                                                labelClassName="label"
+                                                className="text-input"
+                                                disabled={false}
+                                                placeholder="Nhập mô tả (không bắt buộc)"
+                                                formErrorClass="form-error textarea-error"
+                                            />
+                                        </div>
+                                        <div className="privacy-and-dimensional">
+                                            <FastField
+                                                name='dimensional'
+                                                component={SelectField}
+
+                                                label="Không gian"
+                                                labelClassName="label"
+                                                className="text-input"
+                                                disabled={false}
+                                                options={dimensionalOptions}
+                                            />
+
+                                            {artChannelOptions.length > 0 && <FastField
+                                                name="channel"
+                                                component={SelectField}
+
+                                                label="Kênh ảnh"
+                                                labelClassName="label"
+                                                className="text-input"
+                                                disabled={false}
+                                                options={artChannelOptions}
+                                            />}
+                                        </div>
+                                    </div>
+
+                                    <div className={classnames('split',{hide: _.isEmpty(file.name) || !_.isEmpty(errors['art'])})}>
+                                        
+                                        <FastField
+                                            name='privacy'
+                                            component={SelectField}
+
+                                            label="Ai có thể xem?"
+                                            labelClassName="label"
+                                            className="text-input"
+                                            disabled={false}
+                                            options={privacyOptions}
+                                        />
+
+                                        
+                                        
+                                        <div>
+                                            <FastField
+                                                name="tags"
+                                                component={InputField}
+
+                                                label="Thẻ"
+                                                labelClassName="label"
+                                                className="text-input"
+                                                disabled={false}
+                                                placeholder="Nhập thẻ"
+                                                debounce={tagsDebounce}
+                                            />
+
+                                            <legend className="tags">
+                                                <small className="caption"><span>Chú thích</span> Sử dụng thẻ để tăng sự tương tác giữa tác phẩm với người xem</small>
+
+                                                <small className="tags-list">{tags[0] !== '' ? tags.map((tag,index) => tag !== '' && (
+                                                    <div className="tag" key={index}>{tag}</div>
+                                                )) : 'Chưa có thẻ nào.'}</small>
+                                            </legend>
+                                        </div>
+                                    </div>
 
 
-                                <FastField
-                                    name='art'
-                                    component={FileUploader}
-                                    
-                                    disabled={false}
-                                    setFile={handleSetFile}
-                                    setFieldValue={handleSetFieldValue}
-
-                                    hidden={true}
-                                />
-                            </form>
+                                    <FastField
+                                        name='file'
+                                        component={FileUploader}
+                                        
+                                        fieldName='art'
+                                        disabled={false}
+                                        setFile={handleSetFile}
+                                        hidden={true}
+                                    />
+                                </form>
+                            )
                         );
                     }}
                 </Formik>

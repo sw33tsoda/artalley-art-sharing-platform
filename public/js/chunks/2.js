@@ -2410,7 +2410,8 @@ FileUploader.propTypes = {
   className: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   disabled: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
   setFile: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired,
-  hidden: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool
+  hidden: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
+  fieldName: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired
 };
 FileUploader.defaultProps = {
   label: '',
@@ -2418,7 +2419,8 @@ FileUploader.defaultProps = {
   className: 'file-input',
   disabled: false,
   setFile: null,
-  hidden: false
+  hidden: false,
+  fieldName: ''
 };
 
 function FileUploader(props) {
@@ -2430,17 +2432,13 @@ function FileUploader(props) {
       className = props.className,
       disabled = props.disabled,
       setFile = props.setFile,
-      setFieldValue = props.setFieldValue;
-  var name = field.name;
+      fieldName = props.fieldName; // const { name } = field;
 
   var handleSetFile = function handleSetFile(event) {
     var file = event.target.files[0];
     setFile(file);
-    setFieldValue('art', {
-      tes: 'worked'
-    });
-  }; ///////////////////// fixx
-
+    form.setFieldValue(fieldName, file);
+  };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
@@ -2449,10 +2447,10 @@ function FileUploader(props) {
   }, label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), label && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "upload-button"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-    htmlFor: name
+    htmlFor: fieldName
   }, "T\u1EA2I L\xCAN")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", _extends({
-    name: name,
-    id: name
+    name: fieldName,
+    id: fieldName
   }, field, {
     className: className,
     disabled: disabled,

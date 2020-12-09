@@ -170,6 +170,12 @@
                         padding: 15px;
                         margin-bottom: 5px;
                         background:#bbbbbb;
+
+                        .error {
+                            color:crimson;
+                            font-weight: bold;
+                        }
+
                         .preview-image {
                             // width: 100%;
                             height: 500px;

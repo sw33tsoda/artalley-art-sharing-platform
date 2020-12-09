@@ -140,7 +140,7 @@ function UploadSingleArt() {
               data = new FormData();
 
               for (key in values) {
-                if (key == 'art') data.append(key, file);else data.append(key, values[key]);
+                data.append(key, values[key]);
               }
 
               newTags = values.tags.split(',').filter(function (tag) {
@@ -184,9 +184,9 @@ function UploadSingleArt() {
       file = _useState6[0],
       setFile = _useState6[1];
 
-  var handleSetFile = function handleSetFile(theFile) {
-    var chosenFile = theFile;
-    setFile(chosenFile);
+  var handleSetFile = function handleSetFile(selectedFile) {
+    var theFile = selectedFile;
+    setFile(theFile);
   }; // File Preview
 
 
@@ -216,37 +216,34 @@ function UploadSingleArt() {
     validationSchema: _Validations__WEBPACK_IMPORTED_MODULE_10__["SingleArtValidation"]
   }, function (_ref3) {
     var handleSubmit = _ref3.handleSubmit,
-        values = _ref3.values,
         errors = _ref3.errors,
-        setFieldValue = _ref3.setFieldValue;
-    console.log(values, errors);
-
-    var handleSetFieldValue = function handleSetFieldValue(field, value) {
-      setFieldValue(field, value);
-    };
-
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("form", {
+        resetForm = _ref3.resetForm,
+        isSubmitting = _ref3.isSubmitting;
+    console.log(errors);
+    return isSubmitting ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+      className: "fas fa-circle-notch fa-spin"
+    })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("form", {
       className: "form",
       onSubmit: handleSubmit
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-      className: "button-group"
+      className: classnames__WEBPACK_IMPORTED_MODULE_9___default()('button-group', {
+        hide: lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(file.name) || !lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(errors['art'])
+      })
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
-      className: classnames__WEBPACK_IMPORTED_MODULE_9___default()('submit button success', {
-        hide: lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(file.name)
-      }),
+      className: "submit button success",
       type: "submit"
-    }, "B\u1EA5t \u0111\u1EA7u Upload ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
-      className: "fas fa-rocket"
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
-      className: classnames__WEBPACK_IMPORTED_MODULE_9___default()('reset button light', {
-        hide: lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(file.name)
-      }),
-      type: "submit"
+    }, isSubmitting ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+      className: "fas fa-circle-notch fa-spin"
+    })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+      className: "fas fa-paper-plane"
+    })), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
+      className: "reset button light",
+      onClick: resetForm
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
       className: "fas fa-undo"
     }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: classnames__WEBPACK_IMPORTED_MODULE_9___default()('split', {
-        hide: lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(file.name)
+        hide: lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(file.name) || !lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(errors['art'])
       })
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_1__["FastField"], {
       name: "title",
@@ -266,10 +263,18 @@ function UploadSingleArt() {
       placeholder: "Nh\u1EADp ch\xFA th\xEDch"
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "upload-image"
-    }, !lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(file.name) ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
+    }, !lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(file.name) ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, !lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(errors['art']) ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
+      className: "error"
+    }, errors['art']), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "icon"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("label", {
+      htmlFor: "art"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+      className: "fas fa-upload"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, "Ch\u1ECDn File kh\xE1c")))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
       className: "preview-image",
       src: preview
-    }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "icon"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("label", {
       htmlFor: "art"
@@ -277,7 +282,7 @@ function UploadSingleArt() {
       className: "fas fa-upload"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, "Nh\u1EA5n v\xE0o \u0111\xE2y")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: classnames__WEBPACK_IMPORTED_MODULE_9___default()('split', {
-        hide: lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(file.name)
+        hide: lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(file.name) || !lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(errors['art'])
       })
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "description"
@@ -310,7 +315,7 @@ function UploadSingleArt() {
       options: artChannelOptions
     }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: classnames__WEBPACK_IMPORTED_MODULE_9___default()('split', {
-        hide: lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(file.name)
+        hide: lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(file.name) || !lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(errors['art'])
       })
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_1__["FastField"], {
       name: "privacy",
@@ -341,11 +346,11 @@ function UploadSingleArt() {
         key: index
       }, tag);
     }) : 'Chưa có thẻ nào.')))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_1__["FastField"], {
-      name: "art",
+      name: "file",
       component: _CustomFields_FileUploader__WEBPACK_IMPORTED_MODULE_4__["default"],
+      fieldName: "art",
       disabled: false,
       setFile: handleSetFile,
-      setFieldValue: handleSetFieldValue,
       hidden: true
     }));
   })));
@@ -380,7 +385,8 @@ FileUploader.propTypes = {
   className: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   disabled: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
   setFile: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired,
-  hidden: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool
+  hidden: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
+  fieldName: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired
 };
 FileUploader.defaultProps = {
   label: '',
@@ -388,7 +394,8 @@ FileUploader.defaultProps = {
   className: 'file-input',
   disabled: false,
   setFile: null,
-  hidden: false
+  hidden: false,
+  fieldName: ''
 };
 
 function FileUploader(props) {
@@ -400,17 +407,13 @@ function FileUploader(props) {
       className = props.className,
       disabled = props.disabled,
       setFile = props.setFile,
-      setFieldValue = props.setFieldValue;
-  var name = field.name;
+      fieldName = props.fieldName; // const { name } = field;
 
   var handleSetFile = function handleSetFile(event) {
     var file = event.target.files[0];
     setFile(file);
-    setFieldValue('art', {
-      tes: 'worked'
-    });
-  }; ///////////////////// fixx
-
+    form.setFieldValue(fieldName, file);
+  };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
@@ -419,10 +422,10 @@ function FileUploader(props) {
   }, label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), label && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "upload-button"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-    htmlFor: name
+    htmlFor: fieldName
   }, "T\u1EA2I L\xCAN")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", _extends({
-    name: name,
-    id: name
+    name: fieldName,
+    id: fieldName
   }, field, {
     className: className,
     disabled: disabled,
