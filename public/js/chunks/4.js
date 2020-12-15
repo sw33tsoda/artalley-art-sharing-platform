@@ -54,26 +54,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
  // import { useSelector } from 'react-redux';
 
 
-var dimensionalOptions = [{
-  label: 'Chưa xác định',
-  value: 0
-}, {
-  label: '2D',
-  value: 1
-}, {
-  label: '2.5D',
-  value: 2
-}, {
-  label: '3D',
-  value: 3
-}];
-var privacyOptions = [{
-  label: 'Mọi người',
-  value: 1
-}, {
-  label: 'Chỉ mình tôi',
-  value: 0
-}];
 
 function UploadSingleArt() {
   // Danh sách thẻ (tags)
@@ -91,11 +71,25 @@ function UploadSingleArt() {
     ms: 250
   }; // Danh sách kênh ảnh
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
+    artChannels: [],
+    dimensions: [],
+    privacies: []
+  }),
       _useState4 = _slicedToArray(_useState3, 2),
-      artChannelOptions = _useState4[0],
-      setArtChannelOptions = _useState4[1];
+      optionsList = _useState4[0],
+      setOptionsList = _useState4[1];
 
+  var initialValues = {
+    title: '',
+    caption: '',
+    description: '',
+    tags: '',
+    dimensional: 1,
+    privacy: 1,
+    channel: 1,
+    art: undefined
+  };
   Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
     var getArtChannelsList = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -104,10 +98,17 @@ function UploadSingleArt() {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_8___default.a.get('/public/api/community/resources/art_channels/upload-select-list').then(function (response) {
-                  var list = response.data.list; // console.log(response);
+                return axios__WEBPACK_IMPORTED_MODULE_8___default.a.get('/public/api/community/resources/interface/upload-select-list').then(function (response) {
+                  var _response$data = response.data,
+                      art_channels = _response$data.art_channels,
+                      privacies = _response$data.privacies,
+                      dimensions = _response$data.dimensions; // console.log(response);
 
-                  setArtChannelOptions(list);
+                  setOptionsList({
+                    artChannels: art_channels,
+                    privacies: privacies,
+                    dimensions: dimensions
+                  });
                 })["catch"](function (error) {
                   var list = error.response.data.list; // console.log(error.response);
                 });
@@ -145,11 +146,11 @@ function UploadSingleArt() {
 
               newTags = values.tags.split(',').filter(function (tag) {
                 return tag !== '';
-              }).join(',');
-              data.set('tags', newTags); // Gọi Api
+              });
+              data.set('tags', JSON.stringify(newTags)); // Gọi Api
 
               _context2.next = 7;
-              return axios__WEBPACK_IMPORTED_MODULE_8___default.a.post("/public/api/community/resources/art_channels/upload-new-single-art?api_token=".concat(apiToken), data).then(function (response) {
+              return axios__WEBPACK_IMPORTED_MODULE_8___default.a.post("/public/api/community/resources/arts?api_token=".concat(apiToken), data).then(function (response) {
                 console.log(response);
               })["catch"](function (error) {
                 console.log(error.response);
@@ -166,18 +167,8 @@ function UploadSingleArt() {
     return function handleSubmitForm(_x) {
       return _ref2.apply(this, arguments);
     };
-  }();
+  }(); // File Uplaod
 
-  var initialValues = {
-    title: '',
-    caption: '',
-    description: '',
-    dimensional: 0,
-    privacy: 1,
-    channel: 0,
-    tags: '',
-    art: undefined
-  }; // File Uplaod
 
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
       _useState6 = _slicedToArray(_useState5, 2),
@@ -219,7 +210,6 @@ function UploadSingleArt() {
         errors = _ref3.errors,
         resetForm = _ref3.resetForm,
         isSubmitting = _ref3.isSubmitting;
-    console.log(errors);
     return isSubmitting ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
       className: "fas fa-circle-notch fa-spin"
     })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("form", {
@@ -297,34 +287,34 @@ function UploadSingleArt() {
       formErrorClass: "form-error textarea-error"
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "privacy-and-dimensional"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_1__["FastField"], {
+    }, optionsList.dimensions.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_1__["FastField"], {
       name: "dimensional",
       component: _CustomFields_SelectField__WEBPACK_IMPORTED_MODULE_5__["default"],
       label: "Kh\xF4ng gian",
       labelClassName: "label",
       className: "text-input",
       disabled: false,
-      options: dimensionalOptions
-    }), artChannelOptions.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_1__["FastField"], {
+      options: optionsList.dimensions
+    }), optionsList.artChannels.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_1__["FastField"], {
       name: "channel",
       component: _CustomFields_SelectField__WEBPACK_IMPORTED_MODULE_5__["default"],
       label: "K\xEAnh \u1EA3nh",
       labelClassName: "label",
       className: "text-input",
       disabled: false,
-      options: artChannelOptions
+      options: optionsList.artChannels
     }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: classnames__WEBPACK_IMPORTED_MODULE_9___default()('split', {
         hide: lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(file.name) || !lodash__WEBPACK_IMPORTED_MODULE_7___default.a.isEmpty(errors['art'])
       })
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_1__["FastField"], {
+    }, optionsList.privacies.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_1__["FastField"], {
       name: "privacy",
       component: _CustomFields_SelectField__WEBPACK_IMPORTED_MODULE_5__["default"],
       label: "Ai c\xF3 th\u1EC3 xem?",
       labelClassName: "label",
       className: "text-input",
       disabled: false,
-      options: privacyOptions
+      options: optionsList.privacies
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_1__["FastField"], {
       name: "tags",
       component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -595,7 +585,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SingleArtValidation", function() { return SingleArtValidation; });
 /* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! yup */ "./node_modules/yup/es/index.js");
 
-var FILE_SIZE = 160 * 1024;
+var KILOBYTES = 2048;
+var FILE_SIZE = KILOBYTES * 1024;
 var SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
 var SingleArtValidation = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({
   title: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(100, 'Tối đa 100 ký tự').required('Không được bỏ trống'),

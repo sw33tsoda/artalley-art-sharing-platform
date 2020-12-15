@@ -520,12 +520,20 @@ body {
   color: white !important;
 }
 
+.community .body {
+  padding-top: 25px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: saturation;
+}
+
 .community .body .upload {
   max-width: 1150px;
   margin: auto;
 }
 
 .community .body .upload .page-title {
+  margin-top: 0;
   color: #212121;
 }
 
@@ -735,6 +743,157 @@ body {
   margin-top: 10px;
   text-transform: uppercase;
   font-weight: bold;
+}
+
+.community .body .management .title {
+  max-width: 1150px;
+  margin: auto;
+}
+
+.community .body .management .title .page-title {
+  margin-top: 0;
+  color: #212121;
+}
+
+.community .body .management .arts-list {
+  line-height: 0;
+  -moz-column-count: 7;
+       column-count: 7;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+  padding: 10px;
+}
+
+.community .body .management .arts-list .art {
+  padding: 0px;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+.community .body .management .arts-list .art img {
+  cursor: pointer;
+  border-radius: 0.1em;
+  width: 100% !important;
+  height: auto !important;
+}
+
+.community .body .show-art .header {
+  max-width: 1150px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-right: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.community .body .show-art .header h1 {
+  margin: 0;
+}
+
+.community .body .show-art .header .genres {
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.community .body .show-art .header .genres .channel {
+  flex: 0 1 auto;
+  width: auto;
+}
+
+.community .body .show-art .header .genres .channel h1 {
+  margin: 0;
+}
+
+.community .body .show-art .header .genres .dimensional {
+  flex: 0 0 auto;
+  height: 50px;
+  width: 50px;
+  background: #212121;
+  text-align: center;
+  display: flex;
+  border-radius: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.community .body .show-art .header .genres .dimensional h1 {
+  font-size: 1.25em;
+  color: #d9d9d9;
+  margin: 0;
+}
+
+.community .body .show-art .art-wrapper {
+  background-color: #212121;
+  padding: 40px 0 30px 0;
+}
+
+.community .body .show-art .art-wrapper .art {
+  text-align: center;
+  margin: auto;
+}
+
+.community .body .show-art .art-wrapper .art img {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+  height: 700px;
+}
+
+.community .body .show-art .art-wrapper .caption {
+  width: 1150px;
+  text-align: center;
+  margin: auto;
+  color: #d9d9d9;
+}
+
+.community .body .show-art .footer {
+  padding: 20px 0 20px 0;
+  width: 1150px;
+  margin: auto;
+}
+
+.community .body .show-art .footer .description {
+  font-size: 0.75em;
+  text-align: justify;
+  text-indent: 25px;
+}
+
+.community .body .show-art .footer .artist {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -moz-column-gap: 25px;
+       column-gap: 25px;
+}
+
+.community .body .show-art .footer .artist .profile-picture {
+  background: #212121;
+  width: 125px;
+  height: 125px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.community .body .show-art .footer .artist .profile-picture img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.community .body .show-art .footer .artist .profile-picture i {
+  font-size: 80px;
+  color: #d9d9d9;
+}
+
+.community .body .show-art .footer .artist .name {
+  font-size: 2em;
 }
 
 .user-crud {

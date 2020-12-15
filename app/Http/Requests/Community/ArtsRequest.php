@@ -24,14 +24,14 @@ class ArtsRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:2|max:100',
-            'caption' => 'min:2|max:300|nullable',
-            'description' => 'min:2|1500|nullable',
-            'dimensional' => 'required',
-            'privacy' => 'required',
-            'channel' => 'required',
-            'art' => 'required|max:2048|file|mimes:jpeg,png,jpg',
-            'tags' => 'nullable'
+            // 'title' => 'required|min:2|max:100',
+            // 'caption' => 'min:2|max:300|nullable',
+            // 'description' => 'min:2|1500|nullable',
+            // 'dimensional' => 'required',
+            // 'privacy' => 'required',
+            // 'channel' => 'required',
+            // 'art' => 'required|max:2048|file|mimes:jpeg,png,jpg',
+            // 'tags' => 'nullable'
         ];
     }
 

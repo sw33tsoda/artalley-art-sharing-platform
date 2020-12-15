@@ -10,18 +10,6 @@ import classnames from 'classnames';
 // import { useSelector } from 'react-redux';
 import { SingleArtValidation } from '../../../../Validations';
 
-const dimensionalOptions = [
-    {label:'Chưa xác định',value:0},
-    {label:'2D',value:1},
-    {label:'2.5D',value:2},
-    {label:'3D',value:3}
-];
-
-const privacyOptions = [
-    {label:'Mọi người',value:1},
-    {label:'Chỉ mình tôi',value:0}
-];
-
 function UploadSingleArt() {
     // Danh sách thẻ (tags)
     const [tags,setTags] = useState([]);
@@ -33,16 +21,35 @@ function UploadSingleArt() {
         },
         ms:250,
     }
-
+    
     // Danh sách kênh ảnh
-    const [artChannelOptions,setArtChannelOptions] = useState([]);
+    const [optionsList,setOptionsList] = useState({
+        artChannels:[],
+        dimensions:[],
+        privacies:[],
+    });
+    
+    let initialValues = {
+        title:'',
+        caption:'',
+        description:'',
+        tags:'',
+        dimensional:1,
+        privacy:1,
+        channel:1,
+        art:undefined,
+    }
 
     useEffect(() => {
         const getArtChannelsList = async () => {
-            await Axios.get('/public/api/community/resources/art_channels/upload-select-list').then(response => {
-                const {data:{list}} = response;
+            await Axios.get('/public/api/community/resources/interface/upload-select-list').then(response => {
+                const {data:{art_channels,privacies,dimensions}} = response;
                 // console.log(response);
-                setArtChannelOptions(list);
+                setOptionsList({
+                    artChannels:art_channels,
+                    privacies:privacies,
+                    dimensions:dimensions
+                });
             }).catch(error => {
                 const {data:{list}} = error.response;
                 // console.log(error.response);
@@ -60,27 +67,17 @@ function UploadSingleArt() {
             data.append(key,values[key]);
         }
 
-        const newTags = values.tags.split(',').filter(tag => tag !== '').join(',');
-        data.set('tags',newTags);
+        const newTags = values.tags.split(',').filter(tag => tag !== '');
+        data.set('tags',JSON.stringify(newTags));
         
         // Gọi Api
-        await Axios.post(`/public/api/community/resources/art_channels/upload-new-single-art?api_token=${apiToken}`,data).then(response => {
+        await Axios.post(`/public/api/community/resources/arts?api_token=${apiToken}`,data).then(response => {
             console.log(response);
         }).catch(error => {
             console.log(error.response);
         });
     }
 
-    const initialValues = {
-        title:'',
-        caption:'',
-        description:'',
-        dimensional:0,
-        privacy:1,
-        channel:0,
-        tags:'',
-        art:undefined,
-    }
 
 
     // File Uplaod
@@ -106,7 +103,6 @@ function UploadSingleArt() {
             <div className="upload-form">
                 <Formik initialValues={initialValues} onSubmit={handleSubmitForm} validationSchema={SingleArtValidation}>
                     {({handleSubmit,errors,resetForm,isSubmitting}) => {
-                        console.log(errors);
                         return (
                             isSubmitting ? (
                                 <React.Fragment>
@@ -190,7 +186,7 @@ function UploadSingleArt() {
                                             />
                                         </div>
                                         <div className="privacy-and-dimensional">
-                                            <FastField
+                                            {optionsList.dimensions.length > 0 && <FastField
                                                 name='dimensional'
                                                 component={SelectField}
 
@@ -198,10 +194,10 @@ function UploadSingleArt() {
                                                 labelClassName="label"
                                                 className="text-input"
                                                 disabled={false}
-                                                options={dimensionalOptions}
-                                            />
+                                                options={optionsList.dimensions}
+                                            />}
 
-                                            {artChannelOptions.length > 0 && <FastField
+                                            {optionsList.artChannels.length > 0 && <FastField
                                                 name="channel"
                                                 component={SelectField}
 
@@ -209,14 +205,14 @@ function UploadSingleArt() {
                                                 labelClassName="label"
                                                 className="text-input"
                                                 disabled={false}
-                                                options={artChannelOptions}
+                                                options={optionsList.artChannels}
                                             />}
                                         </div>
                                     </div>
 
                                     <div className={classnames('split',{hide: _.isEmpty(file.name) || !_.isEmpty(errors['art'])})}>
                                         
-                                        <FastField
+                                        {optionsList.privacies.length > 0 && <FastField
                                             name='privacy'
                                             component={SelectField}
 
@@ -224,8 +220,8 @@ function UploadSingleArt() {
                                             labelClassName="label"
                                             className="text-input"
                                             disabled={false}
-                                            options={privacyOptions}
-                                        />
+                                            options={optionsList.privacies}
+                                        />}
 
                                         
                                         

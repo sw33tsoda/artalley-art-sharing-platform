@@ -138,9 +138,7 @@ function Upload() {
     className: "upload"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
     className: "page-title"
-  }, "Upload"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-    className: "page-path"
-  }, "Qu\u1EA3n l\xFD / Upload t\xE1c ph\u1EA9m"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Upload"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "upload-options"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('option', {

@@ -15,7 +15,11 @@ class ArtChannel extends Model
         'thumbnail',
     ];
 
-    public function posts() {
-        return $this->belongsTo('App\Models\Post','art_channel_id');
+    public function showcases() {
+        return $this->belongsTo('App\Models\Showcase','art_channel_id');
+    }
+
+    public function arts() {
+        return $this->belongsTo('App\Models\Art','art_channel_id');
     }
 }

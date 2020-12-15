@@ -1,5 +1,7 @@
 @import './navbar.scss';
 @import './upload.scss';
+@import './management.scss';
+@import './showArt.scss';
 
 .community {
     height: 5000px;
@@ -15,8 +17,20 @@
     }
 
     .body {
+        padding-top: 25px;
+        background-repeat: no-repeat;
+        background-size:cover;
+        background-blend-mode: saturation;
         .upload {
             @include community-upload;
+        }
+
+        .management {
+            @include community-management;
+        }
+
+        .show-art {
+            @include community-showArt;
         }
     }
 }

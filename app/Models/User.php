@@ -34,6 +34,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        // 'api_token',
     ];
 
     /**
@@ -45,11 +46,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function posts() {
-        return $this->belongsTo('App\Models\Post','user_id');
+    public function showcases() {
+        return $this->hasMany('App\Models\Showcase','user_id','id');
     }
 
     public function arts() {
-        return $this->belongsTo('App\Models\Art','user_id');
+        return $this->hasMany('App\Models\Art','user_id','id');
     }
 }

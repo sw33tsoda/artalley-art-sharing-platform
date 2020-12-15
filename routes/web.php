@@ -30,7 +30,7 @@ Route::get('/playground', function() {
         ];
     }
     $finalList = array_map('newList',$list->toArray());
-    dd($finalList);
+    dd($list->toArray());
 });
 
 Route::get('/{path?}', function () {

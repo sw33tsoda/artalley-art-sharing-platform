@@ -15,6 +15,7 @@ const style = {
     }
 
 }
+
 function Upload() {
     const { url } = useRouteMatch();
     const history = useHistory();
@@ -35,7 +36,7 @@ function Upload() {
     return (
         <div className="upload">
             <h1 className="page-title">Upload</h1>
-            <p className="page-path">Quản lý / Upload tác phẩm</p>
+            {/* <p className="page-path">Quản lý / Upload tác phẩm</p> */}
             <div className="upload-options">
                 <div className={classnames('option',{active : uploadType == 'create-showcase'})} style={style.createShowcase} onClick={handleSelectUploadOption}>
                     <div className="create-showcase">

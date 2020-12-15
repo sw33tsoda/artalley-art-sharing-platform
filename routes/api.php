@@ -36,11 +36,13 @@ Route::group(['prefix' => '/admin/resources','middleware' => 'auth:api'],functio
 // COMMUNITY
 Route::group(['prefix' => '/community/resources'],function(){
 
-    // [PUBLIC] ART CHANNELS
-    Route::group(['prefix' => '/art_channels'], function() {
-        Route::get('/upload-select-list', [\App\Http\Controllers\Community\ArtChannelsController::class, 'uploadSelectList']);
-        Route::middleware('auth:api')->post('/upload-new-single-art',[\App\Http\Controllers\Community\ArtsController::class, 'uploadNewSingleArt']);
+    // [PUBLIC] interface
+    Route::group(['prefix' => '/interface'], function() {
+        Route::get('/upload-select-list', [\App\Http\Controllers\Community\InterfaceController::class, 'uploadSelectList']);
     });
+
+    Route::middleware('auth:api')->apiResource('arts',\App\Http\Controllers\Community\ArtsController::class);
+    Route::get('/arts/get/{id}',[\App\Http\Controllers\Community\ArtsController::class,'show']);
 
     // [AUTH ONLY]
     Route::group(['prefix' => '/auth-only'],function() {

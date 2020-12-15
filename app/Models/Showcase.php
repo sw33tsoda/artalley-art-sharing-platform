@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Showcase extends Model
 {
     use HasFactory;
 
@@ -15,14 +15,15 @@ class Post extends Model
         'description',
         'art_ids',
         'user_id',
+        'privacy_id',
         'art_channel_id',
     ];
 
     public function users() {
-        return $this->hasMany('App\Models\User','id');
+        return $this->hasOne('App\Models\User','id');
     }
 
     public function art_channels() {
-        return $this->hasMany('App\Models\ArtChannel','id');
+        return $this->hasOne('App\Models\ArtChannel','id');
     }
 }

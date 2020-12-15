@@ -62,6 +62,8 @@ class Kernel extends HttpKernel
         'user_auth' => \App\Http\Middleware\Auth\LoginMiddleware::class,
         'admin_only' => \App\Http\Middleware\Auth\AdminMiddleware::class,
 
+        'art' => \App\Http\Middleware\Resources\ArtsMiddleware::class,
+
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
