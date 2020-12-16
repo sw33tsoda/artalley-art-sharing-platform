@@ -7,14 +7,6 @@ import ShowArt from './ShowArt';
 const CommunityGallery = lazy(() => (import('./CommunityGallery')));
 const Upload = lazy(() => (import('./Upload')));
 
-
-const storage_path = '/storage/app/public/web/body';
-const style = {
-    bodyBackground: {
-        backgroundImage: `linear-gradient(black, black),url('${storage_path}/background_1.png')`,
-    },
-}
-
 function Body() {
     const { url } = useRouteMatch();
     return (

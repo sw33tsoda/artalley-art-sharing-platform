@@ -345,7 +345,8 @@ body {
 }
 
 .community {
-  height: 5000px;
+  height: auto;
+  width: 100%;
 }
 
 .community .header {
@@ -522,9 +523,6 @@ body {
 
 .community .body {
   padding-top: 25px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-blend-mode: saturation;
 }
 
 .community .body .upload {
@@ -859,8 +857,16 @@ body {
   text-indent: 25px;
 }
 
-.community .body .show-art .footer .artist {
-  margin-top: 100px;
+.community .body .show-art .footer .more {
+  display: flex;
+  margin-top: 25px;
+}
+
+.community .body .show-art .footer .more .title {
+  font-weight: bold;
+}
+
+.community .body .show-art .footer .more .artist .info {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -868,32 +874,95 @@ body {
        column-gap: 25px;
 }
 
-.community .body .show-art .footer .artist .profile-picture {
+.community .body .show-art .footer .more .artist .info .profile-picture {
   background: #212121;
-  width: 125px;
-  height: 125px;
+  width: 140px;
+  height: 140px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 100%;
+  border-radius: 0.25em;
   overflow: hidden;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
-.community .body .show-art .footer .artist .profile-picture img {
+.community .body .show-art .footer .more .artist .info .profile-picture img {
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 100%;
   width: 100%;
   height: 100%;
 }
 
-.community .body .show-art .footer .artist .profile-picture i {
+.community .body .show-art .footer .more .artist .info .profile-picture i {
   font-size: 80px;
   color: #d9d9d9;
 }
 
-.community .body .show-art .footer .artist .name {
+.community .body .show-art .footer .more .artist .info .name p {
+  margin: 0;
+}
+
+.community .body .show-art .footer .more .artist .info .name .username {
   font-size: 2em;
+}
+
+.community .body .show-art .footer .more .artist .info .name .fullname {
+  font-style: italic;
+}
+
+.community .body .show-art .footer .more .showcase {
+  width: 250px;
+}
+
+.community .body .show-art .footer .more .showcase .showcase-thumbnail {
+  border-radius: 0.25em;
+}
+
+.community .body .show-art .footer .more .showcase .showcase-thumbnail img {
+  border-radius: 0.25em;
+  height: 140px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.community .body .show-art .footer .more .showcase .showcase-title {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.community .body .show-art .footer .more .showcase .showcase-title p {
+  margin: 0;
+}
+
+.community .body .show-art .footer .more .tags {
+  width: 250px;
+}
+
+.community .body .show-art .footer .more .tags a {
+  text-decoration: none;
+  border-radius: 0.25em;
+  display: inline-block;
+  padding: 3px 5px 3px 5px;
+  background: #212121;
+  color: #D9D9D9;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.community .body .show-art .footer .more .tags a:hover {
+  font-weight: bold;
+}
+
+.community > .footer {
+  margin-top: 0px;
+  width: 100%;
+  height: 500px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.community > .footer .content {
+  height: inherit;
 }
 
 .user-crud {

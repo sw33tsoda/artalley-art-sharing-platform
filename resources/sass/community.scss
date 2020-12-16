@@ -4,7 +4,8 @@
 @import './showArt.scss';
 
 .community {
-    height: 5000px;
+    height: auto;
+    width: 100%;
     .header {
         height: 50px;
         background-size: contain;
@@ -18,9 +19,6 @@
 
     .body {
         padding-top: 25px;
-        background-repeat: no-repeat;
-        background-size:cover;
-        background-blend-mode: saturation;
         .upload {
             @include community-upload;
         }
@@ -32,5 +30,21 @@
         .show-art {
             @include community-showArt;
         }
+    }
+
+    > .footer {
+        margin-top: 0px;
+        width: 100%;
+        height: 500px;
+        background-size:     cover;
+        background-repeat:   no-repeat;
+        background-position: center center;  
+        // background-attachment: fixed;
+        .content {
+            height: inherit;
+            // background-color: rgba(20, 20, 20,0.15);
+            // box-shadow: 0 0 15px rgba(0, 0, 0, 0.30), 0 1px 3px rgba(0, 0, 0, 0.30);
+        }
+        // box-shadow: 0 0 15px rgba(0, 0, 0, 0.30), 0 1px 3px rgba(0, 0, 0, 0.30);
     }
 }

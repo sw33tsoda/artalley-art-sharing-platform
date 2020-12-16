@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,Link } from 'react-router-dom';
+import { array } from 'yup';
 
 function ShowArt() {
     const { id } = useParams();
@@ -49,14 +50,40 @@ function ShowArt() {
                     <p>{art.description}</p>
                 </div>
 
-                <div className="artist">
-                    <div className="profile-picture">
-                        {(art.users && art.users.profile_picture !== null) ? <img src={`/storage/app/public/profilePictures/${art.users.profile_picture}`} /> : <i class="fas fa-user"></i>}
+                <div className="more" style={{justifyContent:art.showcase_id !== null && art.tags ? 'center' : 'space-between'}}>
+
+                    <div className="artist">
+                        <p className="title">TÁC GIẢ</p>
+                        <div className="info">
+                            <div className="profile-picture">
+                                {(art.users && art.users.profile_picture !== null) ? <img src={`/storage/app/public/profilePictures/${art.users.profile_picture}`} /> : <i class="fas fa-user"></i>}
+                            </div>
+                            <div className="name">
+                                <p className="username">{art.users && art.users.username}</p>
+                                <p className="fullname">{art.users && art.users.firstname + ' ' + art.users.lastname}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div className="name">
-                        <p>{art.users && art.users.username}</p>
+                        {art.showcase_id == null && (
+                            <div className="showcase">
+                                <p className="title">THUỘC</p>
+                                <div className="showcase-thumbnail">
+                                    <img src="https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/cyberpunk_2077_refund.jpg"/>
+                                </div>
+                                <div className="showcase-title">
+                                    <p>Cyberpunk Volume 1</p>
+                                </div>
+                            </div>
+                        )}
+                        {art.tags && (
+                            <div className="tags">
+                                <p className="title">THẺ</p>
+                                {JSON.parse(art.tags).map((tag,index) => (
+                                    <Link to="" key={index}>{tag}</Link>
+                                ))}
+                            </div>
+                        )}
                     </div>
-                </div>
             </div>
         </div>
     );
