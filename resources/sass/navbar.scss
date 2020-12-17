@@ -144,6 +144,15 @@
                             display: none;
                         }
                     }
+                    @include tablet {
+                        i {
+                            margin:0;
+                        }
+
+                        span.text {
+                            display: none;
+                        }
+                    }
                     &:hover {
                         background:rgba(217, 217, 217,0.1);
                         color:white;

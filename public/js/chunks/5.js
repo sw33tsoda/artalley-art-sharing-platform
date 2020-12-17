@@ -183,23 +183,6 @@ function Upload() {
 
 /* harmony default export */ __webpack_exports__["default"] = (Upload);
 
-/***/ }),
-
-/***/ "./resources/js/src/utilities/CurrentPageSlug/index.js":
-/*!*************************************************************!*\
-  !*** ./resources/js/src/utilities/CurrentPageSlug/index.js ***!
-  \*************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CurrentPageSlug; });
-function CurrentPageSlug() {
-  var pathName = window.location.href.split('/');
-  return pathName[pathName.length - 1];
-}
-
 /***/ })
 
 }]);

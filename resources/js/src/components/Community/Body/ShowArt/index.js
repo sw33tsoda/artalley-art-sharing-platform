@@ -45,6 +45,7 @@ function ShowArt() {
                     <p>{art.caption}</p>
                 </div>
             </div>
+
             <div className="footer">
                 <div className="description">
                     <p>{art.description}</p>

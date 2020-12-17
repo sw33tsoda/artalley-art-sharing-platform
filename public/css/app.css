@@ -345,7 +345,6 @@ body {
 }
 
 .community {
-  height: auto;
   width: 100%;
 }
 
@@ -512,6 +511,16 @@ body {
   }
 }
 
+@media (min-width: 768px) and (max-width: 1023px) {
+  .community .header .navbar .navbar-items .right .auth > .button i {
+    margin: 0;
+  }
+
+  .community .header .navbar .navbar-items .right .auth > .button span.text {
+    display: none;
+  }
+}
+
 .community .header .navbar .navbar-items .right .auth > .button:hover {
   background: rgba(217, 217, 217, 0.1);
   color: white;
@@ -523,6 +532,7 @@ body {
 
 .community .body {
   padding-top: 25px;
+  padding: 25px 5px 0 5px;
 }
 
 .community .body .upload {
@@ -541,13 +551,19 @@ body {
 
 .community .body .upload .upload-options {
   display: grid;
-  height: 75px;
+  height: 150px;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
 }
 
+@media (max-width: 479px) {
+  .community .body .upload .upload-options {
+    grid-template-columns: 1fr;
+  }
+}
+
 .community .body .upload .upload-options .option {
-  height: inherit;
+  height: 75px;
   position: relative;
   text-align: center;
   background-color: rgba(217, 217, 217, 0.025);
@@ -562,6 +578,12 @@ body {
   filter: saturate(0);
   transition: 0.25s;
   cursor: pointer;
+}
+
+@media (max-width: 479px) {
+  .community .body .upload .upload-options .option {
+    background-position-y: -50px;
+  }
 }
 
 .community .body .upload .upload-options .option:hover {
@@ -606,10 +628,13 @@ body {
 
 .community .body .upload .upload-options .option > div > .caption {
   top: 65%;
+  opacity: 0;
 }
 
-.community .body .upload .upload-options .option > div > .caption {
-  opacity: 0;
+@media (max-width: 479px) {
+  .community .body .upload .upload-options .option > div > .caption {
+    font-size: 0.8em;
+  }
 }
 
 .community .body .upload .upload-area {
@@ -665,6 +690,12 @@ body {
   grid-gap: 10px;
 }
 
+@media (max-width: 479px) {
+  .community .body .upload .upload-area .upload-single-art .upload-form .form .split {
+    grid-template-columns: 1fr;
+  }
+}
+
 .community .body .upload .upload-area .upload-single-art .upload-form .form .split .tags {
   font-style: italic;
 }
@@ -716,8 +747,15 @@ body {
 }
 
 .community .body .upload .upload-area .upload-single-art .upload-form .form .upload-image .preview-image {
-  height: 500px;
+  height: 700px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 479px) {
+  .community .body .upload .upload-area .upload-single-art .upload-form .form .upload-image .preview-image {
+    height: auto;
+    width: 100%;
+  }
 }
 
 .community .body .upload .upload-area .upload-single-art .upload-form .form .upload-image .icon {
@@ -759,7 +797,20 @@ body {
        column-count: 7;
   -moz-column-gap: 5px;
        column-gap: 5px;
-  padding: 10px;
+}
+
+@media (max-width: 479px) {
+  .community .body .management .arts-list {
+    -moz-column-count: 2;
+         column-count: 2;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .community .body .management .arts-list {
+    -moz-column-count: 4;
+         column-count: 4;
+  }
 }
 
 .community .body .management .arts-list .art {
@@ -780,13 +831,23 @@ body {
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
-  padding-right: 5px;
   display: flex;
   justify-content: space-between;
 }
 
 .community .body .show-art .header h1 {
   margin: 0;
+}
+
+@media (max-width: 479px) {
+  .community .body .show-art .header {
+    font-size: 0.75em;
+  }
+}
+
+.community .body .show-art .header .title {
+  display: flex;
+  align-items: center;
 }
 
 .community .body .show-art .header .genres {
@@ -823,6 +884,13 @@ body {
   margin: 0;
 }
 
+@media (max-width: 479px) {
+  .community .body .show-art .header .genres .dimensional {
+    width: 30px;
+    height: 30px;
+  }
+}
+
 .community .body .show-art .art-wrapper {
   background-color: #212121;
   padding: 40px 0 30px 0;
@@ -838,6 +906,20 @@ body {
   height: 700px;
 }
 
+@media (max-width: 479px) {
+  .community .body .show-art .art-wrapper .art img {
+    height: auto;
+    width: 95%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .community .body .show-art .art-wrapper .art img {
+    height: auto;
+    width: 95%;
+  }
+}
+
 .community .body .show-art .art-wrapper .caption {
   width: 1150px;
   text-align: center;
@@ -845,10 +927,36 @@ body {
   color: #d9d9d9;
 }
 
+@media (max-width: 479px) {
+  .community .body .show-art .art-wrapper .caption {
+    width: 100%;
+    font-size: 0.75em;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .community .body .show-art .art-wrapper .caption {
+    width: 100%;
+    font-size: 0.8em;
+  }
+}
+
 .community .body .show-art .footer {
   padding: 20px 0 20px 0;
   width: 1150px;
   margin: auto;
+}
+
+@media (max-width: 479px) {
+  .community .body .show-art .footer {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .community .body .show-art .footer {
+    width: 100%;
+  }
 }
 
 .community .body .show-art .footer .description {
@@ -862,6 +970,40 @@ body {
   margin-top: 25px;
 }
 
+@media (max-width: 479px) {
+  .community .body .show-art .footer .more {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .community .body .show-art .footer .more > div {
+    border-bottom: 1px solid silver;
+    padding-bottom: 25px;
+  }
+
+  .community .body .show-art .footer .more > div:last-child {
+    border: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .community .body .show-art .footer .more {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .community .body .show-art .footer .more > div {
+    border-bottom: 1px solid silver;
+    padding-bottom: 25px;
+  }
+
+  .community .body .show-art .footer .more > div:last-child {
+    border: none;
+  }
+}
+
 .community .body .show-art .footer .more .title {
   font-weight: bold;
 }
@@ -872,6 +1014,22 @@ body {
   align-items: center;
   -moz-column-gap: 25px;
        column-gap: 25px;
+}
+
+@media (max-width: 479px) {
+  .community .body .show-art .footer .more .artist .info {
+    width: 250px;
+    display: grid;
+    justify-content: flex-start;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .community .body .show-art .footer .more .artist .info {
+    width: 250px;
+    display: grid;
+    justify-content: flex-start;
+  }
 }
 
 .community .body .show-art .footer .more .artist .info .profile-picture {

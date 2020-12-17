@@ -45,12 +45,18 @@ function Auth() {
                         <p className="username">{authenticatedUser.username}</p>
                         <img className="profile-picture" src={`/storage/app/public/profilePictures/${authenticatedUser.profile_picture}`}/>
                     </div>
-                        <button className="button">
-                            <Link to={url + '/upload'} style={{textDecoration:'none',color:'#D9D9D9'}}>
-                                <i className="fas fa-plus"></i>
-                                <span className="text">Upload</span>
-                            </Link>
-                        </button>
+                    <button className="button">
+                        <Link to={url + '/management'} style={{textDecoration:'none',color:'#D9D9D9'}}>
+                            <i className="fas fa-images"></i>
+                            <span className="text">Quản lý</span>
+                        </Link>
+                    </button>
+                    <button className="button">
+                        <Link to={url + '/upload'} style={{textDecoration:'none',color:'#D9D9D9'}}>
+                            <i className="fas fa-plus"></i>
+                            <span className="text">Upload</span>
+                        </Link>
+                    </button>
                 </React.Fragment>
             )}
             

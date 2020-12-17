@@ -4,12 +4,18 @@
         margin:auto;
         margin-top: 20px;
         margin-bottom: 20px;
-        padding-right: 5px;
+        // padding: 0 5px 0 5px;
         h1 {margin: 0}
         display: flex;
         justify-content: space-between;
-        .title {
 
+        @include mobile {
+            font-size: 0.75em;
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
         }
 
 
@@ -40,6 +46,11 @@
                     color:#d9d9d9;
                     margin:0;
                 }
+
+                @include mobile {
+                    width: 30px;
+                    height: 30px;
+                }
             }
         }
     }
@@ -55,11 +66,29 @@
                 box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
                 // width: auto;
                 height: 700px;
+                @include mobile {
+                    height: auto;
+                    width: 95%;
+                }
+
+                @include tablet {
+                    height: auto;
+                    width: 95%;
+                }
             }
         }
 
         .caption {
             width: 1150px;
+            @include mobile {
+                width: 100%;
+                font-size: 0.75em;
+            }
+
+            @include tablet {
+                width: 100%;
+                font-size: 0.8em;
+            }
             text-align: center;
             margin:auto;
             color: #d9d9d9;
@@ -70,6 +99,20 @@
         padding: 20px 0 20px 0;
         width: 1150px;
         margin:auto;
+        @include mobile {
+            width: 100%;
+            .description {
+                // padding: 0 5px 0 5px;
+            }
+        }
+
+        @include tablet {
+            width: 100%;
+            .description {
+                // padding: 0 5px 0 5px;
+            }
+        }
+
         .description {
             font-size: 0.75em;
             text-align: justify;
@@ -80,21 +123,59 @@
         .more {
             display: flex;
             margin-top: 25px;
-            // display: grid;
-            // grid-template-columns: 1fr 1fr 1fr;
-            // justify-items: center;
+            @include mobile {
+                display: grid;
+                grid-template-columns: 1fr;
+                justify-items: center;
+
+                > div {
+                    border-bottom: 1px solid silver;
+                    padding-bottom: 25px;
+                    
+                    &:last-child {
+                        border:none;
+                    }
+                }
+            }
+
+            @include tablet {
+                display: grid;
+                grid-template-columns: 1fr;
+                justify-items: center;
+
+                > div {
+                    border-bottom: 1px solid silver;
+                    padding-bottom: 25px;
+                    
+                    &:last-child {
+                        border:none;
+                    }
+                }
+            }
+
             .title {
                 font-weight: bold;
             }
 
-            .artist {
-                // margin-top: 100px;
-                
+            .artist {           
                 .info {
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     column-gap: 25px;
+                    
+                    @include mobile {
+                        width: 250px;
+                        display: grid;
+                        justify-content: flex-start;
+                    }
+
+                    @include tablet {
+                        width: 250px;
+                        display: grid;
+                        justify-content: flex-start;
+                    }
+
                     .profile-picture {
                         background:#212121;
                         width: 140px;

@@ -672,6 +672,18 @@ function Auth() {
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     className: "button"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
+    to: url + '/management',
+    style: {
+      textDecoration: 'none',
+      color: '#D9D9D9'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+    className: "fas fa-images"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+    className: "text"
+  }, "Qu\u1EA3n l\xFD"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+    className: "button"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
     to: url + '/upload',
     style: {
       textDecoration: 'none',
@@ -1002,9 +1014,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _Errors_Warning__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Errors/Warning */ "./resources/js/src/components/Errors/Warning.js");
-/* harmony import */ var _Management__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Management */ "./resources/js/src/components/Community/Body/Management/index.js");
-/* harmony import */ var _ShowArt__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ShowArt */ "./resources/js/src/components/Community/Body/ShowArt/index.js");
+/* harmony import */ var _utilities_CurrentPageSlug__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utilities/CurrentPageSlug */ "./resources/js/src/utilities/CurrentPageSlug/index.js");
+/* harmony import */ var _Errors_Warning__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Errors/Warning */ "./resources/js/src/components/Errors/Warning.js");
+/* harmony import */ var _Management__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Management */ "./resources/js/src/components/Community/Body/Management/index.js");
+/* harmony import */ var _ShowArt__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ShowArt */ "./resources/js/src/components/Community/Body/ShowArt/index.js");
+
 
 
 
@@ -1016,13 +1030,20 @@ var CommunityGallery = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["l
 var Upload = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
   return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./Upload */ "./resources/js/src/components/Community/Body/Upload/index.js"));
 });
+var style = {
+  bodyHeight: {
+    minHeight: 'calc(100vh - 75px - 500px)'
+  }
+};
 
 function Body() {
   var _useRouteMatch = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useRouteMatch"])(),
       url = _useRouteMatch.url;
 
+  var pagesWithCustomHeight = ['management', 'upload', 'upload-single-art'];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "body"
+    className: "body",
+    style: pagesWithCustomHeight.includes(Object(_utilities_CurrentPageSlug__WEBPACK_IMPORTED_MODULE_2__["default"])()) ? style.bodyHeight : null
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Suspense"], {
     fallback: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "\u0110ang t\u1EA3i...")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
@@ -1034,11 +1055,11 @@ function Body() {
     component: Upload
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: url + '/management',
-    component: _Management__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: _Management__WEBPACK_IMPORTED_MODULE_4__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: url + '/art/:id',
-    component: _ShowArt__WEBPACK_IMPORTED_MODULE_4__["default"]
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Errors_Warning__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    component: _ShowArt__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Errors_Warning__WEBPACK_IMPORTED_MODULE_3__["default"], {
     warning: "404",
     description: "Trang n\xE0y kh\xF4ng t\u1ED3n t\u1EA1i"
   })))));
@@ -1310,6 +1331,23 @@ function InputField(props) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (InputField);
+
+/***/ }),
+
+/***/ "./resources/js/src/utilities/CurrentPageSlug/index.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/src/utilities/CurrentPageSlug/index.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CurrentPageSlug; });
+function CurrentPageSlug() {
+  var pathName = window.location.href.split('/');
+  return pathName[pathName.length - 1];
+}
 
 /***/ })
 

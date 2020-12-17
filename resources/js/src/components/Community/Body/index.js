@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import CurrentPageSlug from '../../../utilities/CurrentPageSlug';
 import Warning from '../../Errors/Warning';
 import Management from './Management';
 import ShowArt from './ShowArt';
@@ -7,10 +8,17 @@ import ShowArt from './ShowArt';
 const CommunityGallery = lazy(() => (import('./CommunityGallery')));
 const Upload = lazy(() => (import('./Upload')));
 
+const style = {
+    bodyHeight: {
+        minHeight:'calc(100vh - 75px - 500px)',
+    }
+};
+
 function Body() {
     const { url } = useRouteMatch();
+    const pagesWithCustomHeight = ['management','upload','upload-single-art'];
     return (
-        <div className="body">
+        <div className="body" style={pagesWithCustomHeight.includes(CurrentPageSlug()) ? style.bodyHeight : null}>
             <Suspense fallback={<h1>Đang tải...</h1>}>
                 <Switch>
                     {/* Community Gallery / Cộng đồng */}

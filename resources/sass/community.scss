@@ -4,7 +4,6 @@
 @import './showArt.scss';
 
 .community {
-    height: auto;
     width: 100%;
     .header {
         height: 50px;
@@ -19,6 +18,8 @@
 
     .body {
         padding-top: 25px;
+        // max-height: 768px !important;
+        padding: 25px 5px 0 5px;
         .upload {
             @include community-upload;
         }
