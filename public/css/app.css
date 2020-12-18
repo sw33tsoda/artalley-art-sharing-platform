@@ -551,13 +551,14 @@ body {
 
 .community .body .upload .upload-options {
   display: grid;
-  height: 150px;
+  height: 75px;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
 }
 
 @media (max-width: 479px) {
   .community .body .upload .upload-options {
+    height: 150px;
     grid-template-columns: 1fr;
   }
 }
@@ -641,9 +642,39 @@ body {
   padding-top: 10px;
 }
 
-.community .body .upload .upload-area .upload-single-art .title {
+.community .body .upload .upload-area h1.title {
   border-bottom: 1px solid #bfbfbf;
   padding-bottom: 10px;
+}
+
+.community .body .upload .upload-area .split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+@media (max-width: 479px) {
+  .community .body .upload .upload-area .split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.community .body .upload .upload-area textarea {
+  resize: none;
+  height: 100px;
+  padding-top: 5px;
+}
+
+.community .body .upload .upload-area textarea::-moz-placeholder {
+  font-size: 1em;
+}
+
+.community .body .upload .upload-area textarea:-ms-input-placeholder {
+  font-size: 1em;
+}
+
+.community .body .upload .upload-area textarea::placeholder {
+  font-size: 1em;
 }
 
 .community .body .upload .upload-area .upload-single-art .upload-form .form .button-group {
@@ -666,49 +697,19 @@ body {
   margin-top: 8px;
 }
 
-.community .body .upload .upload-area .upload-single-art .upload-form .form textarea {
-  resize: none;
-  height: 100px;
-  padding-top: 5px;
-}
-
-.community .body .upload .upload-area .upload-single-art .upload-form .form textarea::-moz-placeholder {
-  font-size: 1em;
-}
-
-.community .body .upload .upload-area .upload-single-art .upload-form .form textarea:-ms-input-placeholder {
-  font-size: 1em;
-}
-
-.community .body .upload .upload-area .upload-single-art .upload-form .form textarea::placeholder {
-  font-size: 1em;
-}
-
-.community .body .upload .upload-area .upload-single-art .upload-form .form .split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 10px;
-}
-
-@media (max-width: 479px) {
-  .community .body .upload .upload-area .upload-single-art .upload-form .form .split {
-    grid-template-columns: 1fr;
-  }
-}
-
-.community .body .upload .upload-area .upload-single-art .upload-form .form .split .tags {
+.community .body .upload .upload-area .upload-single-art .upload-form .form .tags {
   font-style: italic;
 }
 
-.community .body .upload .upload-area .upload-single-art .upload-form .form .split .tags > small {
+.community .body .upload .upload-area .upload-single-art .upload-form .form .tags > small {
   display: block;
 }
 
-.community .body .upload .upload-area .upload-single-art .upload-form .form .split .tags .caption {
+.community .body .upload .upload-area .upload-single-art .upload-form .form .tags .caption {
   margin-bottom: 15px;
 }
 
-.community .body .upload .upload-area .upload-single-art .upload-form .form .split .tags .caption span {
+.community .body .upload .upload-area .upload-single-art .upload-form .form .tags .caption span {
   border-radius: 0.25em;
   text-transform: uppercase;
   background-color: #ff7e06;
@@ -719,11 +720,11 @@ body {
   font-weight: bold;
 }
 
-.community .body .upload .upload-area .upload-single-art .upload-form .form .split .tags .tags-list {
+.community .body .upload .upload-area .upload-single-art .upload-form .form .tags .tags-list {
   font-style: normal;
 }
 
-.community .body .upload .upload-area .upload-single-art .upload-form .form .split .tags .tags-list .tag {
+.community .body .upload .upload-area .upload-single-art .upload-form .form .tags .tags-list .tag {
   border-radius: 0.25em;
   display: inline-block;
   padding: 3px 5px 3px 5px;
@@ -747,7 +748,7 @@ body {
 }
 
 .community .body .upload .upload-area .upload-single-art .upload-form .form .upload-image .preview-image {
-  height: 700px;
+  height: 500px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 

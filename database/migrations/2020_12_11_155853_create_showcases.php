@@ -18,13 +18,12 @@ class CreateShowcases extends Migration
             $table->text('title');
             $table->text('subheading');
             $table->text('description');
-            $table->text('art_ids');
             $table->bigInteger('privacy_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('art_channel_id')->unsigned();
             $table->timestamps();
         });
-        
+
         Schema::table('showcases', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('art_channel_id')->references('id')->on('art_channels');

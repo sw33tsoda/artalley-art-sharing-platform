@@ -13,17 +13,21 @@ class Showcase extends Model
         'title',
         'subheading',
         'description',
-        'art_ids',
         'user_id',
         'privacy_id',
         'art_channel_id',
     ];
 
     public function users() {
-        return $this->hasOne('App\Models\User','id');
+        return $this->belongsTo('App\Models\User','user_id','id');
     }
 
     public function art_channels() {
-        return $this->hasOne('App\Models\ArtChannel','id');
+        return $this->belongsTo('App\Models\ArtChannel','art_channel_id','id');
     }
+
+    public function showcase_arts() {
+        return $this->hasMany('App\Models\ShowcaseArt','showcase_id','id');
+    }
+
 }

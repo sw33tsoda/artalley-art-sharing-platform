@@ -12,4 +12,12 @@ class Privacy extends Model
     protected $fillable = [
         'allowed',
     ];
+
+    public function arts() {
+        return $this->hasMany('App\Models\Art','privacy_id','id');
+    }
+
+    public function showcases() {
+        return $this->hasMany('App\Models\Showcase','privacy_id','id');
+    }
 }

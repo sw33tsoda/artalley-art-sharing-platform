@@ -1032,7 +1032,7 @@ var Upload = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(fun
 });
 var style = {
   bodyHeight: {
-    minHeight: 'calc(100vh - 75px - 500px)'
+    minHeight: 'calc(100vh - 575px)'
   }
 };
 

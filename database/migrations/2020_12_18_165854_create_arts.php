@@ -24,7 +24,7 @@ class CreateArts extends Migration
             $table->bigInteger('dimension_id')->unsigned();
             $table->bigInteger('art_channel_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('showcase_id')->unsigned()->nullable();
+            // $table->bigInteger('showcase_art_id')->unsigned()->nullable();
             $table->timestamps();
         });
         
@@ -33,7 +33,7 @@ class CreateArts extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('dimension_id')->references('id')->on('dimensions');
             $table->foreign('art_channel_id')->references('id')->on('art_channels');
-            $table->foreign('showcase_id')->references('id')->on('showcases');
+            // $table->foreign('showcase_art_id')->references('id')->on('showcase_arts');
         });
     }
 

@@ -50,6 +50,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Showcase','user_id','id');
     }
 
+    public function showcase_arts() {
+        return $this->hasMany('App\Models\ShowcaseArt','user_id','id');
+    }
+
     public function arts() {
         return $this->hasMany('App\Models\Art','user_id','id');
     }

@@ -14,6 +14,6 @@ class Dimension extends Model
     ];
 
     public function arts() {
-        return $this->hasOne('App\Models\Art','dimension_id','id');
+        return $this->hasMany('App\Models\Art','dimension_id','id');
     }
 }

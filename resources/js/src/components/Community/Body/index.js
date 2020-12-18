@@ -10,7 +10,7 @@ const Upload = lazy(() => (import('./Upload')));
 
 const style = {
     bodyHeight: {
-        minHeight:'calc(100vh - 75px - 500px)',
+        minHeight:'calc(100vh - 575px)',
     }
 };
 

@@ -13,11 +13,12 @@
     
     .upload-options {
         display: grid;
-        height: 150px;
+        height: 75px;
         grid-template-columns: 1fr 1fr;
         grid-gap: 10px;
 
         @include mobile {
+            height: 150px;
             grid-template-columns: 1fr;
         }
         .option {
@@ -98,15 +99,34 @@
 
     .upload-area {
         padding-top: 10px;
-        .upload-single-art {
-            .title {
-                border-bottom: 1px solid #bfbfbf;
-                padding-bottom: 10px;
+        h1.title {
+            border-bottom: 1px solid #bfbfbf;
+            padding-bottom: 10px;
+        }
+        .split {
+            display:grid; // check React code
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 10px;
+
+            @include mobile {
+                grid-template-columns: 1fr;
             }
-            
+
+        }
+        
+        textarea {
+            resize: none;
+            height: 100px;
+            padding-top: 5px;
+            &::placeholder {
+                font-size: 1em;
+            }
+        }
+
+
+        .upload-single-art {
             .upload-form {
                 .form {
-
                     .button-group {
                         width: 100%;
                         display:grid;
@@ -123,54 +143,36 @@
                         margin-top: 8px;
                     }
 
-                    textarea {
-                        resize: none;
-                        height: 100px;
-                        padding-top: 5px;
-                        &::placeholder {
-                            font-size: 1em;
+
+                    .tags {
+                        font-style: italic;
+                        > small {
+                            display: block;
                         }
-                    }
-
-                    .split {
-                        display:grid; // check React code
-                        grid-template-columns: 1fr 1fr;
-                        grid-gap: 10px;
-
-                        @include mobile {
-                            grid-template-columns: 1fr;
+                        .caption {
+                            margin-bottom: 15px;
+                            span {
+                                border-radius: 0.25em;
+                                text-transform: uppercase;
+                                background-color: #ff7e06;
+                                color: #D9D9D9;
+                                font-size: 0.75em;
+                                padding: 3px 5px 3px 5px;
+                                font-style: normal !important;
+                                font-weight: bold;
+                            }
                         }
 
-                        .tags {
-                            font-style: italic;
-                            > small {
-                                display: block;
-                            }
-                            .caption {
-                                margin-bottom: 15px;
-                                span {
-                                    border-radius: 0.25em;
-                                    text-transform: uppercase;
-                                    background-color: #ff7e06;
-                                    color: #D9D9D9;
-                                    font-size: 0.75em;
-                                    padding: 3px 5px 3px 5px;
-                                    font-style: normal !important;
-                                    font-weight: bold;
-                                }
-                            }
-
-                            .tags-list {
-                                font-style: normal;
-                                .tag {
-                                    border-radius: 0.25em;
-                                    display: inline-block;
-                                    padding: 3px 5px 3px 5px;
-                                    background: #212121;
-                                    color:#D9D9D9;
-                                    margin-right: 5px;
-                                    margin-bottom: 5px;
-                                }
+                        .tags-list {
+                            font-style: normal;
+                            .tag {
+                                border-radius: 0.25em;
+                                display: inline-block;
+                                padding: 3px 5px 3px 5px;
+                                background: #212121;
+                                color:#D9D9D9;
+                                margin-right: 5px;
+                                margin-bottom: 5px;
                             }
                         }
                     }
@@ -187,10 +189,8 @@
                             color:crimson;
                             font-weight: bold;
                         }
-
                         .preview-image {
-                            
-                            height: 700px;
+                            height: 500px;
                             @include mobile {
                                 height: auto;
                                 width: 100%

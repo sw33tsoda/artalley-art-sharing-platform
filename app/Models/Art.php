@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use PDO;
 
 class Art extends Model
 {
@@ -21,15 +22,23 @@ class Art extends Model
         'privacy_id',
         'art_channel_id',
         'user_id',
-        'showcase_id',
+        // 'showcase_art_id',
     ];
 
-    public function showcases() {
-        return $this->belongsTo('App\Models\Showcase','showcase_id','id');
+    // public function showcase_arts() {
+    //     return $this->belongsTo('App\Models\ShowcaseArt','showcase_art_id','id');
+    // }
+
+    public function showcase_arts() {
+        return $this->hasMany('App\Models\ShowcaseArt','art_id','id');
     }
 
     public function users() {
         return $this->belongsTo('App\Models\User','user_id','id');
+    }
+    
+    public function privacies() {
+        return $this->belongsTo('App\Models\Privacy','privacy_id','id');
     }
 
     public function artChannels() {

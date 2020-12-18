@@ -16,10 +16,10 @@ class ArtChannel extends Model
     ];
 
     public function showcases() {
-        return $this->belongsTo('App\Models\Showcase','art_channel_id');
+        return $this->hasMany('App\Models\Showcase','art_channel_id','id');
     }
 
     public function arts() {
-        return $this->belongsTo('App\Models\Art','art_channel_id');
+        return $this->hasMany('App\Models\Art','art_channel_id','id');
     }
 }
