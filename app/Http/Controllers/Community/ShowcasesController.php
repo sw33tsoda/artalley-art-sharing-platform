@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Community;
 
 use App\Http\Controllers\Controller;
+use App\Models\Showcase;
 use Illuminate\Http\Request;
 
 class ShowcasesController extends Controller
@@ -35,7 +36,26 @@ class ShowcasesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $showcase_data = [
+            'title' => $request->title,
+            'subheading' => $request->subheading,
+            'description' => $request->description,
+            'privacy_id' => $request->privacy,
+            'art_channel_id' => $request->channel,
+            'user_id' => $request->user()->id,
+        ];
+
+        $createShowcase = Showcase::create($showcase_data);
+
+        if (!$createShowcase) {
+            return response()->json([
+                'message' => 'Tạo thất bại',
+            ],500);
+        }
+
+        return response()->json([
+            'request' => $request->all(),
+        ],200);
     }
 
     /**

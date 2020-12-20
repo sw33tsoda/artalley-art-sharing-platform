@@ -15,9 +15,9 @@ class CreateShowcases extends Migration
     {
         Schema::create('showcases', function (Blueprint $table) {
             $table->id();
-            $table->text('title');
-            $table->text('subheading');
-            $table->text('description');
+            $table->text('title')->nullable();
+            $table->text('subheading')->nullable();
+            $table->text('description')->nullable();
             $table->bigInteger('privacy_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('art_channel_id')->unsigned();

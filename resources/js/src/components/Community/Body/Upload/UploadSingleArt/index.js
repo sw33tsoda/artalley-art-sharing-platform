@@ -41,7 +41,7 @@ function UploadSingleArt() {
     }
 
     useEffect(() => {
-        const getArtChannelsList = async () => {
+        const getSelectionListOptions = async () => {
             await Axios.get('/public/api/community/resources/interface/upload-select-list').then(response => {
                 const {data:{art_channels,privacies,dimensions}} = response;
                 // console.log(response);
@@ -55,7 +55,7 @@ function UploadSingleArt() {
                 // console.log(error.response);
             });
         }
-        getArtChannelsList();
+        getSelectionListOptions();
     },[]);
 
     const handleSubmitForm = async (values) => {

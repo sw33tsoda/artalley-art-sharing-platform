@@ -677,33 +677,74 @@ body {
   font-size: 1em;
 }
 
+.community .body .upload .upload-area .button-group {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 0.75fr 0.25fr;
+  grid-gap: 10px;
+  margin-bottom: 20px;
+}
+
+.community .body .upload .upload-area .button-group .submit,
+.community .body .upload .upload-area .button-group .reset {
+  height: 50px;
+  font-size: 1.75em;
+}
+
+.community .body .upload .upload-area .create-showcase .showcase-form .form .button-group {
+  grid-template-columns: auto;
+}
+
+.community .body .upload .upload-area .create-showcase .showcase-form .form .form-error {
+  transform: translate(-3%, -12%);
+}
+
 .community .body .upload .upload-area .create-showcase .arts-list {
+  padding: 10px;
+  box-sizing: border-box;
+  background: #bbbbbb;
+  background: linear-gradient(180deg, #bbbbbb 0%, rgba(216, 216, 216, 0) 100%);
+  border-radius: 0.25em;
+}
+
+.community .body .upload .upload-area .create-showcase .arts-list .filter {
+  height: 30px;
+}
+
+.community .body .upload .upload-area .create-showcase .arts-list .filter .art-search {
+  height: 100%;
+  width: 250px;
+}
+
+.community .body .upload .upload-area .create-showcase .arts-list .filter .clear-selected-arts {
+  text-transform: uppercase;
+  float: right;
+  height: 100%;
+}
+
+.community .body .upload .upload-area .create-showcase .arts-list .list {
+  margin-top: 10px;
   width: 100%;
   line-height: 0;
   -moz-column-count: 8;
        column-count: 8;
   -moz-column-gap: 5px;
        column-gap: 5px;
-  padding: 10px;
-  box-sizing: border-box;
-  background: #bbbbbb;
-  background: linear-gradient(180deg, #bbbbbb 0%, rgba(216, 216, 216, 0) 100%);
-  border-radius: 0.25em;
   position: relative;
 }
 
-.community .body .upload .upload-area .create-showcase .arts-list .art {
+.community .body .upload .upload-area .create-showcase .arts-list .list .art {
   -moz-column-break-inside: avoid;
        break-inside: avoid;
   position: relative;
   margin-bottom: 5px;
 }
 
-.community .body .upload .upload-area .create-showcase .arts-list .art:hover {
+.community .body .upload .upload-area .create-showcase .arts-list .list .art:hover {
   cursor: pointer;
 }
 
-.community .body .upload .upload-area .create-showcase .arts-list .art .overlay {
+.community .body .upload .upload-area .create-showcase .arts-list .list .art .overlay {
   width: 100%;
   height: 100%;
   visibility: hidden;
@@ -712,46 +753,25 @@ body {
   position: absolute;
 }
 
-.community .body .upload .upload-area .create-showcase .arts-list .art .overlay i {
+.community .body .upload .upload-area .create-showcase .arts-list .list .art .overlay i {
   position: absolute;
   top: 10px;
   left: 10px;
   color: white;
 }
 
-.community .body .upload .upload-area .create-showcase .arts-list .art img {
+.community .body .upload .upload-area .create-showcase .arts-list .list .art img {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
   width: 100%;
 }
 
-.community .body .upload .upload-area .create-showcase .arts-list .art:hover .overlay i {
+.community .body .upload .upload-area .create-showcase .arts-list .list .art:hover .overlay i {
   visibility: visible;
 }
 
-.community .body .upload .upload-area .create-showcase .arts-list .art.selected .overlay {
+.community .body .upload .upload-area .create-showcase .arts-list .list .art.selected .overlay {
   background: linear-gradient(180deg, #212121 0%, rgba(216, 216, 216, 0) 100%);
   visibility: visible;
-}
-
-.community .body .upload .upload-area .create-showcase .arts-list .art-search {
-  width: 250px;
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-}
-
-.community .body .upload .upload-area .upload-single-art .upload-form .form .button-group {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 0.75fr 0.25fr;
-  grid-gap: 10px;
-  margin-bottom: 20px;
-}
-
-.community .body .upload .upload-area .upload-single-art .upload-form .form .button-group .submit,
-.community .body .upload .upload-area .upload-single-art .upload-form .form .button-group .reset {
-  height: 50px;
-  font-size: 1.75em;
 }
 
 .community .body .upload .upload-area .upload-single-art .upload-form .form input,

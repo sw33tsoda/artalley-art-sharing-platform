@@ -91,7 +91,7 @@ function UploadSingleArt() {
     art: undefined
   };
   Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
-    var getArtChannelsList = /*#__PURE__*/function () {
+    var getSelectionListOptions = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -121,12 +121,12 @@ function UploadSingleArt() {
         }, _callee);
       }));
 
-      return function getArtChannelsList() {
+      return function getSelectionListOptions() {
         return _ref.apply(this, arguments);
       };
     }();
 
-    getArtChannelsList();
+    getSelectionListOptions();
   }, []);
 
   var handleSubmitForm = /*#__PURE__*/function () {
@@ -577,12 +577,13 @@ function TextareaField(props) {
 /*!**********************************************************!*\
   !*** ./resources/js/src/components/Validations/index.js ***!
   \**********************************************************/
-/*! exports provided: SingleArtValidation */
+/*! exports provided: SingleArtValidation, ShowcaseValidation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SingleArtValidation", function() { return SingleArtValidation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShowcaseValidation", function() { return ShowcaseValidation; });
 /* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! yup */ "./node_modules/yup/es/index.js");
 
 var KILOBYTES = 2048;
@@ -601,6 +602,13 @@ var SingleArtValidation = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({
     return value && SUPPORTED_FORMATS.includes(value.type);
   }),
   tags: yup__WEBPACK_IMPORTED_MODULE_0__["string"]()
+});
+var ShowcaseValidation = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({
+  title: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(100, 'Tối đa 100 ký tự').required('Không được bỏ trống'),
+  subheading: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(300, 'Tối đa 300 ký tự'),
+  description: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(1500, 'Tối đa 1500 ký tự'),
+  privacy: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
+  channel: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống')
 });
 
 /***/ })
