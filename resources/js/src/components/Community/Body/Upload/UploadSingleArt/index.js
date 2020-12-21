@@ -9,6 +9,8 @@ import Axios from 'axios';
 import classnames from 'classnames';
 // import { useSelector } from 'react-redux';
 import { SingleArtValidation } from '../../../../Validations';
+import { useDispatch } from 'react-redux';
+import { setAnnouncementMessage } from '../../../../../store/community/announcer';
 
 function UploadSingleArt() {
     // Danh sách thẻ (tags)
@@ -16,11 +18,13 @@ function UploadSingleArt() {
     // Tags Debounce
     const tagsDebounce = {
         callback: (value) => {
-            const tagsList = value.split(',');
+            const tagsList = value.split(',').filter(tag => tag !== '');
             setTags(tagsList);
         },
         ms:250,
     }
+    // Dispatch action
+    const dispatch = useDispatch();
     
     // Danh sách kênh ảnh
     const [optionsList,setOptionsList] = useState({
@@ -67,14 +71,23 @@ function UploadSingleArt() {
             data.append(key,values[key]);
         }
 
-        const newTags = values.tags.split(',').filter(tag => tag !== '');
-        data.set('tags',JSON.stringify(newTags));
+        // const newTags = values.tags.split(',').filter(tag => tag !== '');
+        // const newTags = tags.
+        data.set('tags',tags.join(','));
         
         // Gọi Api
         await Axios.post(`/public/api/community/resources/arts?api_token=${apiToken}`,data).then(response => {
-            console.log(response);
+            const {data:{message}} = response;
+            dispatch(setAnnouncementMessage({
+                message:message,
+                type:'success',
+            }));
         }).catch(error => {
-            console.log(error.response);
+            const {data:{message}} = error.response;
+            dispatch(setAnnouncementMessage({
+                message:message,
+                type:'failed',
+            }));
         });
     }
 
@@ -241,7 +254,7 @@ function UploadSingleArt() {
                                             <legend className="tags">
                                                 <small className="caption"><span>Chú thích</span> Sử dụng thẻ để tăng sự tương tác giữa tác phẩm với người xem</small>
 
-                                                <small className="tags-list">{tags[0] !== '' ? tags.map((tag,index) => tag !== '' && (
+                                                <small className="tags-list">{tags[0] !== '' ? tags.map((tag,index) => (
                                                     <div className="tag" key={index}>{tag}</div>
                                                 )) : 'Chưa có thẻ nào.'}</small>
                                             </legend>

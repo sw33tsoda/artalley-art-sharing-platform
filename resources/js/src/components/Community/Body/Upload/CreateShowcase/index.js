@@ -94,7 +94,7 @@ function CreateShowcase() {
                                             </React.Fragment>
                                         ) : (
                                             <React.Fragment>
-                                                <i class="fas fa-rocket"></i>
+                                                <i className="fas fa-rocket"></i>
                                             </React.Fragment>
                                         )} </button>
                                     </div>

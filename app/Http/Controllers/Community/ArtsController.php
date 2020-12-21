@@ -79,7 +79,7 @@ class ArtsController extends Controller
         }
 
         return response()->json([
-            'message' => 'Hoàn thành',
+            'message' => 'Đã thêm ảnh',
         ],200);
     }
 
@@ -91,7 +91,7 @@ class ArtsController extends Controller
      */
     public function show($id)
     {
-        $getArt = Art::with('users','artChannels','dimensions')->find($id);
+        $getArt = Art::with('users','artChannels','dimensions','showcase_arts')->find($id);
         return response()->json([
             'message' => 'Lấy tác phẩm thành công',
             'art' => $getArt,

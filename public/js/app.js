@@ -57383,6 +57383,49 @@ var setAuthenticatedUser = actions.setAuthenticatedUser,
 
 /***/ }),
 
+/***/ "./resources/js/src/store/community/announcer.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/src/store/community/announcer.js ***!
+  \*******************************************************/
+/*! exports provided: setAnnouncementMessage, removeAnnouncementMessage, community_announcementReducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAnnouncementMessage", function() { return setAnnouncementMessage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeAnnouncementMessage", function() { return removeAnnouncementMessage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "community_announcementReducer", function() { return community_announcementReducer; });
+var _require = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js"),
+    createSlice = _require.createSlice;
+
+var community_announcementSlice = createSlice({
+  name: 'community_announcement',
+  initialState: {
+    message: '',
+    type: ''
+  },
+  reducers: {
+    setAnnouncementMessage: function setAnnouncementMessage(state, action) {
+      var _action$payload = action.payload,
+          message = _action$payload.message,
+          type = _action$payload.type;
+      state.message = message;
+      state.type = type;
+    },
+    removeAnnouncementMessage: function removeAnnouncementMessage(state) {
+      state.message = '';
+    }
+  }
+});
+var community_announcementReducer = community_announcementSlice.reducer,
+    actions = community_announcementSlice.actions;
+var setAnnouncementMessage = actions.setAnnouncementMessage,
+    removeAnnouncementMessage = actions.removeAnnouncementMessage;
+
+
+
+/***/ }),
+
 /***/ "./resources/js/src/store/index.js":
 /*!*****************************************!*\
   !*** ./resources/js/src/store/index.js ***!
@@ -57397,6 +57440,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _admin_announcer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./admin/announcer */ "./resources/js/src/store/admin/announcer.js");
 /* harmony import */ var _admin_users__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./admin/users */ "./resources/js/src/store/admin/users.js");
 /* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./auth */ "./resources/js/src/store/auth.js");
+/* harmony import */ var _community_announcer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./community/announcer */ "./resources/js/src/store/community/announcer.js");
+
 
 
 
@@ -57405,7 +57450,8 @@ __webpack_require__.r(__webpack_exports__);
 var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_1__["combineReducers"])({
   auth: _auth__WEBPACK_IMPORTED_MODULE_4__["default"],
   admin_users: _admin_users__WEBPACK_IMPORTED_MODULE_3__["default"],
-  admin_announcer: _admin_announcer__WEBPACK_IMPORTED_MODULE_2__["admin_announcerReducer"]
+  admin_announcer: _admin_announcer__WEBPACK_IMPORTED_MODULE_2__["admin_announcerReducer"],
+  community_announcement: _community_announcer__WEBPACK_IMPORTED_MODULE_5__["community_announcementReducer"]
 });
 var store = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["configureStore"])({
   reducer: rootReducer

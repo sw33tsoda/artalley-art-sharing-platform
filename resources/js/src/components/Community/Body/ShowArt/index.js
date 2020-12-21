@@ -1,25 +1,28 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams,Link } from 'react-router-dom';
-import { array } from 'yup';
+import _ from 'lodash';
 
 function ShowArt() {
     const { id } = useParams();
     const [art,setArt] = useState({});
-    console.log(art);
     useEffect(() => {
         const getArt = async () => {
             await Axios.get(`/public/api/community/resources/arts/get/${id}`).then(response => {
                 const {data:{art}} = response;
+                if (art.tags == null) {
+                    art.tags = [];
+                } else {
+                    art.tags = art.tags.split(',');
+                }
                 setArt({...art});
             }).catch(error => {
                 console.log(error.response);
             })
         }
-
         getArt();
     },[]);
-
+    
     return (
         <div className="show-art">
             <div className="header">
@@ -51,13 +54,12 @@ function ShowArt() {
                     <p>{art.description}</p>
                 </div>
 
-                <div className="more" style={{justifyContent:art.showcase_id !== null && art.tags ? 'center' : 'space-between'}}>
-
+                {!_.isEmpty(art) && <div className="more" style={{justifyContent: art.tags.length > 0 && art.showcase_arts.length > 0 ? 'space-between' : 'space-evenly'}}>
                     <div className="artist">
                         <p className="title">TÁC GIẢ</p>
                         <div className="info">
                             <div className="profile-picture">
-                                {(art.users && art.users.profile_picture !== null) ? <img src={`/storage/app/public/profilePictures/${art.users.profile_picture}`} /> : <i class="fas fa-user"></i>}
+                                {(art.users && art.users.profile_picture !== null) ? <img src={`/storage/app/public/profilePictures/${art.users.profile_picture}`} /> : <i className="fas fa-user"></i>}
                             </div>
                             <div className="name">
                                 <p className="username">{art.users && art.users.username}</p>
@@ -65,7 +67,7 @@ function ShowArt() {
                             </div>
                         </div>
                     </div>
-                        {art.showcase_id == null && (
+                        {!_.isEmpty(art.showcase_arts) && (
                             <div className="showcase">
                                 <p className="title">THUỘC</p>
                                 <div className="showcase-thumbnail">
@@ -76,15 +78,15 @@ function ShowArt() {
                                 </div>
                             </div>
                         )}
-                        {art.tags && (
+                        {art.tags.length > 0 && (
                             <div className="tags">
                                 <p className="title">THẺ</p>
-                                {JSON.parse(art.tags).map((tag,index) => (
+                                {art.tags.map((tag,index) => (
                                     <Link to="" key={index}>{tag}</Link>
                                 ))}
                             </div>
                         )}
-                    </div>
+                </div>}
             </div>
         </div>
     );

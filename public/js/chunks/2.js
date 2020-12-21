@@ -2520,7 +2520,6 @@ function InputField(props) {
 
   if (debounce !== null) {
     clearTimeout(debounceTimeout);
-    console.log('rerednder');
     debounceTimeout = setTimeout(function () {
       return debounce.callback(field.value);
     }, debounce.ms);

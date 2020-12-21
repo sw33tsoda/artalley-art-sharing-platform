@@ -25,6 +25,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var _Validations__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../Validations */ "./resources/js/src/components/Validations/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_community_announcer__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../../store/community/announcer */ "./resources/js/src/store/community/announcer.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -55,6 +57,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 function UploadSingleArt() {
   // Danh sách thẻ (tags)
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
@@ -65,11 +69,15 @@ function UploadSingleArt() {
 
   var tagsDebounce = {
     callback: function callback(value) {
-      var tagsList = value.split(',');
+      var tagsList = value.split(',').filter(function (tag) {
+        return tag !== '';
+      });
       setTags(tagsList);
     },
     ms: 250
-  }; // Danh sách kênh ảnh
+  }; // Dispatch action
+
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_11__["useDispatch"])(); // Danh sách kênh ảnh
 
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
     artChannels: [],
@@ -131,7 +139,7 @@ function UploadSingleArt() {
 
   var handleSubmitForm = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(values) {
-      var apiToken, data, key, newTags;
+      var apiToken, data, key;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -142,21 +150,28 @@ function UploadSingleArt() {
 
               for (key in values) {
                 data.append(key, values[key]);
-              }
+              } // const newTags = values.tags.split(',').filter(tag => tag !== '');
+              // const newTags = tags.
 
-              newTags = values.tags.split(',').filter(function (tag) {
-                return tag !== '';
-              });
-              data.set('tags', JSON.stringify(newTags)); // Gọi Api
 
-              _context2.next = 7;
+              data.set('tags', tags.join(',')); // Gọi Api
+
+              _context2.next = 6;
               return axios__WEBPACK_IMPORTED_MODULE_8___default.a.post("/public/api/community/resources/arts?api_token=".concat(apiToken), data).then(function (response) {
-                console.log(response);
+                var message = response.data.message;
+                dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_12__["setAnnouncementMessage"])({
+                  message: message,
+                  type: 'success'
+                }));
               })["catch"](function (error) {
-                console.log(error.response);
+                var message = error.response.data.message;
+                dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_12__["setAnnouncementMessage"])({
+                  message: message,
+                  type: 'failed'
+                }));
               });
 
-            case 7:
+            case 6:
             case "end":
               return _context2.stop();
           }
@@ -331,7 +346,7 @@ function UploadSingleArt() {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("span", null, "Ch\xFA th\xEDch"), " S\u1EED d\u1EE5ng th\u1EBB \u0111\u1EC3 t\u0103ng s\u1EF1 t\u01B0\u01A1ng t\xE1c gi\u1EEFa t\xE1c ph\u1EA9m v\u1EDBi ng\u01B0\u1EDDi xem"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("small", {
       className: "tags-list"
     }, tags[0] !== '' ? tags.map(function (tag, index) {
-      return tag !== '' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
         className: "tag",
         key: index
       }, tag);

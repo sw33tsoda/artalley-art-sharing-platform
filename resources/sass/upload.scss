@@ -179,6 +179,13 @@
                     // overflow: scroll;
                     line-height: 0;
                     column-count: 8;
+                    @include mobile {
+                        column-count: 3;
+                    }
+
+                    @include tablet {
+                        column-count: 6;
+                    }
                     column-gap: 5px;
                     position: relative;
                     .art {
