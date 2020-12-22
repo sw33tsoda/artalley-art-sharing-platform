@@ -6,6 +6,7 @@ import _ from 'lodash';
 function ShowArt() {
     const { id } = useParams();
     const [art,setArt] = useState({});
+    console.log(art);
     useEffect(() => {
         const getArt = async () => {
             await Axios.get(`/public/api/community/resources/arts/get/${id}`).then(response => {
@@ -68,13 +69,23 @@ function ShowArt() {
                         </div>
                     </div>
                         {!_.isEmpty(art.showcase_arts) && (
-                            <div className="showcase">
+                            <div className="showcases-list">
                                 <p className="title">THUỘC</p>
-                                <div className="showcase-thumbnail">
-                                    <img src="https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/cyberpunk_2077_refund.jpg"/>
-                                </div>
-                                <div className="showcase-title">
-                                    <p>Cyberpunk Volume 1</p>
+                                <div className="list">
+                                    {art.showcase_arts.map((showcase,index) => (
+                                        <Link to={`/public/community/showcase/${showcase.showcase_id}`}>
+                                            <div className="showcase">
+                                                <div className="showcase-thumbnail">
+                                                    <img src="https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/cyberpunk_2077_refund.jpg"/>
+                                                </div>
+                                                <div className="showcase-title">
+                                                    <p>
+                                                        {showcase.showcases.title}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    ))}
                                 </div>
                             </div>
                         )}

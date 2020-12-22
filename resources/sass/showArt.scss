@@ -215,22 +215,36 @@
                 }
             }
 
-            .showcase {
+            .showcases-list { 
                 width: 250px;
-                .showcase-thumbnail {
-                    border-radius: 0.25em;
-                    img {
-                        border-radius: 0.25em;
-                        height: 140px;
-                        box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+                .list {
+                    display:grid;
+                    grid-template-columns: 1fr 1fr;
+                    column-gap: 10px;
+                    row-gap: 10px;
+                    justify-content: center;
+                    a {
+                        text-decoration: none;
+                        color:#212121;
                     }
-                }
-
-                .showcase-title {
-                    text-transform: uppercase;
-                    font-weight: bold;
-                    p {
-                        margin:0;
+                    .showcase {
+                        .showcase-thumbnail {
+                            border-radius: 0.25em;
+                            img {
+                                border-radius: 0.25em;
+                                width: 100%;
+                                box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+                            }
+                        }
+        
+                        .showcase-title {
+                            text-transform: uppercase;
+                            font-weight: bold;
+                            p {
+                                margin:0;
+                                font-size: 0.75em;
+                            }
+                        }
                     }
                 }
             }

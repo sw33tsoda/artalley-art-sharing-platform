@@ -59,6 +59,8 @@ class ShowcasesController extends Controller
                     'art_id' => (int) $art_id,
                     'showcase_id' => $showcase_id,
                     'user_id' => $request->user()->id,
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
                 ]);
             }
 
@@ -88,7 +90,11 @@ class ShowcasesController extends Controller
      */
     public function show($id)
     {
-        //
+        $showcase = Showcase::with('showcase_arts.arts')->find($id);
+        return response()->json([
+            'message' => 'Đã lấy Showcase thành công',
+            'showcase' => $showcase,
+        ],200);
     }
 
     /**

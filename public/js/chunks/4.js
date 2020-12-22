@@ -606,8 +606,8 @@ var FILE_SIZE = KILOBYTES * 1024;
 var SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
 var SingleArtValidation = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({
   title: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(100, 'Tối đa 100 ký tự').required('Không được bỏ trống'),
-  caption: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(300, 'Tối đa 300 ký tự'),
-  description: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(1500, 'Tối đa 1500 ký tự'),
+  caption: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(120, 'Tối đa 120 ký tự'),
+  description: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(1000, 'Tối đa 1000 ký tự'),
   dimensional: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
   privacy: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
   channel: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),

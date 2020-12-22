@@ -4,6 +4,7 @@ import CurrentPageSlug from '../../../utilities/CurrentPageSlug';
 import Warning from '../../Errors/Warning';
 import Management from './Management';
 import ShowArt from './ShowArt';
+import Showcase from './Showcase';
 
 const CommunityGallery = lazy(() => (import('./CommunityGallery')));
 const Upload = lazy(() => (import('./Upload')));
@@ -32,6 +33,9 @@ function Body() {
 
                     {/* Show Art / Hiển thị tác phẩm */}
                     <Route path={url + '/art/:id'} component={ShowArt}/>
+
+                    {/* Show Showcase / Hiển thị quày trưng bày */}
+                    <Route path={url + '/showcase/:id'} component={Showcase}/>
 
                     {/* 404 */}
                     <Route>

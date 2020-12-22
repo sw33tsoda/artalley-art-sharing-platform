@@ -11,8 +11,8 @@ const SUPPORTED_FORMATS = [
 
 export const SingleArtValidation = Yup.object().shape({
     title:  Yup.string().min(2,'Tối thiểu hai ký tự').max(100,'Tối đa 100 ký tự').required('Không được bỏ trống'),
-    caption:   Yup.string().min(2,'Tối thiểu hai ký tự').max(300,'Tối đa 300 ký tự'),
-    description:   Yup.string().min(2,'Tối thiểu hai ký tự').max(1500,'Tối đa 1500 ký tự'),
+    caption:   Yup.string().min(2,'Tối thiểu hai ký tự').max(120,'Tối đa 120 ký tự'),
+    description:   Yup.string().min(2,'Tối thiểu hai ký tự').max(1000,'Tối đa 1000 ký tự'),
     dimensional:    Yup.number().required('Không được bỏ trống'),
     privacy:   Yup.number().required('Không được bỏ trống'),
     channel:  Yup.number().required('Không được bỏ trống'),

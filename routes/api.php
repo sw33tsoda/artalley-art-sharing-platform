@@ -43,6 +43,7 @@ Route::group(['prefix' => '/community/resources'],function(){
 
     Route::middleware('auth:api')->apiResource('arts',\App\Http\Controllers\Community\ArtsController::class);
     Route::middleware('auth:api')->apiResource('showcases',\App\Http\Controllers\Community\ShowcasesController::class);
+    Route::get('/showcases/get/{id}',[\App\Http\Controllers\Community\ShowcasesController::class,'show']);
     Route::get('/arts/get/{id}',[\App\Http\Controllers\Community\ArtsController::class,'show']);
 
     // [AUTH ONLY]

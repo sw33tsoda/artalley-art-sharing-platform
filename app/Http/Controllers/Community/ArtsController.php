@@ -91,7 +91,7 @@ class ArtsController extends Controller
      */
     public function show($id)
     {
-        $getArt = Art::with('users','artChannels','dimensions','showcase_arts')->find($id);
+        $getArt = Art::with('users','artChannels','dimensions','showcase_arts.showcases')->find($id);
         return response()->json([
             'message' => 'Lấy tác phẩm thành công',
             'art' => $getArt,

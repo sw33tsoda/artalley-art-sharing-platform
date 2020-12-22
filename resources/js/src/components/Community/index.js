@@ -7,7 +7,7 @@ import Header from './Header';
 function Community() {
     return (
         <div className="community">
-            <Announcement timeout={100}/>
+            <Announcement timeout={5}/>
             <Header/>
             <Body/>
             <Footer/>

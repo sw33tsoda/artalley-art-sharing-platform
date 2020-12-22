@@ -2,6 +2,7 @@
 @import './upload.scss';
 @import './management.scss';
 @import './showArt.scss';
+@import './showcase.scss';
 
 .community {
     width: 100%;
@@ -38,7 +39,7 @@
         }
     }
 
-    .header {
+    > .header {
         height: 50px;
         background-size: contain;
         background-position-y: 0px;
@@ -63,6 +64,10 @@
 
         .show-art {
             @include community-showArt;
+        }
+        
+        .showcase {
+            @include community-showcase;
         }
     }
 
