@@ -3,6 +3,7 @@
 400&display=swap);@import url(https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap);@import url(https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);@import url(https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap);@import url(https://fonts.googleapis.com/css2?family=Anton&display=swap);@import url(https://unpkg.com/basscss@8.0.2/css/basscss.min.css);@charset "UTF-8";
 body {
   font-family: "Roboto", sans-serif;
+  height: auto;
   margin: 0;
   padding: 0;
   background: #d8d8d8;
@@ -567,8 +568,7 @@ body {
 }
 
 .community .body {
-  padding-top: 25px;
-  padding: 25px 5px 0 5px;
+  padding: 25px 0px 0 0px;
 }
 
 .community .body .upload {
@@ -1287,6 +1287,12 @@ body {
   margin-bottom: 20px;
 }
 
+@media (max-width: 479px) {
+  .community .body .showcase .header {
+    padding: 0 5px 0 5px;
+  }
+}
+
 .community .body .showcase .header h1,
 .community .body .showcase .header h2,
 .community .body .showcase .header p {
@@ -1304,7 +1310,7 @@ body {
 }
 
 .community .body .showcase .header .subheading {
-  font-size: 0.75em;
+  font-size: 0.65em;
   text-align: justify;
 }
 
@@ -1313,21 +1319,41 @@ body {
   font-size: 0.75em;
 }
 
+.community .body .showcase .arts-wrapper {
+  background: #212121;
+  padding: 25px 0 25px 0;
+  width: 100%;
+  /* width */
+}
+
 .community .body .showcase .arts-wrapper .arts-list {
+  cursor: -webkit-grab;
+  cursor: grab;
   max-width: 1150px;
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
-  -moz-column-count: 2;
-       column-count: 2;
+}
+
+@media (min-width: 1024px) {
+  .community .body .showcase .arts-wrapper .arts-list {
+    display: flex;
+    -moz-column-gap: 25px;
+         column-gap: 25px;
+  }
+}
+
+@media (max-width: 479px) {
+  .community .body .showcase .arts-wrapper .arts-list {
+    display: block;
+  }
 }
 
 .community .body .showcase .arts-wrapper .arts-list .wrapper {
   position: relative;
   margin-bottom: 12.5px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
-  border-radius: 0.25em;
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 
 .community .body .showcase .arts-wrapper .arts-list .wrapper p,
@@ -1335,10 +1361,21 @@ body {
   margin: 0;
 }
 
-.community .body .showcase .arts-wrapper .arts-list .wrapper .overlay {
+@media (min-width: 1024px) {
+  .community .body .showcase .arts-wrapper .arts-list .wrapper:last-child {
+    padding-right: calc((100vw - 1150px) / 2) !important;
+  }
+}
+
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+  position: relative;
+  border-radius: 0.25em;
+}
+
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art .overlay {
   position: absolute;
   overflow: hidden;
-  width: 100%;
   padding: 15px 20px 15px 20px;
   display: none;
   box-sizing: border-box;
@@ -1347,35 +1384,87 @@ body {
   background: linear-gradient(rgba(255, 150, 54, 0.75), rgba(0, 0, 0, 0));
 }
 
-.community .body .showcase .arts-wrapper .arts-list .wrapper .overlay > div {
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art .overlay > div {
   margin-bottom: 15px;
 }
 
-.community .body .showcase .arts-wrapper .arts-list .wrapper .overlay .title {
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art .overlay .title {
   text-align: center;
 }
 
-.community .body .showcase .arts-wrapper .arts-list .wrapper .overlay .caption,
-.community .body .showcase .arts-wrapper .arts-list .wrapper .overlay .description {
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art .overlay .caption,
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art .overlay .description {
   text-align: justify;
   text-indent: 25px;
 }
 
-.community .body .showcase .arts-wrapper .arts-list .wrapper .overlay .caption {
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art .overlay .caption {
   font-size: 0.95em;
 }
 
-.community .body .showcase .arts-wrapper .arts-list .wrapper .overlay .description {
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art .overlay .description {
   font-size: 0.75em;
 }
 
-.community .body .showcase .arts-wrapper .arts-list .wrapper .art {
-  border-radius: 0.25em;
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art img {
+  height: 700px;
+  vertical-align: middle;
 }
 
-.community .body .showcase .arts-wrapper .arts-list .wrapper .art img {
-  width: 100%;
-  vertical-align: middle;
+@media (max-width: 479px) {
+  .community .body .showcase .arts-wrapper .arts-list .wrapper .art img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art .genres {
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  display: none;
+  align-items: center;
+  position: absolute;
+  left: 25px;
+  bottom: 14px;
+  color: #d9d9d9;
+}
+
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art .genres .channel {
+  order: 2;
+  text-shadow: 0px 2px 7px black;
+  flex: 0 1 auto;
+  width: auto;
+}
+
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art .genres .channel h1 {
+  margin: 0;
+}
+
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art .genres .dimensional {
+  order: 1;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+  flex: 0 0 auto;
+  height: 50px;
+  width: 50px;
+  background: #d9d9d9;
+  text-align: center;
+  display: flex;
+  border-radius: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art .genres .dimensional h1 {
+  font-size: 1.25em;
+  color: #212121;
+  margin: 0;
+}
+
+@media (max-width: 479px) {
+  .community .body .showcase .arts-wrapper .arts-list .wrapper .art .genres .dimensional {
+    width: 30px;
+    height: 30px;
+  }
 }
 
 .community .body .showcase .arts-wrapper .arts-list .wrapper .art .view-more {
@@ -1396,18 +1485,35 @@ body {
   color: white;
 }
 
-.community .body .showcase .arts-wrapper .arts-list .wrapper:hover .overlay {
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art:hover .overlay {
   display: block;
   height: auto;
   z-index: 2;
 }
 
-.community .body .showcase .arts-wrapper .arts-list .wrapper:hover .art img {
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art:hover img {
   filter: saturate(0);
 }
 
-.community .body .showcase .arts-wrapper .arts-list .wrapper:hover .art .view-more {
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art:hover .genres {
+  display: flex;
+}
+
+.community .body .showcase .arts-wrapper .arts-list .wrapper .art:hover .view-more {
   display: block;
+}
+
+.community .body .showcase .footer {
+  padding: 25px 5px 25px 5px;
+  max-width: 1150px;
+  margin: auto;
+}
+
+.community .body .showcase .footer > .description p {
+  text-indent: 25px;
+  color: #212121;
+  font-size: 0.75em;
+  text-align: justify;
 }
 
 .community > .footer {
@@ -1637,13 +1743,13 @@ body {
   float: right;
 }
 
-.channel {
+> .channel {
   width: 100% !important;
   -webkit-animation: 1s fadeIn;
           animation: 1s fadeIn;
 }
 
-.channel .filter .search {
+> .channel .filter .search {
   background: none;
   border: none;
   box-shadow: none;
@@ -1655,41 +1761,41 @@ body {
   width: 50%;
 }
 
-.channel .filter .search:hover::-moz-placeholder {
+> .channel .filter .search:hover::-moz-placeholder {
   color: white;
 }
 
-.channel .filter .search:hover:-ms-input-placeholder {
+> .channel .filter .search:hover:-ms-input-placeholder {
   color: white;
 }
 
-.channel .filter .search:hover::placeholder {
+> .channel .filter .search:hover::placeholder {
   color: white;
 }
 
-.channel .filter .search::-moz-placeholder {
+> .channel .filter .search::-moz-placeholder {
   color: #b2bec3;
   text-shadow: 0px 2px 3px #101010;
   font-weight: bold;
 }
 
-.channel .filter .search:-ms-input-placeholder {
+> .channel .filter .search:-ms-input-placeholder {
   color: #b2bec3;
   text-shadow: 0px 2px 3px #101010;
   font-weight: bold;
 }
 
-.channel .filter .search::placeholder {
+> .channel .filter .search::placeholder {
   color: #b2bec3;
   text-shadow: 0px 2px 3px #101010;
   font-weight: bold;
 }
 
-.channel .filter .select {
+> .channel .filter .select {
   float: right;
 }
 
-.channel .filter .select select {
+> .channel .filter .select select {
   height: 50px;
   background: none;
   margin: 0 !important;
@@ -1704,27 +1810,27 @@ body {
   text-shadow: 0px 2px 3px #101010;
 }
 
-.channel .filter .select select:first-child {
+> .channel .filter .select select:first-child {
   margin-right: 10px;
 }
 
-.channel .filter .select select:hover {
+> .channel .filter .select select:hover {
   color: white;
 }
 
-.channel .filter .select select:focus {
+> .channel .filter .select select:focus {
   border: none;
   outline: none;
   box-shadow: none;
 }
 
-.channel .filter .select select option {
+> .channel .filter .select select option {
   background: white;
   border-radius: 100%;
   color: #101010;
 }
 
-.channel .art-channels-form {
+> .channel .art-channels-form {
   -webkit-animation: 1s fadeIn;
           animation: 1s fadeIn;
   margin: 0;
@@ -1735,34 +1841,34 @@ body {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-.channel .art-channels-form .add-channel-title {
+> .channel .art-channels-form .add-channel-title {
   cursor: -webkit-grab;
   cursor: grab;
 }
 
-.channel .art-channels-form .form-buttons-group button:last-child {
+> .channel .art-channels-form .form-buttons-group button:last-child {
   float: right;
 }
 
-.channel .art-channels-form .profile-picture-preview {
+> .channel .art-channels-form .profile-picture-preview {
   width: 100px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 25px;
 }
 
-.channel .art-channels-form .no-file,
-.channel .art-channels-form .upload-button {
+> .channel .art-channels-form .no-file,
+> .channel .art-channels-form .upload-button {
   text-align: center;
 }
 
-.channel .no-record {
+> .channel .no-record {
   text-align: center;
   font-weight: bold;
   text-shadow: 0px 2px 3px #101010;
 }
 
-.channel .art-channels-list {
+> .channel .art-channels-list {
   box-sizing: border-box;
   width: 100%;
   display: grid;
@@ -1774,18 +1880,18 @@ body {
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  .channel .art-channels-list {
+  > .channel .art-channels-list {
     grid-template-columns: auto auto;
   }
 }
 
 @media (max-width: 479px) {
-  .channel .art-channels-list {
+  > .channel .art-channels-list {
     grid-template-columns: auto;
   }
 }
 
-.channel .art-channels-list .channel-item {
+> .channel .art-channels-list .channel-item {
   -webkit-animation: 1s fadeIn;
           animation: 1s fadeIn;
   cursor: pointer;
@@ -1799,7 +1905,7 @@ body {
   position: relative;
 }
 
-.channel .art-channels-list .channel-item p {
+> .channel .art-channels-list .channel-item p {
   margin: 0;
   padding: 0;
   word-wrap: break-word;
@@ -1807,33 +1913,33 @@ body {
   color: white;
 }
 
-.channel .art-channels-list .channel-item .name {
+> .channel .art-channels-list .channel-item .name {
   font-size: 1.25em;
   font-weight: bold;
 }
 
-.channel .art-channels-list .channel-item .date {
+> .channel .art-channels-list .channel-item .date {
   font-size: 0.75em;
   position: absolute;
   bottom: 5px;
   right: 10px;
 }
 
-.channel .art-channels-list .channel-item .edit {
+> .channel .art-channels-list .channel-item .edit {
   position: absolute;
   top: 5px;
   right: 10px;
   font-weight: bold;
 }
 
-.channel .art-channels-list .channel-item .delete {
+> .channel .art-channels-list .channel-item .delete {
   font-weight: bold;
   position: absolute;
   left: 10px;
   bottom: 5px;
 }
 
-.channel .show-add-channel-form {
+> .channel .show-add-channel-form {
   text-shadow: 0px 2px 3px #101010;
   color: #b2bec3;
   margin: 0;
@@ -1844,11 +1950,11 @@ body {
   cursor: pointer;
 }
 
-.channel .show-add-channel-form::before {
+> .channel .show-add-channel-form::before {
   content: "+ ";
 }
 
-.channel .show-add-channel-form:hover {
+> .channel .show-add-channel-form:hover {
   color: white;
 }
 

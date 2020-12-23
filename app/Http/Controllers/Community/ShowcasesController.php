@@ -90,7 +90,7 @@ class ShowcasesController extends Controller
      */
     public function show($id)
     {
-        $showcase = Showcase::with('showcase_arts.arts')->find($id);
+        $showcase = Showcase::with('showcase_arts.arts.artChannels','showcase_arts.arts.dimensions')->find($id);
         return response()->json([
             'message' => 'Đã lấy Showcase thành công',
             'showcase' => $showcase,

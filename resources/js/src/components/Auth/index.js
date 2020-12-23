@@ -43,7 +43,7 @@ function Auth() {
                 <React.Fragment>
                     <div className="user-info">
                         <p className="username">{authenticatedUser.username}</p>
-                        <img className="profile-picture" src={`/storage/app/public/profilePictures/${authenticatedUser.profile_picture}`}/>
+                        {authenticatedUser.profile_picture !== null && <img className="profile-picture" src={`/storage/app/public/profilePictures/${authenticatedUser.profile_picture}`}/>}
                     </div>
                     <button className="button">
                         <Link to={url + '/management'} style={{textDecoration:'none',color:'#D9D9D9'}}>
