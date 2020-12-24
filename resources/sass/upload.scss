@@ -178,13 +178,17 @@
                     width: 100%;
                     // overflow: scroll;
                     line-height: 0;
-                    column-count: 8;
+                    // column-count: 8;
+                    display: grid;
+                    grid-template-columns: repeat(8,1fr);
+                    justify-items: center;
+                    // grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
                     @include mobile {
-                        column-count: 3;
+                        grid-template-columns: repeat(3,1fr);
                     }
 
                     @include tablet {
-                        column-count: 6;
+                        grid-template-columns: repeat(6,1fr);
                     }
                     column-gap: 5px;
                     position: relative;
@@ -192,6 +196,10 @@
                         break-inside: avoid;
                         position: relative;
                         margin-bottom: 5px;
+                        display: flex;
+                        justify-content: center;
+                        max-width: 150px;
+                        height: 150px;
                         &:hover {
                             cursor: pointer;
                         }
@@ -213,6 +221,7 @@
                         img {
                             box-shadow: 0 0 15px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);    
                             width: 100%;
+                            object-fit: cover;
                         }
     
                         &:hover {
@@ -225,7 +234,8 @@
     
                         &.selected {
                             .overlay {
-                                background: linear-gradient(180deg, rgba(33,33,33,1) 0%, rgba(216,216,216,0) 100%);
+                                // background: linear-gradient(180deg, rgba(33,33,33,1) 0%, rgba(216,216,216,0) 100%);
+                                background:linear-gradient(rgba(255, 150, 54, 0.75),rgba(0,0,0,0));
                                 visibility: visible;
                             }
                         }

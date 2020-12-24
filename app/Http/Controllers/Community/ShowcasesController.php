@@ -15,9 +15,18 @@ class ShowcasesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $showcasesList = Showcase::where('user_id',$request->user()->id)->orderBy('created_at','desc')->get();
+        if (!$showcasesList) {
+            return response()->json([
+                'message' => 'Lấy danh sách thất bại',
+            ],500);
+        }
+        return response()->json([
+            'message' => 'Lấy danh sách thành công',
+            'list' => $showcasesList,
+        ],200);
     }
 
     /**
@@ -90,7 +99,7 @@ class ShowcasesController extends Controller
      */
     public function show($id)
     {
-        $showcase = Showcase::with('showcase_arts.arts.artChannels','showcase_arts.arts.dimensions')->find($id);
+        $showcase = Showcase::with('showcase_arts.arts.artChannels','showcase_arts.arts.dimensions','showcase_arts.users')->find($id);
         return response()->json([
             'message' => 'Đã lấy Showcase thành công',
             'showcase' => $showcase,

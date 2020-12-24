@@ -6,8 +6,9 @@ import DragScroll from 'react-indiana-drag-scroll';
 function Showcase() {
     const [showcase,setShowcase] = useState({});
     const [background,setBackground] = useState('');
+    const [artist,setArtist] = useState({});
     const { id } = useParams();
-    console.log(showcase);
+    console.log(artist);
 
     useEffect(() => {
         const getSpecificShowcase = async () => {
@@ -15,6 +16,7 @@ function Showcase() {
                 const {data:{showcase}} = response;
                 setShowcase({...showcase});
                 setBackground(showcase.showcase_arts[0].arts.art);
+                setArtist({...showcase.showcase_arts[0].users});
             }).catch(error => {
                 // const {data:{message}} = error.response;
                 console.log(error.response);
@@ -70,6 +72,21 @@ function Showcase() {
             <div className="footer">
                 <div className="description">
                     <p>{showcase.description}</p>
+                </div>
+                
+                <div className="more">
+                    <div className="artist">
+                        <p className="title">TÁC GIẢ</p>
+                        <div className="info">
+                            <div className="profile-picture">
+                                {(artist && artist.profile_picture !== null) ? <img src={`/storage/app/public/profilePictures/${artist.profile_picture}`} /> : <i className="fas fa-user"></i>}
+                            </div>
+                            <div className="name">
+                                <p className="username">{artist && artist.username}</p>
+                                <p className="fullname">{artist && artist.firstname + ' ' + artist.lastname}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
