@@ -6,7 +6,6 @@ import _ from 'lodash';
 function ShowArt() {
     const { id } = useParams();
     const [art,setArt] = useState({});
-    console.log(art);
     useEffect(() => {
         const getArt = async () => {
             await Axios.get(`/public/api/community/resources/arts/get/${id}`).then(response => {
@@ -59,11 +58,15 @@ function ShowArt() {
                     <div className="artist">
                         <p className="title">TÁC GIẢ</p>
                         <div className="info">
-                            <div className="profile-picture">
-                                {(art.users && art.users.profile_picture !== null) ? <img src={`/storage/app/public/profilePictures/${art.users.profile_picture}`} /> : <i className="fas fa-user"></i>}
-                            </div>
+                            <Link to={`/public/community/user/${art.user_id}/arts`}>
+                                <div className="profile-picture">
+                                    {(art.users && art.users.profile_picture !== null) ? <img src={`/storage/app/public/profilePictures/${art.users.profile_picture}`} /> : <i className="fas fa-user"></i>}
+                                </div>
+                            </Link>
                             <div className="name">
-                                <p className="username">{art.users && art.users.username}</p>
+                                <Link to={`/public/community/user/${art.user_id}/arts`}>
+                                    <p className="username">{art.users && art.users.username}</p>
+                                </Link>
                                 <p className="fullname">{art.users && art.users.firstname + ' ' + art.users.lastname}</p>
                             </div>
                         </div>
@@ -73,7 +76,7 @@ function ShowArt() {
                                 <p className="title">THUỘC</p>
                                 <div className="list">
                                     {art.showcase_arts.map((showcase,index) => (
-                                        <Link to={`/public/community/showcase/${showcase.showcase_id}`}>
+                                        <Link to={`/public/community/showcase/${showcase.showcase_id}`} key={index}>
                                             <div className="showcase">
                                                 <div className="showcase-thumbnail">
                                                     <img src="https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/cyberpunk_2077_refund.jpg"/>

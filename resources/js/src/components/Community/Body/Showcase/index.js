@@ -5,10 +5,9 @@ import _ from 'lodash';
 import DragScroll from 'react-indiana-drag-scroll';
 function Showcase() {
     const [showcase,setShowcase] = useState({});
-    const [background,setBackground] = useState('');
+    // const [background,setBackground] = useState('');
     const [artist,setArtist] = useState({});
     const { id } = useParams();
-    console.log(artist);
 
     useEffect(() => {
         const getSpecificShowcase = async () => {
@@ -78,11 +77,15 @@ function Showcase() {
                     <div className="artist">
                         <p className="title">TÁC GIẢ</p>
                         <div className="info">
-                            <div className="profile-picture">
-                                {(artist && artist.profile_picture !== null) ? <img src={`/storage/app/public/profilePictures/${artist.profile_picture}`} /> : <i className="fas fa-user"></i>}
-                            </div>
+                            <Link to={`/public/community/user/${artist.id}`}>
+                                <div className="profile-picture">
+                                    {(artist && artist.profile_picture !== null) ? <img src={`/storage/app/public/profilePictures/${artist.profile_picture}`} /> : <i className="fas fa-user"></i>}
+                                </div>
+                            </Link>
                             <div className="name">
-                                <p className="username">{artist && artist.username}</p>
+                                <Link to={`/public/community/user/${artist.id}`}>
+                                    <p className="username">{artist && artist.username}</p>
+                                </Link>
                                 <p className="fullname">{artist && artist.firstname + ' ' + artist.lastname}</p>
                             </div>
                         </div>

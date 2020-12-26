@@ -157,7 +157,10 @@
                 font-weight: bold;
             }
 
-            .artist {           
+            .artist {         
+                * {
+                    text-decoration: none;
+                }  
                 .info {
                     display: flex;
                     justify-content: center;
@@ -206,6 +209,12 @@
 
                         .username {
                             font-size: 2em;
+                            color:#212121;
+                            transition: 0.25s;
+                            &:hover {
+                                color:rgba(255, 150, 54, 1);
+                                
+                            }
                         }
 
                         .fullname {

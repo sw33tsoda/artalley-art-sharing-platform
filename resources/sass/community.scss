@@ -3,6 +3,7 @@
 @import './management.scss';
 @import './showArt.scss';
 @import './showcase.scss';
+@import './userProfile.scss';
 
 .community {
     width: 100%;
@@ -68,6 +69,10 @@
         
         .showcase {
             @include community-showcase;
+        }
+
+        .user-profile {
+            @include community-userProfile;
         }
     }
 

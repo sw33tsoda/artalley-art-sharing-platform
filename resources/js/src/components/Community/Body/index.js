@@ -5,6 +5,7 @@ import Warning from '../../Errors/Warning';
 import Management from './Management';
 import ShowArt from './ShowArt';
 import Showcase from './Showcase';
+import UserProfile from './UserProfile';
 
 const CommunityGallery = lazy(() => (import('./CommunityGallery')));
 const Upload = lazy(() => (import('./Upload')));
@@ -36,6 +37,9 @@ function Body() {
 
                     {/* Show Showcase / Hiển thị quày trưng bày */}
                     <Route path={url + '/showcase/:id'} component={Showcase}/>
+
+                    {/* Show User / Hiển thị người dùng */}
+                    <Route path={url + '/user/:id'} component={UserProfile}/>
 
                     {/* 404 */}
                     <Route>
