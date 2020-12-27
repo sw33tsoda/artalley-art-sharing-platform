@@ -19,7 +19,8 @@ class CreateArts extends Migration
             $table->text('caption')->nullable();
             $table->text('description')->nullable();
             $table->text('tags')->nullable();
-            $table->text('art');
+            $table->string('art')->nullable()->default(null);
+            $table->string('art_thumbnail')->nullable()->default(null);
             $table->bigInteger('privacy_id')->unsigned();
             $table->bigInteger('dimension_id')->unsigned();
             $table->bigInteger('art_channel_id')->unsigned();

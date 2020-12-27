@@ -15,9 +15,9 @@ class ShowcasesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($userId)
     {
-        $showcasesList = Showcase::where('user_id',$request->user()->id)->orderBy('created_at','desc')->get();
+        $showcasesList = Showcase::where('user_id',$userId)->orderBy('created_at','desc')->get();
         if (!$showcasesList) {
             return response()->json([
                 'message' => 'Lấy danh sách thất bại',

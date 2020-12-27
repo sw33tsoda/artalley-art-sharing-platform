@@ -1,23 +1,26 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-function ArtsList() {
+
+function ArtsList({userId}) {
     const [artsList,setArtsList] = useState([]);
     const [loading,setLoading] = useState(true);
 
     useEffect(() => {
-        const apiToken = localStorage.getItem('authenticatedUserToken');
+        // const apiToken = localStorage.getItem('authenticatedUserToken');
         const getArtsList = async () => {
-            await Axios.get(`/public/api/community/resources/arts?api_token=${apiToken}`).then((response) => {
+            await Axios.get(`/public/api/community/resources/arts/get-list/${userId}`).then((response) => {
                 const {data:{list}} = response;
-                setArtsList(list);
+                if (list.length > 0) {
+                    setArtsList(list);
+                }
                 setLoading(false);
             }).catch(error => {
                 console.log(error.response);
             });
         }
         getArtsList();
-    },[]);
+    },[userId]);
 
     return (
         !loading ? artsList.length > 0 ? (

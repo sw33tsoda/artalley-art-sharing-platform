@@ -22,6 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _Validations__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../Validations */ "./resources/js/src/components/Validations/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -57,6 +58,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function CreateShowcase() {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -76,9 +78,13 @@ function CreateShowcase() {
       optionsList = _useState6[0],
       setOptionsList = _useState6[1];
 
-  Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
-    var apiToken = localStorage.getItem('authenticatedUserToken');
+  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_9__["useSelector"])(function (state) {
+    return state.auth.authenticatedUser;
+  }),
+      userId = _useSelector.id;
 
+  Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
+    // const apiToken = localStorage.getItem('authenticatedUserToken');
     var getArtsList = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -86,9 +92,12 @@ function CreateShowcase() {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/arts?api_token=".concat(apiToken)).then(function (response) {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/arts/get-list/".concat(userId)).then(function (response) {
                   var list = response.data.list;
-                  setArtList(list);
+
+                  if (list.length > 0) {
+                    setArtList(list);
+                  }
                 })["catch"](function (error) {
                   console.log(error.response);
                 });
@@ -140,7 +149,7 @@ function CreateShowcase() {
 
     getSelectionListOptions();
     getArtsList();
-  }, []);
+  }, [userId]);
 
   var handleSelectArt = function handleSelectArt(artId) {
     var newSelectedArts = selectedArts;

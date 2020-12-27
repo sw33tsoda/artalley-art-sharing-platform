@@ -3,32 +3,37 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import DragScroll from 'react-indiana-drag-scroll';
 import ArtsList from '../Lists/ArtsList';
+import { useSelector } from 'react-redux';
+import { isUndefined } from 'lodash';
 
 function Management() {
-    const [artsList,setArtsList] = useState([]);
+    // const [artsList,setArtsList] = useState([]);
     const [showcasesList,setShowcasesList] = useState([]);
-    const history = useHistory();
+    // const history = useHistory();
+    const {id:userId} = useSelector(state => state.auth.authenticatedUser);
 
     useEffect(() => {
-        const apiToken = localStorage.getItem('authenticatedUserToken');
+        // const apiToken = localStorage.getItem('authenticatedUserToken');
         const getArtsList = async () => {
-            const arts = Axios.get(`/public/api/community/resources/showcases?api_token=${apiToken}`);
-            const showcases = Axios.get(`/public/api/community/resources/arts?api_token=${apiToken}`);
+            // const arts = Axios.get(`/public/api/community/resources/arts/get-list/${userId}`);
+            console.log('useeffect');
+            const showcases = Axios.get(`/public/api/community/resources/showcases/get-list/${userId}`);
             await Axios.all([
-                arts,
+                // arts,
                 showcases,
             ]).then((responses) => {
-                // console.log(responses);
                 const {data:{list:showcasesResult}} = responses[0];
-                const {data:{list:artsResult}} = responses[1];
-                setShowcasesList(showcasesResult);
-                setArtsList(artsResult);
+                if (showcasesResult.length > 0) {
+                    setShowcasesList(showcasesResult);
+                }
+                // const {data:{list:artsResult}} = responses[1];
+                // setArtsList(artsResult);
             }).catch(error => {
                 console.log(error.response);
             });
         }
         getArtsList();
-    },[]);
+    },[userId]);
 
     return (
         <div className="management">
@@ -54,7 +59,7 @@ function Management() {
                     <h1 className="no-item">Trống</h1>
                 )}
 
-                <ArtsList/>
+                <ArtsList userId={userId}/>
             </div>
         </div>
     );

@@ -6,6 +6,7 @@ import TextareaField from '../../../../CustomFields/TextareaField';
 import SelectField from '../../../../CustomFields/SelectField';
 import classnames from 'classnames';
 import { ShowcaseValidation } from '../../../../Validations';
+import { useSelector } from 'react-redux';
 
 function CreateShowcase() {
     const [artsList,setArtList] = useState([]);
@@ -14,13 +15,16 @@ function CreateShowcase() {
         artChannels:[],
         privacies:[],
     });
+    const {id:userId} = useSelector(state => state.auth.authenticatedUser);
 
     useEffect(() => {
-        const apiToken = localStorage.getItem('authenticatedUserToken');
+        // const apiToken = localStorage.getItem('authenticatedUserToken');
         const getArtsList = async () => {
-            await Axios.get(`/public/api/community/resources/arts?api_token=${apiToken}`).then(response => {
+            await Axios.get(`/public/api/community/resources/arts/get-list/${userId}`).then(response => {
                 const {data:{list}} = response;
-                setArtList(list);
+                if (list.length > 0) {
+                    setArtList(list);
+                }
             }).catch(error => {
                 console.log(error.response);
             })
@@ -39,7 +43,7 @@ function CreateShowcase() {
         
         getSelectionListOptions();
         getArtsList();
-    },[]);
+    },[userId]);
 
     const handleSelectArt = (artId) => {
         let newSelectedArts = selectedArts;

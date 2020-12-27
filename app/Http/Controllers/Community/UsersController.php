@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Community;
 
 use App\Http\Controllers\Controller;
+use App\Models\Art;
+use App\Models\Showcase;
+use App\Models\ShowcaseArt;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -48,6 +51,12 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+        $stats = [
+            'artsCount' => Art::where('user_id',$id)->count(),
+            'showcasesCount' => Showcase::where('user_id',$id)->count(),
+        ];
+        $user['stats'] = $stats;
+
         if (!$user) {
             return response()->json([
                 'message' => 'Lấy người dùng thất bại',

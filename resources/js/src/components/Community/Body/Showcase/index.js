@@ -14,7 +14,7 @@ function Showcase() {
             await Axios.get(`/public/api/community/resources/showcases/get/${id}`).then(response => {
                 const {data:{showcase}} = response;
                 setShowcase({...showcase});
-                setBackground(showcase.showcase_arts[0].arts.art);
+                // setBackground(showcase.showcase_arts[0].arts.art);
                 setArtist({...showcase.showcase_arts[0].users});
             }).catch(error => {
                 // const {data:{message}} = error.response;
@@ -77,13 +77,13 @@ function Showcase() {
                     <div className="artist">
                         <p className="title">TÁC GIẢ</p>
                         <div className="info">
-                            <Link to={`/public/community/user/${artist.id}`}>
+                            <Link to={`/public/community/user/${artist.id}/arts`}>
                                 <div className="profile-picture">
                                     {(artist && artist.profile_picture !== null) ? <img src={`/storage/app/public/profilePictures/${artist.profile_picture}`} /> : <i className="fas fa-user"></i>}
                                 </div>
                             </Link>
                             <div className="name">
-                                <Link to={`/public/community/user/${artist.id}`}>
+                                <Link to={`/public/community/user/${artist.id}/arts`}>
                                     <p className="username">{artist && artist.username}</p>
                                 </Link>
                                 <p className="fullname">{artist && artist.firstname + ' ' + artist.lastname}</p>

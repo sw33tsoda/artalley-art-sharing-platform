@@ -1,10 +1,10 @@
 import React from 'react';
 import ShowcasesList from '../../../Lists/ShowcasesList';
 
-function Showcases() {
+function Showcases({userId}) {
     return (
         <div className="showcases">
-            <ShowcasesList/>
+            <ShowcasesList userId={userId}/>
         </div>
     )
 }

@@ -1801,6 +1801,11 @@ body {
   background-color: #3c3c3c;
   box-shadow: 8px -68px 0px -78px rgba(0, 0, 0, 0.75) inset;
   transition: 0.25s;
+  gap: 5px;
+}
+
+.community .body .user-profile .body > .content .tabs .tab-item .stats {
+  font-weight: bold;
 }
 
 .community .body .user-profile .body > .content .tabs .tab-item:hover {

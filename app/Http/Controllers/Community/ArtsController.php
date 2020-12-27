@@ -15,10 +15,9 @@ class ArtsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($userId)
     {
-        $userId = $request->user()->id;
-        $getArtsListByUserId = Art::where('user_id',$userId)->with('artChannels')->orderBy('created_at','desc')->get();
+        $getArtsListByUserId = Art::where('user_id', $userId)->with('artChannels')->orderBy('created_at','desc')->get();
         if (!$getArtsListByUserId) {
             return response()->json([
                 'message' => 'Lấy danh sách thất bại',

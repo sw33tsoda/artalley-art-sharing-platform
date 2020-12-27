@@ -16,6 +16,7 @@ function UserProfile() {
         const getUser = async () => {
             await Axios.get(`/public/api/community/resources/users/get/${id}`).then(response => {
                 const {data:{user}} = response;
+                console.log(response);
                 setUser(user);
             }).catch(error => {
                 console.log(error.response);
@@ -47,16 +48,19 @@ function UserProfile() {
                     <div className="tabs">
                         <Link to={`/public/community/user/${user.id}/arts`}>
                             <div className={classnames('tab-item',{selected: CurrentPageSlug() == 'arts'})}>
+                                <p className="stats">{user.stats && user.stats.artsCount}</p>
                                 <i className="fas fa-image"></i>
                             </div>
                         </Link>
                         <Link to={`/public/community/user/${user.id}/showcases`}>
                             <div className={classnames('tab-item',{selected: CurrentPageSlug() == 'showcases'})}>
+                                <p className="stats">{user.stats && user.stats.showcasesCount}</p>
                                 <i className="fas fa-grip-horizontal"></i>
                             </div>
                         </Link>
                         <Link to={`/public/community/user/${user.id}/questions`}>
                             <div className={classnames('tab-item',{selected: CurrentPageSlug() == 'questions'})}>
+                                <p className="stats"></p>
                                 <i className="far fa-question-circle"></i>
                             </div>
                         </Link>
@@ -64,8 +68,8 @@ function UserProfile() {
 
                     <div className="sub-content">
                         <Switch>
-                            <Route path={`/public/community/user/${user.id}/arts`} component={Arts} />
-                            <Route path={`/public/community/user/${user.id}/showcases`} component={Showcases} />
+                            <Route path={`/public/community/user/${user.id}/arts`} component={() => <Arts userId={id}/>} />
+                            <Route path={`/public/community/user/${user.id}/showcases`} component={() => <Showcases userId={id}/>} />
                             <Route path={`/public/community/user/${user.id}/questions`} component={Questions} />
                         </Switch>
                     </div>

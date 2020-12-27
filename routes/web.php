@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\ArtChannel;
+use App\Models\Dimension;
 use App\Models\Post;
+use App\Models\Privacy;
 use App\Models\Showcase;
 use App\Models\ShowcaseArt;
 use App\Models\User;
@@ -28,6 +30,35 @@ Route::get('/playground', function() {
     $list = Showcase::with('showcase_arts.arts')->get();
 
     dd($list->toArray());
+});
+
+Route::get('/startup', function() {
+    $privacies = [
+        ['allowed' => 'Mọi người'],
+        ['allowed' => 'Chỉ mình tôi'],
+    ];
+
+    $dimensions = [
+        ['dimensional' => '2D'],
+        ['dimensional' => '2.5D'],
+        ['dimensional' => '3D'],
+    ];
+
+    $artChannels = [
+        ['channel_slug' => 'digital-art','channel_name' => 'Digital Art'],
+    ];
+
+    foreach ($privacies as $privacy) {
+        Privacy::create($privacy);
+    }
+
+    foreach ($dimensions as $dimension) {
+        Dimension::create($dimension);
+    }
+
+    foreach ($artChannels as $artChannel) {
+        ArtChannel::create($artChannel);
+    }
 });
 
 Route::get('/{path?}', function () {
