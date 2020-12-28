@@ -1,44 +1,34 @@
 import { FastField, Formik } from 'formik';
-import { isEmpty } from 'lodash';
-import React, {useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { authRefresh } from '../../../../../store/auth';
+import { isEmpty, isNull } from 'lodash';
+import React, { useState } from 'react';
 import InputField from '../../../../CustomFields/InputField';
 import TextareaField from '../../../../CustomFields/TextareaField';
 
-function Profile() {
-    const dispatch = useDispatch();
-    const user = useSelector(state => state.auth.authenticatedUser);
+function Profile(props) {
+    const { user } = props;
     const initialValues = {};
+    const [avatarPreview,setAvatarPreview] = useState(!isNull(user.profile_picture) ? user.profile_picture : '');
+    const [bannerPreview,setBannerPreview] = useState(!isNull(user.banner) ? user.banner : '');
 
-    useEffect(() => {
-        dispatch(authRefresh());
-    },[]);
-    
     if (!isEmpty(user)) {
-        const allowedKeys = [
-            'firstname','lastname','username','email',
-            'bio','facebook','twitter'
-        ];
+        const allowedKeys = ['firstname','lastname','username','email','bio','facebook','twitter'];
         for (const key in user) {
             if (allowedKeys.includes(key)) {
                 initialValues[key] = user[key];
             }
         }
         Object.assign(initialValues,{
-            password:'',
-            password_confirmation:'',
-            profile_picture:'',
-            banner:'',
+            password:null,
+            password_confirmation:null,
+            profile_picture:null,
+            banner:null,
         });
-        console.log(initialValues);
     }
-
+    
     return (
         <div className="profile">
             <div className="header">
-                <h1 className="page-title">Cài đặt</h1>
-                <p className="page-path">Cộng đồng / Cài đặt</p>
+                {/* <h1 className="title">Thông tin cá nhân</h1> */}
             </div>
             <div className="content">
                 {!isEmpty(initialValues) && <Formik initialValues={initialValues}>
@@ -46,21 +36,31 @@ function Profile() {
                         
                         return (
                             <form className="form">
-                                    <div className="split">
-                                        <div className="profile-picture">
-                                            <div className="overlay">
-                                                {/* 1 nút thay đổi */}
-                                                {/* 1 nút xóa ảnh hiện tại */}
+                                    <div className="split mb1">
+                                        <div className="wrapper">
+                                            <label className="label">Ảnh đại diện</label>
+                                            <div className="profile-picture">
+                                            {avatarPreview !== '' ? (<React.Fragment>
+                                                    <div className="overlay">
+                                                        {/* 1 nút thay đổi */}
+                                                        {/* 1 nút xóa ảnh hiện tại */}
+                                                    </div>
+                                                    <img className="avatar preview" src={`/storage/app/public/profilePictures/${avatarPreview}`} />
+                                                </React.Fragment>) : <p className="no-image">Không có ảnh</p>}
                                             </div>
-                                            <img src="#" />
                                         </div>
 
-                                        <div className="banner">
-                                            <div className="overlay">
-                                                {/* 1 nút thay đổi */}
-                                                {/* 1 nút xóa ảnh hiện tại */}
+                                        <div className="wrapper">
+                                            <label className="label">Ảnh bìa</label>
+                                            <div className="banner">
+                                                {bannerPreview !== '' ? (<React.Fragment>
+                                                    <div className="overlay">
+                                                        {/* 1 nút thay đổi */}
+                                                        {/* 1 nút xóa ảnh hiện tại */}
+                                                    </div>
+                                                    <img className="banner preview" src={`/storage/app/public/profilePictures/${bannerPreview}`} />
+                                                </React.Fragment>) : <p className="no-image">Không có ảnh</p>}
                                             </div>
-                                            <img src="#" />
                                         </div>
                                     </div>
 
@@ -73,7 +73,7 @@ function Profile() {
                                                 label='Họ'
                                                 labelClassName='label'
                                                 placeholder='Họ của bạn?'
-                                                className='text-input mt1'
+                                                className='text-input mb1'
                                                 type='text'
                                                 disabled={false}
                                             />
@@ -86,7 +86,7 @@ function Profile() {
                                                 label='Tên'
                                                 labelClassName='label'
                                                 placeholder='Tên của bạn?'
-                                                className='text-input mt1'
+                                                className='text-input mb1'
                                                 type='text'
                                                 disabled={false}
                                             />
@@ -97,7 +97,6 @@ function Profile() {
                                         <div className="username">
                                             <label className="label">Tên người dùng</label>
                                             <div className="input">
-                                                <p className="profile-path">/community/user/</p>
                                                 <FastField
                                                     name='username'
                                                     component={InputField}
@@ -105,7 +104,7 @@ function Profile() {
                                                     // label='Tên người dùng'
                                                     // labelClassName='label'
                                                     placeholder='Tên của bạn?'
-                                                    className='text-input mt1'
+                                                    className='text-input mb1'
                                                     type='text'
                                                     disabled={false}
                                                 />
@@ -120,7 +119,7 @@ function Profile() {
                                                 label='Email'
                                                 labelClassName='label'
                                                 placeholder='Tên của bạn?'
-                                                className='text-input mt1'
+                                                className='text-input mb1'
                                                 type='text'
                                                 disabled={false}
                                             />
@@ -135,7 +134,7 @@ function Profile() {
                                             label='Tên người dùng'
                                             labelClassName='label'
                                             placeholder='Tiểu sử bản thân.'
-                                            className='text-input mt1'
+                                            className='text-input mb1'
                                             type='text'
                                             disabled={false}
                                         />
@@ -150,7 +149,7 @@ function Profile() {
                                                 label='Facebook'
                                                 labelClassName='label'
                                                 placeholder=''
-                                                className='text-input mt1'
+                                                className='text-input mb1'
                                                 type='text'
                                                 disabled={false}
                                             />
@@ -164,7 +163,7 @@ function Profile() {
                                                 label='Twitter'
                                                 labelClassName='label'
                                                 placeholder=''
-                                                className='text-input mt1'
+                                                className='text-input mb1'
                                                 type='text'
                                                 disabled={false}
                                             />

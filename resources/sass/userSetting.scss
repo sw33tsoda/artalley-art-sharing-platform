@@ -4,30 +4,83 @@
     p {
         margin:0;
     }
-    .profile {
-        .header {
-            .page-title {
-    
+
+    .page-content {
+        display: grid;
+        grid-template-columns: 0.25fr 0.75fr;
+        column-gap: 10px;
+
+
+        .side-bar {
+            a {
+                text-decoration: none;
             }
-    
-            .page-path {
-    
+            .item {
+                margin-bottom: 10px;
+                .title {
+                    color:#212121;
+                    font-size: 1.5em;
+                    margin:0;
+                }
             }
         }
+
+        .side-content {
+            .profile {
+                .header {
+                    .title {
+                        margin-top:0;
+                    }
+                }
+            
+                .content {
+                    .form {
+                        .split {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            column-gap: 5px;
+                            // display: flex;
+
+                            .wrapper {
+                                // height: 150px;
+                                .preview {
+                                    border-radius: 0.25em;
+                                    box-shadow: 0 0 15px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.15);
+                                }
+                                .avatar {
+                                    height: 100%;
+                                    box-sizing: border-box;
+                                }
     
-        .content {
-            .form {
-                .split {
-                    width: 100%;
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    column-gap: 5px;
-                    // display: flex;
+                                .banner {
+                                    height: 100%;
+                                    display: flex;
+                                    align-items: center;
+                                    // box-sizing: border-box;
+                                }
+                                
+                                .no-image {
+                                    // height: 100%;
+                                    color:#d8d8d8;
+                                    // background:red;
+                                }
     
-                    .username {
-                        .input {
-                            display: flex;
-                            align-items: center;
+                                .profile-picture, .banner {
+                                    height: 150px;
+                                    background:#212121;
+                                    padding: 10px;
+                                    border-radius: 0.25em;
+                                    display: flex;
+                                    justify-content: center;
+                                }
+                
+                                .username {
+                                    .input {
+                                        display: flex;
+                                        align-items: center;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
