@@ -20,6 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->string('role');
             $table->string('password');
+            $table->text('bio')->nullable()->default(null);
+            $table->string('facebook')->nullable()->default(null);
+            $table->string('twitter')->nullable()->default(null);
             $table->string('api_token',80)->unique()->nullable()->default(null);
             $table->string('profile_picture')->nullable()->default(null);
             $table->string('profile_picture_thumbnail')->nullable()->default(null);

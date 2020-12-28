@@ -966,12 +966,16 @@ function Auth() {
     className: "auth"
   }, !lodash__WEBPACK_IMPORTED_MODULE_8___default.a.isEmpty(authenticatedUser) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "user-info"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
+    to: "/public/community/setting"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
     className: "username"
-  }, authenticatedUser.username), authenticatedUser.profile_picture !== null && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+  }, authenticatedUser.username)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
+    to: "/public/community/setting"
+  }, authenticatedUser.profile_picture !== null && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
     className: "profile-picture",
     src: "/storage/app/public/profilePictures/".concat(authenticatedUser.profile_picture)
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     className: "button"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
     to: url + '/management',
@@ -2082,6 +2086,211 @@ function UserProfile() {
 
 /***/ }),
 
+/***/ "./resources/js/src/components/Community/Body/UserSetting/Profile/index.js":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/src/components/Community/Body/UserSetting/Profile/index.js ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_auth__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../store/auth */ "./resources/js/src/store/auth.js");
+/* harmony import */ var _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../CustomFields/InputField */ "./resources/js/src/components/CustomFields/InputField/index.js");
+/* harmony import */ var _CustomFields_TextareaField__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../CustomFields/TextareaField */ "./resources/js/src/components/CustomFields/TextareaField/index.js");
+
+
+
+
+
+
+
+
+function Profile() {
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useDispatch"])();
+  var user = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(function (state) {
+    return state.auth.authenticatedUser;
+  });
+  var initialValues = {};
+  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
+    dispatch(Object(_store_auth__WEBPACK_IMPORTED_MODULE_4__["authRefresh"])());
+  }, []);
+
+  if (!Object(lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"])(user)) {
+    var allowedKeys = ['firstname', 'lastname', 'username', 'email', 'bio', 'facebook', 'twitter'];
+
+    for (var key in user) {
+      if (allowedKeys.includes(key)) {
+        initialValues[key] = user[key];
+      }
+    }
+
+    Object.assign(initialValues, {
+      password: '',
+      password_confirmation: '',
+      profile_picture: '',
+      banner: ''
+    });
+    console.log(initialValues);
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "profile"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "header"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", {
+    className: "page-title"
+  }, "C\xE0i \u0111\u1EB7t"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
+    className: "page-path"
+  }, "C\u1ED9ng \u0111\u1ED3ng / C\xE0i \u0111\u1EB7t")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "content"
+  }, !Object(lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"])(initialValues) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_0__["Formik"], {
+    initialValues: initialValues
+  }, function () {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("form", {
+      className: "form"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "split"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "profile-picture"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "overlay"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
+      src: "#"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "banner"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "overlay"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
+      src: "#"
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "split"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "firstname"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_0__["FastField"], {
+      name: "firstname",
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_5__["default"],
+      label: "H\u1ECD",
+      labelClassName: "label",
+      placeholder: "H\u1ECD c\u1EE7a b\u1EA1n?",
+      className: "text-input mt1",
+      type: "text",
+      disabled: false
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "lastname"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_0__["FastField"], {
+      name: "lastname",
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_5__["default"],
+      label: "T\xEAn",
+      labelClassName: "label",
+      placeholder: "T\xEAn c\u1EE7a b\u1EA1n?",
+      className: "text-input mt1",
+      type: "text",
+      disabled: false
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "split"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "username"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("label", {
+      className: "label"
+    }, "T\xEAn ng\u01B0\u1EDDi d\xF9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "input"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
+      className: "profile-path"
+    }, "/community/user/"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_0__["FastField"], {
+      name: "username",
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_5__["default"] // label='Tên người dùng'
+      // labelClassName='label'
+      ,
+      placeholder: "T\xEAn c\u1EE7a b\u1EA1n?",
+      className: "text-input mt1",
+      type: "text",
+      disabled: false
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "email"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_0__["FastField"], {
+      name: "email",
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_5__["default"],
+      label: "Email",
+      labelClassName: "label",
+      placeholder: "T\xEAn c\u1EE7a b\u1EA1n?",
+      className: "text-input mt1",
+      type: "text",
+      disabled: false
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "bio"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_0__["FastField"], {
+      name: "bio",
+      component: _CustomFields_TextareaField__WEBPACK_IMPORTED_MODULE_6__["default"],
+      label: "T\xEAn ng\u01B0\u1EDDi d\xF9ng",
+      labelClassName: "label",
+      placeholder: "Ti\u1EC3u s\u1EED b\u1EA3n th\xE2n.",
+      className: "text-input mt1",
+      type: "text",
+      disabled: false
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "split"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "facebook"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_0__["FastField"], {
+      name: "facebook",
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_5__["default"],
+      label: "Facebook",
+      labelClassName: "label",
+      placeholder: "",
+      className: "text-input mt1",
+      type: "text",
+      disabled: false
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "twitter"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_0__["FastField"], {
+      name: "twitter",
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_5__["default"],
+      label: "Twitter",
+      labelClassName: "label",
+      placeholder: "",
+      className: "text-input mt1",
+      type: "text",
+      disabled: false
+    }))));
+  })));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Profile);
+
+/***/ }),
+
+/***/ "./resources/js/src/components/Community/Body/UserSetting/index.js":
+/*!*************************************************************************!*\
+  !*** ./resources/js/src/components/Community/Body/UserSetting/index.js ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Profile__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Profile */ "./resources/js/src/components/Community/Body/UserSetting/Profile/index.js");
+
+
+
+function UserSetting() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "user-setting"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Profile__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (UserSetting);
+
+/***/ }),
+
 /***/ "./resources/js/src/components/Community/Body/index.js":
 /*!*************************************************************!*\
   !*** ./resources/js/src/components/Community/Body/index.js ***!
@@ -2100,6 +2309,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ShowArt__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ShowArt */ "./resources/js/src/components/Community/Body/ShowArt/index.js");
 /* harmony import */ var _Showcase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Showcase */ "./resources/js/src/components/Community/Body/Showcase/index.js");
 /* harmony import */ var _UserProfile__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./UserProfile */ "./resources/js/src/components/Community/Body/UserProfile/index.js");
+/* harmony import */ var _UserSetting__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./UserSetting */ "./resources/js/src/components/Community/Body/UserSetting/index.js");
+
 
 
 
@@ -2149,6 +2360,9 @@ function Body() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: url + '/user/:id',
     component: _UserProfile__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    path: url + '/setting',
+    component: _UserSetting__WEBPACK_IMPORTED_MODULE_8__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Errors_Warning__WEBPACK_IMPORTED_MODULE_3__["default"], {
     warning: "404",
     description: "Trang n\xE0y kh\xF4ng t\u1ED3n t\u1EA1i"
@@ -2424,6 +2638,75 @@ function InputField(props) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (InputField);
+
+/***/ }),
+
+/***/ "./resources/js/src/components/CustomFields/TextareaField/index.js":
+/*!*************************************************************************!*\
+  !*** ./resources/js/src/components/CustomFields/TextareaField/index.js ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+
+TextareaField.propTypes = {
+  form: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object.isRequired,
+  field: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object.isRequired,
+  label: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
+  labelClassName: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
+  placeholder: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
+  className: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
+  disabled: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
+  formErrorClass: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string
+};
+TextareaField.defaultProps = {
+  label: '',
+  labelClassName: 'label',
+  placeholder: '',
+  className: 'text-input',
+  disabled: false,
+  formErrorClass: 'form-error'
+};
+
+function TextareaField(props) {
+  var form = props.form,
+      field = props.field,
+      label = props.label,
+      labelClassName = props.labelClassName,
+      placeholder = props.placeholder,
+      className = props.className,
+      disabled = props.disabled,
+      formErrorClass = props.formErrorClass;
+  var name = field.name;
+  var errors = form.errors,
+      touched = form.touched;
+  var hasError = errors[name] && touched[name];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group mb1"
+  }, label && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    className: labelClassName
+  }, label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", _extends({
+    name: name,
+    id: name
+  }, field, {
+    className: className,
+    placeholder: placeholder,
+    disabled: disabled
+  })), hasError && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+    className: formErrorClass
+  }, errors[name]));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (TextareaField);
 
 /***/ }),
 

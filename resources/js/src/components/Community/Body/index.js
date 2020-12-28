@@ -6,6 +6,7 @@ import Management from './Management';
 import ShowArt from './ShowArt';
 import Showcase from './Showcase';
 import UserProfile from './UserProfile';
+import UserSetting from './UserSetting';
 
 const CommunityGallery = lazy(() => (import('./CommunityGallery')));
 const Upload = lazy(() => (import('./Upload')));
@@ -40,6 +41,9 @@ function Body() {
 
                     {/* Show User / Hiển thị người dùng */}
                     <Route path={url + '/user/:id'} component={UserProfile}/>
+
+                    {/* User Setting / Cài đặt */}
+                    <Route path={url + '/setting'} component={UserSetting}/>
 
                     {/* 404 */}
                     <Route>

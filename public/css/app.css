@@ -1930,6 +1930,28 @@ body {
      object-fit: cover;
 }
 
+.community .body .user-setting {
+  max-width: 1150px;
+  margin: auto;
+}
+
+.community .body .user-setting p {
+  margin: 0;
+}
+
+.community .body .user-setting .profile .content .form .split {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+}
+
+.community .body .user-setting .profile .content .form .split .username .input {
+  display: flex;
+  align-items: center;
+}
+
 .community > .footer {
   margin-top: 0px;
   width: 100%;

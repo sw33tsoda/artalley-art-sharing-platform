@@ -42,8 +42,12 @@ function Auth() {
             {!_.isEmpty(authenticatedUser) && (
                 <React.Fragment>
                     <div className="user-info">
-                        <p className="username">{authenticatedUser.username}</p>
-                        {authenticatedUser.profile_picture !== null && <img className="profile-picture" src={`/storage/app/public/profilePictures/${authenticatedUser.profile_picture}`}/>}
+                        <Link to={`/public/community/setting`}>
+                            <p className="username">{authenticatedUser.username}</p>
+                        </Link>
+                        <Link to={`/public/community/setting`}>
+                            {authenticatedUser.profile_picture !== null && <img className="profile-picture" src={`/storage/app/public/profilePictures/${authenticatedUser.profile_picture}`}/>}
+                        </Link>
                     </div>
                     <button className="button">
                         <Link to={url + '/management'} style={{textDecoration:'none',color:'#D9D9D9'}}>
