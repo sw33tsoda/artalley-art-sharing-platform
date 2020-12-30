@@ -62,6 +62,8 @@ class Kernel extends HttpKernel
         'user_auth' => \App\Http\Middleware\Auth\LoginMiddleware::class,
         'admin_only' => \App\Http\Middleware\Auth\AdminMiddleware::class,
 
+        'authorize_check' => \App\Http\Middleware\Auth\AuthorizeCheckMiddleware::class,
+
         'art' => \App\Http\Middleware\Resources\ArtsMiddleware::class,
 
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,

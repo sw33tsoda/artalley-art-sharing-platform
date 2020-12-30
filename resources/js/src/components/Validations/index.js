@@ -5,9 +5,37 @@ const FILE_SIZE = KILOBYTES * 1024;
 const SUPPORTED_FORMATS = [
     "image/jpg",
     "image/jpeg",
-    "image/gif",
-    "image/png"
 ];
+
+export const UserProfileValidation = Yup.object().shape({
+    firstname:  Yup.string().min(2,'Tối thiểu hai ký tự').max(30,'Tên quá dài').required('Không được bỏ trống'),
+    lastname:   Yup.string().min(2,'Tối thiểu hai ký tự').max(30,'Tên quá dài').required('Không được bỏ trống'),
+    username:   Yup.string().min(2,'Tối thiểu hai ký tự').max(30,'Tên quá dài').required('Không được bỏ trống'),
+    email:      Yup.string().email('Địa chỉ Email không hợp lệ').max(60,'Địa chỉ Email quá dài').required('Không được bỏ trống'),
+    password:   Yup.string().min(8,'Tối thiểu tám ký tự').max(64,'Mật khẩu quá dài'),
+    password_confirmation:  Yup.string().oneOf([Yup.ref('password'),null], 'Mật khẩu không giống nhau'),
+    bio:        Yup.string().min(2,'Tối thiểu hai ký tự').max(500,'Tối đa 500 chữ'),
+    twitter:    Yup.string().min(2,'Tối thiểu hai ký tự').max(64,'Tên quá dài'),
+    facebook:   Yup.string().min(2,'Tối thiểu hai ký tự').max(64,'Tên quá dài'),
+    profile_picture: Yup.mixed().nullable().test(
+        "fileSize",
+        "Kích thước quá lớn, tối đa 2MB",
+        value => value ? (value && value.size <= FILE_SIZE) : true,
+    ).test(
+        "fileFormat",
+        "Định dạng cho phép : JPG, JPEG",
+        value => value ? (value && SUPPORTED_FORMATS.includes(value.type)) : true,
+    ),
+    banner:     Yup.mixed().nullable().test(
+        "fileSize",
+        "Kích thước quá lớn, tối đa 2MB",
+        value => value ? (value && value.size <= FILE_SIZE) : true,
+    ).test(
+        "fileFormat",   
+        "Định dạng cho phép : JPG, JPEG",
+        value => value ? (value && SUPPORTED_FORMATS.includes(value.type)) : true,
+    ),
+});
 
 export const SingleArtValidation = Yup.object().shape({
     title:  Yup.string().min(2,'Tối thiểu hai ký tự').max(100,'Tối đa 100 ký tự').required('Không được bỏ trống'),
@@ -22,7 +50,7 @@ export const SingleArtValidation = Yup.object().shape({
         value => value && value.size <= FILE_SIZE
     ).test(
         "fileFormat",
-        "Định dạng cho phép : JPG, JPEG, PNG",
+        "Định dạng cho phép : JPG, JPEG",
         value => value && SUPPORTED_FORMATS.includes(value.type)
     ),
     tags: Yup.string(),

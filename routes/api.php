@@ -41,9 +41,11 @@ Route::group(['prefix' => '/community/resources'],function(){
         Route::get('/upload-select-list', [\App\Http\Controllers\Community\InterfaceController::class, 'uploadSelectList']);
     });
 
-    Route::middleware('auth:api')->apiResource('arts',\App\Http\Controllers\Community\ArtsController::class);
-    Route::middleware('auth:api')->apiResource('showcases',\App\Http\Controllers\Community\ShowcasesController::class);
-
+    Route::group(['middleware' => 'auth:api'],function(){
+        Route::apiResource('arts',\App\Http\Controllers\Community\ArtsController::class);
+        Route::apiResource('showcases',\App\Http\Controllers\Community\ShowcasesController::class);
+        Route::middleware('authorize_check')->apiResource('users',\App\Http\Controllers\Community\UsersController::class);
+    });
 
     Route::get('/showcases/get/{id}',[\App\Http\Controllers\Community\ShowcasesController::class,'show']);
     Route::get('/showcases/get-list/{userId}',[\App\Http\Controllers\Community\ShowcasesController::class,'index']);

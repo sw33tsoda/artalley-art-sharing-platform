@@ -8,6 +8,9 @@ use App\Models\Showcase;
 use App\Models\ShowcaseArt;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
+use function PHPUnit\Framework\isEmpty;
 
 class UsersController extends Controller
 {
@@ -89,7 +92,41 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+
+        // Xử lý và lưu ảnh đại diện
+        if ($request->hasFile('profile_picture')) {
+            $profilePictureName = $request->file('profile_picture')->hashName();
+            $storeProfilePicture = $request->file('profile_picture')->store('/public/profilePictures');
+            $user->profile_picture = $profilePictureName;
+        }
+
+        // Xử lý và lưu ảnh bìa
+        if ($request->hasFile('banner')) {
+            $bannerName = $request->file('banner')->hashName();
+            $storeBanner = $request->file('banner')->store('/public/banners');
+            $user->banner = $bannerName;
+        }
+
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->username = $request->username;
+        $user->bio = $request->bio;
+        $user->twitter = $request->twitter;
+        $user->facebook = $request->facebook;
+        $user->password = Hash::make($request->password);
+        $user->email = $request->email;
+
+        $save = $user->save();
+        if (!$save) {
+            response()->json([
+                'message' => 'Lưu thất bại'
+            ],500);
+        }
+        
+        return response()->json([
+            'message' => 'Cập nhật thành công',
+        ],200);
     }
 
     /**

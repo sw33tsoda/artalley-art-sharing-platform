@@ -1,53 +1,129 @@
+import Axios from 'axios';
 import { FastField, Formik } from 'formik';
-import { isEmpty, isNull } from 'lodash';
+import { isEmpty, isEqual, isNull } from 'lodash';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { authRefresh } from '../../../../../store/auth';
+import { setAnnouncementMessage } from '../../../../../store/community/announcer';
+import FileUploader from '../../../../CustomFields/FileUploader';
 import InputField from '../../../../CustomFields/InputField';
 import TextareaField from '../../../../CustomFields/TextareaField';
+import { UserProfileValidation } from '../../../../Validations';
 
 function Profile(props) {
     const { user } = props;
+    const dispatch = useDispatch();
     const initialValues = {};
-    const [avatarPreview,setAvatarPreview] = useState(!isNull(user.profile_picture) ? user.profile_picture : '');
-    const [bannerPreview,setBannerPreview] = useState(!isNull(user.banner) ? user.banner : '');
+    const [profilePicturePreview,setProfilePicturePreview] = useState(!isNull(user.profile_picture) ? `/storage/app/public/profilePictures/` + user.profile_picture : '');
+    const [bannerPreview,setBannerPreview] = useState(!isNull(user.banner) ? `/storage/app/public/banners/` + user.banner : '');
+
+    // const [profilePicture,setProfilePicture] = useState({});
+    // const [banner,setBanner] = useState({});
+
+    const handleSetPreview = (file,type) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            var url = reader.result;
+            if (type == 'profilePicture') {
+                setProfilePicturePreview(url);
+            } else {
+                setBannerPreview(url);
+            }
+        }
+    }
+
+    const handleSetProfilePictureFile = (file) => {
+        // setProfilePicture(file);
+        handleSetPreview(file,'profilePicture');
+    }
+
+    const handleSetBannerFile = (file) => {
+        // setBanner(file);
+        handleSetPreview(file,'banner');
+    }
 
     if (!isEmpty(user)) {
         const allowedKeys = ['firstname','lastname','username','email','bio','facebook','twitter'];
         for (const key in user) {
             if (allowedKeys.includes(key)) {
-                initialValues[key] = user[key];
+                if (isNull(user[key]))
+                    initialValues[key] = '';
+                else 
+                    initialValues[key] = user[key];
             }
         }
         Object.assign(initialValues,{
-            password:null,
-            password_confirmation:null,
+            password:'',
+            password_confirmation:'',
             profile_picture:null,
             banner:null,
         });
     }
+
+    const handleSubmitForm = async (values) =>  {
+        const apiToken = localStorage.getItem('authenticatedUserToken');
+        const data = new FormData();
+        for (const key in values) {
+            data.append(key,values[key]);
+        }
+        data.append('_method','PATCH');
+        await Axios.post(`/public/api/community/resources/users/${user.id}?api_token=${apiToken}`,data).then(response => {
+            const {data:{message}} = response;
+            console.log(response);
+            dispatch(setAnnouncementMessage({
+                message:message,
+                type:'success'
+            }));
+            dispatch(authRefresh());
+        }).catch(error => {
+            const {data:{message}} = error.response;
+            dispatch(setAnnouncementMessage({
+                message:message,
+                type:'danger'
+            }));
+        })
+    }
     
+
     return (
         <div className="profile">
             <div className="header">
                 {/* <h1 className="title">Thông tin cá nhân</h1> */}
             </div>
             <div className="content">
-                {!isEmpty(initialValues) && <Formik initialValues={initialValues}>
-                    {() => {
-                        
+                {!isEmpty(initialValues) && <Formik initialValues={initialValues} validationSchema={UserProfileValidation} onSubmit={handleSubmitForm}>
+                    {({errors,values,handleSubmit}) => {
+                        console.log(values);
                         return (
-                            <form className="form">
+                            <form className="form" onSubmit={handleSubmit}>
                                     <div className="split mb1">
                                         <div className="wrapper">
                                             <label className="label">Ảnh đại diện</label>
                                             <div className="profile-picture">
-                                            {avatarPreview !== '' ? (<React.Fragment>
+                                            {profilePicturePreview !== '' ? (<React.Fragment>
                                                     <div className="overlay">
-                                                        {/* 1 nút thay đổi */}
-                                                        {/* 1 nút xóa ảnh hiện tại */}
+                                                        <div className="box">
+                                                            <label htmlFor='profile_picture'>
+                                                                <i className="fas fa-camera"></i>
+                                                            </label>
+                                                        </div>
+                                                        {!isNull(user.profile_picture) && <div className="box">
+                                                            <i className="fas fa-trash-alt"></i>
+                                                        </div>}
                                                     </div>
-                                                    <img className="avatar preview" src={`/storage/app/public/profilePictures/${avatarPreview}`} />
-                                                </React.Fragment>) : <p className="no-image">Không có ảnh</p>}
+                                                    {!isEmpty(errors.profile_picture) ? <p className="image-error">{errors.profile_picture}</p> :  <img className="banner-preview" src={`${profilePicturePreview}`} />}
+                                                </React.Fragment>) : <div className="no-image"><label htmlFor="profile_picture">Bấm để tải ảnh <i class="fas fa-camera"></i></label></div>}
                                             </div>
+                                            <FastField
+                                                name='avatarFile'
+                                                component={FileUploader}
+                                                
+                                                fieldName='profile_picture'
+                                                disabled={false}
+                                                setFile={handleSetProfilePictureFile}
+                                                hidden={true}
+                                            />
                                         </div>
 
                                         <div className="wrapper">
@@ -55,12 +131,28 @@ function Profile(props) {
                                             <div className="banner">
                                                 {bannerPreview !== '' ? (<React.Fragment>
                                                     <div className="overlay">
-                                                        {/* 1 nút thay đổi */}
-                                                        {/* 1 nút xóa ảnh hiện tại */}
+                                                        <div className="box">
+                                                            <label htmlFor="banner">
+                                                                <i className="fas fa-camera"></i>
+                                                            </label>
+                                                        </div>
+                                                        {!isNull(user.banner) && <div className="box">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </div>}
                                                     </div>
-                                                    <img className="banner preview" src={`/storage/app/public/profilePictures/${bannerPreview}`} />
-                                                </React.Fragment>) : <p className="no-image">Không có ảnh</p>}
+                                                    {!isEmpty(errors.banner) ? <p className="image-error">{errors.banner}</p> :  <img className="banner-preview" src={`${bannerPreview}`} />}
+                                                   
+                                                </React.Fragment>) : <div className="no-image"><label htmlFor="banner">Bấm để tải ảnh <i className="fas fa-camera"></i></label></div>}
                                             </div>
+                                            <FastField
+                                                name='bannerFile'
+                                                component={FileUploader}
+                                                
+                                                fieldName='banner'
+                                                disabled={false}
+                                                setFile={handleSetBannerFile}
+                                                hidden={true}
+                                            />
                                         </div>
                                     </div>
 
@@ -169,6 +261,38 @@ function Profile(props) {
                                             />
                                         </div>
                                     </div>
+
+                                    <div className="split">
+                                        <div className="facebook">
+                                            <FastField
+                                                name='password'
+                                                component={InputField}
+                                                
+                                                label='Mật khẩu'
+                                                labelClassName='label'
+                                                placeholder=''
+                                    
+                                                className='text-input mb1'
+                                                type='password'
+                                                disabled={false}
+                                            />
+                                        </div>
+
+                                        <div className="twitter">
+                                            <FastField
+                                                name='password_confirmation'
+                                                component={InputField}
+                                                
+                                                label='Nhập lại mật khẩu'
+                                                labelClassName='label'
+                                                placeholder=''
+                                                className='text-input mb1'
+                                                type='password'
+                                                disabled={false}
+                                            />
+                                        </div>
+                                    </div>
+                                    {!isEqual(values,initialValues) && <button type="submit" className="button danger submit">Update</button>}
                             </form>
                         )
                     }}

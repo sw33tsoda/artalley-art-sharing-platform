@@ -2095,13 +2095,28 @@ function UserProfile() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../CustomFields/InputField */ "./resources/js/src/components/CustomFields/InputField/index.js");
-/* harmony import */ var _CustomFields_TextareaField__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../CustomFields/TextareaField */ "./resources/js/src/components/CustomFields/TextareaField/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../store/auth */ "./resources/js/src/store/auth.js");
+/* harmony import */ var _store_community_announcer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../store/community/announcer */ "./resources/js/src/store/community/announcer.js");
+/* harmony import */ var _CustomFields_FileUploader__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../CustomFields/FileUploader */ "./resources/js/src/components/CustomFields/FileUploader/index.js");
+/* harmony import */ var _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../CustomFields/InputField */ "./resources/js/src/components/CustomFields/InputField/index.js");
+/* harmony import */ var _CustomFields_TextareaField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../CustomFields/TextareaField */ "./resources/js/src/components/CustomFields/TextareaField/index.js");
+/* harmony import */ var _Validations__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../Validations */ "./resources/js/src/components/Validations/index.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2120,164 +2135,324 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
+
+
+
 function Profile(props) {
   var user = props.user;
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_5__["useDispatch"])();
   var initialValues = {};
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(!Object(lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"])(user.profile_picture) ? user.profile_picture : ''),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(!Object(lodash__WEBPACK_IMPORTED_MODULE_3__["isNull"])(user.profile_picture) ? "/storage/app/public/profilePictures/" + user.profile_picture : ''),
       _useState2 = _slicedToArray(_useState, 2),
-      avatarPreview = _useState2[0],
-      setAvatarPreview = _useState2[1];
+      profilePicturePreview = _useState2[0],
+      setProfilePicturePreview = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(!Object(lodash__WEBPACK_IMPORTED_MODULE_1__["isNull"])(user.banner) ? user.banner : ''),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(!Object(lodash__WEBPACK_IMPORTED_MODULE_3__["isNull"])(user.banner) ? "/storage/app/public/banners/" + user.banner : ''),
       _useState4 = _slicedToArray(_useState3, 2),
       bannerPreview = _useState4[0],
-      setBannerPreview = _useState4[1];
+      setBannerPreview = _useState4[1]; // const [profilePicture,setProfilePicture] = useState({});
+  // const [banner,setBanner] = useState({});
 
-  if (!Object(lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"])(user)) {
+
+  var handleSetPreview = function handleSetPreview(file, type) {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = function () {
+      var url = reader.result;
+
+      if (type == 'profilePicture') {
+        setProfilePicturePreview(url);
+      } else {
+        setBannerPreview(url);
+      }
+    };
+  };
+
+  var handleSetProfilePictureFile = function handleSetProfilePictureFile(file) {
+    // setProfilePicture(file);
+    handleSetPreview(file, 'profilePicture');
+  };
+
+  var handleSetBannerFile = function handleSetBannerFile(file) {
+    // setBanner(file);
+    handleSetPreview(file, 'banner');
+  };
+
+  if (!Object(lodash__WEBPACK_IMPORTED_MODULE_3__["isEmpty"])(user)) {
     var allowedKeys = ['firstname', 'lastname', 'username', 'email', 'bio', 'facebook', 'twitter'];
 
     for (var key in user) {
       if (allowedKeys.includes(key)) {
-        initialValues[key] = user[key];
+        if (Object(lodash__WEBPACK_IMPORTED_MODULE_3__["isNull"])(user[key])) initialValues[key] = '';else initialValues[key] = user[key];
       }
     }
 
     Object.assign(initialValues, {
-      password: null,
-      password_confirmation: null,
+      password: '',
+      password_confirmation: '',
       profile_picture: null,
       banner: null
     });
   }
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+  var handleSubmitForm = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(values) {
+      var apiToken, data, _key;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              apiToken = localStorage.getItem('authenticatedUserToken');
+              data = new FormData();
+
+              for (_key in values) {
+                data.append(_key, values[_key]);
+              }
+
+              data.append('_method', 'PATCH');
+              _context.next = 6;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/community/resources/users/".concat(user.id, "?api_token=").concat(apiToken), data).then(function (response) {
+                var message = response.data.message;
+                console.log(response);
+                dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_7__["setAnnouncementMessage"])({
+                  message: message,
+                  type: 'success'
+                }));
+                dispatch(Object(_store_auth__WEBPACK_IMPORTED_MODULE_6__["authRefresh"])());
+              })["catch"](function (error) {
+                var message = error.response.data.message;
+                dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_7__["setAnnouncementMessage"])({
+                  message: message,
+                  type: 'danger'
+                }));
+              });
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function handleSubmitForm(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "profile"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "header"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
     className: "content"
-  }, !Object(lodash__WEBPACK_IMPORTED_MODULE_1__["isEmpty"])(initialValues) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_0__["Formik"], {
-    initialValues: initialValues
-  }, function () {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("form", {
-      className: "form"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+  }, !Object(lodash__WEBPACK_IMPORTED_MODULE_3__["isEmpty"])(initialValues) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["Formik"], {
+    initialValues: initialValues,
+    validationSchema: _Validations__WEBPACK_IMPORTED_MODULE_11__["UserProfileValidation"],
+    onSubmit: handleSubmitForm
+  }, function (_ref2) {
+    var errors = _ref2.errors,
+        values = _ref2.values,
+        handleSubmit = _ref2.handleSubmit;
+    console.log(values);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("form", {
+      className: "form",
+      onSubmit: handleSubmit
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "split mb1"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "wrapper"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("label", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("label", {
       className: "label"
-    }, "\u1EA2nh \u0111\u1EA1i di\u1EC7n"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    }, "\u1EA2nh \u0111\u1EA1i di\u1EC7n"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "profile-picture"
-    }, avatarPreview !== '' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    }, profilePicturePreview !== '' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_4___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "overlay"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
-      className: "avatar preview",
-      src: "/storage/app/public/profilePictures/".concat(avatarPreview)
-    })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
+      className: "box"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("label", {
+      htmlFor: "profile_picture"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("i", {
+      className: "fas fa-camera"
+    }))), !Object(lodash__WEBPACK_IMPORTED_MODULE_3__["isNull"])(user.profile_picture) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
+      className: "box"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("i", {
+      className: "fas fa-trash-alt"
+    }))), !Object(lodash__WEBPACK_IMPORTED_MODULE_3__["isEmpty"])(errors.profile_picture) ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("p", {
+      className: "image-error"
+    }, errors.profile_picture) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("img", {
+      className: "banner-preview",
+      src: "".concat(profilePicturePreview)
+    })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "no-image"
-    }, "Kh\xF4ng c\xF3 \u1EA3nh"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("label", {
+      htmlFor: "profile_picture"
+    }, "B\u1EA5m \u0111\u1EC3 t\u1EA3i \u1EA3nh ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("i", {
+      "class": "fas fa-camera"
+    })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
+      name: "avatarFile",
+      component: _CustomFields_FileUploader__WEBPACK_IMPORTED_MODULE_8__["default"],
+      fieldName: "profile_picture",
+      disabled: false,
+      setFile: handleSetProfilePictureFile,
+      hidden: true
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "wrapper"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("label", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("label", {
       className: "label"
-    }, "\u1EA2nh b\xECa"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    }, "\u1EA2nh b\xECa"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "banner"
-    }, bannerPreview !== '' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    }, bannerPreview !== '' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_4___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "overlay"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
-      className: "banner preview",
-      src: "/storage/app/public/profilePictures/".concat(bannerPreview)
-    })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
+      className: "box"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("label", {
+      htmlFor: "banner"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("i", {
+      className: "fas fa-camera"
+    }))), !Object(lodash__WEBPACK_IMPORTED_MODULE_3__["isNull"])(user.banner) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
+      className: "box"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("i", {
+      "class": "fas fa-trash-alt"
+    }))), !Object(lodash__WEBPACK_IMPORTED_MODULE_3__["isEmpty"])(errors.banner) ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("p", {
+      className: "image-error"
+    }, errors.banner) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("img", {
+      className: "banner-preview",
+      src: "".concat(bannerPreview)
+    })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "no-image"
-    }, "Kh\xF4ng c\xF3 \u1EA3nh")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("label", {
+      htmlFor: "banner"
+    }, "B\u1EA5m \u0111\u1EC3 t\u1EA3i \u1EA3nh ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("i", {
+      className: "fas fa-camera"
+    })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
+      name: "bannerFile",
+      component: _CustomFields_FileUploader__WEBPACK_IMPORTED_MODULE_8__["default"],
+      fieldName: "banner",
+      disabled: false,
+      setFile: handleSetBannerFile,
+      hidden: true
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "split"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "firstname"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_0__["FastField"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
       name: "firstname",
-      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_3__["default"],
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_9__["default"],
       label: "H\u1ECD",
       labelClassName: "label",
       placeholder: "H\u1ECD c\u1EE7a b\u1EA1n?",
       className: "text-input mb1",
       type: "text",
       disabled: false
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "lastname"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_0__["FastField"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
       name: "lastname",
-      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_3__["default"],
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_9__["default"],
       label: "T\xEAn",
       labelClassName: "label",
       placeholder: "T\xEAn c\u1EE7a b\u1EA1n?",
       className: "text-input mb1",
       type: "text",
       disabled: false
-    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "split"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "username"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("label", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("label", {
       className: "label"
-    }, "T\xEAn ng\u01B0\u1EDDi d\xF9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    }, "T\xEAn ng\u01B0\u1EDDi d\xF9ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "input"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_0__["FastField"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
       name: "username",
-      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_3__["default"] // label='Tên người dùng'
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_9__["default"] // label='Tên người dùng'
       // labelClassName='label'
       ,
       placeholder: "T\xEAn c\u1EE7a b\u1EA1n?",
       className: "text-input mb1",
       type: "text",
       disabled: false
-    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "email"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_0__["FastField"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
       name: "email",
-      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_3__["default"],
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_9__["default"],
       label: "Email",
       labelClassName: "label",
       placeholder: "T\xEAn c\u1EE7a b\u1EA1n?",
       className: "text-input mb1",
       type: "text",
       disabled: false
-    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "bio"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_0__["FastField"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
       name: "bio",
-      component: _CustomFields_TextareaField__WEBPACK_IMPORTED_MODULE_4__["default"],
+      component: _CustomFields_TextareaField__WEBPACK_IMPORTED_MODULE_10__["default"],
       label: "T\xEAn ng\u01B0\u1EDDi d\xF9ng",
       labelClassName: "label",
       placeholder: "Ti\u1EC3u s\u1EED b\u1EA3n th\xE2n.",
       className: "text-input mb1",
       type: "text",
       disabled: false
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "split"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "facebook"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_0__["FastField"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
       name: "facebook",
-      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_3__["default"],
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_9__["default"],
       label: "Facebook",
       labelClassName: "label",
       placeholder: "",
       className: "text-input mb1",
       type: "text",
       disabled: false
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
       className: "twitter"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_0__["FastField"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
       name: "twitter",
-      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_3__["default"],
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_9__["default"],
       label: "Twitter",
       labelClassName: "label",
       placeholder: "",
       className: "text-input mb1",
       type: "text",
       disabled: false
-    }))));
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
+      className: "split"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
+      className: "facebook"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
+      name: "password",
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_9__["default"],
+      label: "M\u1EADt kh\u1EA9u",
+      labelClassName: "label",
+      placeholder: "",
+      className: "text-input mb1",
+      type: "password",
+      disabled: false
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", {
+      className: "twitter"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
+      name: "password_confirmation",
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_9__["default"],
+      label: "Nh\u1EADp l\u1EA1i m\u1EADt kh\u1EA9u",
+      labelClassName: "label",
+      placeholder: "",
+      className: "text-input mb1",
+      type: "password",
+      disabled: false
+    }))), !Object(lodash__WEBPACK_IMPORTED_MODULE_3__["isEqual"])(values, initialValues) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("button", {
+      type: "submit",
+      className: "button danger submit"
+    }, "Update"));
   })));
 }
 
@@ -2634,6 +2809,85 @@ function Community() {
 
 /***/ }),
 
+/***/ "./resources/js/src/components/CustomFields/FileUploader/index.js":
+/*!************************************************************************!*\
+  !*** ./resources/js/src/components/CustomFields/FileUploader/index.js ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+
+FileUploader.propTypes = {
+  form: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object.isRequired,
+  field: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object.isRequired,
+  label: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
+  labelClassName: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
+  className: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
+  disabled: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
+  setFile: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired,
+  hidden: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
+  fieldName: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired
+};
+FileUploader.defaultProps = {
+  label: '',
+  labelClassName: 'label',
+  className: 'file-input',
+  disabled: false,
+  setFile: null,
+  hidden: false,
+  fieldName: ''
+};
+
+function FileUploader(props) {
+  var form = props.form,
+      hidden = props.hidden,
+      field = props.field,
+      label = props.label,
+      labelClassName = props.labelClassName,
+      className = props.className,
+      disabled = props.disabled,
+      setFile = props.setFile,
+      fieldName = props.fieldName; // const { name } = field;
+
+  var handleSetFile = function handleSetFile(event) {
+    var file = event.target.files[0];
+    setFile(file);
+    form.setFieldValue(fieldName, file);
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, label && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    className: labelClassName
+  }, label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), label && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "upload-button"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: fieldName
+  }, "T\u1EA2I L\xCAN")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", _extends({
+    name: fieldName,
+    id: fieldName
+  }, field, {
+    className: className,
+    disabled: disabled,
+    type: "file",
+    onChange: handleSetFile,
+    hidden: hidden
+  })));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (FileUploader);
+
+/***/ }),
+
 /***/ "./resources/js/src/components/CustomFields/InputField/index.js":
 /*!**********************************************************************!*\
   !*** ./resources/js/src/components/CustomFields/InputField/index.js ***!
@@ -2782,6 +3036,68 @@ function TextareaField(props) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (TextareaField);
+
+/***/ }),
+
+/***/ "./resources/js/src/components/Validations/index.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/src/components/Validations/index.js ***!
+  \**********************************************************/
+/*! exports provided: UserProfileValidation, SingleArtValidation, ShowcaseValidation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserProfileValidation", function() { return UserProfileValidation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SingleArtValidation", function() { return SingleArtValidation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShowcaseValidation", function() { return ShowcaseValidation; });
+/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! yup */ "./node_modules/yup/es/index.js");
+
+var KILOBYTES = 2048;
+var FILE_SIZE = KILOBYTES * 1024;
+var SUPPORTED_FORMATS = ["image/jpg", "image/jpeg"];
+var UserProfileValidation = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({
+  firstname: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(30, 'Tên quá dài').required('Không được bỏ trống'),
+  lastname: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(30, 'Tên quá dài').required('Không được bỏ trống'),
+  username: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(30, 'Tên quá dài').required('Không được bỏ trống'),
+  email: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().email('Địa chỉ Email không hợp lệ').max(60, 'Địa chỉ Email quá dài').required('Không được bỏ trống'),
+  password: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(8, 'Tối thiểu tám ký tự').max(64, 'Mật khẩu quá dài'),
+  password_confirmation: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().oneOf([yup__WEBPACK_IMPORTED_MODULE_0__["ref"]('password'), null], 'Mật khẩu không giống nhau'),
+  bio: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(500, 'Tối đa 500 chữ'),
+  twitter: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(64, 'Tên quá dài'),
+  facebook: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(64, 'Tên quá dài'),
+  profile_picture: yup__WEBPACK_IMPORTED_MODULE_0__["mixed"]().nullable().test("fileSize", "Kích thước quá lớn, tối đa 2MB", function (value) {
+    return value ? value && value.size <= FILE_SIZE : true;
+  }).test("fileFormat", "Định dạng cho phép : JPG, JPEG", function (value) {
+    return value ? value && SUPPORTED_FORMATS.includes(value.type) : true;
+  }),
+  banner: yup__WEBPACK_IMPORTED_MODULE_0__["mixed"]().nullable().test("fileSize", "Kích thước quá lớn, tối đa 2MB", function (value) {
+    return value ? value && value.size <= FILE_SIZE : true;
+  }).test("fileFormat", "Định dạng cho phép : JPG, JPEG", function (value) {
+    return value ? value && SUPPORTED_FORMATS.includes(value.type) : true;
+  })
+});
+var SingleArtValidation = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({
+  title: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(100, 'Tối đa 100 ký tự').required('Không được bỏ trống'),
+  caption: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(120, 'Tối đa 120 ký tự'),
+  description: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(1000, 'Tối đa 1000 ký tự'),
+  dimensional: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
+  privacy: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
+  channel: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
+  art: yup__WEBPACK_IMPORTED_MODULE_0__["mixed"]().required("Không có File").test("fileSize", "Kích thước quá lớn, tối đa 2MB", function (value) {
+    return value && value.size <= FILE_SIZE;
+  }).test("fileFormat", "Định dạng cho phép : JPG, JPEG", function (value) {
+    return value && SUPPORTED_FORMATS.includes(value.type);
+  }),
+  tags: yup__WEBPACK_IMPORTED_MODULE_0__["string"]()
+});
+var ShowcaseValidation = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({
+  title: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(100, 'Tối đa 100 ký tự').required('Không được bỏ trống'),
+  subheading: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(300, 'Tối đa 300 ký tự'),
+  description: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(1500, 'Tối đa 1500 ký tự'),
+  privacy: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
+  channel: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống')
+});
 
 /***/ }),
 

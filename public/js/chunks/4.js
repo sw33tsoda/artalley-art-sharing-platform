@@ -365,85 +365,6 @@ function UploadSingleArt() {
 
 /***/ }),
 
-/***/ "./resources/js/src/components/CustomFields/FileUploader/index.js":
-/*!************************************************************************!*\
-  !*** ./resources/js/src/components/CustomFields/FileUploader/index.js ***!
-  \************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-
-
-FileUploader.propTypes = {
-  form: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object.isRequired,
-  field: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object.isRequired,
-  label: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
-  labelClassName: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
-  className: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
-  disabled: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
-  setFile: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired,
-  hidden: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
-  fieldName: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired
-};
-FileUploader.defaultProps = {
-  label: '',
-  labelClassName: 'label',
-  className: 'file-input',
-  disabled: false,
-  setFile: null,
-  hidden: false,
-  fieldName: ''
-};
-
-function FileUploader(props) {
-  var form = props.form,
-      hidden = props.hidden,
-      field = props.field,
-      label = props.label,
-      labelClassName = props.labelClassName,
-      className = props.className,
-      disabled = props.disabled,
-      setFile = props.setFile,
-      fieldName = props.fieldName; // const { name } = field;
-
-  var handleSetFile = function handleSetFile(event) {
-    var file = event.target.files[0];
-    setFile(file);
-    form.setFieldValue(fieldName, file);
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "form-group"
-  }, label && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-    className: labelClassName
-  }, label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), label && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "upload-button"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-    htmlFor: fieldName
-  }, "T\u1EA2I L\xCAN")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", _extends({
-    name: fieldName,
-    id: fieldName
-  }, field, {
-    className: className,
-    disabled: disabled,
-    type: "file",
-    onChange: handleSetFile,
-    hidden: hidden
-  })));
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (FileUploader);
-
-/***/ }),
-
 /***/ "./resources/js/src/components/CustomFields/SelectField/index.js":
 /*!***********************************************************************!*\
   !*** ./resources/js/src/components/CustomFields/SelectField/index.js ***!
@@ -516,46 +437,6 @@ function SelectField(props) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (SelectField);
-
-/***/ }),
-
-/***/ "./resources/js/src/components/Validations/index.js":
-/*!**********************************************************!*\
-  !*** ./resources/js/src/components/Validations/index.js ***!
-  \**********************************************************/
-/*! exports provided: SingleArtValidation, ShowcaseValidation */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SingleArtValidation", function() { return SingleArtValidation; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShowcaseValidation", function() { return ShowcaseValidation; });
-/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! yup */ "./node_modules/yup/es/index.js");
-
-var KILOBYTES = 2048;
-var FILE_SIZE = KILOBYTES * 1024;
-var SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
-var SingleArtValidation = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({
-  title: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(100, 'Tối đa 100 ký tự').required('Không được bỏ trống'),
-  caption: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(120, 'Tối đa 120 ký tự'),
-  description: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(1000, 'Tối đa 1000 ký tự'),
-  dimensional: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
-  privacy: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
-  channel: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
-  art: yup__WEBPACK_IMPORTED_MODULE_0__["mixed"]().required("Không có File").test("fileSize", "Kích thước quá lớn, tối đa 2MB", function (value) {
-    return value && value.size <= FILE_SIZE;
-  }).test("fileFormat", "Định dạng cho phép : JPG, JPEG, PNG", function (value) {
-    return value && SUPPORTED_FORMATS.includes(value.type);
-  }),
-  tags: yup__WEBPACK_IMPORTED_MODULE_0__["string"]()
-});
-var ShowcaseValidation = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({
-  title: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(100, 'Tối đa 100 ký tự').required('Không được bỏ trống'),
-  subheading: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(300, 'Tối đa 300 ký tự'),
-  description: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(1500, 'Tối đa 1500 ký tự'),
-  privacy: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
-  channel: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống')
-});
 
 /***/ })
 

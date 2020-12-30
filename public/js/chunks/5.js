@@ -404,46 +404,6 @@ function SelectField(props) {
 
 /* harmony default export */ __webpack_exports__["default"] = (SelectField);
 
-/***/ }),
-
-/***/ "./resources/js/src/components/Validations/index.js":
-/*!**********************************************************!*\
-  !*** ./resources/js/src/components/Validations/index.js ***!
-  \**********************************************************/
-/*! exports provided: SingleArtValidation, ShowcaseValidation */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SingleArtValidation", function() { return SingleArtValidation; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShowcaseValidation", function() { return ShowcaseValidation; });
-/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! yup */ "./node_modules/yup/es/index.js");
-
-var KILOBYTES = 2048;
-var FILE_SIZE = KILOBYTES * 1024;
-var SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
-var SingleArtValidation = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({
-  title: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(100, 'Tối đa 100 ký tự').required('Không được bỏ trống'),
-  caption: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(120, 'Tối đa 120 ký tự'),
-  description: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(1000, 'Tối đa 1000 ký tự'),
-  dimensional: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
-  privacy: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
-  channel: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
-  art: yup__WEBPACK_IMPORTED_MODULE_0__["mixed"]().required("Không có File").test("fileSize", "Kích thước quá lớn, tối đa 2MB", function (value) {
-    return value && value.size <= FILE_SIZE;
-  }).test("fileFormat", "Định dạng cho phép : JPG, JPEG, PNG", function (value) {
-    return value && SUPPORTED_FORMATS.includes(value.type);
-  }),
-  tags: yup__WEBPACK_IMPORTED_MODULE_0__["string"]()
-});
-var ShowcaseValidation = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({
-  title: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(100, 'Tối đa 100 ký tự').required('Không được bỏ trống'),
-  subheading: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(300, 'Tối đa 300 ký tự'),
-  description: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(1500, 'Tối đa 1500 ký tự'),
-  privacy: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
-  channel: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống')
-});
-
 /***/ })
 
 }]);
