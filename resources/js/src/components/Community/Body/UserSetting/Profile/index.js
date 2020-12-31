@@ -2,6 +2,7 @@ import Axios from 'axios';
 import { FastField, Formik } from 'formik';
 import { isEmpty, isEqual, isNull } from 'lodash';
 import React, { useState } from 'react';
+import Moment from 'react-moment';
 import { useDispatch } from 'react-redux';
 import { authRefresh } from '../../../../../store/auth';
 import { setAnnouncementMessage } from '../../../../../store/community/announcer';
@@ -9,6 +10,7 @@ import FileUploader from '../../../../CustomFields/FileUploader';
 import InputField from '../../../../CustomFields/InputField';
 import TextareaField from '../../../../CustomFields/TextareaField';
 import { UserProfileValidation } from '../../../../Validations';
+import classnames from 'classnames';
 
 function Profile(props) {
     const { user } = props;
@@ -16,6 +18,8 @@ function Profile(props) {
     const initialValues = {};
     const [profilePicturePreview,setProfilePicturePreview] = useState(!isNull(user.profile_picture) ? `/storage/app/public/profilePictures/` + user.profile_picture : '');
     const [bannerPreview,setBannerPreview] = useState(!isNull(user.banner) ? `/storage/app/public/banners/` + user.banner : '');
+    const [deleteProfilePicture,setDeleteProfilePicture] = useState(false);
+    const [deleteBanner,setDeleteBanner] = useState(false);
 
     // const [profilePicture,setProfilePicture] = useState({});
     // const [banner,setBanner] = useState({});
@@ -36,11 +40,26 @@ function Profile(props) {
     const handleSetProfilePictureFile = (file) => {
         // setProfilePicture(file);
         handleSetPreview(file,'profilePicture');
+        setDeleteProfilePicture(false);
     }
 
     const handleSetBannerFile = (file) => {
         // setBanner(file);
         handleSetPreview(file,'banner');
+        setDeleteBanner(false);
+    }
+
+    const handleDeletePicture = (type) => {
+        if (type == 'profilePicture') {
+            setDeleteProfilePicture(!deleteProfilePicture);
+        } else if (type == 'banner') {
+            setDeleteBanner(!deleteBanner);
+        } else {
+            dispatch(setAnnouncementMessage({
+                message:'Lỗi',
+                type:'danger'
+            }));
+        }
     }
 
     if (!isEmpty(user)) {
@@ -67,6 +86,8 @@ function Profile(props) {
         for (const key in values) {
             data.append(key,values[key]);
         }
+        data.append('deleteProfilePicture',deleteProfilePicture);
+        data.append('deleteBanner',deleteBanner);
         data.append('_method','PATCH');
         await Axios.post(`/public/api/community/resources/users/${user.id}?api_token=${apiToken}`,data).then(response => {
             const {data:{message}} = response;
@@ -100,16 +121,16 @@ function Profile(props) {
                                     <div className="split mb1">
                                         <div className="wrapper">
                                             <label className="label">Ảnh đại diện</label>
-                                            <div className="profile-picture">
+                                            <div className={classnames('profile-picture mt1',{delete:deleteProfilePicture})}>
                                             {profilePicturePreview !== '' ? (<React.Fragment>
                                                     <div className="overlay">
-                                                        <div className="box">
+                                                        {!deleteProfilePicture && <div className="box">
                                                             <label htmlFor='profile_picture'>
                                                                 <i className="fas fa-camera"></i>
                                                             </label>
-                                                        </div>
-                                                        {!isNull(user.profile_picture) && <div className="box">
-                                                            <i className="fas fa-trash-alt"></i>
+                                                        </div>}
+                                                        {(!isNull(user.profile_picture) && isNull(values.profile_picture)) && <div className="box" onClick={() => handleDeletePicture('profilePicture')}>
+                                                            {deleteProfilePicture ? <i class="fas fa-times"></i> : <i className="fas fa-trash-alt"></i>}
                                                         </div>}
                                                     </div>
                                                     {!isEmpty(errors.profile_picture) ? <p className="image-error">{errors.profile_picture}</p> :  <img className="banner-preview" src={`${profilePicturePreview}`} />}
@@ -128,16 +149,16 @@ function Profile(props) {
 
                                         <div className="wrapper">
                                             <label className="label">Ảnh bìa</label>
-                                            <div className="banner">
+                                            <div className={classnames("banner mt1",{delete:deleteBanner})}>
                                                 {bannerPreview !== '' ? (<React.Fragment>
                                                     <div className="overlay">
-                                                        <div className="box">
+                                                        {!deleteBanner && <div className="box">
                                                             <label htmlFor="banner">
                                                                 <i className="fas fa-camera"></i>
                                                             </label>
-                                                        </div>
-                                                        {!isNull(user.banner) && <div className="box">
-                                                            <i class="fas fa-trash-alt"></i>
+                                                        </div>}
+                                                        {!isNull(user.banner) && <div className="box" onClick={() => handleDeletePicture('banner')}>
+                                                        {deleteBanner ? <i class="fas fa-times"></i> : <i class="fas fa-trash-alt"></i>}
                                                         </div>}
                                                     </div>
                                                     {!isEmpty(errors.banner) ? <p className="image-error">{errors.banner}</p> :  <img className="banner-preview" src={`${bannerPreview}`} />}
@@ -165,7 +186,7 @@ function Profile(props) {
                                                 label='Họ'
                                                 labelClassName='label'
                                                 placeholder='Họ của bạn?'
-                                                className='text-input mb1'
+                                                className='text-input mb1 mt1'
                                                 type='text'
                                                 disabled={false}
                                             />
@@ -178,7 +199,7 @@ function Profile(props) {
                                                 label='Tên'
                                                 labelClassName='label'
                                                 placeholder='Tên của bạn?'
-                                                className='text-input mb1'
+                                                className='text-input mb1 mt1'
                                                 type='text'
                                                 disabled={false}
                                             />
@@ -196,7 +217,7 @@ function Profile(props) {
                                                     // label='Tên người dùng'
                                                     // labelClassName='label'
                                                     placeholder='Tên của bạn?'
-                                                    className='text-input mb1'
+                                                    className='text-input mb1 mt1'
                                                     type='text'
                                                     disabled={false}
                                                 />
@@ -211,7 +232,7 @@ function Profile(props) {
                                                 label='Email'
                                                 labelClassName='label'
                                                 placeholder='Tên của bạn?'
-                                                className='text-input mb1'
+                                                className='text-input mb1 mt1'
                                                 type='text'
                                                 disabled={false}
                                             />
@@ -226,7 +247,7 @@ function Profile(props) {
                                             label='Tên người dùng'
                                             labelClassName='label'
                                             placeholder='Tiểu sử bản thân.'
-                                            className='text-input mb1'
+                                            className='text-input mb1 mt1'
                                             type='text'
                                             disabled={false}
                                         />
@@ -241,7 +262,7 @@ function Profile(props) {
                                                 label='Facebook'
                                                 labelClassName='label'
                                                 placeholder=''
-                                                className='text-input mb1'
+                                                className='text-input mb1 mt1'
                                                 type='text'
                                                 disabled={false}
                                             />
@@ -255,7 +276,7 @@ function Profile(props) {
                                                 label='Twitter'
                                                 labelClassName='label'
                                                 placeholder=''
-                                                className='text-input mb1'
+                                                className='text-input mb1 mt1'
                                                 type='text'
                                                 disabled={false}
                                             />
@@ -272,7 +293,7 @@ function Profile(props) {
                                                 labelClassName='label'
                                                 placeholder=''
                                     
-                                                className='text-input mb1'
+                                                className='text-input mb1 mt1'
                                                 type='password'
                                                 disabled={false}
                                             />
@@ -286,13 +307,14 @@ function Profile(props) {
                                                 label='Nhập lại mật khẩu'
                                                 labelClassName='label'
                                                 placeholder=''
-                                                className='text-input mb1'
+                                                className='text-input mb1 mt1'
                                                 type='password'
                                                 disabled={false}
                                             />
                                         </div>
                                     </div>
-                                    {!isEqual(values,initialValues) && <button type="submit" className="button danger submit">Update</button>}
+                                    {(!isEqual(values,initialValues) || (deleteBanner || deleteProfilePicture)) && <button type="submit" className="button danger submit">Update</button>}
+                                    <p className="last-update"><span>Lần thay đổi cuối : </span><Moment format={'h:m:sA - D/M/y'}>{user.updated_at}</Moment></p>
                             </form>
                         )
                     }}

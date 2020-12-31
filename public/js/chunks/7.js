@@ -32,10 +32,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var CreateShowcase = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
-  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./CreateShowcase */ "./resources/js/src/components/Community/Body/Upload/CreateShowcase/index.js"));
+  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./CreateShowcase */ "./resources/js/src/components/Community/Body/Upload/CreateShowcase/index.js"));
 });
 var UploadSingleArt = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
-  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./UploadSingleArt */ "./resources/js/src/components/Community/Body/Upload/UploadSingleArt/index.js"));
+  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./UploadSingleArt */ "./resources/js/src/components/Community/Body/Upload/UploadSingleArt/index.js"));
 });
 var storage_path = '/storage/app/public/web/body/upload';
 var style = {

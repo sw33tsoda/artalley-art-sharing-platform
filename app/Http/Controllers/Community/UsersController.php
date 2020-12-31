@@ -9,6 +9,7 @@ use App\Models\ShowcaseArt;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -95,17 +96,32 @@ class UsersController extends Controller
         $user = User::find($id);
 
         // Xử lý và lưu ảnh đại diện
-        if ($request->hasFile('profile_picture')) {
-            $profilePictureName = $request->file('profile_picture')->hashName();
-            $storeProfilePicture = $request->file('profile_picture')->store('/public/profilePictures');
-            $user->profile_picture = $profilePictureName;
+        if ($request->deleteProfilePicture == 'true') {
+            Storage::delete("/public/profilePictures/$user->profile_picture");
+            $user->profile_picture = null;
+        } else {
+            if ($request->hasFile('profile_picture')) {
+                $profilePictureName = $request->file('profile_picture')->hashName();
+                $storeProfilePicture = $request->file('profile_picture')->store('/public/profilePictures');
+                $user->profile_picture = $profilePictureName;
+            }
         }
 
         // Xử lý và lưu ảnh bìa
-        if ($request->hasFile('banner')) {
-            $bannerName = $request->file('banner')->hashName();
-            $storeBanner = $request->file('banner')->store('/public/banners');
-            $user->banner = $bannerName;
+        if ($request->deleteBanner == 'true') {
+            Storage::delete("/public/banners/$user->banner");
+            $user->banner = null;
+        } else {
+            if ($request->hasFile('banner')) {
+                $bannerName = $request->file('banner')->hashName();
+                $storeBanner = $request->file('banner')->store('/public/banners');
+                $user->banner = $bannerName;
+            }
+        }
+
+        // Xử lý mật khẩu
+        if (!isEmpty($request->password)) {
+            $user->password = Hash::make($request->password);
         }
 
         $user->firstname = $request->firstname;
@@ -114,7 +130,6 @@ class UsersController extends Controller
         $user->bio = $request->bio;
         $user->twitter = $request->twitter;
         $user->facebook = $request->facebook;
-        $user->password = Hash::make($request->password);
         $user->email = $request->email;
 
         $save = $user->save();

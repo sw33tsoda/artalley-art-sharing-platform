@@ -50,7 +50,8 @@ body {
 }
 
 .text-input:focus {
-  box-shadow: inset 0 1px 3px black;
+  box-shadow: inset 0 1px 3px #212121;
+  outline: #ff810c solid 2px;
 }
 
 .form-group {
@@ -1993,6 +1994,21 @@ body {
   text-shadow: 0px 2px 7px #747373;
 }
 
+.community .body .user-setting .page-content .side-content .profile .content .form .last-update {
+  text-align: right;
+  margin-top: 5px;
+  color: #212121;
+  font-style: italic;
+  font-size: 0.75em;
+  box-shadow: -43px 2px 0px -39px #ff810c inset;
+  padding-right: 7.5px;
+}
+
+.community .body .user-setting .page-content .side-content .profile .content .form .last-update span {
+  font-weight: bold;
+  font-style: normal;
+}
+
 .community .body .user-setting .page-content .side-content .profile .content .form .split {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -2000,7 +2016,16 @@ body {
        column-gap: 5px;
 }
 
-.community .body .user-setting .page-content .side-content .profile .content .form .split .wrapper .preview {
+.community .body .user-setting .page-content .side-content .profile .content .form .split .wrapper .delete {
+  background: crimson !important;
+}
+
+.community .body .user-setting .page-content .side-content .profile .content .form .split .wrapper .delete img {
+  opacity: 0.5;
+}
+
+.community .body .user-setting .page-content .side-content .profile .content .form .split .wrapper .avatar-preview,
+.community .body .user-setting .page-content .side-content .profile .content .form .split .wrapper .banner-preview {
   border-radius: 0.25em;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.15);
 }
@@ -2049,6 +2074,7 @@ body {
   align-items: center;
   justify-content: space-evenly;
   text-shadow: 0px 2px 3px #212121;
+  z-index: 2;
 }
 
 .community .body .user-setting .page-content .side-content .profile .content .form .split .wrapper .profile-picture .overlay .box i,

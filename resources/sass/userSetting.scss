@@ -56,6 +56,20 @@
                             text-shadow: 0px 2px 7px #747373;
                         }
 
+                        .last-update {
+                            text-align: right;
+                            margin-top: 5px;
+                            color:#212121;
+                            font-style: italic;
+                            font-size: 0.75em;
+                            box-shadow: -43px 2px 0px -39px #ff810c inset;
+                            padding-right: 7.5px;
+                            span {
+                                font-weight: bold;
+                                font-style: normal;
+                            }
+                        }
+
                         .split {
                             display: grid;
                             grid-template-columns: 1fr 1fr;
@@ -63,8 +77,16 @@
                             // display: flex;
 
                             .wrapper {
+
+                                .delete {
+                                    background:crimson !important;
+                                    img {
+                                        opacity: 0.5;
+                                    }
+                                }
+
                                 // height: 150px;
-                                .preview {
+                                .avatar-preview,.banner-preview {
                                     border-radius: 0.25em;
                                     box-shadow: 0 0 15px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.15);
                                 }
@@ -114,7 +136,7 @@
                                         justify-content: space-evenly;
                                         // column-gap: 5px;
                                         text-shadow: 0px 2px 3px #212121;
-                                        // z-index: 2;
+                                        z-index: 2;
                                         .box {
                                             i {
                                                 color: #d8d8d8;
