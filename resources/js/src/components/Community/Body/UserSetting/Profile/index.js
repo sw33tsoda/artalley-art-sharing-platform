@@ -91,13 +91,14 @@ function Profile(props) {
         data.append('_method','PATCH');
         await Axios.post(`/public/api/community/resources/users/${user.id}?api_token=${apiToken}`,data).then(response => {
             const {data:{message}} = response;
-            console.log(response);
+            // console.log(response);
             dispatch(setAnnouncementMessage({
                 message:message,
                 type:'success'
             }));
             dispatch(authRefresh());
         }).catch(error => {
+            console.log(error.response);
             const {data:{message}} = error.response;
             dispatch(setAnnouncementMessage({
                 message:message,
@@ -115,7 +116,7 @@ function Profile(props) {
             <div className="content">
                 {!isEmpty(initialValues) && <Formik initialValues={initialValues} validationSchema={UserProfileValidation} onSubmit={handleSubmitForm}>
                     {({errors,values,handleSubmit}) => {
-                        console.log(values);
+                        // console.log(values);
                         return (
                             <form className="form" onSubmit={handleSubmit}>
                                     <div className="split mb1">
@@ -130,11 +131,11 @@ function Profile(props) {
                                                             </label>
                                                         </div>}
                                                         {(!isNull(user.profile_picture) && isNull(values.profile_picture)) && <div className="box" onClick={() => handleDeletePicture('profilePicture')}>
-                                                            {deleteProfilePicture ? <i class="fas fa-times"></i> : <i className="fas fa-trash-alt"></i>}
+                                                            {deleteProfilePicture ? <i className="fas fa-times"></i> : <i className="fas fa-trash-alt"></i>}
                                                         </div>}
                                                     </div>
                                                     {!isEmpty(errors.profile_picture) ? <p className="image-error">{errors.profile_picture}</p> :  <img className="banner-preview" src={`${profilePicturePreview}`} />}
-                                                </React.Fragment>) : <div className="no-image"><label htmlFor="profile_picture">Bấm để tải ảnh <i class="fas fa-camera"></i></label></div>}
+                                                </React.Fragment>) : <div className="no-image"><label htmlFor="profile_picture">Bấm để tải ảnh <i className="fas fa-camera"></i></label></div>}
                                             </div>
                                             <FastField
                                                 name='avatarFile'
@@ -158,7 +159,7 @@ function Profile(props) {
                                                             </label>
                                                         </div>}
                                                         {!isNull(user.banner) && <div className="box" onClick={() => handleDeletePicture('banner')}>
-                                                        {deleteBanner ? <i class="fas fa-times"></i> : <i class="fas fa-trash-alt"></i>}
+                                                        {deleteBanner ? <i className="fas fa-times"></i> : <i className="fas fa-trash-alt"></i>}
                                                         </div>}
                                                     </div>
                                                     {!isEmpty(errors.banner) ? <p className="image-error">{errors.banner}</p> :  <img className="banner-preview" src={`${bannerPreview}`} />}

@@ -1445,6 +1445,7 @@ body {
   transition: 0.25s all ease-in;
   position: absolute;
   overflow: hidden;
+  width: 100%;
   padding: 15px 20px 15px 20px;
   opacity: 0;
   box-sizing: border-box;
@@ -1714,12 +1715,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 25px;
+  border-radius: 0.25em;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 .community .body .user-profile > .header > .profile-picture img {
-  border-radius: 25px;
+  border-radius: 0.25em;
   -o-object-fit: cover;
      object-fit: cover;
   width: 200px;
@@ -1735,11 +1736,11 @@ body {
 .community .body .user-profile > .header > .profile-banner {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
   max-height: 200px;
-  border-radius: 25px;
+  border-radius: 0.25em;
 }
 
 .community .body .user-profile > .header > .profile-banner img {
-  border-radius: 25px;
+  border-radius: 0.25em;
   -o-object-fit: cover;
      object-fit: cover;
   width: 100%;
@@ -1750,14 +1751,17 @@ body {
   display: flex;
   -moz-column-gap: 25px;
        column-gap: 25px;
+  color: #212121;
 }
 
 .community .body .user-profile .body .side-bar {
-  min-width: 200px;
-  height: 50px;
+  width: 200px;
   display: flex;
   flex-direction: row;
-  align-items: center;
+}
+
+.community .body .user-profile .body .side-bar .user-info {
+  width: inherit;
 }
 
 .community .body .user-profile .body .side-bar .user-info p {
@@ -1767,6 +1771,44 @@ body {
 .community .body .user-profile .body .side-bar .user-info .fullname {
   font-weight: bold;
   font-size: 1.5em;
+}
+
+.community .body .user-profile .body .side-bar .user-info .username {
+  margin-bottom: 10px;
+}
+
+.community .body .user-profile .body .side-bar .user-info .social-media {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+  box-shadow: -43px 2px 0px -39px #ff810c inset;
+  margin-bottom: 2.5px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.community .body .user-profile .body .side-bar .user-info .social-media i {
+  font-size: 1.5em;
+}
+
+.community .body .user-profile .body .side-bar .user-info .social-media:hover {
+  color: #ff810c;
+}
+
+.community .body .user-profile .body .side-bar .user-info .bio {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+}
+
+.community .body .user-profile .body .side-bar .user-info .join-date {
+  box-shadow: -43px 2px 0px -39px #ff810c inset;
+  font-style: italic;
+  font-size: 0.75em;
+  text-align: right;
+  padding-right: 7.5px;
 }
 
 .community .body .user-profile .body > .content {
@@ -1786,11 +1828,11 @@ body {
 }
 
 .community .body .user-profile .body > .content .tabs a:first-child .tab-item {
-  border-radius: 25px 0 0 0;
+  border-radius: 0.25em 0 0 0;
 }
 
 .community .body .user-profile .body > .content .tabs a:last-child .tab-item {
-  border-radius: 0 25px 0 0;
+  border-radius: 0 0.25em 0 0;
 }
 
 .community .body .user-profile .body > .content .tabs .tab-item {
@@ -2092,6 +2134,61 @@ body {
 .community .body .user-setting .page-content .side-content .profile .content .form .split .wrapper .username .input {
   display: flex;
   align-items: center;
+}
+
+.community .body .community-gallery > .channels {
+  cursor: -webkit-grab;
+  cursor: grab;
+  display: flex;
+}
+
+.community .body .community-gallery > .channels .list {
+  margin: 10px 0 10px 0;
+  display: flex;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
+}
+
+.community .body .community-gallery > .channels .list .item {
+  width: 250px;
+  height: 75px;
+  overflow: hidden;
+  position: relative;
+  text-shadow: 0px 2px 4px black;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 0.25em;
+}
+
+.community .body .community-gallery > .channels .list .item img {
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+  border-radius: 0.25em;
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.community .body .community-gallery > .channels .list .item .overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  color: #d8d8d8;
+  font-weight: bold;
+}
+
+.community .body .community-gallery > .channels .list .item .overlay p {
+  margin: 0;
+  position: absolute;
+  top: 5px;
+  left: 7.5px;
+}
+
+.community .body .community-gallery > .channels .list .item .overlay:hover {
+  color: white;
+  background: linear-gradient(rgba(255, 150, 54, 0.75), rgba(0, 0, 0, 0));
 }
 
 .community > .footer {

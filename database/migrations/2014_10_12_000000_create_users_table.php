@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('profile_picture')->nullable()->default(null);
             $table->string('profile_picture_thumbnail')->nullable()->default(null);
             $table->string('banner')->nullable()->default(null);
-            $table->string('banner_thumbanil')->nullable()->default(null);
+            $table->string('banner_thumbnail')->nullable()->default(null);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

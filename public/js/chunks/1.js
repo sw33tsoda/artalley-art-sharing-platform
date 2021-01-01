@@ -1779,9 +1779,9 @@ function Showcase() {
       className: "title"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h2", null, art.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "caption"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, art.caption, " Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, art.caption)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "description"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, art.description, " Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play. Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play. Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play.Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play.Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play. Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play. Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play. Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, art.description))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
       src: "/storage/app/public/community/1/arts/".concat(art.art)
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "genres"
@@ -1925,14 +1925,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _utilities_CurrentPageSlug__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../utilities/CurrentPageSlug */ "./resources/js/src/utilities/CurrentPageSlug/index.js");
-/* harmony import */ var _Tabs_Arts__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Tabs/Arts */ "./resources/js/src/components/Community/Body/UserProfile/Tabs/Arts/index.js");
-/* harmony import */ var _Tabs_Showcases__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Tabs/Showcases */ "./resources/js/src/components/Community/Body/UserProfile/Tabs/Showcases/index.js");
-/* harmony import */ var _Tabs_Questions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Tabs/Questions */ "./resources/js/src/components/Community/Body/UserProfile/Tabs/Questions/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _utilities_CurrentPageSlug__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../utilities/CurrentPageSlug */ "./resources/js/src/utilities/CurrentPageSlug/index.js");
+/* harmony import */ var _Tabs_Arts__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Tabs/Arts */ "./resources/js/src/components/Community/Body/UserProfile/Tabs/Arts/index.js");
+/* harmony import */ var _Tabs_Showcases__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Tabs/Showcases */ "./resources/js/src/components/Community/Body/UserProfile/Tabs/Showcases/index.js");
+/* harmony import */ var _Tabs_Questions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Tabs/Questions */ "./resources/js/src/components/Community/Body/UserProfile/Tabs/Questions/index.js");
+/* harmony import */ var react_moment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-moment */ "./node_modules/react-moment/dist/index.js");
+/* harmony import */ var react_moment__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_moment__WEBPACK_IMPORTED_MODULE_9__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -1952,6 +1953,7 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
+ // import { useSelector } from 'react-redux';
 
 
 
@@ -1962,7 +1964,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function UserProfile() {
-  var _useParams = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["useParams"])(),
+  var _useParams = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["useParams"])(),
       id = _useParams.id;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({}),
@@ -2015,7 +2017,10 @@ function UserProfile() {
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "profile-banner"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
-    src: "https://i.redd.it/kbhxfkobabf11.png"
+    src: "/storage/app/public/banners/".concat(user.banner),
+    onError: function onError(event) {
+      event.target.src = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+    }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "body"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
@@ -2026,35 +2031,55 @@ function UserProfile() {
     className: "fullname"
   }, user.firstname + ' ' + user.lastname), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
     className: "username"
-  }, "@", user.username))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+  }, "@", user.username), user.facebook && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
+    className: "social-media",
+    onClick: function onClick() {
+      return window.open("https://www.facebook.com/".concat(user.facebook), '_blank', 'noopener,noreferrer');
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+    "class": "fab fa-facebook-square"
+  }), "fb/", user.facebook), user.twitter && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
+    className: "social-media",
+    onClick: function onClick() {
+      return window.open("https://www.twitter.com/".concat(user.twitter), '_blank', 'noopener,noreferrer');
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+    "class": "fab fa-twitter-square"
+  }), "tw/", user.twitter), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
+    className: "bio"
+  }, user.bio), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
+    className: "join-date"
+  }, "Tham gia v\xE0o ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_moment__WEBPACK_IMPORTED_MODULE_9___default.a, {
+    format: "D/M/Y"
+  }, user.created_at)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "content"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "tabs"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/public/community/user/".concat(user.id, "/arts")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-    className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('tab-item', {
-      selected: Object(_utilities_CurrentPageSlug__WEBPACK_IMPORTED_MODULE_6__["default"])() == 'arts'
+    className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('tab-item', {
+      selected: Object(_utilities_CurrentPageSlug__WEBPACK_IMPORTED_MODULE_5__["default"])() == 'arts'
     })
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
     className: "stats"
   }, user.stats && user.stats.artsCount), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
     className: "fas fa-image"
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/public/community/user/".concat(user.id, "/showcases")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-    className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('tab-item', {
-      selected: Object(_utilities_CurrentPageSlug__WEBPACK_IMPORTED_MODULE_6__["default"])() == 'showcases'
+    className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('tab-item', {
+      selected: Object(_utilities_CurrentPageSlug__WEBPACK_IMPORTED_MODULE_5__["default"])() == 'showcases'
     })
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
     className: "stats"
   }, user.stats && user.stats.showcasesCount), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
     className: "fas fa-grip-horizontal"
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/public/community/user/".concat(user.id, "/questions")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-    className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('tab-item', {
-      selected: Object(_utilities_CurrentPageSlug__WEBPACK_IMPORTED_MODULE_6__["default"])() == 'questions'
+    className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('tab-item', {
+      selected: Object(_utilities_CurrentPageSlug__WEBPACK_IMPORTED_MODULE_5__["default"])() == 'questions'
     })
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
     className: "stats"
@@ -2062,23 +2087,23 @@ function UserProfile() {
     className: "far fa-question-circle"
   })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "sub-content"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Route"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
     path: "/public/community/user/".concat(user.id, "/arts"),
     component: function component() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_Tabs_Arts__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_Tabs_Arts__WEBPACK_IMPORTED_MODULE_6__["default"], {
         userId: id
       });
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Route"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
     path: "/public/community/user/".concat(user.id, "/showcases"),
     component: function component() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_Tabs_Showcases__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_Tabs_Showcases__WEBPACK_IMPORTED_MODULE_7__["default"], {
         userId: id
       });
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Route"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
     path: "/public/community/user/".concat(user.id, "/questions"),
-    component: _Tabs_Questions__WEBPACK_IMPORTED_MODULE_9__["default"]
+    component: _Tabs_Questions__WEBPACK_IMPORTED_MODULE_8__["default"]
   }))))));
 }
 
@@ -2251,14 +2276,15 @@ function Profile(props) {
               data.append('_method', 'PATCH');
               _context.next = 8;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/community/resources/users/".concat(user.id, "?api_token=").concat(apiToken), data).then(function (response) {
-                var message = response.data.message;
-                console.log(response);
+                var message = response.data.message; // console.log(response);
+
                 dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_8__["setAnnouncementMessage"])({
                   message: message,
                   type: 'success'
                 }));
                 dispatch(Object(_store_auth__WEBPACK_IMPORTED_MODULE_7__["authRefresh"])());
               })["catch"](function (error) {
+                console.log(error.response);
                 var message = error.response.data.message;
                 dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_8__["setAnnouncementMessage"])({
                   message: message,
@@ -2293,7 +2319,7 @@ function Profile(props) {
     var errors = _ref2.errors,
         values = _ref2.values,
         handleSubmit = _ref2.handleSubmit;
-    console.log(values);
+    // console.log(values);
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("form", {
       className: "form",
       onSubmit: handleSubmit
@@ -2321,7 +2347,7 @@ function Profile(props) {
         return handleDeletePicture('profilePicture');
       }
     }, deleteProfilePicture ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("i", {
-      "class": "fas fa-times"
+      className: "fas fa-times"
     }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("i", {
       className: "fas fa-trash-alt"
     }))), !Object(lodash__WEBPACK_IMPORTED_MODULE_3__["isEmpty"])(errors.profile_picture) ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("p", {
@@ -2334,7 +2360,7 @@ function Profile(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("label", {
       htmlFor: "profile_picture"
     }, "B\u1EA5m \u0111\u1EC3 t\u1EA3i \u1EA3nh ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("i", {
-      "class": "fas fa-camera"
+      className: "fas fa-camera"
     })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
       name: "avatarFile",
       component: _CustomFields_FileUploader__WEBPACK_IMPORTED_MODULE_9__["default"],
@@ -2364,9 +2390,9 @@ function Profile(props) {
         return handleDeletePicture('banner');
       }
     }, deleteBanner ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("i", {
-      "class": "fas fa-times"
+      className: "fas fa-times"
     }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("i", {
-      "class": "fas fa-trash-alt"
+      className: "fas fa-trash-alt"
     }))), !Object(lodash__WEBPACK_IMPORTED_MODULE_3__["isEmpty"])(errors.banner) ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("p", {
       className: "image-error"
     }, errors.banner) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("img", {

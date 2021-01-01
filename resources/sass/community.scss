@@ -5,6 +5,7 @@
 @import './showcase.scss';
 @import './userProfile.scss';
 @import './userSetting.scss';
+@import './gallery.scss';
 
 .community {
     width: 100%;
@@ -78,6 +79,10 @@
 
         .user-setting {
             @include community-userSetting;
+        }
+
+        .community-gallery {
+            @include community-gallery;
         }
     }
 

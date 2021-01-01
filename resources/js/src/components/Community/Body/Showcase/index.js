@@ -44,10 +44,10 @@ function Showcase() {
                                         <h2>{art.title}</h2>
                                     </div>
                                     <div className="caption">
-                                        <p>{art.caption} Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play.</p>
+                                        <p>{art.caption}</p>
                                     </div>
                                     <div className="description">
-                                        <p>{art.description} Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play. Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play. Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play.Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play.Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play. Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play. Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play. Summoner's Rift is the flagship game mode of League of Legends and the only one featured in professional-level play</p>
+                                        <p>{art.description}</p>
                                     </div>
                                 </div>
                                 <img src={`/storage/app/public/community/1/arts/${art.art}`}/>

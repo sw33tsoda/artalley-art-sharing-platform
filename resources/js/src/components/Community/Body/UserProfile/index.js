@@ -1,12 +1,13 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { Link, Route, Switch, useParams } from 'react-router-dom';
 import classnames from 'classnames';
 import CurrentPageSlug from '../../../../utilities/CurrentPageSlug';
 import Arts from './Tabs/Arts';
 import Showcases from './Tabs/Showcases';
 import Questions from './Tabs/Questions';
+import Moment from 'react-moment';
 
 function UserProfile() {
     const { id } = useParams();
@@ -34,7 +35,9 @@ function UserProfile() {
                     }}/>
                 </div>
                 <div className="profile-banner">
-                    <img src="https://i.redd.it/kbhxfkobabf11.png"/>
+                    <img src={`/storage/app/public/banners/${user.banner}`} onError={(event) => {
+                        event.target.src = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+                    }}/>
                 </div>
             </div>
             <div className="body">
@@ -42,6 +45,14 @@ function UserProfile() {
                     <div className="user-info">
                         <p className="fullname">{user.firstname + ' ' + user.lastname}</p>
                         <p className="username">@{user.username}</p>
+                        {user.facebook && <p className="social-media" onClick={() => window.open(`https://www.facebook.com/${user.facebook}`,'_blank','noopener,noreferrer')}><i class="fab fa-facebook-square"></i>fb/{user.facebook}</p>}
+                        {user.twitter && <p className="social-media" onClick={() => window.open(`https://www.twitter.com/${user.twitter}`,'_blank','noopener,noreferrer')}><i class="fab fa-twitter-square"></i>tw/{user.twitter}</p>}
+                        <p className="bio">
+                            {user.bio}
+                        </p>
+                        <p className="join-date">
+                            Tham gia vào <Moment format='D/M/Y'>{user.created_at}</Moment>
+                        </p>
                     </div>
                 </div>
                 <div className="content">
