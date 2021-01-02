@@ -1,5 +1,6 @@
 import React from 'react'
 import DragScroll from 'react-indiana-drag-scroll';
+import { useParams } from 'react-router-dom';
 
 const channels = [
     {thumbnail_src:'https://img4.goodfon.com/wallpaper/nbig/a/13/the-futuristic-art-alex-ichim-letatelnyi-apparat-concept-art.jpg',name:'Digital Art'},
@@ -25,18 +26,49 @@ const channels = [
 function CommunityGallery() {
     return (
         <div className="community-gallery">
-            <DragScroll className="channels">
-                <div className="list">
-                    {channels.map((channel,index) => (
-                        <div className="item" key={index}>
-                            <img src={channel.thumbnail_src}/>
-                            <div className="overlay">
-                                <p>{channel.name}</p>
-                            </div>
-                        </div>
-                    ))}
+            <div className="ads">
+                <div className="ad">
+
                 </div>
-            </DragScroll>
+                <div className="ad">
+
+                </div>
+                <div className="ad">
+
+                </div>
+            </div>
+            <div className="header">
+                <div className="navbar">
+                    <h1 className="nav-item">XU HƯỚNG</h1>
+                    <h1 className="nav-item">MỚI NHẤT</h1>
+                </div>
+                <DragScroll className="trending-arts">
+                    <div className="list">
+                        {channels.map((channel,index) => (
+                            <div className="item" key={index}>
+                                <img src={channel.thumbnail_src}/>
+                            </div>
+                        ))}
+                    </div>
+                </DragScroll>
+                <DragScroll className="channels">
+                    <div className="list">
+                        {channels.map((channel,index) => (
+                            <div className="item" key={index}>
+                                <img src={channel.thumbnail_src}/>
+                                <div className="overlay">
+                                    <p>{channel.name}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </DragScroll>
+            </div>
+
+            <div className="content">
+
+            </div>
+
         </div>
     );
 }

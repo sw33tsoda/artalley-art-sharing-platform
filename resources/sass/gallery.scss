@@ -1,60 +1,138 @@
 @mixin community-gallery {
-    > .channels {
-        // background: #212121;
-        // background: linear-gradient(0deg, rgba(33,33,33,1) 0%, rgba(33,33,33,1) 50%, rgba(216,216,216,0) 100%);
 
-        // overflow: hidden;
-        // width: 100%;
-        cursor: grab;
+    .ads {
+        max-width: 1150px;
+        margin:auto;
         display: flex;
-        // margin:0 10px 0 10px;
+        justify-content: space-between;
+        column-gap: 10px;
+        margin-bottom: 10px;
+        // margin-bottom: 10px;
+        .ad {
+            border-radius: 0.25em;
+            height: 50px;
+            width: calc(100%/3);
+            background:#212121;
+        }
+    }
 
-        .list {
-            margin:10px 0 10px 0;
+    > .header {
+        width: 100%;
+        background: #212121;
+        // background: linear-gradient(0deg, rgba(33,33,33,1) 0%, rgba(33,33,33,0.8) 5%, rgba(216,216,216,0) 100%);
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+        // padding-top: 50px;
+        
+        .navbar {
+            margin:auto;
+            max-width: 1150px;
+            padding-top: 10px;
+            margin-bottom: 5px;
             display: flex;
-            column-gap: 15px;
-            // width: 100%;
-            // overflow: hidden;
-            .item {
-                width: 250px;
-                height: 75px;
-                overflow: hidden;
-                position: relative;
-                text-shadow: 0px 2px 4px black;
-                box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
-                border-radius: 0.25em;
-                img {
-                    position: absolute;
-                    top: 50%;
-                    transform: translate(0%, -50%);
-                    border-radius: 0.25em;
-                    width: 100%;
-                    // height: 100%;
-                    object-fit: contain;
-                    // margin-bottom: 150px;
+            justify-content: space-between;
+            .nav-item {
+                font-size: 4em;
+                font-weight: bold;
+                opacity: 0.75;
+                color:#d8d8d8;
+                margin:0;
+                &:last-child {
+                    opacity: 0.25;
                 }
-                .overlay {
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    top: 0;
-                    left: 0;
-                    color:#d8d8d8;
-                    font-weight: bold;
-                    p {
-                        margin:0;
-                        position: absolute;
-                        top: 5px;
-                        left: 7.5px;
-                    }
-
-                    &:hover {
-                        color:white;
-                        background:linear-gradient(rgba(255, 150, 54, 0.75),rgba(0,0,0,0));
+                
+                &:hover {
+                    opacity: 1;
+                }
+                cursor: pointer;
+                
+            }
+        }
+        
+        .trending-arts {
+            padding: 0 10px 0 10px;
+            box-sizing: border-box;
+            display: flex;
+            margin-bottom: 10px;
+            .list {
+                display:flex;
+                column-gap: 15px;
+                .item {
+                    // width: 250px;
+                    // overflow: hidden;
+                    // position: relative;
+                    // text-shadow: 0px 2px 4px black;
+                    height: 400px;
+                    box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+                    border-radius: 0.25em;
+                    img {
+                        border-radius: 0.25em;
+                        height: 100%;
                     }
                 }
             }
-
         }
+        
+        > .channels {
+            padding: 0 10px 0 10px;
+            box-sizing: border-box;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+            cursor: grab;
+            display: flex;
+            // background: #212121;
+            // overflow: hidden;
+            // width: 100%;
+            // margin:0 10px 0 10px;
+    
+            .list {
+                margin:10px 0 10px 0;
+                display: flex;
+                column-gap: 15px;
+                // width: 100%;
+                // overflow: hidden;
+                .item {
+                    width: 250px;
+                    height: 75px;
+                    overflow: hidden;
+                    position: relative;
+                    text-shadow: 0px 2px 4px black;
+                    box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+                    border-radius: 0.25em;
+                    img {
+                        position: absolute;
+                        top: 50%;
+                        transform: translate(0%, -50%);
+                        border-radius: 0.25em;
+                        width: 100%;
+                        // height: 100%;
+                        object-fit: contain;
+                        // margin-bottom: 150px;
+                    }
+                    .overlay {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        top: 0;
+                        left: 0;
+                        color:#d8d8d8;
+                        font-weight: bold;
+                        p {
+                            margin:0;
+                            position: absolute;
+                            top: 5px;
+                            left: 7.5px;
+                        }
+    
+                        &:hover {
+                            color:white;
+                            background:linear-gradient(rgba(255, 150, 54, 0.75),rgba(0,0,0,0));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .content {
+        margin-top: 50px;
     }
 }
