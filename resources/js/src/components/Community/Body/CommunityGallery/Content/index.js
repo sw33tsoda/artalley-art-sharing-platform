@@ -2,25 +2,21 @@ import React, { useState,useEffect } from 'react'
 import ArtsScrollList from './ArtsScrollList';
 import classnames from 'classnames';
 import Axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectDimension, setChannelsList, setDimensionsList } from '../../../../../store/community/filter';
 
 
 function Content() {
     const [layout,setLayout] = useState('grid');
-    const [dimensionsList,setDimensionsList] = useState({
-        list:[],
-        selected:null,
-    });
-
-    console.log(dimensionsList);
+    const dispatch = useDispatch();
+    const {dimensions:dimensionsList} = useSelector(state => state.community_filter);
 
     useEffect(() => {
         const getDimensionsList = async () => {
-            await Axios.get('/public/api/community/resources/interface/get-dimensions-list').then(response => {
-                const {data:{list}} = response;
-                setDimensionsList({
-                    ...dimensionsList,
-                    list:list,
-                });
+            await Axios.get('/public/api/community/resources/interface/get-filters-list').then(response => {
+                const {data:{dimensionsList,channelsList}} = response;
+                dispatch(setDimensionsList(dimensionsList));
+                dispatch(setChannelsList(channelsList));
             }).catch(error => {
                 console.log(error.response);
             });
@@ -29,10 +25,7 @@ function Content() {
     },[]);
 
     const handleDimensionFilterOnChange = (selectedId) => {
-        setDimensionsList({
-            ...dimensionsList,
-            selected:selectedId,
-        });
+        dispatch(selectDimension(selectedId));
     }
 
     return (
@@ -57,7 +50,7 @@ function Content() {
                     ))}
                 </div>
             </div>
-            <ArtsScrollList layout={layout} dimension={dimensionsList.selected}/>
+            <ArtsScrollList layout={layout}/>
         </div>
     );
 }

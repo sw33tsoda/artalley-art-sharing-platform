@@ -133,6 +133,13 @@
                 column-gap: 15px;
                 // width: 100%;
                 // overflow: hidden;
+                .active {
+                    .overlay {
+                        background:linear-gradient(rgba(255, 150, 54, 0.75),rgba(0,0,0,0));
+                        box-shadow: none !important;
+                        
+                    }
+                }
                 .item {
                     width: 250px;
                     height: 75px;
@@ -304,6 +311,18 @@
                 }
 
                 .wrapper {
+                    &:hover {
+                        box-shadow: -43px 2px 0px -39px #ff810c inset;
+                        
+                        .title {
+                            color:#ff810c;
+                        }
+                        .art {
+                            background:#ff810c;
+                            padding: 5px;
+                            box-sizing: border-box;
+                        }
+                    }
                     .info {
                         display: none;
                     }

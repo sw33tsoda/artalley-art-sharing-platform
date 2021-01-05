@@ -57426,6 +57426,61 @@ var setAnnouncementMessage = actions.setAnnouncementMessage,
 
 /***/ }),
 
+/***/ "./resources/js/src/store/community/filter.js":
+/*!****************************************************!*\
+  !*** ./resources/js/src/store/community/filter.js ***!
+  \****************************************************/
+/*! exports provided: setDimensionsList, selectDimension, setChannelsList, selectChannel, community_filterReducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDimensionsList", function() { return setDimensionsList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectDimension", function() { return selectDimension; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setChannelsList", function() { return setChannelsList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectChannel", function() { return selectChannel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "community_filterReducer", function() { return community_filterReducer; });
+var _require = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js"),
+    createSlice = _require.createSlice;
+
+var community_filterSlice = createSlice({
+  name: 'community_filter',
+  initialState: {
+    dimensions: {
+      list: [],
+      selected: null
+    },
+    channels: {
+      list: [],
+      selected: null
+    }
+  },
+  reducers: {
+    setDimensionsList: function setDimensionsList(state, action) {
+      state.dimensions.list = action.payload;
+    },
+    selectDimension: function selectDimension(state, action) {
+      state.dimensions.selected = action.payload;
+    },
+    setChannelsList: function setChannelsList(state, action) {
+      state.channels.list = action.payload;
+    },
+    selectChannel: function selectChannel(state, action) {
+      state.channels.selected = action.payload;
+    }
+  }
+});
+var community_filterReducer = community_filterSlice.reducer,
+    actions = community_filterSlice.actions;
+var setDimensionsList = actions.setDimensionsList,
+    selectDimension = actions.selectDimension,
+    setChannelsList = actions.setChannelsList,
+    selectChannel = actions.selectChannel;
+
+
+
+/***/ }),
+
 /***/ "./resources/js/src/store/index.js":
 /*!*****************************************!*\
   !*** ./resources/js/src/store/index.js ***!
@@ -57441,6 +57496,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _admin_users__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./admin/users */ "./resources/js/src/store/admin/users.js");
 /* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./auth */ "./resources/js/src/store/auth.js");
 /* harmony import */ var _community_announcer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./community/announcer */ "./resources/js/src/store/community/announcer.js");
+/* harmony import */ var _community_filter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./community/filter */ "./resources/js/src/store/community/filter.js");
+
 
 
 
@@ -57451,7 +57508,8 @@ var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_1__["combineReducers"])(
   auth: _auth__WEBPACK_IMPORTED_MODULE_4__["default"],
   admin_users: _admin_users__WEBPACK_IMPORTED_MODULE_3__["default"],
   admin_announcer: _admin_announcer__WEBPACK_IMPORTED_MODULE_2__["admin_announcerReducer"],
-  community_announcement: _community_announcer__WEBPACK_IMPORTED_MODULE_5__["community_announcementReducer"]
+  community_announcement: _community_announcer__WEBPACK_IMPORTED_MODULE_5__["community_announcementReducer"],
+  community_filter: _community_filter__WEBPACK_IMPORTED_MODULE_6__["community_filterReducer"]
 });
 var store = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["configureStore"])({
   reducer: rootReducer

@@ -2272,6 +2272,11 @@ body {
        column-gap: 15px;
 }
 
+.community .body .community-gallery > .header > .channels .list .active .overlay {
+  background: linear-gradient(rgba(255, 150, 54, 0.75), rgba(0, 0, 0, 0));
+  box-shadow: none !important;
+}
+
 .community .body .community-gallery > .header > .channels .list .item {
   width: 250px;
   height: 75px;
@@ -2434,6 +2439,20 @@ body {
   .community .body .community-gallery .content .arts-list .grid_layout {
     grid-template-columns: repeat(6, 1fr);
   }
+}
+
+.community .body .community-gallery .content .arts-list .grid_layout .wrapper:hover {
+  box-shadow: -43px 2px 0px -39px #ff810c inset;
+}
+
+.community .body .community-gallery .content .arts-list .grid_layout .wrapper:hover .title {
+  color: #ff810c;
+}
+
+.community .body .community-gallery .content .arts-list .grid_layout .wrapper:hover .art {
+  background: #ff810c;
+  padding: 5px;
+  box-sizing: border-box;
 }
 
 .community .body .community-gallery .content .arts-list .grid_layout .wrapper .info {

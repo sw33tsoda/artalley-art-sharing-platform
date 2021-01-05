@@ -39,9 +39,9 @@ Route::group(['prefix' => '/community/resources'],function(){
     // [PUBLIC] interface
     Route::group(['prefix' => '/interface'], function() {
         Route::get('/upload-select-list', [\App\Http\Controllers\Community\InterfaceController::class, 'uploadSelectList']);
-        Route::get('/get-arts-list/{dimension}', [\App\Http\Controllers\Community\InterfaceController::class,'artsList']);
+        Route::get('/get-arts-list/{dimension_id}-{channel_id}', [\App\Http\Controllers\Community\InterfaceController::class,'artsList']);
         Route::get('/get-slide-arts/{type}',[\App\Http\Controllers\Community\InterfaceController::class,'getSlideArts']);
-        Route::get('/get-dimensions-list',[\App\Http\Controllers\Community\InterfaceController::class,'getDimensionsList']);
+        Route::get('/get-filters-list',[\App\Http\Controllers\Community\InterfaceController::class,'getFiltersList']);
     });
 
     Route::group(['middleware' => 'auth:api'],function(){

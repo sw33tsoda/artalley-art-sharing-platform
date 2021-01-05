@@ -2577,6 +2577,12 @@ function UserSetting() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "item"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+    to: "/public/community/user/".concat(user.id, "/arts")
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+    className: "title"
+  }, "T\u1ED5ng quan"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "item"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
     to: "/public/community/setting/general"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
     className: "title"
@@ -2647,7 +2653,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CommunityGallery = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(9), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ./CommunityGallery */ "./resources/js/src/components/Community/Body/CommunityGallery/index.js"));
+  return Promise.all(/*! import() */[__webpack_require__.e(9), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./CommunityGallery */ "./resources/js/src/components/Community/Body/CommunityGallery/index.js"));
 });
 var Upload = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
   return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./Upload */ "./resources/js/src/components/Community/Body/Upload/index.js"));

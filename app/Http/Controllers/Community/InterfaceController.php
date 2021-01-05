@@ -7,6 +7,7 @@ use App\Models\Art;
 use App\Models\ArtChannel;
 use App\Models\Dimension;
 use App\Models\Privacy;
+use Illuminate\Broadcasting\Channel;
 
 class InterfaceController extends Controller
 {
@@ -56,24 +57,31 @@ class InterfaceController extends Controller
         ]);
     }
 
-    public function getDimensionsList() {
-        $list = Dimension::all();
+    public function getFiltersList() {
+        $dimensionsList = Dimension::all();
+        $channelsList = ArtChannel::all();
         return response()->json([
             'message' => 'Lấy danh sách không gian đa chiều thành công',
-            'list' => $list,
+            'dimensionsList' => $dimensionsList,
+            'channelsList' => $channelsList,
         ]);
     }
 
-    public function artsList($dimension) {
+    public function artsList($dimension_id,$channel_id) {
         $query = Art::query();
-        if ($dimension == 'null')
-            $list = $query;
-        else
-            $list = $query->where('dimension_id',$dimension);
+        $list = $query;
+        if (!($dimension_id == 'null')) {
+            $list->where('dimension_id',$dimension_id);
+        }
+
+        // Kiểm tra channel_id
+        if (!($channel_id == 'null')) {
+            $list->where('art_channel_id',$channel_id);
+        }
+
         return response()->json([
             'message' => 'Lấy toàn bộ danh sách tác phẩm thành công',
             'list' => $list->orderBy('created_at','desc')->paginate(12),
-            'dimension' => $dimension,
         ]);
     }
 

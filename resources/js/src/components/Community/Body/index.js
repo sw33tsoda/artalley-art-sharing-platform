@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import CurrentPageSlug from '../../../utilities/CurrentPageSlug';
 import Warning from '../../Errors/Warning';
 import Management from './Management';
