@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[2],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[10],{
 
 /***/ "./resources/js/src/components/Auth/Login/LoginForm/index.js":
 /*!*******************************************************************!*\
@@ -768,14 +768,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
 
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -797,17 +790,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 function ArtsList(_ref) {
   var userId = _ref.userId;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
-    list: [],
-    page: 1,
-    hasMore: true,
-    maxPage: 0,
-    totalArts: null
-  }),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
       artsList = _useState2[0],
       setArtsList = _useState2[1];
@@ -826,24 +812,14 @@ function ArtsList(_ref) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/arts/get-list/".concat(userId, "?page=1")).then(function (response) {
-                  setLoading(false); // console.log(response);
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/arts/get-list/".concat(userId)).then(function (response) {
+                  var list = response.data.list;
 
-                  var _response$data$list = response.data.list,
-                      data = _response$data$list.data,
-                      total = _response$data$list.total,
-                      current_page = _response$data$list.current_page,
-                      last_page = _response$data$list.last_page;
-
-                  if (data.length > 0) {
-                    setArtsList(_objectSpread(_objectSpread({}, artsList), {}, {
-                      page: current_page,
-                      list: data,
-                      hasMore: true,
-                      maxPage: last_page,
-                      totalArts: total
-                    }));
+                  if (list.length > 0) {
+                    setArtsList(list);
                   }
+
+                  setLoading(false);
                 })["catch"](function (error) {
                   console.log(error.response);
                 });
@@ -863,61 +839,9 @@ function ArtsList(_ref) {
 
     getArtsList();
   }, [userId]);
-
-  var fetchMoreData = /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              if (!(artsList.page <= artsList.maxPage)) {
-                _context2.next = 6;
-                break;
-              }
-
-              setLoading(true);
-              _context2.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/arts/get-list/".concat(userId, "?page=").concat(artsList.page + 1)).then(function (response) {
-                var _response$data$list2 = response.data.list,
-                    data = _response$data$list2.data,
-                    current_page = _response$data$list2.current_page;
-                setLoading(false);
-                setArtsList(_objectSpread(_objectSpread({}, artsList), {}, {
-                  list: artsList.list.concat(data),
-                  page: current_page
-                }));
-              })["catch"](function (error) {
-                console.log(error.response);
-              });
-
-            case 4:
-              _context2.next = 7;
-              break;
-
-            case 6:
-              setArtsList(_objectSpread(_objectSpread({}, artsList), {}, {
-                hasMore: false
-              }));
-
-            case 7:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-
-    return function fetchMoreData() {
-      return _ref3.apply(this, arguments);
-    };
-  }();
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    dataLength: artsList.list.length,
-    next: fetchMoreData,
-    hasMore: artsList.hasMore,
+  return !loading ? artsList.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "arts-list"
-  }, artsList.list.map(function (art, index) {
+  }, artsList.map(function (art, index) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
       to: "/public/community/art/".concat(art.id),
       key: index
@@ -926,16 +850,17 @@ function ArtsList(_ref) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
       src: "/storage/app/public/community/".concat(art.user_id, "/arts/").concat(art.art)
     })));
-  })), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("center", {
-    className: "loading-wrapper"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
+  })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", {
+    className: "no-item"
+  }, "Tr\u1ED1ng") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("center", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
     className: "loading",
-    src: "https://4.bp.blogspot.com/-a4arXx0z1xQ/VuM0S587YfI/AAAAAAAAAOk/jQf7UpsN93ol-qZYM4CuibUSCG8deiejg/s1600/loading.gif"
-  })), artsList.totalArts == artsList.list.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-    className: "scroll-end"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
-    className: "text"
-  }, "Ch\u1EB3ng c\xF2n g\xEC \u0111\u1EC3 xem :)")));
+    src: "https://4.bp.blogspot.com/-a4arXx0z1xQ/VuM0S587YfI/AAAAAAAAAOk/jQf7UpsN93ol-qZYM4CuibUSCG8deiejg/s1600/loading.gif",
+    style: {
+      width: '50px',
+      height: '50px',
+      paddingTop: '50px'
+    }
+  }));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (ArtsList);
@@ -1166,8 +1091,9 @@ function Management() {
             switch (_context.prev = _context.next) {
               case 0:
                 // const arts = Axios.get(`/public/api/community/resources/arts/get-list/${userId}`);
+                console.log('useeffect');
                 showcases = axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/showcases/get-list/".concat(userId));
-                _context.next = 3;
+                _context.next = 4;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.all([// arts,
                 showcases]).then(function (responses) {
                   var showcasesResult = responses[0].data.list;
@@ -1181,7 +1107,7 @@ function Management() {
                   console.log(error.response);
                 });
 
-              case 3:
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -2785,7 +2711,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CommunityGallery = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
-  return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ./CommunityGallery */ "./resources/js/src/components/Community/Body/CommunityGallery/index.js"));
+  return Promise.all(/*! import() */[__webpack_require__.e(9), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./CommunityGallery */ "./resources/js/src/components/Community/Body/CommunityGallery/index.js"));
 });
 var Upload = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
   return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./Upload */ "./resources/js/src/components/Community/Body/Upload/index.js"));

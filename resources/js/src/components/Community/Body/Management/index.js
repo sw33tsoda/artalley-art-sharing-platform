@@ -16,7 +16,6 @@ function Management() {
         // const apiToken = localStorage.getItem('authenticatedUserToken');
         const getArtsList = async () => {
             // const arts = Axios.get(`/public/api/community/resources/arts/get-list/${userId}`);
-            console.log('useeffect');
             const showcases = Axios.get(`/public/api/community/resources/showcases/get-list/${userId}`);
             await Axios.all([
                 // arts,

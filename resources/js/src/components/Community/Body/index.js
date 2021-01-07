@@ -3,6 +3,7 @@ import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import CurrentPageSlug from '../../../utilities/CurrentPageSlug';
 import Warning from '../../Errors/Warning';
 import Management from './Management';
+import EditArt from './Management/EditArt';
 import ShowArt from './ShowArt';
 import Showcase from './Showcase';
 import UserProfile from './UserProfile';
@@ -31,10 +32,14 @@ function Body() {
                     <Route path={url + '/upload'} component={Upload} />
 
                     {/* Management / Quản lý */}
-                    <Route path={url + '/management'} component={Management} />
+                    <Route exact path={url + '/management'} component={Management} />
+
 
                     {/* Show Art / Hiển thị tác phẩm */}
                     <Route path={url + '/art/:id'} component={ShowArt}/>
+
+                    {/* Edit Art / Sửa tác phẩm */}
+                    <Route path={url + '/art/edit/:id'} component={EditArt} />
 
                     {/* Show Showcase / Hiển thị quày trưng bày */}
                     <Route path={url + '/showcase/:id'} component={Showcase}/>

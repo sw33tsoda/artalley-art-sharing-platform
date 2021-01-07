@@ -1,11 +1,15 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams,Link } from 'react-router-dom';
-import _ from 'lodash';
+import _, { isEmpty } from 'lodash';
+import { useSelector } from 'react-redux';
 
 function ShowArt() {
     const { id } = useParams();
+    const [editMode,setEditMode] = useState(false);
     const [art,setArt] = useState({});
+    const user = useSelector(state => state.auth.authenticatedUser);
+    console.log('user',isEmpty(user));
     useEffect(() => {
         const getArt = async () => {
             await Axios.get(`/public/api/community/resources/arts/get/${id}`).then(response => {

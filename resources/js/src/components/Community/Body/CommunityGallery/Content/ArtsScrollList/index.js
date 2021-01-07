@@ -10,7 +10,7 @@ function ArtsScrollList(props) {
     const { layout } = props;
     const {dimensions:{selected:selectedDimension}} = useSelector(state => state.community_filter);
     const {channels:{selected:selectedChannel}} = useSelector(state => state.community_filter);
-    console.log(selectedChannel,selectedDimension);
+    // console.log(selectedChannel,selectedDimension);
     const [artsList,setArtsList] = useState({
         list:[],
         page:1,

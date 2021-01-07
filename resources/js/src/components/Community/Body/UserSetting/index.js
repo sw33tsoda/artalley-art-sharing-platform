@@ -19,7 +19,7 @@ function UserSetting() {
                 <div className="side-bar">
                     <div className="item">
                         <Link to={`/public/community/user/${user.id}/arts`}>
-                            <h1 className="title">Tổng quan</h1>
+                            <h1 className="title">Trang cá nhân</h1>
                         </Link>
                     </div>
                     

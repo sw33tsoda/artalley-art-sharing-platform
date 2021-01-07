@@ -17,7 +17,7 @@ class ArtsController extends Controller
      */
     public function index($userId)
     {
-        $getArtsListByUserId = Art::where('user_id', $userId)->with('artChannels')->orderBy('created_at','desc')->get();
+        $getArtsListByUserId = Art::where('user_id', $userId)->with('artChannels')->orderBy('created_at','desc')->paginate(12);
         if (!$getArtsListByUserId) {
             return response()->json([
                 'message' => 'Lấy danh sách thất bại',

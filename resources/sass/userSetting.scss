@@ -12,6 +12,7 @@
 
 
         .side-bar {
+
             a {
                 text-decoration: none;
             }
@@ -21,6 +22,12 @@
                     color:#212121;
                     font-size: 1.5em;
                     margin:0;
+                    transition: 0.25s;
+                    &:hover {
+                        box-shadow: -43px 2px 0px -39px #ff810c inset;
+                        // background: linear-gradient(265deg, rgba(33,33,33,0.25) 0%, rgba(33,33,33,0.25) 0%, rgba(216,216,216,0) 100%);
+                        color:#ff810c;
+                    }
                 }
             }
         }

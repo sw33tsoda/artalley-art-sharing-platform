@@ -23,6 +23,8 @@ body {
   font-weight: bold;
   font-size: 0.85em;
   color: #747373;
+  box-shadow: inset 24px -8px 0px -19px #ff810c;
+  padding-left: 0.75em;
 }
 
 .text-input {
@@ -740,6 +742,10 @@ body {
 
 .community .body .upload .upload-area .create-showcase .showcase-form .form .form-error {
   transform: translate(-3%, -12%);
+}
+
+.community .body .upload .upload-area .create-showcase .showcase-form .form .text-input {
+  margin-top: 8px;
 }
 
 .community .body .upload .upload-area .create-showcase .arts-list {
@@ -2007,6 +2013,12 @@ body {
   color: #212121;
   font-size: 1.5em;
   margin: 0;
+  transition: 0.25s;
+}
+
+.community .body .user-setting .page-content .side-bar .item .title:hover {
+  box-shadow: -43px 2px 0px -39px #ff810c inset;
+  color: #ff810c;
 }
 
 .community .body .user-setting .page-content .side-content .profile .header .title {
@@ -2542,16 +2554,16 @@ body {
      object-fit: cover;
 }
 
-.community .body .community-gallery .content .arts-list .loading-wrapper {
+.community .body .loading-wrapper {
   margin-top: 50px;
   width: 100%;
 }
 
-.community .body .community-gallery .content .arts-list .scroll-end {
+.community .body .scroll-end {
   margin-top: 50px;
 }
 
-.community .body .community-gallery .content .arts-list .scroll-end .text {
+.community .body .scroll-end .text {
   margin: 0;
   text-align: center;
   font-weight: bold;
