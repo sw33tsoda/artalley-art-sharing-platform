@@ -542,6 +542,8 @@ function Auth() {
       isLogin = _useState4[0],
       setIsLogin = _useState4[1];
 
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["useHistory"])();
+
   var handleCloseRegister = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -619,6 +621,10 @@ function Auth() {
     };
   }();
 
+  var handleRedirectOnClick = function handleRedirectOnClick(path) {
+    history.push(path);
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "auth"
   }, !lodash__WEBPACK_IMPORTED_MODULE_8___default.a.isEmpty(authenticatedUser) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -633,19 +639,19 @@ function Auth() {
     className: "profile-picture",
     src: "/storage/app/public/profilePictures/".concat(authenticatedUser.profile_picture)
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-    className: "button"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
-    to: url + '/management',
-    style: {
-      textDecoration: 'none',
-      color: '#D9D9D9'
+    className: "button",
+    onClick: function onClick() {
+      return handleRedirectOnClick(url + '/management');
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
     className: "fas fa-images"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
     className: "text"
-  }, "Qu\u1EA3n l\xFD"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-    className: "button"
+  }, "Qu\u1EA3n l\xFD")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+    className: "button",
+    onClick: function onClick() {
+      return handleRedirectOnClick(url + '/upload');
+    }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
     to: url + '/upload',
     style: {
@@ -656,20 +662,17 @@ function Auth() {
     className: "fas fa-plus"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
     className: "text"
-  }, "Upload")))), authenticatedUser.role == 'admin' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-    className: "button admin"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
-    to: "/public/admin",
-    style: {
-      textDecoration: 'none',
-      color: '#D9D9D9'
+  }, "Th\xEAm")))), authenticatedUser.role == 'admin' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+    className: "button admin",
+    onClick: function onClick() {
+      return handleRedirectOnClick('/public/admin');
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
     className: "fa fa-user-shield",
     "aria-hidden": "true"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
     className: "text"
-  }, "Qu\u1EA3n tr\u1ECB"))), isRegister && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Register__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, "Admin")), isRegister && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Register__WEBPACK_IMPORTED_MODULE_2__["default"], {
     closeRegister: handleCloseRegister
   }), isLogin && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Login__WEBPACK_IMPORTED_MODULE_3__["default"], {
     closeLogin: handleCloseLogin
@@ -1249,6 +1252,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var _CustomFields_SelectField__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../CustomFields/SelectField */ "./resources/js/src/components/CustomFields/SelectField/index.js");
+/* harmony import */ var _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../CustomFields/InputField */ "./resources/js/src/components/CustomFields/InputField/index.js");
+/* harmony import */ var _CustomFields_TextareaField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../CustomFields/TextareaField */ "./resources/js/src/components/CustomFields/TextareaField/index.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -1279,6 +1286,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
+
 function ShowArt() {
   var _useParams = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["useParams"])(),
       id = _useParams.id;
@@ -1296,7 +1307,37 @@ function ShowArt() {
   var user = Object(react_redux__WEBPACK_IMPORTED_MODULE_5__["useSelector"])(function (state) {
     return state.auth.authenticatedUser;
   });
-  console.log('user', Object(lodash__WEBPACK_IMPORTED_MODULE_4__["isEmpty"])(user));
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
+    artChannels: [],
+    dimensions: [],
+    privacies: []
+  }),
+      _useState6 = _slicedToArray(_useState5, 2),
+      optionsList = _useState6[0],
+      setOptionsList = _useState6[1];
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      isDiff = _useState8[0],
+      setIsDiff = _useState8[1];
+
+  var editFormRef = Object(react__WEBPACK_IMPORTED_MODULE_2__["useRef"])();
+  var tagsDebounce = {
+    callback: function callback(value) {
+      var tagsList = value.split(',').filter(function (tag) {
+        return tag !== '';
+      });
+      setTags(tagsList);
+    },
+    ms: 250
+  };
+
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
+      _useState10 = _slicedToArray(_useState9, 2),
+      tags = _useState10[0],
+      setTags = _useState10[1];
+
   Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
     var getArt = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -1306,7 +1347,11 @@ function ShowArt() {
               case 0:
                 _context.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/arts/get/".concat(id)).then(function (response) {
-                  var art = response.data.art;
+                  var _response$data = response.data,
+                      art = _response$data.art,
+                      channelSelectList = _response$data.channelSelectList,
+                      privacySelectList = _response$data.privacySelectList,
+                      dimensionSelectList = _response$data.dimensionSelectList;
 
                   if (art.tags == null) {
                     art.tags = [];
@@ -1314,7 +1359,37 @@ function ShowArt() {
                     art.tags = art.tags.split(',');
                   }
 
-                  setArt(_objectSpread({}, art));
+                  setArt(_objectSpread(_objectSpread({}, art), {}, {
+                    dimensional: art.dimension_id.toString(),
+                    channel: art.art_channel_id.toString(),
+                    privacy: art.privacy_id.toString(),
+                    tags: art.tags.join(',')
+                  }));
+
+                  if (!Object(lodash__WEBPACK_IMPORTED_MODULE_4__["isNull"])(art.tags)) {
+                    setTags(art.tags);
+                  }
+
+                  setOptionsList({
+                    artChannels: channelSelectList.map(function (option) {
+                      return {
+                        value: option.id,
+                        label: option.channel_name
+                      };
+                    }),
+                    dimensions: dimensionSelectList.map(function (option) {
+                      return {
+                        value: option.id,
+                        label: option.dimensional
+                      };
+                    }),
+                    privacies: privacySelectList.map(function (option) {
+                      return {
+                        value: option.id,
+                        label: option.allowed
+                      };
+                    })
+                  });
                 })["catch"](function (error) {
                   console.log(error.response);
                 });
@@ -1334,6 +1409,44 @@ function ShowArt() {
 
     getArt();
   }, []);
+
+  var handleEditSubmit = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(values) {
+      var data, fillable, key, apiToken;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              data = new FormData();
+              fillable = ['channel', 'dimensional', 'privacy', 'description', 'tags'];
+
+              for (key in values) {
+                if (fillable.includes(key)) data.append(key, values[key]);
+              }
+
+              data.append('_method', 'PATCH');
+              apiToken = localStorage.getItem('authenticatedUserToken');
+              _context2.next = 7;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/community/resources/arts/".concat(values.id, "?api_token=").concat(apiToken), data).then(function (response) {
+                console.log(response);
+              })["catch"](function (error) {
+                console.log(error.response);
+              });
+
+            case 7:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function handleEditSubmit(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }(); // console.log(user.id,art.user_id)
+
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "show-art"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
@@ -1408,11 +1521,117 @@ function ShowArt() {
     className: "tags"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
     className: "title"
-  }, "TH\u1EBA"), art.tags.map(function (tag, index) {
+  }, "TH\u1EBA"), art.tags.split(',').map(function (tag, index) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
       to: "",
       key: index
     }, tag);
+  }))), editMode && user.id == art.user_id && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "edit-form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["Formik"], {
+    initialValues: art,
+    onSubmit: handleEditSubmit,
+    innerRef: editFormRef
+  }, function (_ref3) {
+    var values = _ref3.values,
+        handleSubmit = _ref3.handleSubmit;
+
+    // console.log(values,art);
+    if (!Object(lodash__WEBPACK_IMPORTED_MODULE_4__["isEqual"])(values, art)) {
+      setIsDiff(true);
+    } else {
+      setIsDiff(false);
+    }
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("form", {
+      className: "form",
+      onSubmit: handleSubmit
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "split"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "description"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], {
+      name: "description",
+      component: _CustomFields_TextareaField__WEBPACK_IMPORTED_MODULE_9__["default"],
+      label: "M\xF4 t\u1EA3",
+      labelClassName: "label",
+      className: "text-input",
+      disabled: false,
+      placeholder: "Nh\u1EADp m\xF4 t\u1EA3 (kh\xF4ng b\u1EAFt bu\u1ED9c)",
+      formErrorClass: "form-error textarea-error"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "privacy-and-dimensional"
+    }, optionsList.dimensions.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], {
+      name: "dimensional",
+      component: _CustomFields_SelectField__WEBPACK_IMPORTED_MODULE_7__["default"],
+      label: "Kh\xF4ng gian",
+      labelClassName: "label",
+      className: "text-input",
+      disabled: false,
+      options: optionsList.dimensions
+    }), optionsList.artChannels.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], {
+      name: "channel",
+      component: _CustomFields_SelectField__WEBPACK_IMPORTED_MODULE_7__["default"],
+      label: "K\xEAnh \u1EA3nh",
+      labelClassName: "label",
+      className: "text-input",
+      disabled: false,
+      options: optionsList.artChannels
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "split"
+    }, optionsList.privacies.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], {
+      name: "privacy",
+      component: _CustomFields_SelectField__WEBPACK_IMPORTED_MODULE_7__["default"],
+      label: "Ai c\xF3 th\u1EC3 xem?",
+      labelClassName: "label",
+      className: "text-input",
+      disabled: false,
+      options: optionsList.privacies
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], {
+      name: "tags",
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_8__["default"],
+      label: "Th\u1EBB",
+      labelClassName: "label",
+      className: "text-input",
+      disabled: false,
+      placeholder: "Nh\u1EADp th\u1EBB",
+      debounce: tagsDebounce
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("legend", {
+      className: "tags"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("small", {
+      className: "caption"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("span", null, "Ch\xFA th\xEDch"), " S\u1EED d\u1EE5ng th\u1EBB \u0111\u1EC3 t\u0103ng s\u1EF1 t\u01B0\u01A1ng t\xE1c gi\u1EEFa t\xE1c ph\u1EA9m v\u1EDBi ng\u01B0\u1EDDi xem"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("small", {
+      className: "tags-list"
+    }, tags[0] !== '' ? tags.map(function (tag, index) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+        className: "tag",
+        key: index
+      }, tag);
+    }) : 'Chưa có thẻ nào.')))));
+  })), user.id == art.user_id && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "action-wrapper"
+  }, isDiff && editMode && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
+    type: "submit",
+    onClick: function onClick() {
+      editFormRef.current.handleSubmit();
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "action"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+    className: "fas fa-check"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "action",
+    onClick: function onClick() {
+      return setEditMode(!editMode);
+    }
+  }, editMode ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+    className: "fas fa-times"
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+    className: "fas fa-edit"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "action"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+    className: "fas fa-trash"
   })))));
 }
 
@@ -2785,10 +3004,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CommunityGallery = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
-  return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ./CommunityGallery */ "./resources/js/src/components/Community/Body/CommunityGallery/index.js"));
+  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./CommunityGallery */ "./resources/js/src/components/Community/Body/CommunityGallery/index.js"));
 });
 var Upload = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
-  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./Upload */ "./resources/js/src/components/Community/Body/Upload/index.js"));
+  return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./Upload */ "./resources/js/src/components/Community/Body/Upload/index.js"));
 });
 var style = {
   bodyHeight: {

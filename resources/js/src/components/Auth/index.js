@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Register from './Register';
 import Login from './Login';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link,useRouteMatch } from 'react-router-dom';
+import { Link,useHistory,useRouteMatch } from 'react-router-dom';
 import Axios from 'axios';
 import { removeAuthenticatedUser } from './../../store/auth';
 import _ from 'lodash';
@@ -13,7 +13,7 @@ function Auth() {
     const { url } = useRouteMatch();
     const [isRegister,setIsRegister] = useState(false);
     const [isLogin,setIsLogin] = useState(false);
-
+    const history = useHistory();
     const handleCloseRegister = async () => {
         await setIsRegister(false);
     }
@@ -35,6 +35,10 @@ function Auth() {
         });
     }
 
+    const handleRedirectOnClick = (path) => {
+        history.push(path);
+    }
+
     return (
         <div className="auth">
 
@@ -49,16 +53,16 @@ function Auth() {
                             {authenticatedUser.profile_picture !== null && <img className="profile-picture" src={`/storage/app/public/profilePictures/${authenticatedUser.profile_picture}`}/>}
                         </Link>
                     </div>
-                    <button className="button">
-                        <Link to={url + '/management'} style={{textDecoration:'none',color:'#D9D9D9'}}>
+                    <button className="button" onClick={() => handleRedirectOnClick(url + '/management')}>
+                        {/* <Link to={url + '/management'} style={{textDecoration:'none',color:'#D9D9D9'}}> */}
                             <i className="fas fa-images"></i>
                             <span className="text">Quản lý</span>
-                        </Link>
+                        {/* </Link> */}
                     </button>
-                    <button className="button">
+                    <button className="button" onClick={() => handleRedirectOnClick(url + '/upload')}>
                         <Link to={url + '/upload'} style={{textDecoration:'none',color:'#D9D9D9'}}>
                             <i className="fas fa-plus"></i>
-                            <span className="text">Upload</span>
+                            <span className="text">Thêm</span>
                         </Link>
                     </button>
                 </React.Fragment>
@@ -67,11 +71,11 @@ function Auth() {
 
             {/* ADMIN */}
             {authenticatedUser.role == 'admin' && (
-                <button className="button admin">
-                    <Link to={`/public/admin`} style={{textDecoration:'none',color:'#D9D9D9'}}>
+                <button className="button admin" onClick={() => handleRedirectOnClick('/public/admin')}>
+                    {/* <Link to={`/public/admin`} style={{textDecoration:'none',color:'#D9D9D9'}}> */}
                         <i className="fa fa-user-shield" aria-hidden="true"></i>
-                        <span className="text">Quản trị</span>
-                    </Link>
+                        <span className="text">Admin</span>
+                    {/* </Link> */}
                 </button>
             )}
 

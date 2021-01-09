@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Community;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Community\ArtsRequest;
 use App\Models\Art;
+use App\Models\ArtChannel;
+use App\Models\Dimension;
+use App\Models\Privacy;
 // use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -91,9 +94,15 @@ class ArtsController extends Controller
     public function show($id)
     {
         $getArt = Art::with('users','artChannels','dimensions','showcase_arts.showcases')->find($id);
+        $channelSelectList = ArtChannel::all();
+        $privacySelectList = Privacy::all();
+        $dimensionSelectList = Dimension::all();
         return response()->json([
             'message' => 'Lấy tác phẩm thành công',
             'art' => $getArt,
+            'channelSelectList' => $channelSelectList,
+            'privacySelectList' => $privacySelectList,
+            'dimensionSelectList' => $dimensionSelectList,
         ],200);
     }
 
@@ -117,7 +126,15 @@ class ArtsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $art = Art::find($id);
+        if ($request->user()->id !== $art->user_id) {
+            return response()->json([
+                'message' => 'Mã người dùng không trùng khớp',
+            ],401);
+        }
+        return response()->json([
+            'edit' => true,
+        ],200);
     }
 
     /**

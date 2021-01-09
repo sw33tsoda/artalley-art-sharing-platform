@@ -530,11 +530,15 @@ body {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
   margin-right: 5px;
   border: none;
-  background: rgba(217, 217, 217, 0.025);
+  background: rgba(217, 217, 217, 0.07);
   color: #D9D9D9;
   transition: 0.25s;
   text-shadow: 0px 2px 7px black;
   cursor: pointer;
+}
+
+.community > .header .navbar .navbar-items .right .auth > .button:hover {
+  background: linear-gradient(rgba(255, 150, 54, 0.75), rgba(0, 0, 0, 0)) !important;
 }
 
 .community > .header .navbar .navbar-items .right .auth > .button i {
@@ -578,6 +582,13 @@ body {
   width: 50px;
   height: 50px;
   margin: auto;
+}
+
+.community .body .dash {
+  width: 100%;
+  height: 15px;
+  background-position: 20px;
+  background-size: 50px;
 }
 
 .community .body .upload {
@@ -948,6 +959,7 @@ body {
 }
 
 .community .body .management > .wrapper .showcases-list {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
   cursor: -webkit-grab;
   cursor: grab;
   height: auto;
@@ -1022,7 +1034,6 @@ body {
 
 .community .body .management > .wrapper .arts-list .art {
   padding: 0px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
   display: flex;
   justify-content: center;
   max-width: 150px;
@@ -1170,10 +1181,116 @@ body {
   }
 }
 
-.community .body .show-art .footer .description {
+.community .body .show-art .footer > .description {
   font-size: 0.75em;
   text-align: justify;
   text-indent: 25px;
+}
+
+.community .body .show-art .footer .edit-form {
+  margin-top: 50px;
+  position: relative;
+}
+
+.community .body .show-art .footer .edit-form::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  border-radius: 0.25em;
+  background: linear-gradient(180deg, #bbbbbb 0%, rgba(216, 216, 216, 0) 100%);
+}
+
+.community .body .show-art .footer .edit-form .text-input {
+  margin-top: 8px;
+}
+
+.community .body .show-art .footer .edit-form .split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+@media (max-width: 479px) {
+  .community .body .show-art .footer .edit-form .split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.community .body .show-art .footer .edit-form textarea {
+  resize: none;
+  height: 100px;
+  padding-top: 5px;
+}
+
+.community .body .show-art .footer .edit-form textarea::-moz-placeholder {
+  font-size: 1em;
+}
+
+.community .body .show-art .footer .edit-form textarea:-ms-input-placeholder {
+  font-size: 1em;
+}
+
+.community .body .show-art .footer .edit-form textarea::placeholder {
+  font-size: 1em;
+}
+
+.community .body .show-art .footer .edit-form .tags {
+  font-style: italic;
+}
+
+.community .body .show-art .footer .edit-form .tags > small {
+  display: block;
+}
+
+.community .body .show-art .footer .edit-form .tags .caption {
+  margin-bottom: 15px;
+}
+
+.community .body .show-art .footer .edit-form .tags .caption span {
+  border-radius: 0.25em;
+  text-transform: uppercase;
+  background-color: #ff7e06;
+  color: #D9D9D9;
+  font-size: 0.75em;
+  padding: 3px 5px 3px 5px;
+  font-style: normal !important;
+  font-weight: bold;
+}
+
+.community .body .show-art .footer .edit-form .tags .tags-list {
+  font-style: normal;
+}
+
+.community .body .show-art .footer .edit-form .tags .tags-list .tag {
+  border-radius: 0.25em;
+  display: inline-block;
+  padding: 3px 5px 3px 5px;
+  background: #212121;
+  color: #D9D9D9;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.community .body .show-art .footer .action-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 50px;
+}
+
+.community .body .show-art .footer .action-wrapper .action i {
+  font-size: 1.5em;
+}
+
+.community .body .show-art .footer .action-wrapper .action:hover {
+  cursor: pointer;
+}
+
+.community .body .show-art .footer .action-wrapper .action:hover i {
+  color: #FF9636;
 }
 
 .community .body .show-art .footer .more {
@@ -2202,12 +2319,6 @@ body {
   opacity: 0.75;
 }
 
-.community .body .community-gallery > .header .dash {
-  width: 100%;
-  height: 10px;
-  background-size: 50px;
-}
-
 .community .body .community-gallery > .header .trending-arts {
   padding: 10px 10px 0 10px;
   display: flex;
@@ -2462,6 +2573,7 @@ body {
 }
 
 .community .body .community-gallery .content .arts-list .grid_layout .wrapper:hover .art {
+  transition: 0.25s;
   background: #ff810c;
   padding: 5px;
   box-sizing: border-box;
@@ -2499,6 +2611,7 @@ body {
        column-gap: 5px;
   height: 150px;
   transition: 0.25s;
+  position: relative;
 }
 
 .community .body .community-gallery .content .arts-list .list_layout .wrapper:hover {
@@ -2510,9 +2623,14 @@ body {
 }
 
 .community .body .community-gallery .content .arts-list .list_layout .wrapper:hover .art {
+  transition: 0.25s;
   background: #ff810c;
   padding: 5px;
   box-sizing: border-box;
+}
+
+.community .body .community-gallery .content .arts-list .list_layout .wrapper:hover .date {
+  opacity: 1;
 }
 
 .community .body .community-gallery .content .arts-list .list_layout .wrapper .art {
@@ -2536,6 +2654,16 @@ body {
 .community .body .community-gallery .content .arts-list .list_layout .wrapper .info .caption {
   margin-top: 5px;
   font-size: 0.75em;
+}
+
+.community .body .community-gallery .content .arts-list .list_layout .wrapper .date {
+  position: absolute;
+  opacity: 0;
+  font-size: 0.75em;
+  transition: 0.25s ease-in;
+  bottom: 0;
+  right: 10px;
+  font-style: italic;
 }
 
 .community .body .community-gallery .content .arts-list .list .wrapper .art {

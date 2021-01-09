@@ -126,10 +126,14 @@
                     box-shadow: 0 0 15px rgba(0, 0, 0, 0.30), 0 1px 3px rgba(0, 0, 0, 0.30);
                     margin-right: 5px;
                     border:none;
-                    background:rgba(217, 217, 217,0.025);
+                    background:rgba(217, 217, 217,0.07);
                     color: #D9D9D9;
                     transition: 0.25s;
                     text-shadow: 0px 2px 7px black;
+                    
+                    &:hover {
+                        background:linear-gradient(rgba(255, 150, 54, 0.75),rgba(0,0,0,0)) !important;
+                    }
                     cursor: pointer;
                     i {
                         margin-right: 5px;

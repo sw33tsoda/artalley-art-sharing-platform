@@ -4,6 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import Axios from 'axios';
 import {Link} from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Moment from 'react-moment';
 
 
 function ArtsScrollList(props) {
@@ -86,6 +87,7 @@ function ArtsScrollList(props) {
                             <div className="info">
                                 <p className="title">{art.title}</p>
                                 <p className="caption">{art.caption}</p>
+                                <p className="date"><Moment date={art.created_at} format='DD/MM/yyyy' /></p>
                             </div>
                         </div>
                     </Link>

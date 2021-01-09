@@ -1,20 +1,42 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[7],{
 
-/***/ "./resources/js/src/components/Community/Body/Upload/index.js":
-/*!********************************************************************!*\
-  !*** ./resources/js/src/components/Community/Body/Upload/index.js ***!
-  \********************************************************************/
+/***/ "./resources/js/src/components/Community/Body/Upload/CreateShowcase/index.js":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/src/components/Community/Body/Upload/CreateShowcase/index.js ***!
+  \***********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _utilities_CurrentPageSlug__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../utilities/CurrentPageSlug */ "./resources/js/src/utilities/CurrentPageSlug/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../CustomFields/InputField */ "./resources/js/src/components/CustomFields/InputField/index.js");
+/* harmony import */ var _CustomFields_TextareaField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../CustomFields/TextareaField */ "./resources/js/src/components/CustomFields/TextareaField/index.js");
+/* harmony import */ var _CustomFields_SelectField__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../CustomFields/SelectField */ "./resources/js/src/components/CustomFields/SelectField/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _Validations__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../Validations */ "./resources/js/src/components/Validations/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -31,95 +53,281 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var CreateShowcase = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
-  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./CreateShowcase */ "./resources/js/src/components/Community/Body/Upload/CreateShowcase/index.js"));
-});
-var UploadSingleArt = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
-  return Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./UploadSingleArt */ "./resources/js/src/components/Community/Body/Upload/UploadSingleArt/index.js"));
-});
-var storage_path = '/storage/app/public/web/body/upload';
-var style = {
-  createShowcase: {
-    backgroundImage: "url('".concat(storage_path, "/createShowcase/background.jpg')")
-  },
-  uploadSingleArt: {
-    backgroundImage: "url('".concat(storage_path, "/uploadSingleArt/background.jpg')")
-  }
-};
 
-function Upload() {
-  var _useRouteMatch = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useRouteMatch"])(),
-      url = _useRouteMatch.url;
 
-  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(function () {
-    if (Object(_utilities_CurrentPageSlug__WEBPACK_IMPORTED_MODULE_3__["default"])() == 'upload-single-art') {
-      return 'upload-single-art';
+
+
+
+function CreateShowcase() {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      artsList = _useState2[0],
+      setArtList = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      selectedArts = _useState4[0],
+      setSelectedArts = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])({
+    artChannels: [],
+    privacies: []
+  }),
+      _useState6 = _slicedToArray(_useState5, 2),
+      optionsList = _useState6[0],
+      setOptionsList = _useState6[1];
+
+  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_9__["useSelector"])(function (state) {
+    return state.auth.authenticatedUser;
+  }),
+      userId = _useSelector.id;
+
+  Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
+    // const apiToken = localStorage.getItem('authenticatedUserToken');
+    var getArtsList = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/arts/get-list/".concat(userId)).then(function (response) {
+                  var list = response.data.list;
+
+                  if (list.length > 0) {
+                    setArtList(list);
+                  }
+                })["catch"](function (error) {
+                  console.log(error.response);
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function getArtsList() {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    var getSelectionListOptions = /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/public/api/community/resources/interface/upload-select-list').then(function (response) {
+                  var _response$data = response.data,
+                      art_channels = _response$data.art_channels,
+                      privacies = _response$data.privacies;
+                  setOptionsList({
+                    artChannels: art_channels,
+                    privacies: privacies
+                  });
+                })["catch"](function (error) {
+                  console.log(error.response);
+                });
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function getSelectionListOptions() {
+        return _ref2.apply(this, arguments);
+      };
+    }();
+
+    getSelectionListOptions();
+    getArtsList();
+  }, [userId]);
+
+  var handleSelectArt = function handleSelectArt(artId) {
+    var newSelectedArts = selectedArts;
+
+    if (newSelectedArts.includes(artId)) {
+      newSelectedArts = newSelectedArts.filter(function (selectedId) {
+        return selectedId !== artId;
+      });
+    } else {
+      newSelectedArts.push(artId);
     }
 
-    return 'create-showcase';
-  }()),
-      _useState2 = _slicedToArray(_useState, 2),
-      uploadType = _useState2[0],
-      setUploadType = _useState2[1]; // Xử lý thay đổi kiểu Upload
-
-
-  var handleSelectUploadOption = function handleSelectUploadOption(uploadType) {
-    var route = uploadType == 'single-art' ? url + '/upload-single-art' : url;
-    var uploadTypeState = uploadType == 'single-art' ? 'upload-single-art' : 'create-showcase';
-    setUploadType(uploadTypeState);
-    history.push(route);
+    setSelectedArts(_toConsumableArray(newSelectedArts));
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "upload"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
-    className: "page-title"
-  }, "Upload"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "upload-options"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('option', {
-      active: uploadType == 'create-showcase'
-    }),
-    style: style.createShowcase,
-    onClick: handleSelectUploadOption
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  var handleClearSelectedArts = function handleClearSelectedArts() {
+    var newSelectedArts = [];
+    setSelectedArts([].concat(newSelectedArts));
+  };
+
+  var initialValues = {
+    title: '',
+    subheading: '',
+    description: '',
+    privacy: 1,
+    channel: 1
+  };
+
+  var handleSubmitForm = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(values) {
+      var apiToken, data, key;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              apiToken = localStorage.getItem('authenticatedUserToken'); // Xử lý Data chuẩn bị gửi đi
+
+              data = new FormData();
+
+              for (key in values) {
+                data.append(key, values[key]);
+              }
+
+              data.append('art_ids_list', selectedArts);
+              _context3.next = 6;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/community/resources/showcases?api_token=".concat(apiToken), data).then(function (response) {
+                console.log(response.data.request);
+              })["catch"](function (error) {
+                console.log(error.response);
+              });
+
+            case 6:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function handleSubmitForm(_x) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
     className: "create-showcase"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("h1", {
     className: "title"
-  }, "QU\u1EA6Y TR\u01AFNG B\xC0Y"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-    className: "caption"
-  }, "Tr\u01B0ng b\xE0y c\xE1c t\xE1c ph\u1EA9m c\u1EE7a b\u1EA1n li\xEAn quan \u0111\u1EBFn m\u1ED9t ch\u1EE7 \u0111\u1EC1 ho\u1EB7c t\u1ED5ng h\u1EE3p c\u1EE7a c\xE1c t\xE1c ph\u1EA9m kh\xE1c"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('option', {
-      active: uploadType == 'upload-single-art'
-    }),
-    style: style.uploadSingleArt,
-    onClick: function onClick() {
-      return handleSelectUploadOption('single-art');
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "upload-single-art"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-    className: "title"
-  }, "T\xC1C PH\u1EA8M \u0110\u01A0N"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-    className: "caption"
-  }, "M\u1ED9t t\xE1c ph\u1EA9m duy nh\u1EA5t")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "upload-area"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Suspense"], {
-    fallback: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "loading...")
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    exact: true,
-    path: url,
-    component: CreateShowcase
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    exact: true,
-    path: url + '/upload-single-art',
-    component: UploadSingleArt
-  })))));
+  }, "T\u1EA1o qu\u1EA7y tr\u01B0ng b\u1EA7y"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+    className: "showcase-form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["Formik"], {
+    initialValues: initialValues,
+    validationSchema: _Validations__WEBPACK_IMPORTED_MODULE_8__["ShowcaseValidation"],
+    onSubmit: handleSubmitForm
+  }, function (_ref4) {
+    var handleSubmit = _ref4.handleSubmit,
+        isSubmitting = _ref4.isSubmitting;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("form", {
+      className: "form",
+      onSubmit: handleSubmit
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+      className: classnames__WEBPACK_IMPORTED_MODULE_7___default()('button-group', {
+        hide: selectedArts.length == 0
+      })
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("button", {
+      className: "submit button success",
+      type: "submit"
+    }, isSubmitting ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("i", {
+      className: "fas fa-circle-notch fa-spin"
+    })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("i", {
+      className: "fas fa-rocket"
+    })), " ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+      className: "split"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
+      name: "title",
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_4__["default"],
+      label: "Ti\xEAu \u0111\u1EC1",
+      labelClassName: "label",
+      className: "text-input",
+      disabled: false,
+      placeholder: "Ti\xEAu \u0111\u1EC1" // formErrorClass="form-error textarea-error"
+
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
+      name: "subheading",
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_4__["default"],
+      label: "Ti\xEAu \u0111\u1EC1 ph\u1EE5",
+      labelClassName: "label",
+      className: "text-input",
+      disabled: false,
+      placeholder: "Ti\xEAu \u0111\u1EC1 ph\u1EE5" // formErrorClass="form-error textarea-error"
+
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
+      name: "description",
+      component: _CustomFields_TextareaField__WEBPACK_IMPORTED_MODULE_5__["default"],
+      label: "M\xF4 t\u1EA3",
+      labelClassName: "label",
+      className: "text-input",
+      disabled: false,
+      placeholder: "Nh\u1EADp m\xF4 t\u1EA3 (kh\xF4ng b\u1EAFt bu\u1ED9c)" // formErrorClass="form-error textarea-error"
+
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+      className: "split"
+    }, optionsList.privacies.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
+      name: "privacy",
+      component: _CustomFields_SelectField__WEBPACK_IMPORTED_MODULE_6__["default"],
+      label: "Ai c\xF3 th\u1EC3 xem",
+      labelClassName: "label",
+      className: "text-input",
+      disabled: false,
+      options: optionsList.privacies // placeholder="Nhập mô tả (không bắt buộc)"
+      // formErrorClass="form-error textarea-error"
+
+    }), optionsList.artChannels.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
+      name: "channel",
+      component: _CustomFields_SelectField__WEBPACK_IMPORTED_MODULE_6__["default"],
+      label: "K\xEAnh \u1EA3nh",
+      labelClassName: "label",
+      className: "text-input",
+      disabled: false,
+      options: optionsList.artChannels // placeholder="Nhập mô tả (không bắt buộc)"
+      // formErrorClass="form-error textarea-error"
+
+    })));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+    className: "arts-list"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+    className: "filter"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("input", {
+    className: "text-input art-search",
+    type: "text",
+    placeholder: "T\xECm t\xE1c ph\u1EA9m"
+  }), selectedArts.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("button", {
+    className: "button danger clear-selected-arts",
+    onClick: handleClearSelectedArts
+  }, "B\u1ECF ch\u1ECDn")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+    className: "list"
+  }, artsList.length > 0 ? artsList.map(function (art, index) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+      className: classnames__WEBPACK_IMPORTED_MODULE_7___default()('art', {
+        selected: selectedArts.includes(art.id)
+      }),
+      key: index,
+      onClick: function onClick() {
+        return handleSelectArt(art.id);
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+      className: "overlay"
+    }, selectedArts.includes(art.id) ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("i", {
+      className: "fas fa-check-circle"
+    }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("i", {
+      className: "far fa-check-circle"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("img", {
+      src: "/storage/app/public/community/".concat(art.user_id, "/arts/").concat(art.art)
+    }));
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("p", null, "Kh\xF4ng c\xF3 t\xE1c ph\u1EA9m n\xE0o")))));
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (Upload);
+/* harmony default export */ __webpack_exports__["default"] = (CreateShowcase);
 
 /***/ })
 
