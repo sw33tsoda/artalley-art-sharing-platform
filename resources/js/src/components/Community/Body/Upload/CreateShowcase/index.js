@@ -7,9 +7,16 @@ import SelectField from '../../../../CustomFields/SelectField';
 import classnames from 'classnames';
 import { ShowcaseValidation } from '../../../../Validations';
 import { useSelector } from 'react-redux';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 function CreateShowcase() {
-    const [artsList,setArtList] = useState([]);
+    const [artsList,setArtsList] = useState({
+        list:[],
+        page:1,
+        hasMore:true,
+        maxPage:0,
+        totalArts:null,
+    });
     const [selectedArts,setSelectedArts] = useState([]);
     const [optionsList,setOptionsList] = useState({
         artChannels:[],
@@ -20,11 +27,16 @@ function CreateShowcase() {
     useEffect(() => {
         // const apiToken = localStorage.getItem('authenticatedUserToken');
         const getArtsList = async () => {
-            await Axios.get(`/public/api/community/resources/arts/get-list/${userId}`).then(response => {
-                const {data:{list}} = response;
-                if (list.length > 0) {
-                    setArtList(list);
-                }
+            await Axios.get(`/public/api/community/resources/arts/get-list/${userId}?page=1`).then(response => {
+                const {data:{list:{data,total,last_page,current_page}}} = response;
+                setArtsList({
+                    ...artsList,
+                    page:current_page,
+                    list:data,
+                    maxPage:last_page,
+                    totalArts:total,
+                    hasMore:true,
+                });
             }).catch(error => {
                 console.log(error.response);
             })
@@ -44,6 +56,28 @@ function CreateShowcase() {
         getSelectionListOptions();
         getArtsList();
     },[userId]);
+
+    const fetchMoreArtsData = async () => {
+        if (artsList.maxPage > artsList.page) {
+            // setLoading(true);
+            await Axios.get(`/public/api/community/resources/arts/get-list/${userId}?page=${artsList.page + 1}`).then(response => {
+                const {data:{list:{current_page,data:newList}}} = response;
+                setArtsList({
+                    ...artsList,
+                    list:artsList.list.concat(newList),
+                    page:current_page,
+                });
+                // setLoading(false);
+            }).catch(error => {
+                console.log(error.response);
+            })
+        } else {
+            setArtsList({
+                ...artsList,
+                hasMore:false,
+            })
+        }
+    }
 
     const handleSelectArt = (artId) => {
         let newSelectedArts = selectedArts;
@@ -175,8 +209,13 @@ function CreateShowcase() {
                         <input className="text-input art-search" type="text" placeholder="Tìm tác phẩm"/>
                         {selectedArts.length > 0 && <button className="button danger clear-selected-arts" onClick={handleClearSelectedArts}>Bỏ chọn</button>}
                     </div>
-                    <div className="list">
-                        {artsList.length > 0 ? artsList.map((art,index) => (
+                    <InfiniteScroll
+                        dataLength={artsList.list && artsList.list.length}
+                        next={fetchMoreArtsData}
+                        hasMore={artsList.hasMore}
+                        className='list'
+                    >
+                        {artsList.list.length > 0 ? artsList.list.map((art,index) => (
                             <div className={classnames('art',{selected: selectedArts.includes(art.id)})} key={index} onClick={() => handleSelectArt(art.id)}>
                                 <div className="overlay">
                                     {selectedArts.includes(art.id) ? <i className="fas fa-check-circle"></i> : <i className="far fa-check-circle"></i>}
@@ -184,7 +223,7 @@ function CreateShowcase() {
                                 <img src={`/storage/app/public/community/${art.user_id}/arts/${art.art}`} />
                             </div>
                         )) : <p>Không có tác phẩm nào</p>}
-                    </div>
+                    </InfiniteScroll>
                 </div>
             </div>
         </div>

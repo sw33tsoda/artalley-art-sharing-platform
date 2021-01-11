@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Community;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Community\ArtsRequest;
+use App\Http\Requests\Community\EditArtRequest;
 use App\Models\Art;
 use App\Models\ArtChannel;
 use App\Models\Dimension;
 use App\Models\Privacy;
+use App\Models\ShowcaseArt;
 // use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ArtsController extends Controller
 {
@@ -124,16 +127,27 @@ class ArtsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditArtRequest $request, $id)
     {
         $art = Art::find($id);
-        if ($request->user()->id !== $art->user_id) {
+        $art->title = $request->title;
+        $art->caption = $request->caption;
+        $art->description = $request->description;
+        $art->art_channel_id = $request->channel;
+        $art->dimension_id = $request->dimensional;
+        $art->privacy_id = $request->privacy;
+        $art->tags = $request->tags;
+
+        $save = $art->save();
+
+        if (!$save) {
             return response()->json([
-                'message' => 'Mã người dùng không trùng khớp',
-            ],401);
+                'message' => 'Cập nhật thất bại',
+            ],500);
         }
+
         return response()->json([
-            'edit' => true,
+            'message' => 'Cập nhật thành công',
         ],200);
     }
 
@@ -145,6 +159,18 @@ class ArtsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $art = Art::find($id);
+        ShowcaseArt::where('art_id',$id)->delete();
+        Storage::delete("/public/community/{$art->user_id}/arts/{$art->art}");
+        Art::destroy($id);
+        // } else {
+        //     return response()->json([
+        //         'message' => 'Xóa thất bại',
+        //     ],500);
+        // }  
+
+        return response()->json([
+            'message' => 'Xóa thành công',
+        ],200);
     }
 }

@@ -64,6 +64,8 @@ class Kernel extends HttpKernel
 
         'authorize_check' => \App\Http\Middleware\Auth\AuthorizeCheckMiddleware::class,
 
+        'arts_authorize_check' => \App\Http\Middleware\Community\Arts\AuthorizeCheckMiddleware::class,
+
         'art' => \App\Http\Middleware\Resources\ArtsMiddleware::class,
 
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,

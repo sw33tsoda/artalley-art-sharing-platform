@@ -1256,6 +1256,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CustomFields_SelectField__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../CustomFields/SelectField */ "./resources/js/src/components/CustomFields/SelectField/index.js");
 /* harmony import */ var _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../CustomFields/InputField */ "./resources/js/src/components/CustomFields/InputField/index.js");
 /* harmony import */ var _CustomFields_TextareaField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../CustomFields/TextareaField */ "./resources/js/src/components/CustomFields/TextareaField/index.js");
+/* harmony import */ var _Validations__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../Validations */ "./resources/js/src/components/Validations/index.js");
+/* harmony import */ var _store_community_announcer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../store/community/announcer */ "./resources/js/src/store/community/announcer.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -1290,39 +1292,71 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 function ShowArt() {
+  // Lấy thông tin người dùng từ Global State.
+  var user = Object(react_redux__WEBPACK_IMPORTED_MODULE_5__["useSelector"])(function (state) {
+    return state.auth.authenticatedUser;
+  }); // etc...
+
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["useHistory"])();
+
   var _useParams = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["useParams"])(),
       id = _useParams.id;
+
+  var editFormRef = Object(react__WEBPACK_IMPORTED_MODULE_2__["useRef"])();
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_5__["useDispatch"])(); // Local states.
+  // Toggle sửa ảnh
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
       editMode = _useState2[0],
-      setEditMode = _useState2[1];
+      setEditMode = _useState2[1]; // Check nếu thông tin tác phẩm khác nhau
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({}),
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
       _useState4 = _slicedToArray(_useState3, 2),
-      art = _useState4[0],
-      setArt = _useState4[1];
+      isDiff = _useState4[0],
+      setIsDiff = _useState4[1]; // Chứa tác phẩm
 
-  var user = Object(react_redux__WEBPACK_IMPORTED_MODULE_5__["useSelector"])(function (state) {
-    return state.auth.authenticatedUser;
-  });
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({}),
+      _useState6 = _slicedToArray(_useState5, 2),
+      art = _useState6[0],
+      setArt = _useState6[1]; // Refresh lại useEffect
+
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      refresh = _useState8[0],
+      setRefresh = _useState8[1]; // Check nếu đang submit
+
+
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      isSubmitting = _useState10[0],
+      setIsSubmitting = _useState10[1]; // Danh sách các mục chọn (Select list)
+
+
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
     artChannels: [],
     dimensions: [],
     privacies: []
   }),
-      _useState6 = _slicedToArray(_useState5, 2),
-      optionsList = _useState6[0],
-      setOptionsList = _useState6[1];
+      _useState12 = _slicedToArray(_useState11, 2),
+      optionsList = _useState12[0],
+      setOptionsList = _useState12[1]; // Delete Event
 
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
-      _useState8 = _slicedToArray(_useState7, 2),
-      isDiff = _useState8[0],
-      setIsDiff = _useState8[1];
 
-  var editFormRef = Object(react__WEBPACK_IMPORTED_MODULE_2__["useRef"])();
+  var deleleArt = null; // Thẻ
+
+  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
+      _useState14 = _slicedToArray(_useState13, 2),
+      tags = _useState14[0],
+      setTags = _useState14[1]; // Debounce nhập Tag
+
+
   var tagsDebounce = {
     callback: function callback(value) {
       var tagsList = value.split(',').filter(function (tag) {
@@ -1332,12 +1366,6 @@ function ShowArt() {
     },
     ms: 250
   };
-
-  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
-      _useState10 = _slicedToArray(_useState9, 2),
-      tags = _useState10[0],
-      setTags = _useState10[1];
-
   Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
     var getArt = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -1357,19 +1385,18 @@ function ShowArt() {
                     art.tags = [];
                   } else {
                     art.tags = art.tags.split(',');
-                  }
-
-                  setArt(_objectSpread(_objectSpread({}, art), {}, {
-                    dimensional: art.dimension_id.toString(),
-                    channel: art.art_channel_id.toString(),
-                    privacy: art.privacy_id.toString(),
-                    tags: art.tags.join(',')
-                  }));
-
-                  if (!Object(lodash__WEBPACK_IMPORTED_MODULE_4__["isNull"])(art.tags)) {
                     setTags(art.tags);
                   }
 
+                  setArt(_objectSpread(_objectSpread({}, art), {}, _defineProperty({
+                    title: art.title,
+                    caption: Object(lodash__WEBPACK_IMPORTED_MODULE_4__["isNull"])(art.caption) ? '' : art.caption,
+                    description: Object(lodash__WEBPACK_IMPORTED_MODULE_4__["isNull"])(art.description) ? '' : art.description,
+                    tags: Object(lodash__WEBPACK_IMPORTED_MODULE_4__["isNull"])(art.tags) ? '' : art.tags,
+                    dimensional: art.dimension_id.toString(),
+                    channel: art.art_channel_id.toString(),
+                    privacy: art.privacy_id.toString()
+                  }, "tags", art.tags.join(','))));
                   setOptionsList({
                     artChannels: channelSelectList.map(function (option) {
                       return {
@@ -1408,7 +1435,7 @@ function ShowArt() {
     }();
 
     getArt();
-  }, []);
+  }, [refresh]);
 
   var handleEditSubmit = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(values) {
@@ -1417,20 +1444,33 @@ function ShowArt() {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
+              setIsSubmitting(true);
               data = new FormData();
-              fillable = ['channel', 'dimensional', 'privacy', 'description', 'tags'];
+              fillable = ['title', 'caption', 'channel', 'dimensional', 'privacy', 'description', 'tags'];
 
               for (key in values) {
                 if (fillable.includes(key)) data.append(key, values[key]);
-              }
+              } // data.append('_method','PATCH');
 
-              data.append('_method', 'PATCH');
+
               apiToken = localStorage.getItem('authenticatedUserToken');
               _context2.next = 7;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/community/resources/arts/".concat(values.id, "?api_token=").concat(apiToken), data).then(function (response) {
-                console.log(response);
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/community/resources/arts/edit/".concat(values.id, "?api_token=").concat(apiToken), data).then(function (response) {
+                var message = response.data.message;
+                dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_11__["setAnnouncementMessage"])({
+                  message: message,
+                  type: 'success'
+                }));
+                setRefresh(!refresh);
+                setEditMode(false);
               })["catch"](function (error) {
-                console.log(error.response);
+                var message = error.response.data.message;
+                dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_11__["setAnnouncementMessage"])({
+                  message: message,
+                  type: 'danger'
+                }));
+              }).then(function () {
+                setIsSubmitting(false);
               });
 
             case 7:
@@ -1444,7 +1484,51 @@ function ShowArt() {
     return function handleEditSubmit(_x) {
       return _ref2.apply(this, arguments);
     };
-  }(); // console.log(user.id,art.user_id)
+  }();
+
+  var handleDelete = function handleDelete() {
+    deleleArt = setTimeout( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      var apiToken;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              setIsSubmitting(true);
+              apiToken = localStorage.getItem('authenticatedUserToken');
+              _context3.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/arts/delete/".concat(art.id, "?api_token=").concat(apiToken)).then(function (response) {
+                var message = response.data.message;
+                dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_11__["setAnnouncementMessage"])({
+                  message: message,
+                  type: 'success'
+                }));
+                history.push('/public/community/management');
+              })["catch"](function (error) {
+                var message = error.response.data.message;
+                dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_11__["setAnnouncementMessage"])({
+                  message: message,
+                  type: 'danger'
+                }));
+              }).then(function () {
+                setIsSubmitting(false);
+              });
+
+            case 4:
+              ;
+
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    })), 3000);
+  };
+
+  var handleCancelDelete = function handleCancelDelete() {
+    setIsSubmitting(false);
+    clearTimeout(deleleArt);
+  }; // console.log(user.id,art.user_id)
 
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
@@ -1527,16 +1611,20 @@ function ShowArt() {
       key: index
     }, tag);
   }))), editMode && user.id == art.user_id && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-    className: "edit-form"
+    className: "edit-form",
+    style: {
+      display: isSubmitting && 'none'
+    }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["Formik"], {
     initialValues: art,
+    validationSchema: _Validations__WEBPACK_IMPORTED_MODULE_10__["EditArtValidation"],
     onSubmit: handleEditSubmit,
     innerRef: editFormRef
-  }, function (_ref3) {
-    var values = _ref3.values,
-        handleSubmit = _ref3.handleSubmit;
+  }, function (_ref4) {
+    var values = _ref4.values,
+        handleSubmit = _ref4.handleSubmit;
+    console.log(values, art);
 
-    // console.log(values,art);
     if (!Object(lodash__WEBPACK_IMPORTED_MODULE_4__["isEqual"])(values, art)) {
       setIsDiff(true);
     } else {
@@ -1547,6 +1635,30 @@ function ShowArt() {
       className: "form",
       onSubmit: handleSubmit
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "split"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "title"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], {
+      name: "title",
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_8__["default"],
+      label: "Ti\xEAu \u0111\u1EC1",
+      labelClassName: "label",
+      className: "text-input",
+      disabled: false,
+      placeholder: "Nh\u1EADp ti\xEAu \u0111\u1EC1",
+      formErrorClass: "form-error textarea-error"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "caption"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], {
+      name: "caption",
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_8__["default"],
+      label: "Ch\xFA th\xEDch",
+      labelClassName: "label",
+      className: "text-input",
+      disabled: false,
+      placeholder: "Nh\u1EADp ch\xFA th\xEDch",
+      formErrorClass: "form-error textarea-error"
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "split"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "description"
@@ -1610,7 +1722,7 @@ function ShowArt() {
     }) : 'Chưa có thẻ nào.')))));
   })), user.id == art.user_id && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "action-wrapper"
-  }, isDiff && editMode && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
+  }, !isSubmitting ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, isDiff && editMode && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
     type: "submit",
     onClick: function onClick() {
       editFormRef.current.handleSubmit();
@@ -1629,10 +1741,16 @@ function ShowArt() {
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
     className: "fas fa-edit"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-    className: "action"
+    className: "action",
+    onMouseDown: handleDelete,
+    onMouseUp: handleCancelDelete,
+    onMouseLeave: handleCancelDelete
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
     className: "fas fa-trash"
-  })))));
+  }))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
+    className: "loading",
+    src: "https://4.bp.blogspot.com/-a4arXx0z1xQ/VuM0S587YfI/AAAAAAAAAOk/jQf7UpsN93ol-qZYM4CuibUSCG8deiejg/s1600/loading.gif"
+  }))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (ShowArt);
@@ -3320,13 +3438,14 @@ function TextareaField(props) {
 /*!**********************************************************!*\
   !*** ./resources/js/src/components/Validations/index.js ***!
   \**********************************************************/
-/*! exports provided: UserProfileValidation, SingleArtValidation, ShowcaseValidation */
+/*! exports provided: UserProfileValidation, SingleArtValidation, EditArtValidation, ShowcaseValidation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserProfileValidation", function() { return UserProfileValidation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SingleArtValidation", function() { return SingleArtValidation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditArtValidation", function() { return EditArtValidation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShowcaseValidation", function() { return ShowcaseValidation; });
 /* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! yup */ "./node_modules/yup/es/index.js");
 
@@ -3366,6 +3485,15 @@ var SingleArtValidation = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({
   }).test("fileFormat", "Định dạng cho phép : JPG, JPEG", function (value) {
     return value && SUPPORTED_FORMATS.includes(value.type);
   }),
+  tags: yup__WEBPACK_IMPORTED_MODULE_0__["string"]()
+});
+var EditArtValidation = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({
+  title: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(100, 'Tối đa 100 ký tự').required('Không được bỏ trống'),
+  caption: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(120, 'Tối đa 120 ký tự').nullable(),
+  description: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(1000, 'Tối đa 1000 ký tự').nullable(),
+  dimensional: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
+  privacy: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
+  channel: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
   tags: yup__WEBPACK_IMPORTED_MODULE_0__["string"]()
 });
 var ShowcaseValidation = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({

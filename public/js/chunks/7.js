@@ -23,6 +23,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _Validations__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../Validations */ "./resources/js/src/components/Validations/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
 
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -32,6 +33,12 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -59,11 +66,18 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function CreateShowcase() {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])([]),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])({
+    list: [],
+    page: 1,
+    hasMore: true,
+    maxPage: 0,
+    totalArts: null
+  }),
       _useState2 = _slicedToArray(_useState, 2),
       artsList = _useState2[0],
-      setArtList = _useState2[1];
+      setArtsList = _useState2[1];
 
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])([]),
       _useState4 = _slicedToArray(_useState3, 2),
@@ -92,12 +106,19 @@ function CreateShowcase() {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/arts/get-list/".concat(userId)).then(function (response) {
-                  var list = response.data.list;
-
-                  if (list.length > 0) {
-                    setArtList(list);
-                  }
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/arts/get-list/".concat(userId, "?page=1")).then(function (response) {
+                  var _response$data$list = response.data.list,
+                      data = _response$data$list.data,
+                      total = _response$data$list.total,
+                      last_page = _response$data$list.last_page,
+                      current_page = _response$data$list.current_page;
+                  setArtsList(_objectSpread(_objectSpread({}, artsList), {}, {
+                    page: current_page,
+                    list: data,
+                    maxPage: last_page,
+                    totalArts: total,
+                    hasMore: true
+                  }));
                 })["catch"](function (error) {
                   console.log(error.response);
                 });
@@ -151,6 +172,52 @@ function CreateShowcase() {
     getArtsList();
   }, [userId]);
 
+  var fetchMoreArtsData = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              if (!(artsList.maxPage > artsList.page)) {
+                _context3.next = 5;
+                break;
+              }
+
+              _context3.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/arts/get-list/".concat(userId, "?page=").concat(artsList.page + 1)).then(function (response) {
+                var _response$data$list2 = response.data.list,
+                    current_page = _response$data$list2.current_page,
+                    newList = _response$data$list2.data;
+                setArtsList(_objectSpread(_objectSpread({}, artsList), {}, {
+                  list: artsList.list.concat(newList),
+                  page: current_page
+                })); // setLoading(false);
+              })["catch"](function (error) {
+                console.log(error.response);
+              });
+
+            case 3:
+              _context3.next = 6;
+              break;
+
+            case 5:
+              setArtsList(_objectSpread(_objectSpread({}, artsList), {}, {
+                hasMore: false
+              }));
+
+            case 6:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function fetchMoreArtsData() {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
   var handleSelectArt = function handleSelectArt(artId) {
     var newSelectedArts = selectedArts;
 
@@ -179,11 +246,11 @@ function CreateShowcase() {
   };
 
   var handleSubmitForm = /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(values) {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(values) {
       var apiToken, data, key;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               apiToken = localStorage.getItem('authenticatedUserToken'); // Xử lý Data chuẩn bị gửi đi
 
@@ -194,7 +261,7 @@ function CreateShowcase() {
               }
 
               data.append('art_ids_list', selectedArts);
-              _context3.next = 6;
+              _context4.next = 6;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/community/resources/showcases?api_token=".concat(apiToken), data).then(function (response) {
                 console.log(response.data.request);
               })["catch"](function (error) {
@@ -203,14 +270,14 @@ function CreateShowcase() {
 
             case 6:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     }));
 
     return function handleSubmitForm(_x) {
-      return _ref3.apply(this, arguments);
+      return _ref4.apply(this, arguments);
     };
   }();
 
@@ -224,9 +291,9 @@ function CreateShowcase() {
     initialValues: initialValues,
     validationSchema: _Validations__WEBPACK_IMPORTED_MODULE_8__["ShowcaseValidation"],
     onSubmit: handleSubmitForm
-  }, function (_ref4) {
-    var handleSubmit = _ref4.handleSubmit,
-        isSubmitting = _ref4.isSubmitting;
+  }, function (_ref5) {
+    var handleSubmit = _ref5.handleSubmit,
+        isSubmitting = _ref5.isSubmitting;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("form", {
       className: "form",
       onSubmit: handleSubmit
@@ -304,9 +371,12 @@ function CreateShowcase() {
   }), selectedArts.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("button", {
     className: "button danger clear-selected-arts",
     onClick: handleClearSelectedArts
-  }, "B\u1ECF ch\u1ECDn")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+  }, "B\u1ECF ch\u1ECDn")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    dataLength: artsList.list && artsList.list.length,
+    next: fetchMoreArtsData,
+    hasMore: artsList.hasMore,
     className: "list"
-  }, artsList.length > 0 ? artsList.map(function (art, index) {
+  }, artsList.list.length > 0 ? artsList.list.map(function (art, index) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
       className: classnames__WEBPACK_IMPORTED_MODULE_7___default()('art', {
         selected: selectedArts.includes(art.id)

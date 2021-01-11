@@ -838,7 +838,6 @@ body {
 }
 
 .community .body .upload .upload-area .create-showcase .arts-list .list .art img {
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
   width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
@@ -1279,6 +1278,39 @@ body {
   display: flex;
   justify-content: space-evenly;
   margin-top: 50px;
+}
+
+.community .body .show-art .footer .action-wrapper .action {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.25em;
+  box-shadow: -1px -85px 0px -81px #ff7e06 inset;
+}
+
+.community .body .show-art .footer .action-wrapper .action:last-child:active {
+  background: crimson;
+  box-shadow: none;
+}
+
+.community .body .show-art .footer .action-wrapper .action:last-child:active i {
+  color: #d9d9d9 !important;
+  -webkit-animation: forwards 3s zoom-out;
+          animation: forwards 3s zoom-out;
+}
+
+@-webkit-keyframes zoom-out {
+  100% {
+    font-size: 2.5em;
+  }
+}
+
+@keyframes zoom-out {
+  100% {
+    font-size: 2.5em;
+  }
 }
 
 .community .body .show-art .footer .action-wrapper .action i {

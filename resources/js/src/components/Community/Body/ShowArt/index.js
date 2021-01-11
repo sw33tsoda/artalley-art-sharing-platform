@@ -1,25 +1,55 @@
 import Axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams,Link } from 'react-router-dom';
+import { useParams,Link, useHistory } from 'react-router-dom';
 import _, { fill, isEmpty, isEqual, isNull, set, values } from 'lodash';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FastField, Formik } from 'formik';
 import SelectField from '../../../CustomFields/SelectField';
 import InputField from '../../../CustomFields/InputField';
 import TextareaField from '../../../CustomFields/TextareaField';
+import { EditArtValidation } from '../../../Validations';
+import { setAnnouncementMessage } from '../../../../store/community/announcer';
 
 function ShowArt() {
-    const { id } = useParams();
-    const [editMode,setEditMode] = useState(false);
-    const [art,setArt] = useState({});
+    // Lấy thông tin người dùng từ Global State.
     const user = useSelector(state => state.auth.authenticatedUser);
+
+    // etc...
+    const history = useHistory();
+    const { id } = useParams();
+    const editFormRef = useRef();
+    const dispatch = useDispatch();
+
+    // Local states.
+    // Toggle sửa ảnh
+    const [editMode,setEditMode] = useState(false);
+
+    // Check nếu thông tin tác phẩm khác nhau
+    const [isDiff,setIsDiff] = useState(false);
+
+    // Chứa tác phẩm
+    const [art,setArt] = useState({});
+
+    // Refresh lại useEffect
+    const [refresh,setRefresh] = useState(false);
+
+    // Check nếu đang submit
+    const [isSubmitting,setIsSubmitting] = useState(false);
+
+    // Danh sách các mục chọn (Select list)
     const [optionsList,setOptionsList] = useState({
         artChannels:[],
         dimensions:[],
         privacies:[],
     });
-    const [isDiff,setIsDiff] = useState(false);
-    const editFormRef = useRef();
+
+    // Delete Event
+    let deleleArt = null;
+    
+    // Thẻ
+    const [tags,setTags] = useState([]);
+
+    // Debounce nhập Tag
     const tagsDebounce = {
         callback: (value) => {
             const tagsList = value.split(',').filter(tag => tag !== '');
@@ -27,7 +57,6 @@ function ShowArt() {
         },
         ms:250,
     }
-    const [tags,setTags] = useState([]);
 
     useEffect(() => {
         const getArt = async () => {
@@ -43,19 +72,20 @@ function ShowArt() {
                     art.tags = [];
                 } else {
                     art.tags = art.tags.split(',');
+                    setTags(art.tags);
                 }
 
                 setArt({
                     ...art,
+                    title:art.title,
+                    caption: isNull(art.caption) ? '' : art.caption,
+                    description: isNull(art.description) ? '' : art.description,
+                    tags: isNull(art.tags) ? '' : art.tags,
                     dimensional: art.dimension_id.toString(),
                     channel: art.art_channel_id.toString(),
                     privacy: art.privacy_id.toString(),
                     tags:art.tags.join(','),
                 });
-
-                if (!isNull(art.tags)) {
-                    setTags(art.tags);
-                }
 
                 setOptionsList({
                     artChannels:channelSelectList.map((option) => ({
@@ -76,22 +106,63 @@ function ShowArt() {
             })
         }
         getArt();
-    },[]);
+    },[refresh]);
 
     const handleEditSubmit = async (values) => {
-        const data = new FormData;
-        const fillable = ['channel','dimensional','privacy','description','tags'];
-        for (const key in values) {
-            if (fillable.includes(key))
-            data.append(key,values[key]);
-        }
-        data.append('_method','PATCH');
-        const apiToken = localStorage.getItem('authenticatedUserToken');
-        await Axios.post(`/public/api/community/resources/arts/${values.id}?api_token=${apiToken}`,data).then(response => {
-            console.log(response);
-        }).catch(error => {
-            console.log(error.response);
-        });
+        setIsSubmitting(true);
+            const data = new FormData;
+            const fillable = ['title','caption','channel','dimensional','privacy','description','tags'];
+            for (const key in values) {
+                if (fillable.includes(key))
+                data.append(key,values[key]);
+            }
+            // data.append('_method','PATCH');
+            const apiToken = localStorage.getItem('authenticatedUserToken');
+            await Axios.post(`/public/api/community/resources/arts/edit/${values.id}?api_token=${apiToken}`,data).then(response => {
+                const {data:{message}} = response;
+                dispatch(setAnnouncementMessage({
+                    message:message,
+                    type:'success',
+                }));
+                setRefresh(!refresh);
+                setEditMode(false);
+            }).catch(error => {
+                const {data:{message}} = error.response;
+                dispatch(setAnnouncementMessage({
+                    message:message,
+                    type:'danger',
+                }));
+            }).then(() => {
+                setIsSubmitting(false);
+            });
+    }
+
+    const handleDelete = () => {
+        deleleArt = setTimeout(async () => {
+            setIsSubmitting(true);
+            const apiToken = localStorage.getItem('authenticatedUserToken');
+            await Axios.get(`/public/api/community/resources/arts/delete/${art.id}?api_token=${apiToken}`).then(response => {
+                const {data:{message}} = response;
+                dispatch(setAnnouncementMessage({
+                    message:message,
+                    type:'success',
+                }));
+                history.push('/public/community/management');
+            }).catch(error => {
+                const {data:{message}} = error.response;
+                dispatch(setAnnouncementMessage({
+                    message:message,
+                    type:'danger',
+                }));
+            }).then(() => {
+                setIsSubmitting(false);
+            });;
+        },3000)
+    }
+
+    const handleCancelDelete = () => {
+        setIsSubmitting(false);
+        clearTimeout(deleleArt);
     }
 
     // console.log(user.id,art.user_id)
@@ -176,11 +247,11 @@ function ShowArt() {
                 </div>}
 
                 {(editMode && user.id == art.user_id) && (
-                    <div className="edit-form">
+                    <div className="edit-form" style={{display:isSubmitting && 'none'}}>
                         {/* <div className="dash" style={{backgroundImage:`url(/storage/app/public/web/body/communityGallery/warning-dashline.png)`}}></div> */}
-                        <Formik initialValues={art} onSubmit={handleEditSubmit} innerRef={editFormRef}>
+                        <Formik initialValues={art} validationSchema={EditArtValidation} onSubmit={handleEditSubmit} innerRef={editFormRef}>
                             {({values,handleSubmit}) => {
-                                // console.log(values,art);
+                                console.log(values,art);
                                 if (!isEqual(values,art)) {
                                     setIsDiff(true);
                                 } else {
@@ -188,6 +259,34 @@ function ShowArt() {
                                 }
                                 return (
                                     <form className="form" onSubmit={handleSubmit}>
+                                        <div className="split">
+                                            <div className="title">
+                                                <FastField
+                                                    name='title'
+                                                    component={InputField}
+
+                                                    label="Tiêu đề"
+                                                    labelClassName="label"
+                                                    className="text-input"
+                                                    disabled={false}
+                                                    placeholder="Nhập tiêu đề"
+                                                    formErrorClass="form-error textarea-error"
+                                                />
+                                            </div>
+                                            <div className="caption">
+                                                <FastField
+                                                    name='caption'
+                                                    component={InputField}
+
+                                                    label="Chú thích"
+                                                    labelClassName="label"
+                                                    className="text-input"
+                                                    disabled={false}
+                                                    placeholder="Nhập chú thích"
+                                                    formErrorClass="form-error textarea-error"
+                                                />
+                                            </div>
+                                        </div>
                                         <div className='split'>
                                             <div className="description">
                                                 <FastField
@@ -270,21 +369,27 @@ function ShowArt() {
 
                 {user.id == art.user_id && (
                     <div className="action-wrapper">
-                        {isDiff && editMode && (
-                            <button type="submit" onClick={() => {
-                                editFormRef.current.handleSubmit();
-                            }}>
-                                <div className="action">
-                                    <i className="fas fa-check"></i>
+                        {!isSubmitting ? (
+                            <React.Fragment>
+                                {isDiff && editMode && (
+                                    <button type="submit" onClick={() => {
+                                        editFormRef.current.handleSubmit();
+                                    }}>
+                                        <div className="action">
+                                            <i className="fas fa-check"></i>
+                                        </div>
+                                    </button>
+                                )}
+                                <div className="action" onClick={() => setEditMode(!editMode)}>
+                                    {editMode ? <i className="fas fa-times"></i> : <i className="fas fa-edit"></i>}
                                 </div>
-                            </button>
+                                <div className="action" onMouseDown={handleDelete} onMouseUp={handleCancelDelete} onMouseLeave={handleCancelDelete}>
+                                    <i className="fas fa-trash"></i>
+                                </div>
+                            </React.Fragment>
+                        ) : (
+                            <img className="loading" src="https://4.bp.blogspot.com/-a4arXx0z1xQ/VuM0S587YfI/AAAAAAAAAOk/jQf7UpsN93ol-qZYM4CuibUSCG8deiejg/s1600/loading.gif"/>
                         )}
-                        <div className="action" onClick={() => setEditMode(!editMode)}>
-                            {editMode ? <i className="fas fa-times"></i> : <i className="fas fa-edit"></i>}
-                        </div>
-                        <div className="action">
-                            <i className="fas fa-trash"></i>
-                        </div>
                     </div>
                 )}
             </div>

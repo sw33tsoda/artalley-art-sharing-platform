@@ -44,12 +44,21 @@ Route::group(['prefix' => '/community/resources'],function(){
         Route::get('/get-filters-list',[\App\Http\Controllers\Community\InterfaceController::class,'getFiltersList']);
     });
 
+
+    // [AUTHORIZATION is REQUIRED]
     Route::group(['middleware' => 'auth:api'],function(){
         Route::apiResource('arts',\App\Http\Controllers\Community\ArtsController::class);
+
+        // EDIT ART by USER
+        Route::middleware('arts_authorize_check')->post('/arts/edit/{art}',[\App\Http\Controllers\Community\ArtsController::class,'update']);
+        Route::middleware('arts_authorize_check')->get('/arts/delete/{art}',[\App\Http\Controllers\Community\ArtsController::class,'destroy']);
+
         Route::apiResource('showcases',\App\Http\Controllers\Community\ShowcasesController::class);
+
         Route::middleware('authorize_check')->apiResource('users',\App\Http\Controllers\Community\UsersController::class);
     });
 
+    // [AUTHORIZATION is NOT REQUIRED]
     Route::get('/showcases/get/{id}',[\App\Http\Controllers\Community\ShowcasesController::class,'show']);
     Route::get('/showcases/get-list/{userId}',[\App\Http\Controllers\Community\ShowcasesController::class,'index']);
 
