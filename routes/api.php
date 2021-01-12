@@ -48,12 +48,16 @@ Route::group(['prefix' => '/community/resources'],function(){
     // [AUTHORIZATION is REQUIRED]
     Route::group(['middleware' => 'auth:api'],function(){
         Route::apiResource('arts',\App\Http\Controllers\Community\ArtsController::class);
-
         // EDIT ART by USER
         Route::middleware('arts_authorize_check')->post('/arts/edit/{art}',[\App\Http\Controllers\Community\ArtsController::class,'update']);
+        // DELETE ART by USER
         Route::middleware('arts_authorize_check')->get('/arts/delete/{art}',[\App\Http\Controllers\Community\ArtsController::class,'destroy']);
 
+        // Route::apiResource('showcaseArts',\App\Http\Controllers\Community\ShowcaseArtsController::class);
         Route::apiResource('showcases',\App\Http\Controllers\Community\ShowcasesController::class);
+        // EDIT ART by USER
+        Route::middleware('showcases_authorize_check')->post('/showcases/edit/{showcase}',[\App\Http\Controllers\Community\ShowcasesController::class,'update']);
+        Route::middleware('showcases_authorize_check')->get('/showcases/delete/{showcase}',[\App\Http\Controllers\Community\ShowcasesController::class,'destroy']);
 
         Route::middleware('authorize_check')->apiResource('users',\App\Http\Controllers\Community\UsersController::class);
     });

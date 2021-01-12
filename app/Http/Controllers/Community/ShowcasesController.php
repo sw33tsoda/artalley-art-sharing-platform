@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Community;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Community\ShowcasesRequest;
+use App\Models\ArtChannel;
+use App\Models\Privacy;
 use App\Models\Showcase;
 use App\Models\ShowcaseArt;
 use Illuminate\Http\Request;
@@ -99,10 +101,11 @@ class ShowcasesController extends Controller
      */
     public function show($id)
     {
-        $showcase = Showcase::with('showcase_arts.arts.artChannels','showcase_arts.arts.dimensions','showcase_arts.users')->find($id);
         return response()->json([
             'message' => 'Đã lấy Showcase thành công',
-            'showcase' => $showcase,
+            'showcase' => Showcase::with('showcase_arts.arts.artChannels','showcase_arts.arts.dimensions','users')->find($id),
+            'channelSelectList' => ArtChannel::all(),
+            'privacySelectList' => Privacy::all(),
         ],200);
     }
 
@@ -126,7 +129,34 @@ class ShowcasesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->removal_list !== null) {
+            $ids = explode(',',$request->removal_list);
+            $removeArtFromShowcase = ShowcaseArt::whereIn('art_id',$ids)->delete();
+            if (!$removeArtFromShowcase) {
+                return response()->json([
+                    'message' => 'Gỡ ảnh thất bại',
+                ],500);
+            }
+        }
+
+        $showcase = Showcase::find($id);
+        $showcase->title = $request->title;
+        $showcase->subheading = $request->subheading;
+        $showcase->description = $request->description;
+        $showcase->art_channel_id = $request->channel;
+        $showcase->privacy_id = $request->privacy;
+
+        $save = $showcase->save();
+
+        if (!$save) {
+            return response()->json([
+                'message' => 'Cập nhật thất bại',
+            ],500);
+        }
+
+        return response()->json([
+            'message' => 'Cập nhật thành công',
+        ],200);
     }
 
     /**
@@ -137,6 +167,10 @@ class ShowcasesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ShowcaseArt::where('showcase_id',$id)->delete();
+        Showcase::destroy($id);
+        return response()->json([
+            'message' => 'Đã xóa quày',
+        ]);
     }
 }

@@ -1307,7 +1307,7 @@ function ShowArt() {
 
   var editFormRef = Object(react__WEBPACK_IMPORTED_MODULE_2__["useRef"])();
   var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_5__["useDispatch"])(); // Local states.
-  // Toggle sửa ảnh
+  // Toggle sửa tác phẩm
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -1375,6 +1375,7 @@ function ShowArt() {
               case 0:
                 _context.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/arts/get/".concat(id)).then(function (response) {
+                  console.log(response.data.art);
                   var _response$data = response.data,
                       art = _response$data.art,
                       channelSelectList = _response$data.channelSelectList,
@@ -1514,9 +1515,6 @@ function ShowArt() {
               });
 
             case 4:
-              ;
-
-            case 5:
             case "end":
               return _context3.stop();
           }
@@ -1588,20 +1586,26 @@ function ShowArt() {
     className: "title"
   }, "THU\u1ED8C"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "list"
-  }, art.showcase_arts.map(function (showcase, index) {
+  }, art.showcase_arts.map(function (showcase_art, index) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-      to: "/public/community/showcase/".concat(showcase.showcase_id),
+      to: "/public/community/showcase/".concat(showcase_art.showcase_id),
       key: index
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "showcase"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "showcase-thumbnail"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
-      src: "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/cyberpunk_2077_refund.jpg"
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-      className: "showcase-title"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, showcase.showcases.title))));
-  }))), art.tags.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      src: "/storage/app/public/community/".concat(showcase_art.user_id, "/arts/").concat(showcase_art.arts.art)
+    }))));
+  }), art.total_showcases > 3 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    to: "/public/community/showcase/"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "showcase"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "showcase-thumbnail has-more"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, art.total_showcases, "+")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "showcase-title"
+  }))))), art.tags.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "tags"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
     className: "title"
@@ -1776,7 +1780,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var react_indiana_drag_scroll__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-indiana-drag-scroll */ "./node_modules/react-indiana-drag-scroll/dist/index.es.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../CustomFields/InputField */ "./resources/js/src/components/CustomFields/InputField/index.js");
+/* harmony import */ var _CustomFields_TextareaField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../CustomFields/TextareaField */ "./resources/js/src/components/CustomFields/TextareaField/index.js");
+/* harmony import */ var _CustomFields_SelectField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../CustomFields/SelectField */ "./resources/js/src/components/CustomFields/SelectField/index.js");
+/* harmony import */ var _Validations__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../Validations */ "./resources/js/src/components/Validations/index.js");
+/* harmony import */ var _store_community_announcer__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../store/community/announcer */ "./resources/js/src/store/community/announcer.js");
 
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -1806,21 +1827,81 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
+
+
+
+
+
 function Showcase() {
+  // Global state
+  var user = Object(react_redux__WEBPACK_IMPORTED_MODULE_7__["useSelector"])(function (state) {
+    return state.auth.authenticatedUser;
+  }); // etc...
+
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["useHistory"])();
+
+  var _useParams = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["useParams"])(),
+      id = _useParams.id;
+
+  var editFormRef = Object(react__WEBPACK_IMPORTED_MODULE_2__["useRef"])();
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_7__["useDispatch"])(); // Local state
+  // Chứa quày (showcase)
+
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({}),
       _useState2 = _slicedToArray(_useState, 2),
       showcase = _useState2[0],
-      setShowcase = _useState2[1]; // const [background,setBackground] = useState('');
+      setShowcase = _useState2[1]; // Tác giả
 
 
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({}),
       _useState4 = _slicedToArray(_useState3, 2),
       artist = _useState4[0],
-      setArtist = _useState4[1];
+      setArtist = _useState4[1]; // Check nếu thông tin tác phẩm khác nhau
 
-  var _useParams = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["useParams"])(),
-      id = _useParams.id;
 
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      isDiff = _useState6[0],
+      setIsDiff = _useState6[1]; // Danh sách xóa
+
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
+      _useState8 = _slicedToArray(_useState7, 2),
+      removalList = _useState8[0],
+      setRemovalList = _useState8[1]; // Toggle sửa quày
+
+
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      editMode = _useState10[0],
+      setEditMode = _useState10[1]; // Refresh lại useEffect
+
+
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
+      _useState12 = _slicedToArray(_useState11, 2),
+      refresh = _useState12[0],
+      setRefresh = _useState12[1]; // Check nếu đang submit
+
+
+  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
+      _useState14 = _slicedToArray(_useState13, 2),
+      isSubmitting = _useState14[0],
+      setIsSubmitting = _useState14[1]; // Danh sách các mục chọn (Select list)
+
+
+  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
+    artChannels: [],
+    privacies: []
+  }),
+      _useState16 = _slicedToArray(_useState15, 2),
+      optionsList = _useState16[0],
+      setOptionsList = _useState16[1]; // Delete event
+
+
+  var deleteShowcase = null;
   Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
     var getSpecificShowcase = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -1830,10 +1911,33 @@ function Showcase() {
               case 0:
                 _context.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/showcases/get/".concat(id)).then(function (response) {
-                  var showcase = response.data.showcase;
-                  setShowcase(_objectSpread({}, showcase)); // setBackground(showcase.showcase_arts[0].arts.art);
-
-                  setArtist(_objectSpread({}, showcase.showcase_arts[0].users));
+                  // console.log(response);
+                  var _response$data = response.data,
+                      showcase = _response$data.showcase,
+                      channelSelectList = _response$data.channelSelectList,
+                      privacySelectList = _response$data.privacySelectList;
+                  setShowcase(_objectSpread(_objectSpread({}, showcase), {}, {
+                    title: showcase.title,
+                    subheading: Object(lodash__WEBPACK_IMPORTED_MODULE_4__["isNull"])(showcase.subheading) ? '' : showcase.subheading,
+                    description: Object(lodash__WEBPACK_IMPORTED_MODULE_4__["isNull"])(showcase.description) ? '' : showcase.description,
+                    channel: showcase.art_channel_id.toString(),
+                    privacy: showcase.privacy_id.toString()
+                  }));
+                  setOptionsList({
+                    artChannels: channelSelectList.map(function (option) {
+                      return {
+                        value: option.id,
+                        label: option.channel_name
+                      };
+                    }),
+                    privacies: privacySelectList.map(function (option) {
+                      return {
+                        value: option.id,
+                        label: option.allowed
+                      };
+                    })
+                  });
+                  setArtist(_objectSpread({}, showcase.users));
                 })["catch"](function (error) {
                   // const {data:{message}} = error.response;
                   console.log(error.response);
@@ -1853,7 +1957,115 @@ function Showcase() {
     }();
 
     getSpecificShowcase();
-  }, []);
+  }, [refresh]);
+
+  var handleAddItemToRemovalList = function handleAddItemToRemovalList(id) {
+    var newList = removalList;
+
+    if (newList.includes(id)) {
+      newList = newList.filter(function (item_id) {
+        return item_id !== id;
+      });
+    } else {
+      newList.push(id);
+    }
+
+    setRemovalList(_toConsumableArray(newList));
+  };
+
+  var handleEditSubmit = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(values) {
+      var data, fillable, key, apiToken;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              setIsSubmitting(true);
+              data = new FormData();
+              fillable = ['title', 'subheading', 'channel', 'privacy', 'description'];
+
+              for (key in values) {
+                if (fillable.includes(key)) data.append(key, values[key]);
+              }
+
+              data.append('removal_list', removalList); // data.append('_method','PATCH');
+
+              apiToken = localStorage.getItem('authenticatedUserToken');
+              _context2.next = 8;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/community/resources/showcases/edit/".concat(values.id, "?api_token=").concat(apiToken), data).then(function (response) {
+                console.log(response);
+                var message = response.data.message;
+                dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_13__["setAnnouncementMessage"])({
+                  message: message,
+                  type: 'success'
+                }));
+                setRefresh(!refresh);
+                setEditMode(false);
+                setRemovalList([]);
+              })["catch"](function (error) {
+                var message = error.response.data.message;
+                dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_13__["setAnnouncementMessage"])({
+                  message: message,
+                  type: 'danger'
+                }));
+              }).then(function () {
+                setIsSubmitting(false);
+              });
+
+            case 8:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function handleEditSubmit(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  var handleDelete = function handleDelete() {
+    deleteShowcase = setTimeout( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      var apiToken;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              setIsSubmitting(true);
+              apiToken = localStorage.getItem('authenticatedUserToken');
+              _context3.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/showcases/delete/".concat(showcase.id, "?api_token=").concat(apiToken)).then(function (response) {
+                var message = response.data.message;
+                dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_13__["setAnnouncementMessage"])({
+                  message: message,
+                  type: 'success'
+                }));
+                history.push('/public/community/management');
+              })["catch"](function (error) {
+                var message = error.response.data.message;
+                dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_13__["setAnnouncementMessage"])({
+                  message: message,
+                  type: 'danger'
+                }));
+              }).then(function () {
+                setIsSubmitting(false);
+              });
+
+            case 4:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    })), 3000);
+  };
+
+  var handleCancelDelete = function handleCancelDelete() {
+    setIsSubmitting(false);
+    clearTimeout(deleteShowcase);
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "showcase"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
@@ -1861,22 +2073,26 @@ function Showcase() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "header"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "info"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "title"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, showcase.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "subheading"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h2", null, showcase.subheading))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_indiana_drag_scroll__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h2", null, showcase.subheading)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_indiana_drag_scroll__WEBPACK_IMPORTED_MODULE_5__["default"], {
     className: "arts-wrapper"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "arts-list"
-  }, !lodash__WEBPACK_IMPORTED_MODULE_4___default.a.isEmpty(showcase.showcase_arts) && showcase.showcase_arts.map(function (_ref2, index) {
-    var art = _ref2.arts;
+  }, !lodash__WEBPACK_IMPORTED_MODULE_4___default.a.isEmpty(showcase.showcase_arts) && showcase.showcase_arts.map(function (_ref4, index) {
+    var art = _ref4.arts;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "wrapper",
       key: index
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "art"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-      className: "overlay"
+      className: classnames__WEBPACK_IMPORTED_MODULE_6___default()("overlay", {
+        will_be_removed: removalList.includes(art.id)
+      })
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "title"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h2", null, art.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
@@ -1893,7 +2109,12 @@ function Showcase() {
       className: "channel"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, art.art_channels && art.art_channels.channel_name))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "view-more"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    }, editMode ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
+      className: "delete-btn",
+      onClick: function onClick() {
+        return handleAddItemToRemovalList(art.id);
+      }
+    }, removalList.includes(art.id) ? "BỎ GỠ" : "GỠ") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
       to: "/public/community/art/".concat(art.id)
     }, "XEM TH\xCAM"))));
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
@@ -1924,7 +2145,123 @@ function Showcase() {
     className: "username"
   }, artist && artist.username)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
     className: "fullname"
-  }, artist && artist.firstname + ' ' + artist.lastname)))))));
+  }, artist && artist.firstname + ' ' + artist.lastname))))), editMode && user.id == showcase.user_id && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "edit-form",
+    style: {
+      display: isSubmitting && 'none'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_8__["Formik"], {
+    initialValues: showcase,
+    validationSchema: _Validations__WEBPACK_IMPORTED_MODULE_12__["EditShowcaseValidation"],
+    onSubmit: handleEditSubmit,
+    innerRef: editFormRef
+  }, function (_ref5) {
+    var values = _ref5.values,
+        handleSubmit = _ref5.handleSubmit;
+
+    // console.log(values,showcase);
+    if (!Object(lodash__WEBPACK_IMPORTED_MODULE_4__["isEqual"])(values, showcase) || removalList.length > 0) {
+      setTimeout(function () {
+        return setIsDiff(true);
+      }, 0);
+    } else {
+      setTimeout(function () {
+        return setIsDiff(false);
+      }, 0);
+    }
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("form", {
+      className: "form",
+      onSubmit: handleSubmit
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "split"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_8__["FastField"], {
+      name: "title",
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_9__["default"],
+      label: "Ti\xEAu \u0111\u1EC1",
+      labelClassName: "label",
+      className: "text-input",
+      disabled: false,
+      placeholder: "Ti\xEAu \u0111\u1EC1" // formErrorClass="form-error textarea-error"
+
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_8__["FastField"], {
+      name: "subheading",
+      component: _CustomFields_InputField__WEBPACK_IMPORTED_MODULE_9__["default"],
+      label: "Ti\xEAu \u0111\u1EC1 ph\u1EE5",
+      labelClassName: "label",
+      className: "text-input",
+      disabled: false,
+      placeholder: "Ti\xEAu \u0111\u1EC1 ph\u1EE5" // formErrorClass="form-error textarea-error"
+
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_8__["FastField"], {
+      name: "description",
+      component: _CustomFields_TextareaField__WEBPACK_IMPORTED_MODULE_10__["default"],
+      label: "M\xF4 t\u1EA3",
+      labelClassName: "label",
+      className: "text-input",
+      disabled: false,
+      placeholder: "Nh\u1EADp m\xF4 t\u1EA3 (kh\xF4ng b\u1EAFt bu\u1ED9c)" // formErrorClass="form-error textarea-error"
+
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "split"
+    }, optionsList.privacies.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_8__["FastField"], {
+      name: "privacy",
+      component: _CustomFields_SelectField__WEBPACK_IMPORTED_MODULE_11__["default"],
+      label: "Ai c\xF3 th\u1EC3 xem",
+      labelClassName: "label",
+      className: "text-input",
+      disabled: false,
+      options: optionsList.privacies // placeholder="Nhập mô tả (không bắt buộc)"
+      // formErrorClass="form-error textarea-error"
+
+    }), optionsList.artChannels.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_8__["FastField"], {
+      name: "channel",
+      component: _CustomFields_SelectField__WEBPACK_IMPORTED_MODULE_11__["default"],
+      label: "K\xEAnh \u1EA3nh",
+      labelClassName: "label",
+      className: "text-input",
+      disabled: false,
+      options: optionsList.artChannels // placeholder="Nhập mô tả (không bắt buộc)"
+      // formErrorClass="form-error textarea-error"
+
+    })));
+  })), user.id == showcase.user_id && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "action-wrapper"
+  }, !isSubmitting ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, isDiff && editMode && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
+    type: "submit",
+    onClick: function onClick() {
+      editFormRef.current.handleSubmit();
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "action"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+    className: "fas fa-check"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "action",
+    onClick: function onClick() {
+      return setEditMode(!editMode);
+    }
+  }, editMode ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+    className: "fas fa-times"
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+    className: "fas fa-edit"
+  })), removalList.length > 0 && editMode && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "removal-items-count"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
+    className: "count"
+  }, removalList.length, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+    className: "fas fa-trash"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "action",
+    onMouseDown: handleDelete,
+    onMouseUp: handleCancelDelete,
+    onMouseLeave: handleCancelDelete
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+    className: "fas fa-trash"
+  }))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
+    className: "loading",
+    src: "https://4.bp.blogspot.com/-a4arXx0z1xQ/VuM0S587YfI/AAAAAAAAAOk/jQf7UpsN93ol-qZYM4CuibUSCG8deiejg/s1600/loading.gif"
+  }))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Showcase);
@@ -3438,7 +3775,7 @@ function TextareaField(props) {
 /*!**********************************************************!*\
   !*** ./resources/js/src/components/Validations/index.js ***!
   \**********************************************************/
-/*! exports provided: UserProfileValidation, SingleArtValidation, EditArtValidation, ShowcaseValidation */
+/*! exports provided: UserProfileValidation, SingleArtValidation, EditArtValidation, ShowcaseValidation, EditShowcaseValidation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3447,6 +3784,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SingleArtValidation", function() { return SingleArtValidation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditArtValidation", function() { return EditArtValidation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShowcaseValidation", function() { return ShowcaseValidation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditShowcaseValidation", function() { return EditShowcaseValidation; });
 /* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! yup */ "./node_modules/yup/es/index.js");
 
 var KILOBYTES = 2048;
@@ -3500,6 +3838,13 @@ var ShowcaseValidation = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({
   title: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(100, 'Tối đa 100 ký tự').required('Không được bỏ trống'),
   subheading: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(300, 'Tối đa 300 ký tự'),
   description: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(1500, 'Tối đa 1500 ký tự'),
+  privacy: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
+  channel: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống')
+});
+var EditShowcaseValidation = yup__WEBPACK_IMPORTED_MODULE_0__["object"]().shape({
+  title: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(100, 'Tối đa 100 ký tự').required('Không được bỏ trống'),
+  subheading: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(300, 'Tối đa 300 ký tự').nullable(),
+  description: yup__WEBPACK_IMPORTED_MODULE_0__["string"]().min(2, 'Tối thiểu hai ký tự').max(1500, 'Tối đa 1500 ký tự').nullable(),
   privacy: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống'),
   channel: yup__WEBPACK_IMPORTED_MODULE_0__["number"]().required('Không được bỏ trống')
 });

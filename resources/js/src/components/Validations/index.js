@@ -73,3 +73,11 @@ export const ShowcaseValidation = Yup.object().shape({
     privacy:   Yup.number().required('Không được bỏ trống'),
     channel:  Yup.number().required('Không được bỏ trống'),
 });
+
+export const EditShowcaseValidation = Yup.object().shape({
+    title: Yup.string().min(2,'Tối thiểu hai ký tự').max(100,'Tối đa 100 ký tự').required('Không được bỏ trống'),
+    subheading:   Yup.string().min(2,'Tối thiểu hai ký tự').max(300,'Tối đa 300 ký tự').nullable(),
+    description:   Yup.string().min(2,'Tối thiểu hai ký tự').max(1500,'Tối đa 1500 ký tự').nullable(),
+    privacy:   Yup.number().required('Không được bỏ trống'),
+    channel:  Yup.number().required('Không được bỏ trống'),
+});

@@ -21,7 +21,7 @@ function ShowArt() {
     const dispatch = useDispatch();
 
     // Local states.
-    // Toggle sửa ảnh
+    // Toggle sửa tác phẩm
     const [editMode,setEditMode] = useState(false);
 
     // Check nếu thông tin tác phẩm khác nhau
@@ -61,6 +61,7 @@ function ShowArt() {
     useEffect(() => {
         const getArt = async () => {
             await Axios.get(`/public/api/community/resources/arts/get/${id}`).then(response => {
+                console.log(response.data.art);
                 const {data:{
                     art,
                     channelSelectList,
@@ -156,7 +157,7 @@ function ShowArt() {
                 }));
             }).then(() => {
                 setIsSubmitting(false);
-            });;
+            });
         },3000)
     }
 
@@ -219,20 +220,36 @@ function ShowArt() {
                             <div className="showcases-list">
                                 <p className="title">THUỘC</p>
                                 <div className="list">
-                                    {art.showcase_arts.map((showcase,index) => (
-                                        <Link to={`/public/community/showcase/${showcase.showcase_id}`} key={index}>
+                                    {art.showcase_arts.map((showcase_art,index) => {
+                                        return (
+                                            <Link to={`/public/community/showcase/${showcase_art.showcase_id}`} key={index}>
+                                                <div className="showcase">
+                                                    <div className="showcase-thumbnail">
+                                                        <img src={`/storage/app/public/community/${showcase_art.user_id}/arts/${showcase_art.arts.art}`}/>
+                                                    </div>
+                                                    {/* <div className="showcase-title">
+                                                        <p>
+                                                            {showcase_art.showcases.title}
+                                                        </p>
+                                                    </div> */}
+                                                </div>
+                                            </Link>
+                                        );
+                                    })}
+                                    {art.total_showcases > 3 && (
+                                        <Link to={`/public/community/showcase/`}>
                                             <div className="showcase">
-                                                <div className="showcase-thumbnail">
-                                                    <img src="https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/cyberpunk_2077_refund.jpg"/>
+                                                <div className="showcase-thumbnail has-more">
+                                                    <p>
+                                                        {art.total_showcases}+ 
+                                                    </p>
                                                 </div>
                                                 <div className="showcase-title">
-                                                    <p>
-                                                        {showcase.showcases.title}
-                                                    </p>
+                                                    
                                                 </div>
                                             </div>
                                         </Link>
-                                    ))}
+                                    )}
                                 </div>
                             </div>
                         )}

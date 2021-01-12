@@ -9,6 +9,7 @@ use App\Models\Art;
 use App\Models\ArtChannel;
 use App\Models\Dimension;
 use App\Models\Privacy;
+use App\Models\Showcase;
 use App\Models\ShowcaseArt;
 // use App\Models\User;
 use Illuminate\Http\Request;
@@ -96,7 +97,23 @@ class ArtsController extends Controller
      */
     public function show($id)
     {
-        $getArt = Art::with('users','artChannels','dimensions','showcase_arts.showcases')->find($id);
+        $getArt = Art::with([
+            'users',
+            'artChannels',
+            'dimensions',
+            'showcase_arts' => function ($query) {
+                $query->with(['showcases' => function ($qa) {
+                    $qa->take(3);
+                },'arts' => function($qb) {
+                    $qb->take(1);
+                }])->take(3);
+            },
+        ])->find($id);
+
+        $getArt['total_showcases'] = Art::with('showcases');
+
+        // Tìm
+
         $channelSelectList = ArtChannel::all();
         $privacySelectList = Privacy::all();
         $dimensionSelectList = Dimension::all();
