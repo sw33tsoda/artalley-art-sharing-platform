@@ -97,32 +97,31 @@ class ArtsController extends Controller
      */
     public function show($id)
     {
-        $getArt = Art::with([
-            'users',
-            'artChannels',
-            'dimensions',
-            'showcase_arts' => function ($query) {
-                $query->with(['showcases' => function ($qa) {
-                    $qa->take(3);
-                },'arts' => function($qb) {
-                    $qb->take(1);
-                }])->take(3);
-            },
-        ])->find($id);
-
-        $getArt['total_showcases'] = Art::with('showcases');
-
-        // Tìm
-
-        $channelSelectList = ArtChannel::all();
-        $privacySelectList = Privacy::all();
-        $dimensionSelectList = Dimension::all();
         return response()->json([
             'message' => 'Lấy tác phẩm thành công',
-            'art' => $getArt,
-            'channelSelectList' => $channelSelectList,
-            'privacySelectList' => $privacySelectList,
-            'dimensionSelectList' => $dimensionSelectList,
+            'art' => (function($id){
+                // Lấy ảnh
+                $getArt = Art::with([
+                    'users',
+                    'artChannels',
+                    'dimensions',
+                    'showcase_arts' => function ($query) {
+                        $query->with(['showcases' => function ($showcases_query) {
+                            $showcases_query->take(3);
+                        },'arts' => function($arts_query) {
+                            $arts_query->take(1);
+                        }])->take(3);
+                    },
+                ])->find($id);
+                
+                // Số lượng showcase chứa tác phẩm này.
+                $getArt['total_showcases'] = ShowcaseArt::where('art_id',$id)->count();
+
+                return $getArt;
+            })($id),
+            'channelSelectList' => ArtChannel::all(),
+            'privacySelectList' => Privacy::all(),
+            'dimensionSelectList' => Dimension::all(),
         ],200);
     }
 
@@ -177,15 +176,16 @@ class ArtsController extends Controller
     public function destroy($id)
     {
         $art = Art::find($id);
-        ShowcaseArt::where('art_id',$id)->delete();
-        Storage::delete("/public/community/{$art->user_id}/arts/{$art->art}");
-        Art::destroy($id);
-        // } else {
-        //     return response()->json([
-        //         'message' => 'Xóa thất bại',
-        //     ],500);
-        // }  
-
+        try {
+            ShowcaseArt::where('art_id',$id)->delete();
+            Storage::delete("/public/community/{$art->user_id}/arts/{$art->art}");
+            Art::destroy($id);
+        } catch (\Throwable $e) {
+            report($e);
+            return response()->json([
+                'message' => 'Lỗi xóa'
+            ],500);
+        }       
         return response()->json([
             'message' => 'Xóa thành công',
         ],200);

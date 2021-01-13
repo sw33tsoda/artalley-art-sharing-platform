@@ -1,32 +1,22 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory, useRouteMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import DragScroll from 'react-indiana-drag-scroll';
 import ArtsList from '../Lists/ArtsList';
 import { useSelector } from 'react-redux';
-import { isUndefined } from 'lodash';
 
 function Management() {
-    // const [artsList,setArtsList] = useState([]);
     const [showcasesList,setShowcasesList] = useState([]);
-    // const history = useHistory();
     const {id:userId} = useSelector(state => state.auth.authenticatedUser);
 
     useEffect(() => {
-        // const apiToken = localStorage.getItem('authenticatedUserToken');
         const getArtsList = async () => {
-            // const arts = Axios.get(`/public/api/community/resources/arts/get-list/${userId}`);
-            const showcases = Axios.get(`/public/api/community/resources/showcases/get-list/${userId}`);
-            await Axios.all([
-                // arts,
-                showcases,
-            ]).then((responses) => {
-                const {data:{list:showcasesResult}} = responses[0];
+            await Axios.get(`/public/api/community/resources/showcases/get-list/${userId}`).then((response) => {
+                console.log(response.data.list);
+                const {data:{list:showcasesResult}} = response;
                 if (showcasesResult.length > 0) {
                     setShowcasesList(showcasesResult);
                 }
-                // const {data:{list:artsResult}} = responses[1];
-                // setArtsList(artsResult);
             }).catch(error => {
                 console.log(error.response);
             });
@@ -45,11 +35,33 @@ function Management() {
                     <DragScroll className="showcases-list">
                         {showcasesList.map((showcase,index) => (
                             <Link to={`/public/community/showcase/${showcase.id}`} key={index}>
-                                <div className="showcase">
-                                    <div className="title">{showcase.title}</div>
-                                    <div className="thumbnail">
-                                        <img src="https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/cyberpunk_2077_refund.jpg"/>
-                                    </div>
+                                <p className="title">{showcase.title}</p>
+                                <div className="list">
+                                    {showcase.showcase_arts.slice(0,3).map((showcase_art,index) => {
+                                        return (
+                                            <Link to={`/public/community/art/${showcase_art.arts.id}`} key={index}>
+                                                <div className="showcase">
+                                                    <div className="showcase-thumbnail">
+                                                        <img src={`/storage/app/public/community/${showcase_art.user_id}/arts/${showcase_art.arts.art}`}/>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        );
+                                    })}
+                                    {showcase.showcase_arts.length > 3 && (
+                                        <Link to={`/public/community/showcase/${showcase.id}`}>
+                                            <div className="showcase">
+                                                <div className="showcase-thumbnail has-more">
+                                                    <p>
+                                                        <i className="fas fa-image"></i> {showcase.showcase_arts.length - 3}+ 
+                                                    </p>
+                                                </div>
+                                                <div className="showcase-title">
+                                                    
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    )}
                                 </div>
                             </Link>
                         ))}

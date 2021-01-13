@@ -19,15 +19,14 @@ class ShowcasesController extends Controller
      */
     public function index($userId)
     {
-        $showcasesList = Showcase::where('user_id',$userId)->orderBy('created_at','desc')->get();
-        if (!$showcasesList) {
-            return response()->json([
-                'message' => 'Lấy danh sách thất bại',
-            ],500);
-        }
         return response()->json([
             'message' => 'Lấy danh sách thành công',
-            'list' => $showcasesList,
+            'list' => (function($userId) {
+                $list = Showcase::where('user_id',$userId)->with(['showcase_arts' => function($query) {
+                    $query->inRandomOrder()->with('arts');
+                }])->orderBy('created_at','desc')->get(); 
+                return $list;
+            })($userId),
         ],200);
     }
 
@@ -131,7 +130,7 @@ class ShowcasesController extends Controller
     {
         if ($request->removal_list !== null) {
             $ids = explode(',',$request->removal_list);
-            $removeArtFromShowcase = ShowcaseArt::whereIn('art_id',$ids)->delete();
+            $removeArtFromShowcase = ShowcaseArt::whereIn('id',$ids)->delete();
             if (!$removeArtFromShowcase) {
                 return response()->json([
                     'message' => 'Gỡ ảnh thất bại',
@@ -139,20 +138,27 @@ class ShowcasesController extends Controller
             }
         }
 
-        $showcase = Showcase::find($id);
-        $showcase->title = $request->title;
-        $showcase->subheading = $request->subheading;
-        $showcase->description = $request->description;
-        $showcase->art_channel_id = $request->channel;
-        $showcase->privacy_id = $request->privacy;
-
-        $save = $showcase->save();
-
-        if (!$save) {
+        if (ShowcaseArt::where('showcase_id',$id)->count() > 0) {
+            $showcase = Showcase::find($id);
+            $showcase->title = $request->title;
+            $showcase->subheading = $request->subheading;
+            $showcase->description = $request->description;
+            $showcase->art_channel_id = $request->channel;
+            $showcase->privacy_id = $request->privacy;
+            $save = $showcase->save();
+            if (!$save) {
+                return response()->json([
+                    'message' => 'Cập nhật thất bại',
+                ],500);
+            }
+        } else {
+            Showcase::destroy($id);
             return response()->json([
-                'message' => 'Cập nhật thất bại',
-            ],500);
+                'message' => 'Đã xóa quày vì không còn tác phẩm nào',
+                'redirect' => true,
+            ]);
         }
+
 
         return response()->json([
             'message' => 'Cập nhật thành công',

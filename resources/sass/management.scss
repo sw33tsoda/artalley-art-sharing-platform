@@ -19,6 +19,7 @@
             cursor: grab;
             height: auto;
             width: 100%;
+            box-sizing: border-box;
             display: flex;
             background: #212121;
             margin-bottom: 25px;
@@ -29,25 +30,107 @@
             column-gap: 10px;
             a {
                 text-decoration: none;
-                &:last-child {
-                    padding-right: 75px !important;
-                }
-                .showcase {
-                    height: inherit;
-                    .title {
-                        color: #d8d8d8;
-                        margin-bottom: 5px;
+                color:#212121;
+            }
+            .title {
+                margin:0;
+                font-weight: bold;
+                color:#d9d9d9;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 250px;
+                margin-bottom: 5px;
+            }
+
+            .list {
+                width: 250px;
+                display:grid;
+                grid-template-columns: 1fr 1fr;
+                column-gap: 3px;
+                row-gap: 2.5px;
+                justify-content: center;
+                .no-item {
+                    color:#d9d9d9;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    p {
+                        margin:0;
                     }
-                    
-                    .thumbnail {
-                        box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+                }
+
+                .showcase {
+                    .showcase-thumbnail {
+                        height: 70px;
+                        width: 100%;
+                        border-radius: 0.25em;
+                        overflow: hidden;
                         img {
-                            height: 150px;
-                            vertical-align: middle;
+                            height: 70px;
+                            width: 100%;
+                            border-radius: 0.25em;
+                            // box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+                            object-fit: cover;
+                        }
+                        box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+
+                    }
+
+                    .has-more {
+                        background: #212121;
+                        height: 70px;
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+                        p {
+                            color:#d9d9d9;
+                            font-size: 1.5em;
+                            font-weight: bold;
+                            margin:0;
+                        }
+                    }
+    
+                    .showcase-title {
+                        text-transform: uppercase;
+                        font-weight: bold;
+                        p {
+                            margin:0;
+                            font-size: 0.75em;
                         }
                     }
                 }
             }
+
+            // a {
+            //     text-decoration: none;
+            //     &:last-child {
+            //         padding-right: 75px !important;
+            //     }
+            //     // .showcase {
+            //     //     height: inherit;
+            //     //     .title {
+            //     //         color: #d8d8d8;
+            //     //         margin-bottom: 5px;
+            //     //     }
+                    
+            //     //     .thumbnail {
+            //     //         box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+            //     //         height: 175px;
+            //     //         width: 300px;
+
+            //     //         background: #212121;
+            //     //         img {
+            //     //             height: 175px;
+            //     //             width: 300px;
+            //     //             vertical-align: middle;
+            //     //             object-fit: cover;
+            //     //         }
+            //     //     }
+            //     // }
+            // }
         }
         
         .arts-list {

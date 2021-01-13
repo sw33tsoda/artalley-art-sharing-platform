@@ -61,7 +61,7 @@ function ShowArt() {
     useEffect(() => {
         const getArt = async () => {
             await Axios.get(`/public/api/community/resources/arts/get/${id}`).then(response => {
-                console.log(response.data.art);
+                // console.log(response.data);
                 const {data:{
                     art,
                     channelSelectList,
@@ -241,7 +241,7 @@ function ShowArt() {
                                             <div className="showcase">
                                                 <div className="showcase-thumbnail has-more">
                                                     <p>
-                                                        {art.total_showcases}+ 
+                                                        <i className="fas fa-grip-horizontal"></i> {art.total_showcases - 3}+ 
                                                     </p>
                                                 </div>
                                                 <div className="showcase-title">

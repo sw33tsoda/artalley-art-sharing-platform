@@ -963,6 +963,7 @@ body {
   cursor: grab;
   height: auto;
   width: 100%;
+  box-sizing: border-box;
   display: flex;
   background: #212121;
   margin-bottom: 25px;
@@ -980,28 +981,82 @@ body {
 
 .community .body .management > .wrapper .showcases-list a {
   text-decoration: none;
+  color: #212121;
 }
 
-.community .body .management > .wrapper .showcases-list a:last-child {
-  padding-right: 75px !important;
-}
-
-.community .body .management > .wrapper .showcases-list a .showcase {
-  height: inherit;
-}
-
-.community .body .management > .wrapper .showcases-list a .showcase .title {
-  color: #d8d8d8;
+.community .body .management > .wrapper .showcases-list .title {
+  margin: 0;
+  font-weight: bold;
+  color: #d9d9d9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 250px;
   margin-bottom: 5px;
 }
 
-.community .body .management > .wrapper .showcases-list a .showcase .thumbnail {
+.community .body .management > .wrapper .showcases-list .list {
+  width: 250px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  -moz-column-gap: 3px;
+       column-gap: 3px;
+  row-gap: 2.5px;
+  justify-content: center;
+}
+
+.community .body .management > .wrapper .showcases-list .list .no-item {
+  color: #d9d9d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.community .body .management > .wrapper .showcases-list .list .no-item p {
+  margin: 0;
+}
+
+.community .body .management > .wrapper .showcases-list .list .showcase .showcase-thumbnail {
+  height: 70px;
+  width: 100%;
+  border-radius: 0.25em;
+  overflow: hidden;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
-.community .body .management > .wrapper .showcases-list a .showcase .thumbnail img {
-  height: 150px;
-  vertical-align: middle;
+.community .body .management > .wrapper .showcases-list .list .showcase .showcase-thumbnail img {
+  height: 70px;
+  width: 100%;
+  border-radius: 0.25em;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.community .body .management > .wrapper .showcases-list .list .showcase .has-more {
+  background: #212121;
+  height: 70px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.community .body .management > .wrapper .showcases-list .list .showcase .has-more p {
+  color: #d9d9d9;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0;
+}
+
+.community .body .management > .wrapper .showcases-list .list .showcase .showcase-title {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.community .body .management > .wrapper .showcases-list .list .showcase .showcase-title p {
+  margin: 0;
+  font-size: 0.75em;
 }
 
 .community .body .management > .wrapper .arts-list {
@@ -2216,55 +2271,131 @@ body {
   padding-top: 50px;
 }
 
+.community .body .user-profile .body > .content .sub-content .showcases .showcases-list {
+  cursor: -webkit-grab;
+  cursor: grab;
+  height: auto;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+  -webkit-animation: fadeIn 1s;
+          animation: fadeIn 1s;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+}
+
 @media (min-width: 1024px) {
   .community .body .user-profile .body > .content .sub-content .showcases .showcases-list {
-    padding: 5px 5px 0 5px;
+    padding: 5px;
   }
 }
 
-.community .body .user-profile .body > .content .sub-content .showcases .showcases-list * {
+.community .body .user-profile .body > .content .sub-content .showcases .showcases-list > a {
+  text-decoration: none;
+  color: #212121;
+  display: grid;
+  grid-template-columns: 250px auto;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+  margin-bottom: 10px;
+}
+
+.community .body .user-profile .body > .content .sub-content .showcases .showcases-list a {
   text-decoration: none;
 }
 
-.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .showcase {
-  display: grid;
-  grid-template-columns: 0.5fr 1.5fr;
-  -moz-column-gap: 5px;
-       column-gap: 5px;
-  background: none;
-  color: #212121;
-  transition: 0.25s;
-}
-
-.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .showcase:hover {
-  box-shadow: -43px 2px 0px -39px #ff810c inset;
-}
-
-.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .showcase .thumbnail img {
-  width: 100%;
-}
-
-.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .showcase .content {
+.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .info {
   position: relative;
 }
 
-.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .showcase .content p {
+.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .info p {
   margin: 0;
 }
 
-.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .showcase .content .title {
+.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .info .title {
   font-weight: bold;
+  -moz-columns: #212121;
+       columns: #212121;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 5px;
 }
 
-.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .showcase .content .subheading {
-  margin-top: 5px;
+.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .info .subheading {
   font-size: 0.75em;
 }
 
-.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .showcase .content .extra {
+.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .info .date {
   position: absolute;
-  right: 10px;
   bottom: 5px;
+  right: 5px;
+  font-size: 0.75em;
+  font-style: italic;
+}
+
+.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .list {
+  min: 250px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  -moz-column-gap: 3px;
+       column-gap: 3px;
+  row-gap: 2.5px;
+  justify-content: center;
+}
+
+.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .list .no-item {
+  color: #d9d9d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .list .no-item p {
+  margin: 0;
+}
+
+.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .list .showcase .showcase-thumbnail {
+  height: 70px;
+  width: 100%;
+  border-radius: 0.25em;
+  overflow: hidden;
+}
+
+.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .list .showcase .showcase-thumbnail img {
+  height: 70px;
+  width: 100%;
+  border-radius: 0.25em;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .list .showcase .has-more {
+  background: #212121;
+  height: 70px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .list .showcase .has-more p {
+  color: #d9d9d9;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0;
+}
+
+.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .list .showcase .showcase-title {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.community .body .user-profile .body > .content .sub-content .showcases .showcases-list .list .showcase .showcase-title p {
+  margin: 0;
+  font-size: 0.75em;
 }
 
 .community .body .user-profile .body > .content .sub-content .arts .arts-list {

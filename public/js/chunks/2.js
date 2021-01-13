@@ -1042,23 +1042,39 @@ function ShowcasesList(_ref) {
       to: "/public/community/showcase/".concat(showcase.id),
       key: index
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "list"
+    }, showcase.showcase_arts.slice(0, 3).map(function (showcase_art, index) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+        to: "/public/community/art/".concat(showcase_art.arts.id),
+        key: index
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+        className: "showcase"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+        className: "showcase-thumbnail"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
+        src: "/storage/app/public/community/".concat(showcase_art.user_id, "/arts/").concat(showcase_art.arts.art)
+      }))));
+    }), showcase.showcase_arts.length > 3 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+      to: "/public/community/showcase/".concat(showcase.id)
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "showcase"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-      className: "thumbnail"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
-      src: "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/cyberpunk_2077_refund.jpg"
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-      className: "content"
+      className: "showcase-thumbnail has-more"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+      className: "fas fa-grip-horizontal"
+    }), " ", showcase.showcase_arts.length - 3, "+")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "showcase-title"
+    })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "info"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
       className: "title"
     }, showcase.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
       className: "subheading"
     }, showcase.subheading), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
-      className: "extra"
+      className: "date"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_moment__WEBPACK_IMPORTED_MODULE_3___default.a, {
-      date: showcase.created_at,
-      format: "d:m:ssA - D/MM/yyyy"
-    })))));
+      format: "H:m:sA D/MM/yyyy"
+    }, showcase.created_at))));
   })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", {
     className: "no-item"
   }, "Tr\u1ED1ng") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("center", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
@@ -1118,8 +1134,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_indiana_drag_scroll__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-indiana-drag-scroll */ "./node_modules/react-indiana-drag-scroll/dist/index.es.js");
 /* harmony import */ var _Lists_ArtsList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Lists/ArtsList */ "./resources/js/src/components/Community/Body/Lists/ArtsList/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_7__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -1145,14 +1159,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 function Management() {
-  // const [artsList,setArtsList] = useState([]);
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
       showcasesList = _useState2[0],
-      setShowcasesList = _useState2[1]; // const history = useHistory();
-
+      setShowcasesList = _useState2[1];
 
   var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_6__["useSelector"])(function (state) {
     return state.auth.authenticatedUser;
@@ -1160,31 +1171,25 @@ function Management() {
       userId = _useSelector.id;
 
   Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
-    // const apiToken = localStorage.getItem('authenticatedUserToken');
     var getArtsList = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var showcases;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // const arts = Axios.get(`/public/api/community/resources/arts/get-list/${userId}`);
-                showcases = axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/showcases/get-list/".concat(userId));
-                _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.all([// arts,
-                showcases]).then(function (responses) {
-                  var showcasesResult = responses[0].data.list;
+                _context.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/showcases/get-list/".concat(userId)).then(function (response) {
+                  console.log(response.data.list);
+                  var showcasesResult = response.data.list;
 
                   if (showcasesResult.length > 0) {
                     setShowcasesList(showcasesResult);
-                  } // const {data:{list:artsResult}} = responses[1];
-                  // setArtsList(artsResult);
-
+                  }
                 })["catch"](function (error) {
                   console.log(error.response);
                 });
 
-              case 3:
+              case 2:
               case "end":
                 return _context.stop();
             }
@@ -1213,15 +1218,32 @@ function Management() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
       to: "/public/community/showcase/".concat(showcase.id),
       key: index
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
+      className: "title"
+    }, showcase.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "list"
+    }, showcase.showcase_arts.slice(0, 3).map(function (showcase_art, index) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+        to: "/public/community/art/".concat(showcase_art.arts.id),
+        key: index
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+        className: "showcase"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+        className: "showcase-thumbnail"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
+        src: "/storage/app/public/community/".concat(showcase_art.user_id, "/arts/").concat(showcase_art.arts.art)
+      }))));
+    }), showcase.showcase_arts.length > 3 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+      to: "/public/community/showcase/".concat(showcase.id)
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "showcase"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-      className: "title"
-    }, showcase.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-      className: "thumbnail"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
-      src: "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/cyberpunk_2077_refund.jpg"
-    }))));
+      className: "showcase-thumbnail has-more"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+      className: "fas fa-image"
+    }), " ", showcase.showcase_arts.length - 3, "+")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+      className: "showcase-title"
+    })))));
   })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", {
     className: "no-item"
   }, "Tr\u1ED1ng"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_Lists_ArtsList__WEBPACK_IMPORTED_MODULE_5__["default"], {
@@ -1375,7 +1397,7 @@ function ShowArt() {
               case 0:
                 _context.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/arts/get/".concat(id)).then(function (response) {
-                  console.log(response.data.art);
+                  // console.log(response.data);
                   var _response$data = response.data,
                       art = _response$data.art,
                       channelSelectList = _response$data.channelSelectList,
@@ -1603,7 +1625,9 @@ function ShowArt() {
     className: "showcase"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "showcase-thumbnail has-more"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, art.total_showcases, "+")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+    className: "fas fa-grip-horizontal"
+  }), " ", art.total_showcases - 3, "+")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "showcase-title"
   }))))), art.tags.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "tags"
@@ -1911,7 +1935,7 @@ function Showcase() {
               case 0:
                 _context.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/showcases/get/".concat(id)).then(function (response) {
-                  // console.log(response);
+                  console.log(response.data);
                   var _response$data = response.data,
                       showcase = _response$data.showcase,
                       channelSelectList = _response$data.channelSelectList,
@@ -1994,11 +2018,18 @@ function Showcase() {
               _context2.next = 8;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/community/resources/showcases/edit/".concat(values.id, "?api_token=").concat(apiToken), data).then(function (response) {
                 console.log(response);
-                var message = response.data.message;
+                var _response$data2 = response.data,
+                    message = _response$data2.message,
+                    redirect = _response$data2.redirect;
                 dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_13__["setAnnouncementMessage"])({
                   message: message,
                   type: 'success'
                 }));
+
+                if (redirect) {
+                  history.push('/public/community/management');
+                }
+
                 setRefresh(!refresh);
                 setEditMode(false);
                 setRemovalList([]);
@@ -2083,7 +2114,8 @@ function Showcase() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "arts-list"
   }, !lodash__WEBPACK_IMPORTED_MODULE_4___default.a.isEmpty(showcase.showcase_arts) && showcase.showcase_arts.map(function (_ref4, index) {
-    var art = _ref4.arts;
+    var art = _ref4.arts,
+        showcase_id = _ref4.id;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: "wrapper",
       key: index
@@ -2112,9 +2144,9 @@ function Showcase() {
     }, editMode ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
       className: "delete-btn",
       onClick: function onClick() {
-        return handleAddItemToRemovalList(art.id);
+        return handleAddItemToRemovalList(showcase_id);
       }
-    }, removalList.includes(art.id) ? "BỎ GỠ" : "GỠ") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    }, removalList.includes(showcase_id) ? "BỎ GỠ" : "GỠ") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
       to: "/public/community/art/".concat(art.id)
     }, "XEM TH\xCAM"))));
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {

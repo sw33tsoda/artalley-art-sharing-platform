@@ -55,7 +55,7 @@ function Showcase() {
     useEffect(() => {
         const getSpecificShowcase = async () => {
             await Axios.get(`/public/api/community/resources/showcases/get/${id}`).then(response => {
-                // console.log(response);
+                console.log(response.data);
                 const {data:{showcase,channelSelectList,privacySelectList}} = response;
 
                 setShowcase({
@@ -109,11 +109,14 @@ function Showcase() {
         const apiToken = localStorage.getItem('authenticatedUserToken');
         await Axios.post(`/public/api/community/resources/showcases/edit/${values.id}?api_token=${apiToken}`,data).then(response => {
             console.log(response);
-            const {data:{message}} = response;
+            const {data:{message,redirect}} = response;
             dispatch(setAnnouncementMessage({
                 message:message,
                 type:'success',
             }));
+            if (redirect) {
+                history.push('/public/community/management');
+            }
             setRefresh(!refresh);
             setEditMode(false);
             setRemovalList([]);
@@ -171,7 +174,7 @@ function Showcase() {
             </div>
             <DragScroll className="arts-wrapper">
                 <div className="arts-list">
-                    {!_.isEmpty(showcase.showcase_arts) && showcase.showcase_arts.map(({arts:art},index) => (
+                    {!_.isEmpty(showcase.showcase_arts) && showcase.showcase_arts.map(({arts:art,id:showcase_id},index) => (
                         <div className="wrapper" key={index}>
                             <div className="art">
                                 <div className={classnames("overlay",{will_be_removed: removalList.includes(art.id)})}>
@@ -197,7 +200,7 @@ function Showcase() {
                                 </div>
                                 <div className="view-more">
                                     {editMode ? (
-                                        <a className="delete-btn" onClick={() => handleAddItemToRemovalList(art.id)}>{removalList.includes(art.id) ? "BỎ GỠ" : "GỠ"}</a>
+                                        <a className="delete-btn" onClick={() => handleAddItemToRemovalList(showcase_id)}>{removalList.includes(showcase_id) ? "BỎ GỠ" : "GỠ"}</a>
                                     ) : (
                                         <Link to={`/public/community/art/${art.id}`}>XEM THÊM</Link>
                                     )}
