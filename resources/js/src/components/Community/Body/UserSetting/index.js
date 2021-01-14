@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route, Switch } from 'react-router-dom';
 import { authRefresh } from '../../../../store/auth';
+import General from './General';
 import Profile from './Profile';
 
 function UserSetting() {
@@ -16,7 +17,7 @@ function UserSetting() {
         <div className="user-setting">
             <h1 className="page-title">Cài đặt</h1>
             <div className="page-content">
-                <div className="side-bar">
+                <div className="navbar">
                     <div className="item">
                         <Link to={`/public/community/user/${user.id}/arts`}>
                             <h1 className="title">Trang cá nhân</h1>
@@ -41,9 +42,9 @@ function UserSetting() {
                         </Link>
                     </div>
                 </div>
-                <div className="side-content">
+                <div className="content">
                     <Switch>
-                        <Route path="/public/community/setting/general" component={() => <h1>tong quan</h1>}/>
+                        <Route path="/public/community/setting/general" component={() => <General user={user}/>}/>
                         <Route path="/public/community/setting/profile" component={() => <Profile user={user}/>}/>
                         <Route path="/public/community/setting/history" component={() => <h1>lich su</h1>}/>
                     </Switch>

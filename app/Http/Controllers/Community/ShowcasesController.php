@@ -17,16 +17,16 @@ class ShowcasesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($userId)
+    public function index(Request $request)
     {
         return response()->json([
             'message' => 'Lấy danh sách thành công',
-            'list' => (function($userId) {
-                $list = Showcase::where('user_id',$userId)->with(['showcase_arts' => function($query) {
+            'list' => (function() use ($request) {
+                $list = Showcase::where('user_id',$request->user()->id)->with(['showcase_arts' => function($query) {
                     $query->inRandomOrder()->with('arts');
                 }])->orderBy('created_at','desc')->get(); 
                 return $list;
-            })($userId),
+            })(),
         ],200);
     }
 

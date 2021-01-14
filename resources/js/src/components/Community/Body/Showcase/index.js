@@ -11,6 +11,7 @@ import TextareaField from '../../../CustomFields/TextareaField';
 import SelectField from '../../../CustomFields/SelectField';
 import { EditShowcaseValidation } from '../../../Validations';
 import { setAnnouncementMessage } from '../../../../store/community/announcer';
+import Moment from 'react-moment';
 function Showcase() {
     // Global state
     const user = useSelector(state => state.auth.authenticatedUser);
@@ -54,7 +55,7 @@ function Showcase() {
 
     useEffect(() => {
         const getSpecificShowcase = async () => {
-            await Axios.get(`/public/api/community/resources/showcases/get/${id}`).then(response => {
+            await Axios.get(`/public/api/community/resources/public/get-showcase-by-id/${id}`).then(response => {
                 console.log(response.data);
                 const {data:{showcase,channelSelectList,privacySelectList}} = response;
 
@@ -348,6 +349,10 @@ function Showcase() {
                         )}
                     </div>
                 )}
+
+                <div className="upload-date">
+                    <p className="date"><span>Vào lúc : </span><Moment format="H:m:sA D/MM/yyyy">{showcase.created_at}</Moment></p>
+                </div>
             </div>
         </div>
     );

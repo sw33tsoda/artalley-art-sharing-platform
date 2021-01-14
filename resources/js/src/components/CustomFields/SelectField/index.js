@@ -31,7 +31,7 @@ function SelectField(props) {
     // const hasError = errors[name] && touched[name];
 
     return (
-        <div className="form-group mb1">
+        <div className="form-group">
             {label && <label className={labelClassName}>{label}</label>}
             <br></br>
             <select

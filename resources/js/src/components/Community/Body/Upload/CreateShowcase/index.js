@@ -23,18 +23,19 @@ function CreateShowcase() {
         privacies:[],
     });
     const {id:userId} = useSelector(state => state.auth.authenticatedUser);
+    const [loading,setLoading] = useState(true);
 
     useEffect(() => {
-        // const apiToken = localStorage.getItem('authenticatedUserToken');
         const getArtsList = async () => {
-            await Axios.get(`/public/api/community/resources/arts/get-list/${userId}?page=1`).then(response => {
-                const {data:{list:{data,total,last_page,current_page}}} = response;
+            await Axios.get(`/public/api/community/resources/arts?api_token=${localStorage.getItem('authenticatedUserToken')}&page=1`).then(response => {
+                // console.log(response);
+                setLoading(false);
                 setArtsList({
                     ...artsList,
-                    page:current_page,
-                    list:data,
-                    maxPage:last_page,
-                    totalArts:total,
+                    page:response.data.list.current_page,
+                    list:response.data.list.data,
+                    maxPage:response.data.list.last_page,
+                    totalArts:response.data.list.total,
                     hasMore:true,
                 });
             }).catch(error => {
@@ -59,15 +60,14 @@ function CreateShowcase() {
 
     const fetchMoreArtsData = async () => {
         if (artsList.maxPage > artsList.page) {
-            // setLoading(true);
-            await Axios.get(`/public/api/community/resources/arts/get-list/${userId}?page=${artsList.page + 1}`).then(response => {
-                const {data:{list:{current_page,data:newList}}} = response;
+            setLoading(true);
+            await Axios.get(`/public/api/community/resources/arts?api_token=${localStorage.getItem('authenticatedUserToken')}&page=${artsList.page + 1}`).then(response => {
                 setArtsList({
                     ...artsList,
-                    list:artsList.list.concat(newList),
-                    page:current_page,
+                    list:artsList.list.concat(response.data.list.data),
+                    page:response.data.list.current_page,
                 });
-                // setLoading(false);
+                setLoading(false);
             }).catch(error => {
                 console.log(error.response);
             })
@@ -205,10 +205,10 @@ function CreateShowcase() {
                     }}
                 </Formik>
                 <div className="arts-list">
-                    <div className="filter">
+                    {/* <div className="filter">
                         <input className="text-input art-search" type="text" placeholder="Tìm tác phẩm"/>
                         {selectedArts.length > 0 && <button className="button danger clear-selected-arts" onClick={handleClearSelectedArts}>Bỏ chọn</button>}
-                    </div>
+                    </div> */}
                     <InfiniteScroll
                         dataLength={artsList.list && artsList.list.length}
                         next={fetchMoreArtsData}
@@ -224,6 +224,20 @@ function CreateShowcase() {
                             </div>
                         )) : <p>Không có tác phẩm nào</p>}
                     </InfiniteScroll>
+
+                    {loading && (
+                        <center className="loading-wrapper">
+                            <img className="loading" src="https://4.bp.blogspot.com/-a4arXx0z1xQ/VuM0S587YfI/AAAAAAAAAOk/jQf7UpsN93ol-qZYM4CuibUSCG8deiejg/s1600/loading.gif"/>
+                        </center>
+                    )}
+
+                    {artsList.totalArts == artsList.list.length && (
+                        <div className="scroll-end">
+                            <p className="text">
+                                Chẳng còn gì để xem :)
+                            </p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

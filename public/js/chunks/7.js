@@ -97,8 +97,12 @@ function CreateShowcase() {
   }),
       userId = _useSelector.id;
 
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(true),
+      _useState8 = _slicedToArray(_useState7, 2),
+      loading = _useState8[0],
+      setLoading = _useState8[1];
+
   Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
-    // const apiToken = localStorage.getItem('authenticatedUserToken');
     var getArtsList = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -106,17 +110,14 @@ function CreateShowcase() {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/arts/get-list/".concat(userId, "?page=1")).then(function (response) {
-                  var _response$data$list = response.data.list,
-                      data = _response$data$list.data,
-                      total = _response$data$list.total,
-                      last_page = _response$data$list.last_page,
-                      current_page = _response$data$list.current_page;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/arts?api_token=".concat(localStorage.getItem('authenticatedUserToken'), "&page=1")).then(function (response) {
+                  // console.log(response);
+                  setLoading(false);
                   setArtsList(_objectSpread(_objectSpread({}, artsList), {}, {
-                    page: current_page,
-                    list: data,
-                    maxPage: last_page,
-                    totalArts: total,
+                    page: response.data.list.current_page,
+                    list: response.data.list.data,
+                    maxPage: response.data.list.last_page,
+                    totalArts: response.data.list.total,
                     hasMore: true
                   }));
                 })["catch"](function (error) {
@@ -179,33 +180,32 @@ function CreateShowcase() {
           switch (_context3.prev = _context3.next) {
             case 0:
               if (!(artsList.maxPage > artsList.page)) {
-                _context3.next = 5;
+                _context3.next = 6;
                 break;
               }
 
-              _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/arts/get-list/".concat(userId, "?page=").concat(artsList.page + 1)).then(function (response) {
-                var _response$data$list2 = response.data.list,
-                    current_page = _response$data$list2.current_page,
-                    newList = _response$data$list2.data;
+              setLoading(true);
+              _context3.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/arts?api_token=".concat(localStorage.getItem('authenticatedUserToken'), "&page=").concat(artsList.page + 1)).then(function (response) {
                 setArtsList(_objectSpread(_objectSpread({}, artsList), {}, {
-                  list: artsList.list.concat(newList),
-                  page: current_page
-                })); // setLoading(false);
+                  list: artsList.list.concat(response.data.list.data),
+                  page: response.data.list.current_page
+                }));
+                setLoading(false);
               })["catch"](function (error) {
                 console.log(error.response);
               });
 
-            case 3:
-              _context3.next = 6;
+            case 4:
+              _context3.next = 7;
               break;
 
-            case 5:
+            case 6:
               setArtsList(_objectSpread(_objectSpread({}, artsList), {}, {
                 hasMore: false
               }));
 
-            case 6:
+            case 7:
             case "end":
               return _context3.stop();
           }
@@ -362,16 +362,7 @@ function CreateShowcase() {
     })));
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
     className: "arts-list"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
-    className: "filter"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("input", {
-    className: "text-input art-search",
-    type: "text",
-    placeholder: "T\xECm t\xE1c ph\u1EA9m"
-  }), selectedArts.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("button", {
-    className: "button danger clear-selected-arts",
-    onClick: handleClearSelectedArts
-  }, "B\u1ECF ch\u1ECDn")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_10__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_10__["default"], {
     dataLength: artsList.list && artsList.list.length,
     next: fetchMoreArtsData,
     hasMore: artsList.hasMore,
@@ -394,7 +385,16 @@ function CreateShowcase() {
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("img", {
       src: "/storage/app/public/community/".concat(art.user_id, "/arts/").concat(art.art)
     }));
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("p", null, "Kh\xF4ng c\xF3 t\xE1c ph\u1EA9m n\xE0o")))));
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("p", null, "Kh\xF4ng c\xF3 t\xE1c ph\u1EA9m n\xE0o")), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("center", {
+    className: "loading-wrapper"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("img", {
+    className: "loading",
+    src: "https://4.bp.blogspot.com/-a4arXx0z1xQ/VuM0S587YfI/AAAAAAAAAOk/jQf7UpsN93ol-qZYM4CuibUSCG8deiejg/s1600/loading.gif"
+  })), artsList.totalArts == artsList.list.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+    className: "scroll-end"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("p", {
+    className: "text"
+  }, "Ch\u1EB3ng c\xF2n g\xEC \u0111\u1EC3 xem :)")))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (CreateShowcase);

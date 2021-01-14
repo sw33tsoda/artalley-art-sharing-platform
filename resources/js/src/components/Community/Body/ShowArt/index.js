@@ -9,6 +9,8 @@ import InputField from '../../../CustomFields/InputField';
 import TextareaField from '../../../CustomFields/TextareaField';
 import { EditArtValidation } from '../../../Validations';
 import { setAnnouncementMessage } from '../../../../store/community/announcer';
+import DragScroll from 'react-indiana-drag-scroll';
+import Moment from 'react-moment';
 
 function ShowArt() {
     // Lấy thông tin người dùng từ Global State.
@@ -20,7 +22,11 @@ function ShowArt() {
     const editFormRef = useRef();
     const dispatch = useDispatch();
 
+    
     // Local states.
+
+    // Toggle mở rộng quày liên quan
+    const [fullShowcasesListToggle,setFullShowcasesListToggle] = useState(false);
     // Toggle sửa tác phẩm
     const [editMode,setEditMode] = useState(false);
 
@@ -60,8 +66,8 @@ function ShowArt() {
 
     useEffect(() => {
         const getArt = async () => {
-            await Axios.get(`/public/api/community/resources/arts/get/${id}`).then(response => {
-                // console.log(response.data);
+            await Axios.get(`/public/api/community/resources/public/get-art-by-id/${id}`).then(response => {
+                console.log(response.data.art);
                 const {data:{
                     art,
                     channelSelectList,
@@ -220,7 +226,7 @@ function ShowArt() {
                             <div className="showcases-list">
                                 <p className="title">THUỘC</p>
                                 <div className="list">
-                                    {art.showcase_arts.map((showcase_art,index) => {
+                                    {art.showcase_arts.slice(0,3).map((showcase_art,index) => {
                                         return (
                                             <Link to={`/public/community/showcase/${showcase_art.showcase_id}`} key={index}>
                                                 <div className="showcase">
@@ -237,18 +243,16 @@ function ShowArt() {
                                         );
                                     })}
                                     {art.total_showcases > 3 && (
-                                        <Link to={`/public/community/showcase/`}>
-                                            <div className="showcase">
-                                                <div className="showcase-thumbnail has-more">
-                                                    <p>
-                                                        <i className="fas fa-grip-horizontal"></i> {art.total_showcases - 3}+ 
-                                                    </p>
-                                                </div>
-                                                <div className="showcase-title">
-                                                    
-                                                </div>
+                                        <div className="showcase" onClick={() => setFullShowcasesListToggle(!fullShowcasesListToggle)}>
+                                            <div className="showcase-thumbnail has-more">
+                                                <p>
+                                                    <i className="fas fa-grip-horizontal"></i> {art.total_showcases - 3}+ 
+                                                </p>
                                             </div>
-                                        </Link>
+                                            <div className="showcase-title">
+                                                
+                                            </div>
+                                        </div>
                                     )}
                                 </div>
                             </div>
@@ -262,6 +266,45 @@ function ShowArt() {
                             </div>
                         )}
                 </div>}
+
+                {fullShowcasesListToggle && (
+                    <DragScroll className="full-showcases-list">
+                        {art.showcase_arts.map(({showcases:showcase},index) => (
+                            <div key={index}>
+                                <Link to={`/public/community/showcase/${showcase.id}`}>
+                                    <p className="title">{showcase.title}</p>
+                                </Link>
+                                <div className="list">
+                                    {showcase.showcase_arts.slice(0,3).map(({arts:art},index) => {
+                                        return (
+                                            <Link to={`/public/community/art/${art.id}`} key={index}>
+                                                <div className="showcase">
+                                                    <div className="showcase-thumbnail">
+                                                        <img src={`/storage/app/public/community/${art.user_id}/arts/${art.art}`}/>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        );
+                                    })}
+                                    {showcase.showcase_arts.length > 3 && (
+                                        <Link to={`/public/community/showcase/${showcase.id}`}>
+                                            <div className="showcase">
+                                                <div className="showcase-thumbnail has-more">
+                                                    <p>
+                                                        <i className="fas fa-image"></i> {showcase.showcase_arts.length - 3}+ 
+                                                    </p>
+                                                </div>
+                                                <div className="showcase-title">
+                                                    
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </DragScroll>
+                )}
 
                 {(editMode && user.id == art.user_id) && (
                     <div className="edit-form" style={{display:isSubmitting && 'none'}}>
@@ -409,6 +452,10 @@ function ShowArt() {
                         )}
                     </div>
                 )}
+
+                <div className="upload-date">
+                    <p className="date"><span>Vào lúc : </span><Moment format="H:m:sA D/MM/yyyy">{art.created_at}</Moment></p>
+                </div>
             </div>
         </div>
     );

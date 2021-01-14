@@ -11,7 +11,6 @@ function ArtsScrollList(props) {
     const { layout } = props;
     const {dimensions:{selected:selectedDimension}} = useSelector(state => state.community_filter);
     const {channels:{selected:selectedChannel}} = useSelector(state => state.community_filter);
-    // console.log(selectedChannel,selectedDimension);
     const [artsList,setArtsList] = useState({
         list:[],
         page:1,
@@ -24,15 +23,13 @@ function ArtsScrollList(props) {
     useEffect(() => {
         const getArtsList = async () => {
             setLoading(true);
-            await Axios.get(`/public/api/community/resources/interface/get-arts-list/${selectedDimension}-${selectedChannel}?page=1`).then(response => {
-                // console.log('useeffect response',response);
-                const {data:{list:{data,total,last_page,current_page}}} = response;
+            await Axios.get(`/public/api/community/resources/public/get-arts-list/${selectedDimension}-${selectedChannel}?page=1`).then(response => {
                 setArtsList({
                     ...artsList,
-                    page:current_page,
-                    list:data,
-                    maxPage:last_page,
-                    totalArts:total,
+                    page:response.data.list.current_page,
+                    list:response.data.list.data,
+                    maxPage:response.data.list.last_page,
+                    totalArts:response.data.list.total,
                     hasMore:true,
                 });
                 setLoading(false);
@@ -46,12 +43,11 @@ function ArtsScrollList(props) {
     const fetchMoreArtsData = async () => {
         if (artsList.maxPage > artsList.page) {
             setLoading(true);
-            await Axios.get(`/public/api/community/resources/interface/get-arts-list/${selectedDimension}-${selectedChannel}?page=${artsList.page + 1}`).then(response => {
-                const {data:{list:{current_page,data:newList}}} = response;
+            await Axios.get(`/public/api/community/resources/public/get-arts-list/${selectedDimension}-${selectedChannel}?page=${artsList.page + 1}`).then(response => {
                 setArtsList({
                     ...artsList,
-                    list:artsList.list.concat(newList),
-                    page:current_page,
+                    list:artsList.list.concat(response.data.list.data),
+                    page:response.data.list.data.current_page,
                 });
                 setLoading(false);
             }).catch(error => {

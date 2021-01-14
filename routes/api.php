@@ -35,41 +35,53 @@ Route::group(['prefix' => '/admin/resources','middleware' => 'auth:api'],functio
 
 // COMMUNITY
 Route::group(['prefix' => '/community/resources'],function(){
-
+    
     // [PUBLIC] interface
     Route::group(['prefix' => '/interface'], function() {
         Route::get('/upload-select-list', [\App\Http\Controllers\Community\InterfaceController::class, 'uploadSelectList']);
-        Route::get('/get-arts-list/{dimension_id}-{channel_id}', [\App\Http\Controllers\Community\InterfaceController::class,'artsList']);
-        Route::get('/get-slide-arts/{type}',[\App\Http\Controllers\Community\InterfaceController::class,'getSlideArts']);
         Route::get('/get-filters-list',[\App\Http\Controllers\Community\InterfaceController::class,'getFiltersList']);
     });
-
-
-    // [AUTHORIZATION is REQUIRED]
-    Route::group(['middleware' => 'auth:api'],function(){
-        Route::apiResource('arts',\App\Http\Controllers\Community\ArtsController::class);
-        // EDIT ART by USER
-        Route::middleware('arts_authorize_check')->post('/arts/edit/{art}',[\App\Http\Controllers\Community\ArtsController::class,'update']);
-        // DELETE ART by USER
-        Route::middleware('arts_authorize_check')->get('/arts/delete/{art}',[\App\Http\Controllers\Community\ArtsController::class,'destroy']);
-
-        // Route::apiResource('showcaseArts',\App\Http\Controllers\Community\ShowcaseArtsController::class);
-        Route::apiResource('showcases',\App\Http\Controllers\Community\ShowcasesController::class);
-        // EDIT ART by USER
-        Route::middleware('showcases_authorize_check')->post('/showcases/edit/{showcase}',[\App\Http\Controllers\Community\ShowcasesController::class,'update']);
-        Route::middleware('showcases_authorize_check')->get('/showcases/delete/{showcase}',[\App\Http\Controllers\Community\ShowcasesController::class,'destroy']);
-
-        Route::middleware('authorize_check')->apiResource('users',\App\Http\Controllers\Community\UsersController::class);
+    
+    Route::group(['prefix' => '/public'], function() {
+        Route::get('/get-user/{user_id}',[App\Http\Controllers\Community\PublicController::class,'getUserProfile']);
+        
+        // Arts
+        Route::get('/get-art-by-id/{id}',[\App\Http\Controllers\Community\PublicController::class,'getArtById']);
+        Route::get('/get-arts-list/{dimension_id}-{channel_id}', [\App\Http\Controllers\Community\PublicController::class,'getArtsList']);
+        Route::get('/get-arts-list-by-user-id/{user_id}',[\App\Http\Controllers\Community\PublicController::class,'getArtsListByUserId']);
+        Route::get('/get-slide-arts-list/{type}',[\App\Http\Controllers\Community\PublicController::class,'getSlideArtsList']);
+        
+        // Showcases
+        Route::get('/get-showcases-list-by-user-id/{user_id}',[\App\Http\Controllers\Community\PublicController::class,'getShowcasesListByUserId']);
+        Route::get('/get-showcase-by-id/{id}',[\App\Http\Controllers\Community\PublicController::class,'getShowcaseById']);
     });
 
-    // [AUTHORIZATION is NOT REQUIRED]
-    Route::get('/showcases/get/{id}',[\App\Http\Controllers\Community\ShowcasesController::class,'show']);
-    Route::get('/showcases/get-list/{userId}',[\App\Http\Controllers\Community\ShowcasesController::class,'index']);
+    
+    // [AUTHORIZATION is REQUIRED]
+    Route::group(['middleware' => 'auth:api'],function(){
+        
+        // ARTS
+        Route::apiResource('arts',\App\Http\Controllers\Community\ArtsController::class);
+        // EDIT ART
+        Route::middleware('arts_authorize_check')->post('/arts/edit/{art}',[\App\Http\Controllers\Community\ArtsController::class,'update']);
+        // DELETE ART
+        Route::middleware('arts_authorize_check')->get('/arts/delete/{art}',[\App\Http\Controllers\Community\ArtsController::class,'destroy']);
 
-    Route::get('/arts/get-list/{userId}',[\App\Http\Controllers\Community\ArtsController::class,'index']);
-    Route::get('/arts/get/{id}',[\App\Http\Controllers\Community\ArtsController::class,'show']);
+        // SHOWCASES
+        Route::apiResource('showcases',\App\Http\Controllers\Community\ShowcasesController::class);
+        // EDIT SHOWCASE
+        Route::middleware('showcases_authorize_check')->post('/showcases/edit/{showcase}',[\App\Http\Controllers\Community\ShowcasesController::class,'update']);
+        // DETE SHOWCASE 
+        Route::middleware('showcases_authorize_check')->get('/showcases/delete/{showcase}',[\App\Http\Controllers\Community\ShowcasesController::class,'destroy']);
+        
+        // USERS
+        Route::middleware('authorize_check')->apiResource('users',\App\Http\Controllers\Community\UsersController::class);
 
-    Route::get('/users/get/{id}',[\App\Http\Controllers\Community\UsersController::class,'show']);
+        // SHOWCASE ARTS
+        // Route::apiResource('showcaseArts',\App\Http\Controllers\Community\ShowcaseArtsController::class);
+    });
+
+
 
     // [AUTH ONLY]
     Route::group(['prefix' => '/auth-only'],function() {

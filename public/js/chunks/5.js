@@ -65,8 +65,7 @@ function ArtsScrollList(props) {
   var _useSelector2 = Object(react_redux__WEBPACK_IMPORTED_MODULE_6__["useSelector"])(function (state) {
     return state.community_filter;
   }),
-      selectedChannel = _useSelector2.channels.selected; // console.log(selectedChannel,selectedDimension);
-
+      selectedChannel = _useSelector2.channels.selected;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
     list: [],
@@ -93,18 +92,12 @@ function ArtsScrollList(props) {
               case 0:
                 setLoading(true);
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_4___default.a.get("/public/api/community/resources/interface/get-arts-list/".concat(selectedDimension, "-").concat(selectedChannel, "?page=1")).then(function (response) {
-                  // console.log('useeffect response',response);
-                  var _response$data$list = response.data.list,
-                      data = _response$data$list.data,
-                      total = _response$data$list.total,
-                      last_page = _response$data$list.last_page,
-                      current_page = _response$data$list.current_page;
+                return axios__WEBPACK_IMPORTED_MODULE_4___default.a.get("/public/api/community/resources/public/get-arts-list/".concat(selectedDimension, "-").concat(selectedChannel, "?page=1")).then(function (response) {
                   setArtsList(_objectSpread(_objectSpread({}, artsList), {}, {
-                    page: current_page,
-                    list: data,
-                    maxPage: last_page,
-                    totalArts: total,
+                    page: response.data.list.current_page,
+                    list: response.data.list.data,
+                    maxPage: response.data.list.last_page,
+                    totalArts: response.data.list.total,
                     hasMore: true
                   }));
                   setLoading(false);
@@ -141,13 +134,10 @@ function ArtsScrollList(props) {
 
               setLoading(true);
               _context2.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_4___default.a.get("/public/api/community/resources/interface/get-arts-list/".concat(selectedDimension, "-").concat(selectedChannel, "?page=").concat(artsList.page + 1)).then(function (response) {
-                var _response$data$list2 = response.data.list,
-                    current_page = _response$data$list2.current_page,
-                    newList = _response$data$list2.data;
+              return axios__WEBPACK_IMPORTED_MODULE_4___default.a.get("/public/api/community/resources/public/get-arts-list/".concat(selectedDimension, "-").concat(selectedChannel, "?page=").concat(artsList.page + 1)).then(function (response) {
                 setArtsList(_objectSpread(_objectSpread({}, artsList), {}, {
-                  list: artsList.list.concat(newList),
-                  page: current_page
+                  list: artsList.list.concat(response.data.list.data),
+                  page: response.data.list.data.current_page
                 }));
                 setLoading(false);
               })["catch"](function (error) {
@@ -516,7 +506,7 @@ function TrendingArtsSlider(props) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/interface/get-slide-arts/".concat(artsSlideType)).then(function (response) {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/public/get-slide-arts-list/".concat(artsSlideType)).then(function (response) {
                   var list = response.data.list; // console.log(response.data);
 
                   setArtsSlideList(list);
@@ -557,7 +547,7 @@ function TrendingArtsSlider(props) {
       className: "trending-overlay"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
       className: "rank"
-    }, index))));
+    }, index + 1))));
   })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", {
     className: "no-item"
   }, "Tr\u1ED1ng") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {

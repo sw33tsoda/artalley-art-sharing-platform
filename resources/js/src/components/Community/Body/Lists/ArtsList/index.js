@@ -17,18 +17,16 @@ function ArtsList({userId}) {
     useEffect(() => {
         // const apiToken = localStorage.getItem('authenticatedUserToken');
         const getArtsList = async () => {
-            await Axios.get(`/public/api/community/resources/arts/get-list/${userId}?page=1`).then((response) => {
+            await Axios.get(`/public/api/community/resources/public/get-arts-list-by-user-id/${userId}?page=1`).then((response) => {
                 setLoading(false);
-                // console.log(response);
-                const {data:{list:{data,total,current_page,last_page}}} = response;
-                if (data.length > 0) {
+                if (response.data.list.data.length > 0) {
                     setArtsList({
                         ...artsList,
-                        page:current_page,
-                        list:data,
+                        page:response.data.list.current_page,
+                        list:response.data.list.data,
                         hasMore:true,
-                        maxPage:last_page,
-                        totalArts:total,
+                        maxPage:response.data.list.last_page,
+                        totalArts:response.data.list.total,
                     });
                 }
             }).catch(error => {
@@ -41,13 +39,12 @@ function ArtsList({userId}) {
     const fetchMoreData = async () => {
         if (artsList.page <= artsList.maxPage) {
             setLoading(true);
-            await Axios.get(`/public/api/community/resources/arts/get-list/${userId}?page=${artsList.page + 1}`).then((response) => {
-                const {data:{list:{data,current_page}}} = response;
+            await Axios.get(`/public/api/community/resources/public/get-arts-list-by-user-id/${userId}?page=${artsList.page + 1}`).then((response) => {
                 setLoading(false);
                 setArtsList({
                     ...artsList,
-                    list:artsList.list.concat(data),
-                    page:current_page,
+                    list:artsList.list.concat(response.data.list.data),
+                    page:response.data.list.current_page,
                 });
             }).catch(error => {
                 console.log(error.response);

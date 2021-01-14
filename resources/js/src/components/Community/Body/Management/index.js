@@ -11,8 +11,8 @@ function Management() {
 
     useEffect(() => {
         const getArtsList = async () => {
-            await Axios.get(`/public/api/community/resources/showcases/get-list/${userId}`).then((response) => {
-                console.log(response.data.list);
+            await Axios.get(`/public/api/community/resources/showcases?api_token=${localStorage.getItem('authenticatedUserToken')}`).then((response) => {
+                // console.log(response.data);
                 const {data:{list:showcasesResult}} = response;
                 if (showcasesResult.length > 0) {
                     setShowcasesList(showcasesResult);
@@ -34,8 +34,10 @@ function Management() {
                 {showcasesList.length > 0 ? (
                     <DragScroll className="showcases-list">
                         {showcasesList.map((showcase,index) => (
-                            <Link to={`/public/community/showcase/${showcase.id}`} key={index}>
-                                <p className="title">{showcase.title}</p>
+                            <div key={index}>
+                                <Link to={`/public/community/showcase/${showcase.id}`}>
+                                    <p className="title">{showcase.title}</p>
+                                </Link>
                                 <div className="list">
                                     {showcase.showcase_arts.slice(0,3).map((showcase_art,index) => {
                                         return (
@@ -63,7 +65,7 @@ function Management() {
                                         </Link>
                                     )}
                                 </div>
-                            </Link>
+                            </div>
                         ))}
                     </DragScroll>
                 ) :  (

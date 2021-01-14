@@ -45,18 +45,6 @@ class InterfaceController extends Controller
         ],200);
     }
 
-    public function getSlideArts($type) {
-        $query = Art::query();
-        if ($type == 'latest')
-            $list = $query->orderBy('created_at','desc')->take(10)->get();
-        else if ($type == 'trending')
-            $list = $query->get();
-        return response()->json([
-            'message' => 'Lấy danh sách tác phẩm mới nhất cho Slide thành công',
-            'list' => $list,
-        ]);
-    }
-
     public function getFiltersList() {
         $dimensionsList = Dimension::all();
         $channelsList = ArtChannel::all();
@@ -66,23 +54,4 @@ class InterfaceController extends Controller
             'channelsList' => $channelsList,
         ]);
     }
-
-    public function artsList($dimension_id,$channel_id) {
-        $query = Art::query();
-        $list = $query;
-        if (!($dimension_id == 'null')) {
-            $list->where('dimension_id',$dimension_id);
-        }
-
-        // Kiểm tra channel_id
-        if (!($channel_id == 'null')) {
-            $list->where('art_channel_id',$channel_id);
-        }
-
-        return response()->json([
-            'message' => 'Lấy toàn bộ danh sách tác phẩm thành công',
-            'list' => $list->orderBy('created_at','desc')->paginate(12),
-        ]);
-    }
-
 }

@@ -1,26 +1,33 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 // import { useSelector } from 'react-redux';
-import { Link, Route, Switch, useParams } from 'react-router-dom';
+import { Link, Route, Switch, useHistory, useParams } from 'react-router-dom';
 import classnames from 'classnames';
 import CurrentPageSlug from '../../../../utilities/CurrentPageSlug';
 import Arts from './Tabs/Arts';
 import Showcases from './Tabs/Showcases';
 import Questions from './Tabs/Questions';
 import Moment from 'react-moment';
+import { useDispatch } from 'react-redux';
+import { setAnnouncementMessage } from '../../../../store/community/announcer';
 
 function UserProfile() {
     const { id } = useParams();
     const [user,setUser] = useState({});
-
+    const history = useHistory();
+    const dispatch = useDispatch();
     useEffect(() => {
         const getUser = async () => {
-            await Axios.get(`/public/api/community/resources/users/get/${id}`).then(response => {
+            await Axios.get(`/public/api/community/resources/public/get-user/${id}`).then(response => {
                 const {data:{user}} = response;
                 console.log(response);
                 setUser(user);
             }).catch(error => {
-                console.log(error.response);
+                dispatch(setAnnouncementMessage({
+                    message:error.response.data.message,
+                    type:'danger',
+                }));
+                history.push('/public/community');
             })
         }
         getUser();

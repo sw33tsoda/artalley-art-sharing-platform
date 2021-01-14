@@ -11,7 +11,7 @@ function ShowcasesList({userId}) {
     useEffect(() => {
         // const apiToken = localStorage.getItem('authenticatedUserToken');
         const getArtsList = async () => {
-            await Axios.get(`/public/api/community/resources/showcases/get-list/${userId}`).then((response) => {
+            await Axios.get(`/public/api/community/resources/public/get-showcases-list-by-user-id/${userId}`).then((response) => {
                 const {data:{list}} = response;
                 if (list.length > 0) {
                     setShowcasesList(list);
@@ -28,7 +28,7 @@ function ShowcasesList({userId}) {
         !loading ? showcasesList.length > 0 ? (
             <div className="showcases-list">
                 {showcasesList.map((showcase,index) => (
-                    <Link to={`/public/community/showcase/${showcase.id}`} key={index}>
+                    <div key={index}>
                         <div className="list">
                             {showcase.showcase_arts.slice(0,3).map((showcase_art,index) => {
                                 return (
@@ -57,11 +57,11 @@ function ShowcasesList({userId}) {
                             )}
                         </div>
                         <div className="info">
-                            <p className="title">{showcase.title}</p>
+                            <Link to={`/public/community/showcase/${showcase.id}`}><p className="title">{showcase.title}</p></Link>
                             <p className="subheading">{showcase.subheading}</p>
                             <p className="date"><Moment format="H:m:sA D/MM/yyyy">{showcase.created_at}</Moment></p>
                         </div>
-                    </Link>
+                    </div>
                 ))}
             </div>
         ) :  (

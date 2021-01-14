@@ -97,7 +97,6 @@
 
     .footer {
         padding: 20px 0 20px 0;
-        width: 1150px;
         margin:auto;
         @include mobile {
             width: 100%;
@@ -117,11 +116,129 @@
             font-size: 0.75em;
             text-align: justify;
             text-indent: 25px;
+            width: 1150px;
+            margin:auto;
+
+        }
+
+        .full-showcases-list {
+            margin-top: 50px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.30), 0 1px 3px rgba(0, 0, 0, 0.30);
+            cursor: grab;
+            height: auto;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            background: #212121;
+            margin-bottom: 25px;
+            @include desktop {
+                padding: 25px 25px 25px 25px;
+            }
+            animation: fadeIn 1s;
+            column-gap: 10px;
+            a {
+                text-decoration: none;
+                color:#212121;
+            }
+            .title {
+                margin:0;
+                font-weight: bold;
+                color:#d9d9d9;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 250px;
+                margin-bottom: 5px;
+            }
+
+            .list {
+                width: 250px;
+                display:grid;
+                grid-template-columns: 1fr 1fr;
+                column-gap: 3px;
+                row-gap: 2.5px;
+                justify-content: center;
+                .no-item {
+                    color:#d9d9d9;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    p {
+                        margin:0;
+                    }
+                }
+
+                .showcase {
+                    .showcase-thumbnail {
+                        height: 70px;
+                        width: 100%;
+                        border-radius: 0.25em;
+                        overflow: hidden;
+                        img {
+                            height: 70px;
+                            width: 100%;
+                            border-radius: 0.25em;
+                            // box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+                            object-fit: cover;
+                        }
+                        box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+
+                    }
+
+                    .has-more {
+                        background: #212121;
+                        height: 70px;
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+                        p {
+                            cursor: pointer;
+                            color:#d9d9d9;
+                            font-size: 1.5em;
+                            font-weight: bold;
+                            margin:0;
+                        }
+
+                    }
+    
+                    .showcase-title {
+                        text-transform: uppercase;
+                        font-weight: bold;
+                        p {
+                            margin:0;
+                            font-size: 0.75em;
+                        }
+                    }
+                }
+            }
+        }
+
+        .upload-date {
+            margin:auto;
+            margin-top: 50px;
+            width: 1150px;
+            text-align: right;
+            .date {
+                font-size: 0.75em;
+                margin:0;
+                font-style: italic;
+                box-shadow: -43px 2px 0px -39px #ff810c inset;
+                padding-right: 7.5px;
+                span {
+                    font-weight: bold;
+                    font-style: normal !important;
+                }
+            }
         }
 
         .edit-form {
+            margin:auto;
             margin-top: 50px;
             position: relative;
+            width: 1150px;
+
             
             &::before {
                 content: "";
@@ -135,71 +252,18 @@
                 border-radius: 0.25em;
                 background:linear-gradient(180deg, #bbbbbb 0%, rgba(216, 216, 216, 0) 100%);
             }
-            // .dash {
-                // margin-bottom: 25px;
-            // }
-            .text-input {
-                margin-top: 8px;
-            }
-            .split {
-                display:grid; // check React code
-                grid-template-columns: 1fr 1fr;
-                grid-gap: 10px;
-    
-                @include mobile {
-                    grid-template-columns: 1fr;
-                }
-    
-            }
-            
-            textarea {
-                resize: none;
-                height: 100px;
-                padding-top: 5px;
-                &::placeholder {
-                    font-size: 1em;
-                }
-            }
-
-            .tags {
-                font-style: italic;
-                > small {
-                    display: block;
-                }
-                .caption {
-                    margin-bottom: 15px;
-                    span {
-                        border-radius: 0.25em;
-                        text-transform: uppercase;
-                        background-color: #ff7e06;
-                        color: #D9D9D9;
-                        font-size: 0.75em;
-                        padding: 3px 5px 3px 5px;
-                        font-style: normal !important;
-                        font-weight: bold;
-                    }
-                }
-
-                .tags-list {
-                    font-style: normal;
-                    .tag {
-                        border-radius: 0.25em;
-                        display: inline-block;
-                        padding: 3px 5px 3px 5px;
-                        background: #212121;
-                        color:#D9D9D9;
-                        margin-right: 5px;
-                        margin-bottom: 5px;
-                    }
-                }
-            }
         }
 
         .action-wrapper {
             display: flex;
             justify-content: space-evenly;
+            margin:auto;
             margin-top: 50px;
-            
+            width: 1150px;
+            button {
+                background: none;
+                border: 0;
+            }
             .action {
                 width: 50px;
                 height: 50px;
@@ -241,8 +305,10 @@
 
         
         .more {
+            margin:auto;
             display: flex;
             margin-top: 25px;
+            width: 1150px;
             @include mobile {
                 display: grid;
                 grid-template-columns: 1fr;
@@ -372,7 +438,7 @@
 
                         .has-more {
                             background: #212121;
-                            
+                            cursor: pointer;
                             height: 70px;
                             width: 100%;
                             display: flex;

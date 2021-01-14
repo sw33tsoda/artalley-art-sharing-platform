@@ -32,8 +32,8 @@ class EditUserRequest extends FormRequest
             'bio' => 'nullable|min:2|max:500',
             'twitter' => 'nullable|min:2|max:64',
             'facebook' => 'nullable|min:2|max:64',
-            // 'profile_picture' => 'nullable|max:2048|file|mimes:jpeg,jpg', bất đồng với frontend
-            // 'banner' => 'nullable|max:2048|file|mimes:jpeg,jpg',
+            'profile_picture' => 'nullable|max:1048|file|mimes:jpeg,jpg',
+            'banner' => 'nullable|max:1048|file|mimes:jpeg,jpg',
         ];
     }
 

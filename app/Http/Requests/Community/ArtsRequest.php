@@ -30,7 +30,7 @@ class ArtsRequest extends FormRequest
             'dimensional' => 'required',
             'privacy' => 'required',
             'channel' => 'required',
-            'art' => 'required|max:2048|file|mimes:jpeg,png,jpg',
+            'art' => 'required|max:1024|file|mimes:jpeg,jpg',
             'tags' => 'nullable'
         ];
     }
@@ -42,7 +42,7 @@ class ArtsRequest extends FormRequest
             'min' => 'Tối thiểu :min ký tự',
             'max' => 'Tối đa :max ký tự',
             'file' => 'File tải lên không hợp lệ',
-            'mimes' => 'Định dạng cho phép : .JPEG, .JPG, .PNG',
+            'mimes' => 'Định dạng cho phép : .JPEG, .JPG',
             'art.required' => 'Không có File'
         ];
     }

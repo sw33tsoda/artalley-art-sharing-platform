@@ -22,9 +22,9 @@ class ArtsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($userId)
+    public function index(Request $request)
     {
-        $getArtsListByUserId = Art::where('user_id', $userId)->with('artChannels')->orderBy('created_at','desc')->paginate(12);
+        $getArtsListByUserId = Art::where('user_id', $request->user()->id)->with('artChannels')->orderBy('created_at','desc')->paginate(12);
         if (!$getArtsListByUserId) {
             return response()->json([
                 'message' => 'Lấy danh sách thất bại',
@@ -34,7 +34,7 @@ class ArtsController extends Controller
         return response()->json([
             'message' => 'Lấy danh sách thành công',
             'list' => $getArtsListByUserId,
-        ]);
+        ],200);
     }
 
     /**
@@ -106,17 +106,16 @@ class ArtsController extends Controller
                     'artChannels',
                     'dimensions',
                     'showcase_arts' => function ($query) {
-                        $query->with(['showcases' => function ($showcases_query) {
-                            $showcases_query->take(3);
+                        $query->with(['showcases.showcase_arts.arts' => function ($showcases_query) {
+                            // $showcases_query->take(3);
                         },'arts' => function($arts_query) {
-                            $arts_query->take(1);
-                        }])->take(3);
+                            // $arts_query->take(1);
+                        }])->orderBy('created_at','desc')->get();
                     },
                 ])->find($id);
                 
                 // Số lượng showcase chứa tác phẩm này.
                 $getArt['total_showcases'] = ShowcaseArt::where('art_id',$id)->count();
-
                 return $getArt;
             })($id),
             'channelSelectList' => ArtChannel::all(),

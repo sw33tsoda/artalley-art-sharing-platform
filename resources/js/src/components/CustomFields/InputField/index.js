@@ -37,7 +37,7 @@ function InputField(props) {
     }
 
     return (
-        <div className="form-group mb1">
+        <div className="form-group">
             {label && <label className={labelClassName}>{label}</label>}
             <input
                 name={name}

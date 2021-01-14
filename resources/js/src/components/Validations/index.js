@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const KILOBYTES = 2048
+const KILOBYTES = 1024;
 const FILE_SIZE = KILOBYTES * 1024;
 const SUPPORTED_FORMATS = [
     "image/jpg",
@@ -19,7 +19,7 @@ export const UserProfileValidation = Yup.object().shape({
     facebook:   Yup.string().min(2,'Tối thiểu hai ký tự').max(64,'Tên quá dài'),
     profile_picture: Yup.mixed().nullable().test(
         "fileSize",
-        "Kích thước quá lớn, tối đa 2MB",
+        "Kích thước quá lớn, tối đa 1MB",
         value => value ? (value && value.size <= FILE_SIZE) : true,
     ).test(
         "fileFormat",
@@ -28,7 +28,7 @@ export const UserProfileValidation = Yup.object().shape({
     ),
     banner:     Yup.mixed().nullable().test(
         "fileSize",
-        "Kích thước quá lớn, tối đa 2MB",
+        "Kích thước quá lớn, tối đa 1MB",
         value => value ? (value && value.size <= FILE_SIZE) : true,
     ).test(
         "fileFormat",   
@@ -46,7 +46,7 @@ export const SingleArtValidation = Yup.object().shape({
     channel:  Yup.number().required('Không được bỏ trống'),
     art : Yup.mixed().required("Không có File").test(
         "fileSize",
-        "Kích thước quá lớn, tối đa 2MB",
+        "Kích thước quá lớn, tối đa 1MB",
         value => value && value.size <= FILE_SIZE
     ).test(
         "fileFormat",

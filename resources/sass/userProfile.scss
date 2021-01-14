@@ -181,30 +181,42 @@
                 .showcases {
                     .showcases-list {
                         // box-shadow: 0 0 15px rgba(0, 0, 0, 0.30), 0 1px 3px rgba(0, 0, 0, 0.30);
-                        cursor: grab;
+                        // cursor: grab;
                         height: auto;
                         width: 100%;
                         box-sizing: border-box;
                         display: flex;
                         flex-direction: column;
-                        // background: #212121;
+                        background: #212121;
                         margin-bottom: 25px;
                         @include desktop {
                             padding: 5px;
                         }
                         animation: fadeIn 1s;
                         column-gap: 10px;
-                        > a {
+                        > div {
                             text-decoration: none;
-                            color:#212121;
+                            // color:#212121;
+                            color:#d9d9d9;
                             display: grid;
                             grid-template-columns: 250px auto;
                             column-gap: 5px;
                             margin-bottom: 10px;
+                            
+                            &:hover {
+                                color:white;
+                                box-shadow: -43px 2px 0px -40px #ff810c inset;
+                            }
                         }
-
+                        
                         a {
                             text-decoration: none;
+                            color: #d8d8d8;
+                            cursor: pointer;
+                
+                            &:hover {
+                                color: #ff810c;
+                            }
                         }
                         
                         .info {
@@ -229,7 +241,7 @@
 
                             .date {
                                 position: absolute;
-                                bottom: 5px;
+                                bottom: 0px;
                                 right: 5px;
                                 font-size: 0.75em;
                                 font-style: italic;
@@ -237,7 +249,7 @@
                         }
             
                         .list {
-                            min: 250px;
+                            width:  250px;
                             display:grid;
                             grid-template-columns: 1fr 1fr;
                             column-gap: 3px;
@@ -248,6 +260,7 @@
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
+
                                 p {
                                     margin:0;
                                 }
@@ -266,7 +279,7 @@
                                         // box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
                                         object-fit: cover;
                                     }
-                                    // box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+                                    box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
             
                                 }
             
@@ -277,7 +290,7 @@
                                     display: flex;
                                     align-items: center;
                                     justify-content: center;
-                                    // box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+                                    box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
                                     p {
                                         color:#d9d9d9;
                                         font-size: 1.5em;

@@ -10,7 +10,7 @@ function TrendingArtsSlider(props) {
     useEffect(() => {
         setLoading(true);
         const getSlideArts = async () => {
-            await Axios.get(`/public/api/community/resources/interface/get-slide-arts/${artsSlideType}`).then(response => {
+            await Axios.get(`/public/api/community/resources/public/get-slide-arts-list/${artsSlideType}`).then(response => {
                 const {data:{list}} = response;
                 // console.log(response.data);
                 setArtsSlideList(list);
@@ -32,7 +32,7 @@ function TrendingArtsSlider(props) {
                                 <img src={`/storage/app/public/community/${art.user_id}/arts/${art.art}`}/>
                                 {artsSlideType == 'trending' && (
                                     <div className="trending-overlay">
-                                        <p className="rank">{index}</p>
+                                        <p className="rank">{index + 1}</p>
                                     </div>
                                 )}
                             </div>
