@@ -11,6 +11,7 @@ import { EditArtValidation } from '../../../Validations';
 import { setAnnouncementMessage } from '../../../../store/community/announcer';
 import DragScroll from 'react-indiana-drag-scroll';
 import Moment from 'react-moment';
+import CommentSection from '../CommentSection';
 
 function ShowArt() {
     // Lấy thông tin người dùng từ Global State.
@@ -456,6 +457,8 @@ function ShowArt() {
                 <div className="upload-date">
                     <p className="date"><span>Vào lúc : </span><Moment format="H:m:sA D/MM/yyyy">{art.created_at}</Moment></p>
                 </div>
+
+                <CommentSection artId={art.id}/>
             </div>
         </div>
     );

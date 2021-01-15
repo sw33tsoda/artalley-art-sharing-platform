@@ -78,6 +78,7 @@ body {
   resize: none;
   height: 100px;
   padding-top: 5px;
+  font-family: "Roboto", sans-serif;
 }
 
 .form .form-group textarea::-moz-placeholder {
@@ -3155,6 +3156,143 @@ body {
   width: 100% !important;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.community .body .comment-section {
+  margin: auto;
+  margin-top: 25px;
+  padding-top: 25px;
+  border-top: 0.5px solid silver;
+  max-width: 1150px;
+}
+
+.community .body .comment-section .title {
+  margin: 0 0 0 0;
+  color: #212121;
+  font-size: 1.25em;
+  font-weight: bold;
+}
+
+.community .body .comment-section .comment-form .form-group {
+  margin-bottom: 5px;
+}
+
+.community .body .comment-section .comment-form .controls {
+  display: flex;
+  justify-content: flex-end;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
+  justify-items: center;
+  align-items: center;
+}
+
+.community .body .comment-section .comment-form .controls .error {
+  color: crimson;
+  font-weight: bold;
+}
+
+.community .body .comment-section .comment-form .controls .button {
+  flex-basis: 150px;
+  height: 40px;
+  font-size: 1.5em;
+}
+
+.community .body .comment-section .comment-list p {
+  margin: 0;
+}
+
+.community .body .comment-section .comment-list a {
+  text-decoration: none;
+}
+
+.community .body .comment-section .comment-list .comment {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: row;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+}
+
+.community .body .comment-section .comment-list .comment .profile-picture {
+  height: 75px;
+  width: 75px;
+  border-radius: 0.25em;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.community .body .comment-section .comment-list .comment .profile-picture img {
+  border-radius: 0.25em;
+  width: 75px;
+  height: 75px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.community .body .comment-section .comment-list .comment .content {
+  width: calc(1150px - 85px);
+}
+
+.community .body .comment-section .comment-list .comment .content .user-info {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.community .body .comment-section .comment-list .comment .content .user-info a {
+  color: #212121;
+  font-size: 1.25em;
+}
+
+.community .body .comment-section .comment-list .comment .content .user-info a:hover {
+  color: #ff810c;
+}
+
+.community .body .comment-section .comment-list .comment .content .callout-box {
+  display: flex;
+}
+
+.community .body .comment-section .comment-list .comment .content .callout-box .callout {
+  min-width: 20px;
+  padding: 5px 7.5px 5px 7.5px;
+  border-radius: 0 0.5em 0.5em 0.5em;
+  background: white;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
+  transition: 0.25s;
+}
+
+.community .body .comment-section .comment-list .comment .content .callout-box .callout:hover {
+  background: #212121;
+  color: #d8d8d8;
+}
+
+.community .body .comment-section .comment-list .comment .content .action-controls {
+  margin-top: 7.5px;
+  display: flex;
+  justify-content: space-between;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+  width: calc(1150px - 85px);
+}
+
+.community .body .comment-section .comment-list .comment .content .action-controls a {
+  box-shadow: -43px 2px 0px -45px #ff810c inset;
+  padding-right: 7.5px;
+  color: #212121;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.community .body .comment-section .comment-list .comment .content .action-controls a:hover {
+  color: #ff810c;
+  box-shadow: -43px 2px 0px -40px #ff810c inset;
+}
+
+.community .body .comment-section .comment-list .comment .content .action-controls .flex-box:last-child {
+  display: flex;
+  justify-content: flex-end;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
 }
 
 .community .body .loading-wrapper {

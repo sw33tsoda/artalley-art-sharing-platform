@@ -33,6 +33,10 @@ class Art extends Model
         return $this->hasMany('App\Models\ShowcaseArt','art_id','id');
     }
 
+    public function comments() {
+        return $this->hasMany('App\Models\Comment','art_id','id');
+    }
+
     public function users() {
         return $this->belongsTo('App\Models\User','user_id','id');
     }

@@ -57,4 +57,12 @@ class User extends Authenticatable
     public function arts() {
         return $this->hasMany('App\Models\Art','user_id','id');
     }
+
+    public function comments() {
+        return $this->hasMany('App\Models\Comment','user_id','id');
+    }
+
+    public function replies() {
+        return $this->hasMany('App\Models\Reply','user_id','id');
+    }
 }

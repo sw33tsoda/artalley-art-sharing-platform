@@ -54,6 +54,9 @@ Route::group(['prefix' => '/community/resources'],function(){
         // Showcases
         Route::get('/get-showcases-list-by-user-id/{user_id}',[\App\Http\Controllers\Community\PublicController::class,'getShowcasesListByUserId']);
         Route::get('/get-showcase-by-id/{id}',[\App\Http\Controllers\Community\PublicController::class,'getShowcaseById']);
+    
+        // Comments
+        Route::get('/get-comments-list-by-art-id/{art_id}',[\App\Http\Controllers\Community\PublicController::class,'getCommentsListByArtId']);
     });
 
     
@@ -76,6 +79,12 @@ Route::group(['prefix' => '/community/resources'],function(){
         
         // USERS
         Route::middleware('authorize_check')->apiResource('users',\App\Http\Controllers\Community\UsersController::class);
+
+        // COMMENTS
+        Route::apiResource('comments',\App\Http\Controllers\Community\CommentsController::class);
+
+        // REPLIES
+        Route::apiResource('replies',\App\Http\Controllers\Community\RepliesController::class);
 
         // SHOWCASE ARTS
         // Route::apiResource('showcaseArts',\App\Http\Controllers\Community\ShowcaseArtsController::class);

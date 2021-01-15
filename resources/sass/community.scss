@@ -6,6 +6,7 @@
 @import './userProfile.scss';
 @import './userSetting.scss';
 @import './gallery.scss';
+@import './commentSection.scss';
 
 .community {
     width: 100%;
@@ -100,6 +101,10 @@
 
         .community-gallery {
             @include community-gallery;
+        }
+
+        .comment-section {
+            @include community-commentSection;
         }
 
         // loading and scroll-end

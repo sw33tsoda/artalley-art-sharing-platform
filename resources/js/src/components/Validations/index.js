@@ -81,3 +81,11 @@ export const EditShowcaseValidation = Yup.object().shape({
     privacy:   Yup.number().required('Không được bỏ trống'),
     channel:  Yup.number().required('Không được bỏ trống'),
 });
+
+export const CommentValidation = Yup.object().shape({
+    comment: Yup.string().min(2,'Tối thiểu hai ký tự').max(500,'Tối đa 500 ký tự').required('Không được bỏ trống'),
+});
+
+export const ReplyValidation = Yup.object().shape({
+    reply: Yup.string().min(2,'Tối thiểu hai ký tự').max(500,'Tối đa 500 ký tự').required('Không được bỏ trống'),
+});

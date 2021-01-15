@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Community;
 use App\Http\Controllers\Controller;
 use App\Models\Art;
 use App\Models\ArtChannel;
+use App\Models\Comment;
 use App\Models\Dimension;
 use App\Models\Privacy;
 use App\Models\Showcase;
@@ -126,5 +127,12 @@ class PublicController extends Controller
             'message' => 'Lấy danh sách tác phẩm mới nhất cho Slide thành công',
             'list' => $list,
         ]);
+    }
+
+    public function getCommentsListByArtId($art_id) {
+        return response()->json([
+            'message' => 'Lấy danh sách bình luận thành công',
+            'list' => Comment::with('users')->where('art_id',$art_id)->orderBy('created_at','desc')->get(),
+        ],200);
     }
 }
