@@ -3197,6 +3197,10 @@ body {
   font-size: 1.5em;
 }
 
+.community .body .comment-section .comment-list {
+  max-width: 1150px;
+}
+
 .community .body .comment-section .comment-list p {
   margin: 0;
 }
@@ -3205,7 +3209,12 @@ body {
   text-decoration: none;
 }
 
-.community .body .comment-section .comment-list .comment {
+.community .body .comment-section .comment-list .reply .action-controls {
+  width: calc(1150px - (85px * 2)) !important;
+}
+
+.community .body .comment-section .comment-list .comment,
+.community .body .comment-section .comment-list .reply {
   margin-top: 25px;
   display: flex;
   flex-direction: row;
@@ -3213,14 +3222,16 @@ body {
        column-gap: 10px;
 }
 
-.community .body .comment-section .comment-list .comment .profile-picture {
+.community .body .comment-section .comment-list .comment .profile-picture,
+.community .body .comment-section .comment-list .reply .profile-picture {
   height: 75px;
   width: 75px;
   border-radius: 0.25em;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
-.community .body .comment-section .comment-list .comment .profile-picture img {
+.community .body .comment-section .comment-list .comment .profile-picture img,
+.community .body .comment-section .comment-list .reply .profile-picture img {
   border-radius: 0.25em;
   width: 75px;
   height: 75px;
@@ -3228,29 +3239,35 @@ body {
      object-fit: cover;
 }
 
-.community .body .comment-section .comment-list .comment .content {
+.community .body .comment-section .comment-list .comment .content,
+.community .body .comment-section .comment-list .reply .content {
   width: calc(1150px - 85px);
 }
 
-.community .body .comment-section .comment-list .comment .content .user-info {
+.community .body .comment-section .comment-list .comment .content .user-info,
+.community .body .comment-section .comment-list .reply .content .user-info {
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-.community .body .comment-section .comment-list .comment .content .user-info a {
+.community .body .comment-section .comment-list .comment .content .user-info a,
+.community .body .comment-section .comment-list .reply .content .user-info a {
   color: #212121;
   font-size: 1.25em;
 }
 
-.community .body .comment-section .comment-list .comment .content .user-info a:hover {
+.community .body .comment-section .comment-list .comment .content .user-info a:hover,
+.community .body .comment-section .comment-list .reply .content .user-info a:hover {
   color: #ff810c;
 }
 
-.community .body .comment-section .comment-list .comment .content .callout-box {
+.community .body .comment-section .comment-list .comment .content .callout-box,
+.community .body .comment-section .comment-list .reply .content .callout-box {
   display: flex;
 }
 
-.community .body .comment-section .comment-list .comment .content .callout-box .callout {
+.community .body .comment-section .comment-list .comment .content .callout-box .callout,
+.community .body .comment-section .comment-list .reply .content .callout-box .callout {
   min-width: 20px;
   padding: 5px 7.5px 5px 7.5px;
   border-radius: 0 0.5em 0.5em 0.5em;
@@ -3259,12 +3276,14 @@ body {
   transition: 0.25s;
 }
 
-.community .body .comment-section .comment-list .comment .content .callout-box .callout:hover {
+.community .body .comment-section .comment-list .comment .content .callout-box .callout:hover,
+.community .body .comment-section .comment-list .reply .content .callout-box .callout:hover {
   background: #212121;
   color: #d8d8d8;
 }
 
-.community .body .comment-section .comment-list .comment .content .action-controls {
+.community .body .comment-section .comment-list .comment .content .action-controls,
+.community .body .comment-section .comment-list .reply .content .action-controls {
   margin-top: 7.5px;
   display: flex;
   justify-content: space-between;
@@ -3273,7 +3292,8 @@ body {
   width: calc(1150px - 85px);
 }
 
-.community .body .comment-section .comment-list .comment .content .action-controls a {
+.community .body .comment-section .comment-list .comment .content .action-controls a,
+.community .body .comment-section .comment-list .reply .content .action-controls a {
   box-shadow: -43px 2px 0px -45px #ff810c inset;
   padding-right: 7.5px;
   color: #212121;
@@ -3283,12 +3303,14 @@ body {
   cursor: pointer;
 }
 
-.community .body .comment-section .comment-list .comment .content .action-controls a:hover {
+.community .body .comment-section .comment-list .comment .content .action-controls a:hover,
+.community .body .comment-section .comment-list .reply .content .action-controls a:hover {
   color: #ff810c;
   box-shadow: -43px 2px 0px -40px #ff810c inset;
 }
 
-.community .body .comment-section .comment-list .comment .content .action-controls .flex-box:last-child {
+.community .body .comment-section .comment-list .comment .content .action-controls .flex-box:last-child,
+.community .body .comment-section .comment-list .reply .content .action-controls .flex-box:last-child {
   display: flex;
   justify-content: flex-end;
   -moz-column-gap: 5px;

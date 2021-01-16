@@ -132,7 +132,9 @@ class PublicController extends Controller
     public function getCommentsListByArtId($art_id) {
         return response()->json([
             'message' => 'Lấy danh sách bình luận thành công',
-            'list' => Comment::with('users')->where('art_id',$art_id)->orderBy('created_at','desc')->get(),
+            'list' => Comment::with(['users','replies' => function($replies_query) {
+                $replies_query->with('users')->get();
+            }])->where('art_id',$art_id)->orderBy('created_at','desc')->get(),
         ],200);
     }
 }

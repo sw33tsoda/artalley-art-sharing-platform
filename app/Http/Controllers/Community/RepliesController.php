@@ -36,11 +36,21 @@ class RepliesController extends Controller
      */
     public function store(Request $request)
     {
-        Reply::create([
-            'user_id' => $request->user_id,
+        $addReply = Reply::create([
+            'user_id' => $request->user()->id,
             'comment_id' => $request->comment_id,
             'reply' => $request->reply,
         ]);
+
+        if (!$addReply) {
+            return response()->json([
+                'message' => 'Trả lời thất bại',
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Trả lời thành công',
+        ],200);
     }
 
     /**
@@ -85,6 +95,9 @@ class RepliesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Reply::destroy($id);
+        return response()->json([
+            'message' => 'Đã xóa bình luận'
+        ]);
     }
 }

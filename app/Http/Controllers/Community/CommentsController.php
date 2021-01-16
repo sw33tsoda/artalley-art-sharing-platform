@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Community;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use App\Models\Reply;
 use Illuminate\Http\Request;
 
 class CommentsController extends Controller
@@ -95,6 +96,7 @@ class CommentsController extends Controller
      */
     public function destroy($id)
     {
+        Reply::where('comment_id',$id)->delete();
         Comment::destroy($id);
         return response()->json([
             'message' => 'Đã xóa bình luận',

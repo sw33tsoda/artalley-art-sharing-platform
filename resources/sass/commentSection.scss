@@ -40,13 +40,21 @@
     }
 
     .comment-list {
+        max-width: 1150px;
         p {
             margin:0;
         }
         a {
             text-decoration: none;
         }
-        .comment {
+
+        .reply {
+            .action-controls {
+                width: calc(1150px - (85px * 2)) !important;
+            }
+        }
+        
+        .comment,.reply {
             margin-top: 25px;
             display: flex;
             flex-direction: row;

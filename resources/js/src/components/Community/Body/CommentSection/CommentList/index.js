@@ -12,6 +12,7 @@ function CommentList({artId,refresh,refreshList}) {
     useEffect(() => {
         const getCommentsList = async () => {
             await Axios.get(`/public/api/community/resources/public/get-comments-list-by-art-id/${artId}`).then(response => {
+                console.log(response);
                 setCommentsList([...response.data.list]);
             }).catch(error => {
                 console.log(error.response);
@@ -20,17 +21,23 @@ function CommentList({artId,refresh,refreshList}) {
         getCommentsList();
     },[artId,refresh]);
 
-    const handleAction = async (commentId,action) => {
+    const handleAction = async (commentId,action,type) => {
         switch (action) {
             case 'reply': {
-                setReplyOnCommentId(commentId);
+                setReplyOnCommentId(replyOnCommentId == null ? commentId : null);
                 break;
             }
             case 'edit': {
                 break;
             }
             case 'delete': {
-                await Axios.delete(`/public/api/community/resources/comments/${commentId}?api_token=${localStorage.getItem('authenticatedUserToken')}`).then(response => {
+                const resource = (function(){
+                    switch (type) {
+                        case 'comment': return 'comments';
+                        case 'reply' : return 'replies';
+                    }
+                })();
+                await Axios.delete(`/public/api/community/resources/${resource}/${commentId}?api_token=${localStorage.getItem('authenticatedUserToken')}`).then(response => {
                     dispatch(setAnnouncementMessage({
                         message:response.data.message,
                         type:'success',
@@ -49,9 +56,22 @@ function CommentList({artId,refresh,refreshList}) {
         }
     }
 
+    // debugger;
+
     return (
         <div className="comment-list">
-            {commentsList.map((comment,index) => Comment(comment,index,user.id,handleAction,replyOnCommentId))}
+            {commentsList && commentsList.map((comment,index) => (
+                <Comment 
+                    info={comment} 
+                    key={index}
+                    authenticatedUserId={user.id} 
+                    setAction={handleAction} 
+                    replyOnCommentId={replyOnCommentId} 
+                    refreshList={refreshList}
+                    repliesList={comment.replies}
+                    type="comment"
+                />
+            ))}
             {/* <pre>
                 {JSON.stringify(commentsList,null,2)}
             </pre> */}

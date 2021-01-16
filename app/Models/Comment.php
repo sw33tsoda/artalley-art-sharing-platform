@@ -23,4 +23,8 @@ class Comment extends Model
     public function arts() {
         return $this->belongsTo('App\Models\Art','art_id','id');
     }
+
+    public function replies() {
+        return $this->hasMany('App\Models\Reply','comment_id','id');
+    }
 }

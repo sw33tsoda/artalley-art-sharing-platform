@@ -8,7 +8,7 @@ function CommentSection({artId}) {
     return (
         <div className="comment-section">
             <p className="title">Bình luận</p>
-            <CommentForm artId={artId} type="comment" refreshList={() => setRefresh(!refresh)}/>
+            <CommentForm parentColumn='art_id' parentId={artId} type="comment" refreshList={() => setRefresh(!refresh)}/>
             <CommentList artId={artId} refresh={refresh} refreshList={() => setRefresh(!refresh)}/>
         </div>
     );

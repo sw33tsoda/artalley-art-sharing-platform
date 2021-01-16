@@ -7,13 +7,19 @@ import { setAnnouncementMessage } from '../../../../../store/community/announcer
 import TextareaField from '../../../../CustomFields/TextareaField';
 import { CommentValidation } from '../../../../Validations';
 
-function CommentForm({artId,refreshList}) {
+function CommentForm({parentColumn,parentId,refreshList,type}) {
     const dispatch = useDispatch();
     const handleSubmitForm = async (values,{resetForm}) => {
-        const data = new FormData();
-        data.append('comment',values.comment);
-        data.append('art_id',artId);
-        await Axios.post(`/public/api/community/resources/comments?api_token=${localStorage.getItem('authenticatedUserToken')}`,data).then(response => {
+            const resource = (function(){
+                switch (type) {
+                    case 'comment': return 'comments';
+                    case 'reply' : return 'replies';
+                }
+            })();
+            const data = new FormData();
+            data.append(type,values.comment);
+            data.append(parentColumn,parentId);
+            await Axios.post(`/public/api/community/resources/${resource}?api_token=${localStorage.getItem('authenticatedUserToken')}`,data).then(response => {
             dispatch(setAnnouncementMessage({
                 message:response.data.message,
                 type:'success',
@@ -30,9 +36,7 @@ function CommentForm({artId,refreshList}) {
 
 
     return (
-        <Formik validationSchema={CommentValidation} initialValues={{
-            comment:''
-        }} onSubmit={handleSubmitForm}>
+        <Formik validationSchema={CommentValidation} initialValues={{comment:''}} onSubmit={handleSubmitForm}>
             {({values,errors,handleSubmit}) => {
                 return (
                     <form className="form comment-form" onSubmit={handleSubmit}>
