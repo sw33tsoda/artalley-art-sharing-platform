@@ -19,8 +19,8 @@ class CreateComments extends Migration
             $table->bigInteger('art_id')->unsigned();
             $table->text('comment')->nullable()->default(null);
             $table->tinyInteger('is_edited')->unsigned()->default(0);
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('art_id')->references('id')->on('arts');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('art_id')->references('id')->on('arts')->onDelete('cascade');
             $table->timestamps();
         });
     }

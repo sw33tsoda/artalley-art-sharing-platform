@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Community;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Community\CommentsRequest;
 use App\Models\Comment;
 use App\Models\Reply;
 use Illuminate\Http\Request;
@@ -83,9 +84,20 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CommentsRequest $request, $id)
     {
-        //
+        $editComment = Comment::find($id);
+        $editComment->comment = $request->comment;
+        $editComment->is_edited = true;
+        $save = $editComment->save();
+        if (!$save) {
+            return response()->json([
+                'message' => 'Sửa bình luận thất bại',
+            ],500);
+        }
+        return response()->json([
+            'message' => 'Đã sửa bình luận',
+        ],200);
     }
 
     /**

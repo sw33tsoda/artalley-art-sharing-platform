@@ -4,15 +4,20 @@
     padding-top: 25px;
     border-top: 0.5px solid silver;
     max-width: 1150px;
-
+    
+    .error {
+        color:crimson !important;
+        font-weight: bold;
+    }
     .title {
         margin: 0 0 0 0;
         color: #212121;
         font-size: 1.25em;
         font-weight: bold;
     }
-
+    
     .comment-form {
+        padding-bottom: 5px;
         .form-group {
             margin-bottom: 5px;
         }
@@ -26,10 +31,6 @@
     
             }
 
-            .error {
-                color:crimson;
-                font-weight: bold;
-            }
     
             .button {
                 flex-basis: 150px;
@@ -50,30 +51,31 @@
 
         .reply {
             .action-controls {
-                width: calc(1150px - (85px * 2)) !important;
+                width: calc(1150px - (60px * 2)) !important;
             }
         }
         
         .comment,.reply {
-            margin-top: 25px;
+            margin-top: 10px;
             display: flex;
             flex-direction: row;
             column-gap: 10px;
+            // border-bottom: 0.5px solid silver;
             .profile-picture {
-                height: 75px;
-                width: 75px;
+                height: 50px;
+                width: 50px;
                 border-radius: 0.25em;
                 box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
                 img {
                     border-radius: 0.25em;
-                    width: 75px;
-                    height: 75px;
+                    width: 50px;
+                    height: 50px;
                     object-fit: cover;
                 }
             }
 
             .content {
-                width: calc(1150px - 85px);
+                width: calc(1150px - 60px);
                 // display: flex;
                 // flex-direction: column;
 
@@ -82,7 +84,7 @@
                     margin-bottom: 5px;
                     a {
                         color:#212121;
-                        font-size: 1.25em;
+                        font-size: 1em;
                         &:hover {
                             color:#ff810c;
                         }
@@ -91,25 +93,29 @@
                 .callout-box {
                     display: flex;
                     .callout {
-                        min-width: 20px;
+                        min-width: 1px;
                         padding: 5px 7.5px 5px 7.5px;
                         border-radius: 0 0.5em 0.5em 0.5em;
                         background:white;
                         box-shadow:0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
                         transition: 0.25s;
-                        
+                        font-size: 0.85em;
                         &:hover {
                             background:#212121;
                             color:#d8d8d8;
                         }
                     }
+
+                    .edit_mode {
+                        width: 100% !important;
+                    }
                 }
                 .action-controls {
-                    margin-top: 7.5px;
+                    margin-top: 5px;
                     display: flex;
                     justify-content: space-between;
                     column-gap: 5px;
-                    width: calc(1150px - 85px);
+                    width: calc(1150px - 60px);
                     
                     a {
                         box-shadow: -43px 2px 0px -45px #ff810c inset;
@@ -118,6 +124,7 @@
                         text-transform: uppercase;
                         font-weight: bold;
                         transition: 0.25s;
+                        font-size: 0.85em;
                         cursor: pointer;
                         &:hover {
                             color:#ff810c;

@@ -3166,11 +3166,20 @@ body {
   max-width: 1150px;
 }
 
+.community .body .comment-section .error {
+  color: crimson !important;
+  font-weight: bold;
+}
+
 .community .body .comment-section .title {
   margin: 0 0 0 0;
   color: #212121;
   font-size: 1.25em;
   font-weight: bold;
+}
+
+.community .body .comment-section .comment-form {
+  padding-bottom: 5px;
 }
 
 .community .body .comment-section .comment-form .form-group {
@@ -3184,11 +3193,6 @@ body {
        column-gap: 15px;
   justify-items: center;
   align-items: center;
-}
-
-.community .body .comment-section .comment-form .controls .error {
-  color: crimson;
-  font-weight: bold;
 }
 
 .community .body .comment-section .comment-form .controls .button {
@@ -3210,12 +3214,12 @@ body {
 }
 
 .community .body .comment-section .comment-list .reply .action-controls {
-  width: calc(1150px - (85px * 2)) !important;
+  width: calc(1150px - (60px * 2)) !important;
 }
 
 .community .body .comment-section .comment-list .comment,
 .community .body .comment-section .comment-list .reply {
-  margin-top: 25px;
+  margin-top: 10px;
   display: flex;
   flex-direction: row;
   -moz-column-gap: 10px;
@@ -3224,8 +3228,8 @@ body {
 
 .community .body .comment-section .comment-list .comment .profile-picture,
 .community .body .comment-section .comment-list .reply .profile-picture {
-  height: 75px;
-  width: 75px;
+  height: 50px;
+  width: 50px;
   border-radius: 0.25em;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
 }
@@ -3233,15 +3237,15 @@ body {
 .community .body .comment-section .comment-list .comment .profile-picture img,
 .community .body .comment-section .comment-list .reply .profile-picture img {
   border-radius: 0.25em;
-  width: 75px;
-  height: 75px;
+  width: 50px;
+  height: 50px;
   -o-object-fit: cover;
      object-fit: cover;
 }
 
 .community .body .comment-section .comment-list .comment .content,
 .community .body .comment-section .comment-list .reply .content {
-  width: calc(1150px - 85px);
+  width: calc(1150px - 60px);
 }
 
 .community .body .comment-section .comment-list .comment .content .user-info,
@@ -3253,7 +3257,7 @@ body {
 .community .body .comment-section .comment-list .comment .content .user-info a,
 .community .body .comment-section .comment-list .reply .content .user-info a {
   color: #212121;
-  font-size: 1.25em;
+  font-size: 1em;
 }
 
 .community .body .comment-section .comment-list .comment .content .user-info a:hover,
@@ -3268,12 +3272,13 @@ body {
 
 .community .body .comment-section .comment-list .comment .content .callout-box .callout,
 .community .body .comment-section .comment-list .reply .content .callout-box .callout {
-  min-width: 20px;
+  min-width: 1px;
   padding: 5px 7.5px 5px 7.5px;
   border-radius: 0 0.5em 0.5em 0.5em;
   background: white;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.25);
   transition: 0.25s;
+  font-size: 0.85em;
 }
 
 .community .body .comment-section .comment-list .comment .content .callout-box .callout:hover,
@@ -3282,14 +3287,19 @@ body {
   color: #d8d8d8;
 }
 
+.community .body .comment-section .comment-list .comment .content .callout-box .edit_mode,
+.community .body .comment-section .comment-list .reply .content .callout-box .edit_mode {
+  width: 100% !important;
+}
+
 .community .body .comment-section .comment-list .comment .content .action-controls,
 .community .body .comment-section .comment-list .reply .content .action-controls {
-  margin-top: 7.5px;
+  margin-top: 5px;
   display: flex;
   justify-content: space-between;
   -moz-column-gap: 5px;
        column-gap: 5px;
-  width: calc(1150px - 85px);
+  width: calc(1150px - 60px);
 }
 
 .community .body .comment-section .comment-list .comment .content .action-controls a,
@@ -3300,6 +3310,7 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   transition: 0.25s;
+  font-size: 0.85em;
   cursor: pointer;
 }
 

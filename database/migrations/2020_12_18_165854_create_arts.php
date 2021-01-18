@@ -31,7 +31,7 @@ class CreateArts extends Migration
         
         Schema::table('arts', function (Blueprint $table) {
             $table->foreign('privacy_id')->references('id')->on('privacies');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('dimension_id')->references('id')->on('dimensions');
             $table->foreign('art_channel_id')->references('id')->on('art_channels');
             // $table->foreign('showcase_art_id')->references('id')->on('showcase_arts');

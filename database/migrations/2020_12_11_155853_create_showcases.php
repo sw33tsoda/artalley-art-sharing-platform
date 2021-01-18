@@ -25,7 +25,7 @@ class CreateShowcases extends Migration
         });
 
         Schema::table('showcases', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('art_channel_id')->references('id')->on('art_channels');
             $table->foreign('privacy_id')->references('id')->on('privacies');
         });

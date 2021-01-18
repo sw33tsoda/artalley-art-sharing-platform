@@ -182,7 +182,7 @@ class ArtsController extends Controller
         } catch (\Throwable $e) {
             report($e);
             return response()->json([
-                'message' => 'Lỗi xóa'
+                'message' => 'Lỗi xóa',
             ],500);
         }       
         return response()->json([

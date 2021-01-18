@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Community;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Community\RepliesRequest;
 use App\Models\Reply;
 use Illuminate\Http\Request;
 
@@ -82,9 +83,20 @@ class RepliesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RepliesRequest $request, $id)
     {
-        //
+        $editReply = Reply::find($id);
+        $editReply->reply = $request->reply;
+        $editReply->is_edited = true;
+        $save = $editReply->save();
+        if (!$save) {
+            return response()->json([
+                'message' => 'Sửa bình luận thất bại',
+            ],500);
+        }
+        return response()->json([
+            'message' => 'Đã sửa bình luận',
+        ],200);
     }
 
     /**

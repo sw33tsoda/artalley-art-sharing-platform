@@ -6,13 +6,18 @@ import Comment from './Comment';
 
 function CommentList({artId,refresh,refreshList}) {
     const [commentsList,setCommentsList] = useState([]);
-    const [replyOnCommentId,setReplyOnCommentId] = useState(null);
+    const [currentAction,setCurrentAction] = useState({
+        type:null,
+        action:null,
+        id:null,
+    });
+    // console.log(currentAction);
     const user = useSelector(state => state.auth.authenticatedUser);
     const dispatch = useDispatch();
     useEffect(() => {
         const getCommentsList = async () => {
             await Axios.get(`/public/api/community/resources/public/get-comments-list-by-art-id/${artId}`).then(response => {
-                console.log(response);
+                // console.log(response);
                 setCommentsList([...response.data.list]);
             }).catch(error => {
                 console.log(error.response);
@@ -21,13 +26,22 @@ function CommentList({artId,refresh,refreshList}) {
         getCommentsList();
     },[artId,refresh]);
 
-    const handleAction = async (commentId,action,type) => {
+    const handleAction = async (id,action,type) => {
         switch (action) {
-            case 'reply': {
-                setReplyOnCommentId(replyOnCommentId == null ? commentId : null);
+            case 'add': {
+                setCurrentAction({
+                    type:type,
+                    action:'add',
+                    id:id == currentAction.id ? null : id,
+                });
                 break;
             }
             case 'edit': {
+                setCurrentAction({
+                    type:type,
+                    action:'edit',
+                    id:id == currentAction.id ? null : id,
+                })
                 break;
             }
             case 'delete': {
@@ -37,7 +51,7 @@ function CommentList({artId,refresh,refreshList}) {
                         case 'reply' : return 'replies';
                     }
                 })();
-                await Axios.delete(`/public/api/community/resources/${resource}/${commentId}?api_token=${localStorage.getItem('authenticatedUserToken')}`).then(response => {
+                await Axios.delete(`/public/api/community/resources/${resource}/${id}?api_token=${localStorage.getItem('authenticatedUserToken')}`).then(response => {
                     dispatch(setAnnouncementMessage({
                         message:response.data.message,
                         type:'success',
@@ -48,6 +62,14 @@ function CommentList({artId,refresh,refreshList}) {
                         message:error.response.data.message,
                         type:'danger',
                     }));
+                });
+            }
+
+            case 'clear': {
+                setCurrentAction({
+                    action:null,
+                    type:null,
+                    id:null,
                 });
             }
             default:{
@@ -66,7 +88,7 @@ function CommentList({artId,refresh,refreshList}) {
                     key={index}
                     authenticatedUserId={user.id} 
                     setAction={handleAction} 
-                    replyOnCommentId={replyOnCommentId} 
+                    currentAction={currentAction}
                     refreshList={refreshList}
                     repliesList={comment.replies}
                     type="comment"

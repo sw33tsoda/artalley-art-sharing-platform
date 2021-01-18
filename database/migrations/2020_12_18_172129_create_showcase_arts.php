@@ -22,9 +22,9 @@ class CreateShowcaseArts extends Migration
         });
 
         Schema::table('showcase_arts', function (Blueprint $table) {
-            $table->foreign('art_id')->references('id')->on('arts');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('showcase_id')->references('id')->on('showcases');
+            $table->foreign('art_id')->references('id')->on('arts')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('showcase_id')->references('id')->on('showcases')->onDelete('cascade');
         });
     }
 
