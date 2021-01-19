@@ -19,6 +19,7 @@ function Comment({info,authenticatedUserId,setAction,currentAction,refreshList,r
             <div className="content">
                 <div className="user-info">
                     <Link to={`/public/community/user/${info.users.id}/arts`}>{info.users.username}</Link>
+                    {info.is_edited == true && <p className="edited">(Bình luận đã được chỉnh sửa)</p>}
                 </div>
                 <div className="callout-box">
                     <div className={classnames("callout",{edit_mode: currentAction.type == type && currentAction.id == info.id && currentAction.action == 'edit'})}>
@@ -36,7 +37,7 @@ function Comment({info,authenticatedUserId,setAction,currentAction,refreshList,r
                     <div className="action-controls form">
                         <div className="flex-box">
                             {info.user_id == authenticatedUserId && type !== 'reply' && (
-                                <a onClick={() => setAction(info.id,'add','reply')}>{(info.id == currentAction.id && currentAction.type == 'comment') ? "HỦY" : "TRẢ LỜI"}</a>
+                                <a onClick={() => setAction(info.id,'add','reply')}>{(currentAction.type == 'reply' && currentAction.action == 'add' && currentAction.id == info.id) ? "HỦY" : "TRẢ LỜI"}</a>
                             )}
                         </div>
                     
@@ -44,7 +45,7 @@ function Comment({info,authenticatedUserId,setAction,currentAction,refreshList,r
                         <div className="flex-box">  
                             {info.user_id == authenticatedUserId && (
                                 <React.Fragment>
-                                    <a onClick={() => setAction(info.id,'edit',type)}>Sửa</a>
+                                    {currentAction.id == info.id && currentAction.action == 'edit' ? (null) : <a onClick={() => setAction(info.id,'edit',type)}>Sửa</a>}
                                     <a onClick={() => setAction(info.id,'delete',type)}>Xóa</a>
                                 </React.Fragment>
                             )}

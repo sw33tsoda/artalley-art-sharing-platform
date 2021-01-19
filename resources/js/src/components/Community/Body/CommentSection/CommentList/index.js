@@ -32,7 +32,7 @@ function CommentList({artId,refresh,refreshList}) {
                 setCurrentAction({
                     type:type,
                     action:'add',
-                    id:id == currentAction.id ? null : id,
+                    id:id
                 });
                 break;
             }
@@ -40,7 +40,7 @@ function CommentList({artId,refresh,refreshList}) {
                 setCurrentAction({
                     type:type,
                     action:'edit',
-                    id:id == currentAction.id ? null : id,
+                    id:id
                 })
                 break;
             }

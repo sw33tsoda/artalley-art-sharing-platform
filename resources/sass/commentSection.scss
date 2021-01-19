@@ -82,6 +82,15 @@
                 .user-info {
                     font-weight: bold;
                     margin-bottom: 5px;
+                    display: flex;
+                    column-gap: 5px;
+                    align-items: center;
+                    .edited {
+                        font-weight: normal;
+                        font-style: italic;
+                        font-size: 0.75em;
+                    }
+
                     a {
                         color:#212121;
                         font-size: 1em;

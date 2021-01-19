@@ -3252,6 +3252,17 @@ body {
 .community .body .comment-section .comment-list .reply .content .user-info {
   font-weight: bold;
   margin-bottom: 5px;
+  display: flex;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+  align-items: center;
+}
+
+.community .body .comment-section .comment-list .comment .content .user-info .edited,
+.community .body .comment-section .comment-list .reply .content .user-info .edited {
+  font-weight: normal;
+  font-style: italic;
+  font-size: 0.75em;
 }
 
 .community .body .comment-section .comment-list .comment .content .user-info a,

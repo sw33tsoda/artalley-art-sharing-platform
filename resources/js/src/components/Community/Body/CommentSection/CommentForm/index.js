@@ -38,9 +38,8 @@ function CommentForm({parentColumn,parentId,refreshList,type,action,initialValue
             refreshList();
             setAction(null,'clear',null);
         }).catch(error => {
-            console.log(error);
             dispatch(setAnnouncementMessage({
-                message:'yess',
+                message:error.response.data.message,
                 type:'danger',
             }));
         });

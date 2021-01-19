@@ -863,9 +863,8 @@ function CommentForm(_ref) {
       refreshList();
       setAction(null, 'clear', null);
     })["catch"](function (error) {
-      console.log(error);
       dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_5__["setAnnouncementMessage"])({
-        message: 'yess',
+        message: error.response.data.message,
         type: 'danger'
       }));
     });
@@ -969,7 +968,9 @@ function Comment(_ref) {
     className: "user-info"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
     to: "/public/community/user/".concat(info.users.id, "/arts")
-  }, info.users.username)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+  }, info.users.username), info.is_edited == true && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
+    className: "edited"
+  }, "(B\xECnh lu\u1EADn \u0111\xE3 \u0111\u01B0\u1EE3c ch\u1EC9nh s\u1EEDa)")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "callout-box"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: classnames__WEBPACK_IMPORTED_MODULE_6___default()("callout", {
@@ -990,9 +991,9 @@ function Comment(_ref) {
     onClick: function onClick() {
       return setAction(info.id, 'add', 'reply');
     }
-  }, info.id == currentAction.id && currentAction.type == 'comment' ? "HỦY" : "TRẢ LỜI")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+  }, currentAction.type == 'reply' && currentAction.action == 'add' && currentAction.id == info.id ? "HỦY" : "TRẢ LỜI")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "flex-box"
-  }, info.user_id == authenticatedUserId && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+  }, info.user_id == authenticatedUserId && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, currentAction.id == info.id && currentAction.action == 'edit' ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
     onClick: function onClick() {
       return setAction(info.id, 'edit', type);
     }
@@ -1144,7 +1145,7 @@ function CommentList(_ref) {
               setCurrentAction({
                 type: type,
                 action: 'add',
-                id: id == currentAction.id ? null : id
+                id: id
               });
               return _context2.abrupt("break", 12);
 
@@ -1152,7 +1153,7 @@ function CommentList(_ref) {
               setCurrentAction({
                 type: type,
                 action: 'edit',
-                id: id == currentAction.id ? null : id
+                id: id
               });
               return _context2.abrupt("break", 12);
 
