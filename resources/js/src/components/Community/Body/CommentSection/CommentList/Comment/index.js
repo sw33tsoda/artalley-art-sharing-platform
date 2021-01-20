@@ -1,13 +1,7 @@
-import { FastField, Formik } from 'formik';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import TextareaField from '../../../../../CustomFields/TextareaField';
-import { CommentValidation } from '../../../../../Validations';
 import CommentForm from '../../CommentForm';
 import classnames from 'classnames';
-import Axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { setAnnouncementMessage } from '../../../../../../store/community/announcer';
 
 function Comment({info,authenticatedUserId,setAction,currentAction,refreshList,repliesList,type}) {
     return (
