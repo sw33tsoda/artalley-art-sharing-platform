@@ -1,11 +1,50 @@
-import React from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CommentForm from '../../CommentForm';
 import classnames from 'classnames';
+import { isEmpty, isEqual } from 'lodash';
+import { setAnnouncementMessage } from '../../../../../../store/community/announcer';
+import { useDispatch } from 'react-redux';
 
-function Comment({info,authenticatedUserId,setAction,currentAction,refreshList,repliesList,type}) {
-    return (
-        <div className={`${type}`}>
+function Comment({info,authenticatedUserId,setAction,currentAction,refreshList,repliesListData,type}) {
+    const [repliesList,setRepliesList] = useState([]);
+    const [newInfo,setNewInfo] = useState('');
+    const [isDeleted,setIsDeleted] = useState(false);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        setRepliesList(repliesListData);
+    })
+
+    const handleRenewInfo = (data) => {
+        setNewInfo(data);
+    }
+
+    const handleAddNewReply = (reply) => {
+        let newList = repliesList;
+        newList.push(reply);
+        setRepliesList(newList);
+    }
+
+    const handleDelete = () => {
+        setAction(info.id,'delete',type).then(response => {
+            dispatch(setAnnouncementMessage({
+                message:response.data.message,
+                type:'success',
+            }));
+            setIsDeleted(true);
+        }).catch(error => {
+            dispatch(setAnnouncementMessage({
+                message:error.response.data.message,
+                type:'danger',
+            }));
+        });
+    }
+
+    console.log(repliesList);
+
+    return (!isDeleted &&
+        <div className={classnames(`${type}`,{deleted:isDeleted})}>
             <div className="profile-picture">
                 <Link to={`/public/community/user/${info.users.id}/arts`}><img src={`/storage/app/public/profilePictures/${info.users.profile_picture}`}/></Link>
             </div>
@@ -13,14 +52,14 @@ function Comment({info,authenticatedUserId,setAction,currentAction,refreshList,r
             <div className="content">
                 <div className="user-info">
                     <Link to={`/public/community/user/${info.users.id}/arts`}>{info.users.username}</Link>
-                    {info.is_edited == true && <p className="edited">(Bình luận đã được chỉnh sửa)</p>}
+                    {(info.is_edited == true || newInfo) && <p className="edited">(Bình luận đã được chỉnh sửa)</p>}
                 </div>
                 <div className="callout-box">
                     <div className={classnames("callout",{edit_mode: currentAction.type == type && currentAction.id == info.id && currentAction.action == 'edit'})}>
                         {currentAction.type == type && currentAction.id == info.id && currentAction.action == 'edit' ? (
-                            <CommentForm action='edit' type={type} parentId={info.id} initialValues={info} setAction={setAction} refreshList={refreshList}/>
+                            <CommentForm action='edit' type={type} parentId={info.id} initialValues={info} setAction={setAction} refreshList={refreshList} renewInfo={handleRenewInfo}/>
                         ) : (
-                            <p>{info[type]}</p>
+                            <p>{newInfo ? newInfo : info[type]}</p>
                         )}
                     </div>
                     <div></div>
@@ -40,14 +79,14 @@ function Comment({info,authenticatedUserId,setAction,currentAction,refreshList,r
                             {info.user_id == authenticatedUserId && (
                                 <React.Fragment>
                                     {currentAction.id == info.id && currentAction.action == 'edit' ? (null) : <a onClick={() => setAction(info.id,'edit',type)}>Sửa</a>}
-                                    <a onClick={() => setAction(info.id,'delete',type)}>Xóa</a>
+                                    <a onClick={handleDelete}>Xóa</a>
                                 </React.Fragment>
                             )}
                         </div>
                     </div>
                 )}
                 {(info.user_id == authenticatedUserId && info.id == currentAction.id && currentAction.action == 'add' && currentAction.type == 'reply') && (
-                    <CommentForm parentColumn='comment_id' parentId={info.id} refreshList={refreshList} type={currentAction.type} action='add' setAction={setAction}/>
+                    <CommentForm parentColumn='comment_id' parentId={info.id} refreshList={refreshList} type={currentAction.type} action='add' setAction={setAction} addNew={handleAddNewReply}/>
                 )}
 
                 {repliesList && repliesList.map((reply,index) => (

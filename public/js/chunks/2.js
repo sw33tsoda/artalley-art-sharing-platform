@@ -802,7 +802,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function CommentForm(_ref) {
-  var parentColumn = _ref.parentColumn,
+  var renewInfo = _ref.renewInfo,
+      addNew = _ref.addNew,
+      parentColumn = _ref.parentColumn,
       parentId = _ref.parentId,
       refreshList = _ref.refreshList,
       type = _ref.type,
@@ -818,7 +820,8 @@ function CommentForm(_ref) {
 
   var handleSubmitForm = function handleSubmitForm(values, _ref2) {
     var resetForm = _ref2.resetForm;
-    setIsSubmitting(true); // console.log(parentColumn,parentId,refreshList,type,action,initialValues,setAction);
+    console.log(values);
+    setIsSubmitting(true);
 
     var resource = function () {
       switch (type) {
@@ -837,12 +840,13 @@ function CommentForm(_ref) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                data.append(type, values[type]);
+
                 if (!(action == 'edit')) {
                   _context.next = 6;
                   break;
                 }
 
-                data.append(type, values[type]);
                 data.append('_method', 'PATCH');
                 _context.next = 5;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/community/resources/".concat(resource, "/").concat(parentId, "?api_token=").concat(localStorage.getItem('authenticatedUserToken')), data);
@@ -851,15 +855,14 @@ function CommentForm(_ref) {
                 return _context.abrupt("return", _context.sent);
 
               case 6:
-                data.append(type, values[type]);
                 data.append(parentColumn, parentId);
-                _context.next = 10;
+                _context.next = 9;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/public/api/community/resources/".concat(resource, "?api_token=").concat(localStorage.getItem('authenticatedUserToken')), data);
 
-              case 10:
+              case 9:
                 return _context.abrupt("return", _context.sent);
 
-              case 11:
+              case 10:
               case "end":
                 return _context.stop();
             }
@@ -871,19 +874,27 @@ function CommentForm(_ref) {
         return _ref3.apply(this, arguments);
       };
     })()(formData, values, type, action).then(function (response) {
+      console.log(response.data);
       dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_5__["setAnnouncementMessage"])({
         message: response.data.message,
         type: 'success'
-      })); // if (action == undefined) {
-      // }
+      }));
 
-      resetForm();
-      refreshList();
+      if (action == 'edit') {
+        renewInfo(response.data.renew);
+      }
+
+      if (action == 'add' && type == 'reply') {
+        addNew(response.data.new_reply);
+      }
+
+      if (type == 'comment') {
+        refreshList();
+      }
 
       if (setAction) {
         setAction(null, 'clear', null);
-      } // console.log(resetForm,refreshList,setAction);
-
+      }
     })["catch"](function (error) {
       dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_5__["setAnnouncementMessage"])({
         message: error.response.data.message,
@@ -915,7 +926,6 @@ function CommentForm(_ref) {
     var values = _ref4.values,
         errors = _ref4.errors,
         handleSubmit = _ref4.handleSubmit;
-    // console.log(values,errors);
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("form", {
       className: "form comment-form",
       onSubmit: handleSubmit
@@ -957,6 +967,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CommentForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../CommentForm */ "./resources/js/src/components/Community/Body/CommentSection/CommentForm/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _store_community_announcer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../store/community/announcer */ "./resources/js/src/store/community/announcer.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
 
 
 
@@ -968,10 +997,59 @@ function Comment(_ref) {
       setAction = _ref.setAction,
       currentAction = _ref.currentAction,
       refreshList = _ref.refreshList,
-      repliesList = _ref.repliesList,
+      repliesListData = _ref.repliesListData,
       type = _ref.type;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "".concat(type)
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      repliesList = _useState2[0],
+      setRepliesList = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+      _useState4 = _slicedToArray(_useState3, 2),
+      newInfo = _useState4[0],
+      setNewInfo = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      isDeleted = _useState6[0],
+      setIsDeleted = _useState6[1];
+
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_6__["useDispatch"])();
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    setRepliesList(repliesListData);
+  });
+
+  var handleRenewInfo = function handleRenewInfo(data) {
+    setNewInfo(data);
+  };
+
+  var handleAddNewReply = function handleAddNewReply(reply) {
+    var newList = repliesList;
+    newList.push(reply);
+    setRepliesList(newList);
+  };
+
+  var handleDelete = function handleDelete() {
+    setAction(info.id, 'delete', type).then(function (response) {
+      dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_5__["setAnnouncementMessage"])({
+        message: response.data.message,
+        type: 'success'
+      }));
+      setIsDeleted(true);
+    })["catch"](function (error) {
+      dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_5__["setAnnouncementMessage"])({
+        message: error.response.data.message,
+        type: 'danger'
+      }));
+    });
+  };
+
+  console.log(repliesList);
+  return !isDeleted && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: classnames__WEBPACK_IMPORTED_MODULE_3___default()("".concat(type), {
+      deleted: isDeleted
+    })
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "profile-picture"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -984,7 +1062,7 @@ function Comment(_ref) {
     className: "user-info"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/public/community/user/".concat(info.users.id, "/arts")
-  }, info.users.username), info.is_edited == true && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+  }, info.users.username), (info.is_edited == true || newInfo) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
     className: "edited"
   }, "(B\xECnh lu\u1EADn \u0111\xE3 \u0111\u01B0\u1EE3c ch\u1EC9nh s\u1EEDa)")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "callout-box"
@@ -998,8 +1076,9 @@ function Comment(_ref) {
     parentId: info.id,
     initialValues: info,
     setAction: setAction,
-    refreshList: refreshList
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, info[type])), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null)), authenticatedUserId && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    refreshList: refreshList,
+    renewInfo: handleRenewInfo
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, newInfo ? newInfo : info[type])), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null)), authenticatedUserId && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "action-controls form"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "flex-box"
@@ -1014,16 +1093,15 @@ function Comment(_ref) {
       return setAction(info.id, 'edit', type);
     }
   }, "S\u1EEDa"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    onClick: function onClick() {
-      return setAction(info.id, 'delete', type);
-    }
+    onClick: handleDelete
   }, "X\xF3a")))), info.user_id == authenticatedUserId && info.id == currentAction.id && currentAction.action == 'add' && currentAction.type == 'reply' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CommentForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
     parentColumn: "comment_id",
     parentId: info.id,
     refreshList: refreshList,
     type: currentAction.type,
     action: "add",
-    setAction: setAction
+    setAction: setAction,
+    addNew: handleAddNewReply
   }), repliesList && repliesList.map(function (reply, index) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Comment, {
       info: reply,
@@ -1061,13 +1139,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Comment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Comment */ "./resources/js/src/components/Community/Body/CommentSection/CommentList/Comment/index.js");
 
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -1096,19 +1172,32 @@ function CommentList(_ref) {
       refresh = _ref.refresh,
       refreshList = _ref.refreshList;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
-      commentsList = _useState2[0],
-      setCommentsList = _useState2[1];
+      isLoading = _useState2[0],
+      setIsLoading = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      commentsList = _useState4[0],
+      setCommentsList = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
     type: null,
     action: null,
     id: null
   }),
-      _useState4 = _slicedToArray(_useState3, 2),
-      currentAction = _useState4[0],
-      setCurrentAction = _useState4[1]; // console.log(currentAction);
+      _useState6 = _slicedToArray(_useState5, 2),
+      currentAction = _useState6[0],
+      setCurrentAction = _useState6[1];
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
+    currentPage: null,
+    lastPage: null
+  }),
+      _useState8 = _slicedToArray(_useState7, 2),
+      listInfo = _useState8[0],
+      setListInfo = _useState8[1]; // console.log(currentAction);
 
 
   var user = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(function (state) {
@@ -1123,9 +1212,12 @@ function CommentList(_ref) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/public/get-comments-list-by-art-id/".concat(artId)).then(function (response) {
-                  // console.log(response);
-                  setCommentsList(_toConsumableArray(response.data.list));
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/public/get-comments-list-by-art-id/".concat(artId, "?page=1")).then(function (response) {
+                  setListInfo({
+                    currentPage: response.data.list.current_page,
+                    lastPage: response.data.list.last_page
+                  });
+                  setCommentsList(response.data.list.data);
                 })["catch"](function (error) {
                   console.log(error.response);
                 });
@@ -1146,15 +1238,44 @@ function CommentList(_ref) {
     getCommentsList();
   }, [artId, refresh]);
 
-  var handleAction = /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(id, action, type) {
-      var resource;
+  var getMoreComments = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.t0 = action;
-              _context2.next = _context2.t0 === 'add' ? 3 : _context2.t0 === 'edit' ? 5 : _context2.t0 === 'delete' ? 7 : _context2.t0 === 'clear' ? 10 : 11;
+              _context2.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/public/get-comments-list-by-art-id/".concat(artId, "?page=").concat(listInfo.currentPage + 1)).then(function (response) {
+                setCommentsList(commentsList.concat(response.data.list.data));
+                setListInfo(_objectSpread(_objectSpread({}, listInfo), {}, {
+                  currentPage: response.data.list.current_page
+                }));
+              })["catch"](function (error) {
+                console.log(error.response);
+              });
+
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function getMoreComments() {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  var handleAction = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id, action, type) {
+      var resource;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.t0 = action;
+              _context3.next = _context3.t0 === 'add' ? 3 : _context3.t0 === 'edit' ? 5 : _context3.t0 === 'delete' ? 7 : _context3.t0 === 'clear' ? 12 : 13;
               break;
 
             case 3:
@@ -1163,7 +1284,7 @@ function CommentList(_ref) {
                 action: 'add',
                 id: id
               });
-              return _context2.abrupt("break", 12);
+              return _context3.abrupt("break", 14);
 
             case 5:
               setCurrentAction({
@@ -1171,7 +1292,7 @@ function CommentList(_ref) {
                 action: 'edit',
                 id: id
               });
-              return _context2.abrupt("break", 12);
+              return _context3.abrupt("break", 14);
 
             case 7:
               resource = function () {
@@ -1184,40 +1305,32 @@ function CommentList(_ref) {
                 }
               }();
 
-              _context2.next = 10;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/public/api/community/resources/".concat(resource, "/").concat(id, "?api_token=").concat(localStorage.getItem('authenticatedUserToken'))).then(function (response) {
-                dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_4__["setAnnouncementMessage"])({
-                  message: response.data.message,
-                  type: 'success'
-                }));
-                refreshList();
-              })["catch"](function (error) {
-                dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_4__["setAnnouncementMessage"])({
-                  message: error.response.data.message,
-                  type: 'danger'
-                }));
-              });
+              _context3.next = 10;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/public/api/community/resources/".concat(resource, "/").concat(id, "?api_token=").concat(localStorage.getItem('authenticatedUserToken')));
 
             case 10:
+              return _context3.abrupt("return", _context3.sent);
+
+            case 12:
               setCurrentAction({
                 action: null,
                 type: null,
                 id: null
               });
 
-            case 11:
-              return _context2.abrupt("break", 12);
+            case 13:
+              return _context3.abrupt("break", 14);
 
-            case 12:
+            case 14:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2);
+      }, _callee3);
     }));
 
     return function handleAction(_x, _x2, _x3) {
-      return _ref3.apply(this, arguments);
+      return _ref4.apply(this, arguments);
     };
   }(); // debugger;
 
@@ -1232,10 +1345,19 @@ function CommentList(_ref) {
       setAction: handleAction,
       currentAction: currentAction,
       refreshList: refreshList,
-      repliesList: comment.replies,
+      repliesListData: comment.replies,
       type: "comment"
     });
-  }));
+  }), listInfo.currentPage !== listInfo.lastPage && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "action-wrapper"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    className: "action",
+    onClick: getMoreComments
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", {
+    className: "fas fa-plus"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
+    className: "text"
+  }, "T\u1EA2I TH\xCAM"))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (CommentList);

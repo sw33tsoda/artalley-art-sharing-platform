@@ -51,6 +51,7 @@ class RepliesController extends Controller
 
         return response()->json([
             'message' => 'Trả lời thành công',
+            'new_reply' => Reply::with('users')->where('id',$addReply->id)->first(),
         ],200);
     }
 
@@ -96,6 +97,7 @@ class RepliesController extends Controller
         }
         return response()->json([
             'message' => 'Đã sửa bình luận',
+            'renew' => $editReply->reply,
         ],200);
     }
 

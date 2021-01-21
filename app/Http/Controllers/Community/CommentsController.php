@@ -97,6 +97,7 @@ class CommentsController extends Controller
         }
         return response()->json([
             'message' => 'Đã sửa bình luận',
+            'renew' => $editComment->comment,
         ],200);
     }
 

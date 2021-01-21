@@ -134,7 +134,7 @@ class PublicController extends Controller
             'message' => 'Lấy danh sách bình luận thành công',
             'list' => Comment::with(['users','replies' => function($replies_query) {
                 $replies_query->with('users')->get();
-            }])->where('art_id',$art_id)->orderBy('created_at','desc')->get(),
+            }])->where('art_id',$art_id)->orderBy('created_at','desc')->paginate(10),
         ],200);
     }
 }

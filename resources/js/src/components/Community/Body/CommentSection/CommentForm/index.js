@@ -7,12 +7,12 @@ import { setAnnouncementMessage } from '../../../../../store/community/announcer
 import TextareaField from '../../../../CustomFields/TextareaField';
 import { CommentValidation, ReplyValidation } from '../../../../Validations';
 
-function CommentForm({parentColumn,parentId,refreshList,type,action,initialValues,setAction}) {
+function CommentForm({renewInfo,addNew,parentColumn,parentId,refreshList,type,action,initialValues,setAction}) {
     const dispatch = useDispatch();
     const [isSubmitting,setIsSubmitting] = useState(false);
     const handleSubmitForm = (values,{resetForm}) => {
+        console.log(values);
         setIsSubmitting(true);
-        // console.log(parentColumn,parentId,refreshList,type,action,initialValues,setAction);
         const resource = (function(){
             switch (type) {
                 case 'comment': return 'comments';
@@ -21,28 +21,31 @@ function CommentForm({parentColumn,parentId,refreshList,type,action,initialValue
         })();
         const formData = new FormData();
         (async function(data,values,type,action) {
-            // console.log(type,action);
+            data.append(type,values[type]);
             if (action == 'edit') {
-                data.append(type,values[type]);
                 data.append('_method','PATCH');
                 return await Axios.post(`/public/api/community/resources/${resource}/${parentId}?api_token=${localStorage.getItem('authenticatedUserToken')}`,data);
             }
-            data.append(type,values[type]);
             data.append(parentColumn,parentId);
             return await Axios.post(`/public/api/community/resources/${resource}?api_token=${localStorage.getItem('authenticatedUserToken')}`,data);
         })(formData,values,type,action).then(response => {
+            console.log(response.data);
             dispatch(setAnnouncementMessage({
                 message:response.data.message,
                 type:'success',
             }));
-            // if (action == undefined) {
-                // }
-            resetForm();
-            refreshList();
+            if (action == 'edit') {
+                renewInfo(response.data.renew);
+            }
+            if (action == 'add' && type == 'reply') {
+                addNew(response.data.new_reply);
+            }
+            if (type == 'comment') {
+                refreshList();
+            }
             if (setAction) {
                 setAction(null,'clear',null);
             }
-            // console.log(resetForm,refreshList,setAction);
         }).catch(error => {
             dispatch(setAnnouncementMessage({
                 message:error.response.data.message,
@@ -69,7 +72,6 @@ function CommentForm({parentColumn,parentId,refreshList,type,action,initialValue
                 return initialValues;
             })(initialValues)} onSubmit={handleSubmitForm}>
                 {({values,errors,handleSubmit}) => {
-                    // console.log(values,errors);
                     return (
                         <form className="form comment-form" onSubmit={handleSubmit}>
                             <FastField

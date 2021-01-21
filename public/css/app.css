@@ -3178,6 +3178,16 @@ body {
   font-weight: bold;
 }
 
+.community .body .comment-section .action-wrapper .action {
+  width: 100% !important;
+  -moz-column-gap: 5px !important;
+       column-gap: 5px !important;
+}
+
+.community .body .comment-section .action-wrapper .action .text {
+  font-weight: bold;
+}
+
 .community .body .comment-section .comment-form {
   padding-bottom: 5px;
 }
@@ -3215,6 +3225,16 @@ body {
 
 .community .body .comment-section .comment-list .reply .action-controls {
   width: calc(1150px - (60px * 2)) !important;
+}
+
+.community .body .comment-section .comment-list .deleted .user-info,
+.community .body .comment-section .comment-list .deleted .callout-box,
+.community .body .comment-section .comment-list .deleted .profile-picture {
+  opacity: 0.25;
+}
+
+.community .body .comment-section .comment-list .deleted .action-controls {
+  visibility: hidden;
 }
 
 .community .body .comment-section .comment-list .comment,
