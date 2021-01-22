@@ -52,6 +52,7 @@ class CommentsController extends Controller
 
         return response()->json([
             'message' => 'Gửi bình luận thành công',
+            'new' => Comment::with('users','replies')->where('id',$addComment->id)->first(),
         ],200);
     }
 

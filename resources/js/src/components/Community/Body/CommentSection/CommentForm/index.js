@@ -37,8 +37,8 @@ function CommentForm({renewInfo,addNew,parentColumn,parentId,refreshList,type,ac
             if (action == 'edit') {
                 renewInfo(response.data.renew);
             }
-            if (action == 'add' && type == 'reply') {
-                addNew(response.data.new_reply);
+            if (action == 'add') {
+                addNew(response.data.new);
             }
             if (type == 'comment') {
                 refreshList();

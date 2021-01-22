@@ -51,7 +51,7 @@ class RepliesController extends Controller
 
         return response()->json([
             'message' => 'Trả lời thành công',
-            'new_reply' => Reply::with('users')->where('id',$addReply->id)->first(),
+            'new' => Reply::with('users')->where('id',$addReply->id)->first(),
         ],200);
     }
 
