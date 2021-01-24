@@ -253,56 +253,6 @@
                 background:linear-gradient(180deg, #bbbbbb 0%, rgba(216, 216, 216, 0) 100%);
             }
         }
-
-        .action-wrapper {
-            display: flex;
-            justify-content: space-evenly;
-            margin:auto;
-            margin-top: 50px;
-            width: 1150px;
-            button {
-                background: none;
-                border: 0;
-            }
-            .action {
-                width: 50px;
-                height: 50px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-radius: 0.25em;
-                box-shadow: -1px -85px 0px -81px #ff7e06 inset;
-                &:last-child {
-                    // transition: 3s;
-                    &:active {
-                        background:crimson;
-                        // background-position-x: -50px;
-                        box-shadow:none;
-                        i {
-                            color:#d9d9d9 !important;
-                            animation: forwards 3.5s zoom-out;
-                        }
-                        @keyframes zoom-out {
-                            0% { }
-                            100% { font-size: 2.5em;  }
-                        }
-                    }
-                }
-
-                i {
-                    font-size: 1.5em;
-                }
-    
-                &:hover {
-                    cursor: pointer;
-                    i {
-                        color:#FF9636;
-                    }
-                }
-            }
-
-        }
-
         
         .more {
             margin:auto;

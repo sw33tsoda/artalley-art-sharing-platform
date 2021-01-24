@@ -93,7 +93,12 @@
                     object-fit: cover;
                 }
             }
-
+            
+            
+            
+            &:hover .content .user-info .date {
+                display: block;
+            }
             .content {
                 width: calc(1150px - 60px);
                 // display: flex;
@@ -109,7 +114,15 @@
                         font-weight: normal;
                         font-style: italic;
                         font-size: 0.75em;
+                        color:crimson;
                     }
+
+                    .date {
+                        font-weight: normal;
+                        font-size: 0.75em;
+                        display: none;
+                    }
+
 
                     a {
                         color:#212121;

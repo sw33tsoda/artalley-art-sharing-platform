@@ -1,24 +1,29 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setAnnouncementMessage } from '../../../../../store/community/announcer';
+import { useSelector } from 'react-redux';
 import Comment from './Comment';
 
 function CommentList({artId,refresh,refreshList}) {
-    const [isLoading,setIsLoading] = useState(false);
+
+    // Danh sách comments
     const [commentsList,setCommentsList] = useState([]);
+
+    // Hành động hiện tại. Ex : sửa, xóa, thêm
     const [currentAction,setCurrentAction] = useState({
         type:null,
         action:null,
         id:null,
     });
+
+    // Thông tin danh sách comments
     const [listInfo,setListInfo] = useState({
         currentPage:null,
         lastPage:null,
     });
-    // console.log(currentAction);
+
+    //  Lấy thông tin người dùng
     const user = useSelector(state => state.auth.authenticatedUser);
-    const dispatch = useDispatch();
+
     useEffect(() => {
         const getCommentsList = async () => {
             await Axios.get(`/public/api/community/resources/public/get-comments-list-by-art-id/${artId}?page=1`).then(response => {
@@ -34,6 +39,7 @@ function CommentList({artId,refresh,refreshList}) {
         getCommentsList();
     },[artId,refresh]);
 
+    // Tải thêm bình luận 
     const getMoreComments = async () => {
         await Axios.get(`/public/api/community/resources/public/get-comments-list-by-art-id/${artId}?page=${listInfo.currentPage + 1}`).then(response => {
             setCommentsList(commentsList.concat(response.data.list.data));
@@ -46,6 +52,7 @@ function CommentList({artId,refresh,refreshList}) {
         });
     }
 
+    // Xử lý thay đổi hành động
     const handleAction = async (id,action,type) => {
         switch (action) {
             case 'add': {
@@ -88,7 +95,6 @@ function CommentList({artId,refresh,refreshList}) {
         }
     }
 
-    // debugger;
 
     return (
         <div className="comment-list">
@@ -112,9 +118,7 @@ function CommentList({artId,refresh,refreshList}) {
                     </div>
                 </div>
             )}
-            {/* <pre>
-                {JSON.stringify(commentsList,null,2)}
-            </pre> */}
+
         </div>
     );
 }

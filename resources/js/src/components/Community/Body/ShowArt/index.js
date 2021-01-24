@@ -68,7 +68,7 @@ function ShowArt() {
     useEffect(() => {
         const getArt = async () => {
             await Axios.get(`/public/api/community/resources/public/get-art-by-id/${id}`).then(response => {
-                console.log(response.data.art);
+                // console.log(response.data.art);
                 const {data:{
                     art,
                     channelSelectList,
@@ -312,7 +312,7 @@ function ShowArt() {
                         {/* <div className="dash" style={{backgroundImage:`url(/storage/app/public/web/body/communityGallery/warning-dashline.png)`}}></div> */}
                         <Formik initialValues={art} validationSchema={EditArtValidation} onSubmit={handleEditSubmit} innerRef={editFormRef}>
                             {({values,handleSubmit}) => {
-                                console.log(values,art);
+                                // console.log(values,art);
                                 if (!isEqual(values,art)) {
                                     setIsDiff(true);
                                 } else {

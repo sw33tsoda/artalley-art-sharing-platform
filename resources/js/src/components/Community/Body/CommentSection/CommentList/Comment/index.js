@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { isEmpty, isEqual } from 'lodash';
 import { setAnnouncementMessage } from '../../../../../../store/community/announcer';
 import { useDispatch } from 'react-redux';
+import Moment from 'react-moment';
 
 function Comment({info,authenticatedUserId,setAction,currentAction,refreshList,repliesListData,type}) {
     const [repliesList,setRepliesList] = useState([]);
@@ -16,10 +17,12 @@ function Comment({info,authenticatedUserId,setAction,currentAction,refreshList,r
         setRepliesList(repliesListData);
     })
 
+    // Cập nhật lại reply sau khi sửa
     const handleRenewInfo = (data) => {
         setNewInfo(data);
     }
 
+    // Thêm reply vào danh sách reply
     const handleAddNewReply = (reply) => {
         let newList = repliesList;
         newList.push(reply);
@@ -41,8 +44,6 @@ function Comment({info,authenticatedUserId,setAction,currentAction,refreshList,r
         });
     }
 
-    console.log(repliesList);
-
     return (!isDeleted &&
         <div className={classnames(`${type}`,{deleted:isDeleted})}>
             <div className="profile-picture">
@@ -53,6 +54,7 @@ function Comment({info,authenticatedUserId,setAction,currentAction,refreshList,r
                 <div className="user-info">
                     <Link to={`/public/community/user/${info.users.id}/arts`}>{info.users.username}</Link>
                     {(info.is_edited == true || newInfo) && <p className="edited">(Bình luận đã được chỉnh sửa)</p>}
+                    <p className="date"><Moment format="H:mm A - D/MM/yyyy">{info.created_at}</Moment></p>
                 </div>
                 <div className="callout-box">
                     <div className={classnames("callout",{edit_mode: currentAction.type == type && currentAction.id == info.id && currentAction.action == 'edit'})}>

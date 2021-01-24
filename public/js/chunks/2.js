@@ -775,6 +775,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_community_announcer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../store/community/announcer */ "./resources/js/src/store/community/announcer.js");
 /* harmony import */ var _CustomFields_TextareaField__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../CustomFields/TextareaField */ "./resources/js/src/components/CustomFields/TextareaField/index.js");
 /* harmony import */ var _Validations__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../Validations */ "./resources/js/src/components/Validations/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_8__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -792,6 +794,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -820,7 +823,7 @@ function CommentForm(_ref) {
 
   var handleSubmitForm = function handleSubmitForm(values, _ref2) {
     var resetForm = _ref2.resetForm;
-    console.log(values);
+    // console.log(values);
     setIsSubmitting(true);
 
     var resource = function () {
@@ -874,7 +877,6 @@ function CommentForm(_ref) {
         return _ref3.apply(this, arguments);
       };
     })()(formData, values, type, action).then(function (response) {
-      console.log(response.data);
       dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_5__["setAnnouncementMessage"])({
         message: response.data.message,
         type: 'success'
@@ -884,16 +886,12 @@ function CommentForm(_ref) {
         renewInfo(response.data.renew);
       }
 
-      if (action == 'add') {
+      if (action == 'add' && type == 'reply') {
         addNew(response.data["new"]);
       }
 
-      if (type == 'comment') {
+      if (action == 'add' && type == 'comment') {
         refreshList();
-      }
-
-      if (setAction) {
-        setAction(null, 'clear', null);
       }
     })["catch"](function (error) {
       dispatch(Object(_store_community_announcer__WEBPACK_IMPORTED_MODULE_5__["setAnnouncementMessage"])({
@@ -901,16 +899,21 @@ function CommentForm(_ref) {
         type: 'danger'
       }));
     }).then(function () {
+      if (setAction) {
+        setAction(null, 'clear', null);
+      }
+
+      resetForm();
       setIsSubmitting(false);
     });
   };
 
-  return isSubmitting ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("center", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Fragment, null, isSubmitting && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("center", {
     className: "loading-wrapper"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("img", {
     className: "loading",
     src: "https://4.bp.blogspot.com/-a4arXx0z1xQ/VuM0S587YfI/AAAAAAAAAOk/jQf7UpsN93ol-qZYM4CuibUSCG8deiejg/s1600/loading.gif"
-  })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["Formik"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["Formik"], {
     validationSchema: type == 'comment' ? _Validations__WEBPACK_IMPORTED_MODULE_7__["CommentValidation"] : _Validations__WEBPACK_IMPORTED_MODULE_7__["ReplyValidation"],
     initialValues: function (values) {
       if (values) {
@@ -927,7 +930,9 @@ function CommentForm(_ref) {
         errors = _ref4.errors,
         handleSubmit = _ref4.handleSubmit;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("form", {
-      className: "form comment-form",
+      className: classnames__WEBPACK_IMPORTED_MODULE_8___default()('form comment-form', {
+        hide: isSubmitting
+      }),
       onSubmit: handleSubmit
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_2__["FastField"], {
       name: type,
@@ -945,7 +950,7 @@ function CommentForm(_ref) {
       type: "submit",
       className: "button success"
     }, action == 'edit' ? 'Sửa' : 'Gửi')));
-  });
+  }));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (CommentForm);
@@ -971,6 +976,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _store_community_announcer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../store/community/announcer */ "./resources/js/src/store/community/announcer.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-moment */ "./node_modules/react-moment/dist/index.js");
+/* harmony import */ var react_moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_moment__WEBPACK_IMPORTED_MODULE_7__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -982,6 +989,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -1018,11 +1026,12 @@ function Comment(_ref) {
   var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_6__["useDispatch"])();
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     setRepliesList(repliesListData);
-  });
+  }); // Cập nhật lại reply sau khi sửa
 
   var handleRenewInfo = function handleRenewInfo(data) {
     setNewInfo(data);
-  };
+  }; // Thêm reply vào danh sách reply
+
 
   var handleAddNewReply = function handleAddNewReply(reply) {
     var newList = repliesList;
@@ -1045,7 +1054,6 @@ function Comment(_ref) {
     });
   };
 
-  console.log(repliesList);
   return !isDeleted && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: classnames__WEBPACK_IMPORTED_MODULE_3___default()("".concat(type), {
       deleted: isDeleted
@@ -1064,7 +1072,11 @@ function Comment(_ref) {
     to: "/public/community/user/".concat(info.users.id, "/arts")
   }, info.users.username), (info.is_edited == true || newInfo) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
     className: "edited"
-  }, "(B\xECnh lu\u1EADn \u0111\xE3 \u0111\u01B0\u1EE3c ch\u1EC9nh s\u1EEDa)")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "(B\xECnh lu\u1EADn \u0111\xE3 \u0111\u01B0\u1EE3c ch\u1EC9nh s\u1EEDa)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "date"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_moment__WEBPACK_IMPORTED_MODULE_7___default.a, {
+    format: "H:mm A - D/MM/yyyy"
+  }, info.created_at))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "callout-box"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: classnames__WEBPACK_IMPORTED_MODULE_3___default()("callout", {
@@ -1135,8 +1147,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _store_community_announcer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../store/community/announcer */ "./resources/js/src/store/community/announcer.js");
-/* harmony import */ var _Comment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Comment */ "./resources/js/src/components/Community/Body/CommentSection/CommentList/Comment/index.js");
+/* harmony import */ var _Comment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Comment */ "./resources/js/src/components/Community/Body/CommentSection/CommentList/Comment/index.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -1166,44 +1177,40 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 function CommentList(_ref) {
   var artId = _ref.artId,
       refresh = _ref.refresh,
       refreshList = _ref.refreshList;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
+  // Danh sách comments
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
-      isLoading = _useState2[0],
-      setIsLoading = _useState2[1];
+      commentsList = _useState2[0],
+      setCommentsList = _useState2[1]; // Hành động hiện tại. Ex : sửa, xóa, thêm
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])([]),
-      _useState4 = _slicedToArray(_useState3, 2),
-      commentsList = _useState4[0],
-      setCommentsList = _useState4[1];
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
     type: null,
     action: null,
     id: null
   }),
-      _useState6 = _slicedToArray(_useState5, 2),
-      currentAction = _useState6[0],
-      setCurrentAction = _useState6[1];
+      _useState4 = _slicedToArray(_useState3, 2),
+      currentAction = _useState4[0],
+      setCurrentAction = _useState4[1]; // Thông tin danh sách comments
 
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])({
     currentPage: null,
     lastPage: null
   }),
-      _useState8 = _slicedToArray(_useState7, 2),
-      listInfo = _useState8[0],
-      setListInfo = _useState8[1]; // console.log(currentAction);
+      _useState6 = _slicedToArray(_useState5, 2),
+      listInfo = _useState6[0],
+      setListInfo = _useState6[1]; //  Lấy thông tin người dùng
 
 
   var user = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(function (state) {
     return state.auth.authenticatedUser;
   });
-  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useDispatch"])();
   Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
     var getCommentsList = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -1236,7 +1243,7 @@ function CommentList(_ref) {
     }();
 
     getCommentsList();
-  }, [artId, refresh]);
+  }, [artId, refresh]); // Tải thêm bình luận 
 
   var getMoreComments = /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
@@ -1265,7 +1272,8 @@ function CommentList(_ref) {
     return function getMoreComments() {
       return _ref3.apply(this, arguments);
     };
-  }();
+  }(); // Xử lý thay đổi hành động
+
 
   var handleAction = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id, action, type) {
@@ -1332,13 +1340,12 @@ function CommentList(_ref) {
     return function handleAction(_x, _x2, _x3) {
       return _ref4.apply(this, arguments);
     };
-  }(); // debugger;
-
+  }();
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "comment-list"
   }, commentsList && commentsList.map(function (comment, index) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_Comment__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_Comment__WEBPACK_IMPORTED_MODULE_4__["default"], {
       info: comment,
       key: index,
       authenticatedUserId: user.id,
@@ -1399,6 +1406,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function CommentSection(_ref) {
   var artId = _ref.artId;
 
+  // trigger refresh lại trang
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
       refresh = _useState2[0],
@@ -1412,6 +1420,7 @@ function CommentSection(_ref) {
     parentColumn: "art_id",
     parentId: artId,
     type: "comment",
+    action: "add",
     refreshList: function refreshList() {
       return setRefresh(!refresh);
     }
@@ -2076,7 +2085,7 @@ function ShowArt() {
               case 0:
                 _context.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/public/get-art-by-id/".concat(id)).then(function (response) {
-                  console.log(response.data.art);
+                  // console.log(response.data.art);
                   var _response$data = response.data,
                       art = _response$data.art,
                       channelSelectList = _response$data.channelSelectList,
@@ -2366,8 +2375,8 @@ function ShowArt() {
   }, function (_ref6) {
     var values = _ref6.values,
         handleSubmit = _ref6.handleSubmit;
-    console.log(values, art);
 
+    // console.log(values,art);
     if (!Object(lodash__WEBPACK_IMPORTED_MODULE_4__["isEqual"])(values, art)) {
       setIsDiff(true);
     } else {
