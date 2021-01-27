@@ -12,6 +12,8 @@ import { setAnnouncementMessage } from '../../../../store/community/announcer';
 import DragScroll from 'react-indiana-drag-scroll';
 import Moment from 'react-moment';
 import CommentSection from '../CommentSection';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 function ShowArt() {
     // Lấy thông tin người dùng từ Global State.
@@ -193,7 +195,11 @@ function ShowArt() {
             
             <div className="art-wrapper">
                 <div className="art">
-                    <img src={`/storage/app/public/community/${art.user_id}/arts/${art.art}`} />
+                    {/* <img src={`/storage/app/public/community/${art.user_id}/arts/${art.art}`} /> */}
+                    <LazyLoadImage
+                        src={`/storage/app/public/community/${art.user_id}/arts/${art.art}`}
+                        effect="blur"
+                    />
                 </div>
 
                 <div className="caption">

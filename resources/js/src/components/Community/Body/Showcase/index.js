@@ -12,6 +12,9 @@ import SelectField from '../../../CustomFields/SelectField';
 import { EditShowcaseValidation } from '../../../Validations';
 import { setAnnouncementMessage } from '../../../../store/community/announcer';
 import Moment from 'react-moment';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 function Showcase() {
     // Global state
     const user = useSelector(state => state.auth.authenticatedUser);
@@ -189,8 +192,10 @@ function Showcase() {
                                         <p>{art.description}</p>
                                     </div>
                                 </div>
-                                <img src={`/storage/app/public/community/1/arts/${art.art}`}/>
-
+                                <LazyLoadImage
+                                    src={`/storage/app/public/community/1/arts/${art.art}`}
+                                    effect="blur"
+                                />
                                 <div className="genres">
                                     <div className="dimensional">
                                         <h1>{art.dimensions && art.dimensions.dimensional}</h1>

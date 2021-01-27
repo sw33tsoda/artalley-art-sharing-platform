@@ -75,6 +75,47 @@
                 width: 100%;
                 background:rgba(0, 0, 0, 0.50);
                 z-index: 1000;
+                text-align: center;
+                .search-bar {
+                    margin-top: 50px;
+                    display: flex;
+                    flex-direction: row;
+                    // column-gap: 25px;
+                    justify-content: center;
+                    align-items: center;
+                    animation: fadeIn 0.25s;
+                    .input {
+                        background:none;
+                        border:none;
+                        height: 35px;
+                        flex-basis: 650px;
+                        text-shadow: 0px 2px 7px black;
+                        text-indent: 5px;
+                        // border-bottom: 2px solid #d8d8d8;
+                        background:rgba(255, 150, 54, 0.5);
+
+                        &:hover {
+                            background:rgba(255, 150, 54, 0.75);
+
+                        }
+                        &:focus {
+                            outline:none;
+                            background:rgba(255, 150, 54, 1);
+                        }
+                        color:white;
+                        font-size: 1.75em;
+                    }
+                    .close {
+                        width: 35px;
+                        height: 35px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        &:hover {
+                            color:white;
+                        }
+                    }
+                }
             }
         }
     

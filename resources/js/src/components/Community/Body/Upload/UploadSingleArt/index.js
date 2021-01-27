@@ -11,6 +11,7 @@ import classnames from 'classnames';
 import { SingleArtValidation } from '../../../../Validations';
 import { useDispatch } from 'react-redux';
 import { setAnnouncementMessage } from '../../../../../store/community/announcer';
+import { useHistory } from 'react-router-dom';
 
 function UploadSingleArt() {
     // Danh sách thẻ (tags)
@@ -25,6 +26,9 @@ function UploadSingleArt() {
     }
     // Dispatch action
     const dispatch = useDispatch();
+
+    // Chuyển tranh
+    const history = useHistory();
     
     // Danh sách kênh ảnh
     const [optionsList,setOptionsList] = useState({
@@ -82,6 +86,8 @@ function UploadSingleArt() {
                 message:message,
                 type:'success',
             }));
+
+            history.push('/public/community/management');
         }).catch(error => {
             const {data:{message}} = error.response;
             dispatch(setAnnouncementMessage({

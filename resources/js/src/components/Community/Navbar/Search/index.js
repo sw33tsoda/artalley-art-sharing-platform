@@ -7,7 +7,10 @@ function Search() {
             <p className="search" onClick={() => setIsOpen(true)}><i className="fas fa-search"></i><span className="text">TÌM KIẾM</span></p>
             {isOpen && (
                 <div className="search-overlay">
-                    <h1>unused</h1>
+                    <div className="search-bar">
+                        <input className="input"/>
+                        <p className="close" onClick={() => setIsOpen(false)}><i className="fas fa-times"></i></p>
+                    </div>
                 </div>
             )}
         </React.Fragment>

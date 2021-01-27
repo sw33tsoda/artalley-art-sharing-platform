@@ -6,8 +6,10 @@ import TextareaField from '../../../../CustomFields/TextareaField';
 import SelectField from '../../../../CustomFields/SelectField';
 import classnames from 'classnames';
 import { ShowcaseValidation } from '../../../../Validations';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useHistory } from 'react-router-dom';
+import { setAnnouncementMessage } from '../../../../../store/community/announcer';
 
 function CreateShowcase() {
     const [artsList,setArtsList] = useState({
@@ -24,6 +26,8 @@ function CreateShowcase() {
     });
     const {id:userId} = useSelector(state => state.auth.authenticatedUser);
     const [loading,setLoading] = useState(true);
+    const history = useHistory();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const getArtsList = async () => {
@@ -111,9 +115,16 @@ function CreateShowcase() {
         }
         data.append('art_ids_list',selectedArts);
         await Axios.post(`/public/api/community/resources/showcases?api_token=${apiToken}`,data).then(response => {
-            console.log(response.data.request);
+            dispatch(setAnnouncementMessage({
+                message:response.data.message,
+                type:'success',
+            }));
+            history.push('/public/community/management');
         }).catch(error => {
-            console.log(error.response);
+            dispatch(setAnnouncementMessage({
+                message:error.response.data.message,
+                type:'danger',
+            }));
         });
     }
 

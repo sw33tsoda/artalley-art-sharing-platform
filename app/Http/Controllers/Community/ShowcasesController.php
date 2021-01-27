@@ -78,7 +78,7 @@ class ShowcasesController extends Controller
 
             if (!$createRelationships) {
                 return response()->json([
-                    'message' => 'Tạo mối quan hệ thất bại',
+                    'message' => 'Tạo quày thất bại',
                 ],500);
             }
         } else {

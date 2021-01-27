@@ -600,6 +600,50 @@ body {
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
+  text-align: center;
+}
+
+.community > .header .navbar .navbar-items .center .search-overlay .search-bar {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  -webkit-animation: fadeIn 0.25s;
+          animation: fadeIn 0.25s;
+}
+
+.community > .header .navbar .navbar-items .center .search-overlay .search-bar .input {
+  background: none;
+  border: none;
+  height: 35px;
+  flex-basis: 650px;
+  text-shadow: 0px 2px 7px black;
+  text-indent: 5px;
+  background: rgba(255, 150, 54, 0.5);
+  color: white;
+  font-size: 1.75em;
+}
+
+.community > .header .navbar .navbar-items .center .search-overlay .search-bar .input:hover {
+  background: rgba(255, 150, 54, 0.75);
+}
+
+.community > .header .navbar .navbar-items .center .search-overlay .search-bar .input:focus {
+  outline: none;
+  background: #ff9636;
+}
+
+.community > .header .navbar .navbar-items .center .search-overlay .search-bar .close {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.community > .header .navbar .navbar-items .center .search-overlay .search-bar .close:hover {
+  color: white;
 }
 
 .community > .header .navbar .navbar-items .right {
