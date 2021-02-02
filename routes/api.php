@@ -57,6 +57,9 @@ Route::group(['prefix' => '/community/resources'],function(){
     
         // Comments
         Route::get('/get-comments-list-by-art-id/{art_id}',[\App\Http\Controllers\Community\PublicController::class,'getCommentsListByArtId']);
+    
+        // Search
+        Route::get('/search/{keywords}-{type}',[\App\Http\Controllers\Community\PublicController::class,'search']);
     });
 
     

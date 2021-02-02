@@ -137,4 +137,37 @@ class PublicController extends Controller
             }])->where('art_id',$art_id)->orderBy('created_at','desc')->paginate(10),
         ],200);
     }
+
+    public function search($keywords,$type) {
+        $result = null;
+
+        switch ($type) {
+            case 'art':
+                $result = Art::query();
+                foreach (['title','caption','description','tags'] as $column) {
+                    $result->orWhere($column,'LIKE',"%$keywords%");
+                }
+                break;
+        
+            case 'showcase':
+                $result = Showcase::query();
+                foreach (['title','subheading','description'] as $column) {
+                    $result->orWhere($column,'LIKE',"%$keywords%");
+                }
+                break;
+
+            case 'user':
+                $result = User::query();
+                foreach (['username','firstname','lastname','facebook','twitter','email'] as $column) {
+                    $result->orWhere($column,'LIKE',"%$keywords%");
+                }
+                break;
+            default:
+                break;
+        }
+
+        return response()->json([
+            'result' => $result->get(),
+        ]);
+    }
 }
