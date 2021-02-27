@@ -8,15 +8,18 @@ function Search() {
     const [isOpen,setIsOpen] = useState(true);
     const [isLoading,setIsLoading] = useState(false);
     const [result,setResult] = useState([]);
-    const [searchInput,setSearchInput] = useState('');
-    const [currentSearchType,setCurrentSearchType] = useState('art');
+    const [searchInput,setSearchInput] = useState('3');
+    const [currentSearchType,setCurrentSearchType] = useState('user');
     let debounce = null;
+
+    console.log(currentSearchType);
 
     useEffect(() => {
         if (searchInput) {
             setIsLoading(true);
             const getResult = async () => {
                 await Axios.get(`/public/api/community/resources/public/search/${searchInput}-${currentSearchType}`).then((response) => {
+                    console.log(response.data.result);
                     setResult(response.data.result);
                     setIsLoading(false);
                 }).catch((error) => {
