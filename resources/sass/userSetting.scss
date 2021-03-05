@@ -45,6 +45,57 @@
 
         .content {
             margin-top: 25px;
+            .statistic {
+                display: grid;
+                grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+                column-gap: 25px;
+                row-gap: 25px;
+                .grid-item {
+                    box-shadow: 0 0 15px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.15);
+                    padding: 10px 15px 10px 15px;
+                    border-radius: 0.25em;
+                    background:#ececec;
+                    
+                    h2, h3 {
+                        margin:0;
+                        color:#ff810c;
+                    }
+                    
+                    .number {
+                        font-weight: bold;
+                        font-size: 3em;
+                    }
+                    
+                    .stats-group {
+                        margin-top: 10px;
+                        margin-bottom: 15px;
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                        display: grid;
+                        &.channel {
+                            grid-template-columns: repeat(auto-fit,minmax(50px,1fr));
+                        }
+
+                        &.dimension {
+                            grid-template-columns: repeat(auto-fit,minmax(50px,1fr));
+                        }
+                        .stats {
+                            .number {
+                                font-size: 2em;
+                            }
+
+                            .name {
+                                font-weight: bold;
+                                font-size: 0.75em;
+                                color: #747373;
+                            }
+                        }
+                    }
+                        
+                }
+            }
+
             .profile {
                 position: relative;
                 &::before {

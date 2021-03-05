@@ -57167,7 +57167,7 @@ var Community = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["lazy"])(
 });
 var Admin = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["lazy"])(function () {
   return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(4), __webpack_require__.e(1), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./components/Admin */ "./resources/js/src/components/Admin/index.js"));
-});
+}); // const history = createBrowserHisory
 
 function Main() {
   var authRefresh = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(function (state) {

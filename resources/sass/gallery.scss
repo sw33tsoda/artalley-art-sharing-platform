@@ -31,6 +31,9 @@
             display: flex;
             justify-content: space-between;
             .nav-item {
+                @include mobile {
+                    font-size: 2em;
+                }
                 font-size: 4em;
                 font-weight: bold;
                 opacity: 0.25;

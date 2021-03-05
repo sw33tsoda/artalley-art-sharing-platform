@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Community;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Community\UsersRequest;
 use App\Models\Art;
+use App\Models\ArtChannel;
+use App\Models\Comment;
+use App\Models\Dimension;
+use App\Models\Reply;
 use App\Models\Showcase;
 use App\Models\ShowcaseArt;
 use App\Models\User;
@@ -21,9 +25,9 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
     }
 
     /**
@@ -53,25 +57,39 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
-        $user = User::find($id);
         $stats = [
-            'artsCount' => Art::where('user_id',$id)->count(),
-            'showcasesCount' => Showcase::where('user_id',$id)->count(),
+            'arts' => [
+                'total' => Art::where('user_id',$request->user()->id)->count(),
+                'by_channels' => (function() use ($request) {
+                    $array = [];
+                    foreach (ArtChannel::all() as $channel) {
+                        array_push($array,[
+                            'name' => $channel->channel_name,
+                            'slug' => $channel->channel_slug,
+                            'count' => Art::where('user_id',$request->user()->id)->where('art_channel_id',$channel->id)->count(),
+                        ]);
+                    }
+                    return $array;
+                })(),
+                'by_dimensions' => (function() use ($request) {
+                    $array = [];
+                    foreach (Dimension::all() as $dimension) {
+                        array_push($array,[
+                            'name' => $dimension->dimensional,
+                            'count' => Art::where('user_id',$request->user()->id)->where('dimension_id',$dimension->id)->count(),
+                        ]);
+                    }
+                    return $array;
+                })(),
+            ],
+            'showcases' => Showcase::where('user_id',$request->user()->id)->count(),
+            'comments' => Comment::where('user_id',$request->user()->id)->count() + Reply::where('user_id')->count(),
         ];
-        $user['stats'] = $stats;
-
-        if (!$user) {
-            return response()->json([
-                'message' => 'Lấy người dùng thất bại',
-            ],500);
-        }
-
         return response()->json([
-            'message' => 'Lấy người dùng thành công',
-            'user' => $user,
-        ]);
+            'stats' => $stats,
+        ],200);
     }
 
     /**

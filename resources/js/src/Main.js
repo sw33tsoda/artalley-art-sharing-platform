@@ -7,10 +7,12 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { setAuthenticatedUser } from './store/auth';
 import Utils from 'lodash';
 import Warning from './components/Errors/Warning';
+
 // import Community from './components/Community';
 // import Admin from './components/Admin';
 const Community = lazy(() => (import('./components/Community')));
 const Admin = lazy(() => (import('./components/Admin')));
+// const history = createBrowserHisory
 
 function Main() {
     const authRefresh = useSelector(state => state.auth.sessionRefreshTimes);

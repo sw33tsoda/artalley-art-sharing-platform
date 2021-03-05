@@ -154,6 +154,9 @@ class PublicController extends Controller
                 foreach (['title','subheading','description'] as $column) {
                     $result->orWhere($column,'LIKE',"%$keywords%");
                 }
+                $result = $result->with(['showcase_arts' => function($query) {
+                    $query->inRandomOrder()->with('arts');
+                }])->orderBy('created_at','desc');
                 break;
 
             case 'user':
@@ -167,7 +170,7 @@ class PublicController extends Controller
         }
 
         return response()->json([
-            'result' => $result->get(),
+            'result' => $result = $result->take(20)->get(),
         ]);
     }
 }
