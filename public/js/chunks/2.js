@@ -4312,9 +4312,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _ArtsStats__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ArtsStats */ "./resources/js/src/components/Community/Body/UserSetting/Statistic/ArtsStats/index.js");
-/* harmony import */ var _CommentsStats__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./CommentsStats */ "./resources/js/src/components/Community/Body/UserSetting/Statistic/CommentsStats/index.js");
-/* harmony import */ var _ShowcasesStats__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ShowcasesStats */ "./resources/js/src/components/Community/Body/UserSetting/Statistic/ShowcasesStats/index.js");
+/* harmony import */ var _Etc_Loading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../Etc/Loading */ "./resources/js/src/components/Etc/Loading/index.js");
+/* harmony import */ var _ArtsStats__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ArtsStats */ "./resources/js/src/components/Community/Body/UserSetting/Statistic/ArtsStats/index.js");
+/* harmony import */ var _CommentsStats__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./CommentsStats */ "./resources/js/src/components/Community/Body/UserSetting/Statistic/CommentsStats/index.js");
+/* harmony import */ var _ShowcasesStats__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ShowcasesStats */ "./resources/js/src/components/Community/Body/UserSetting/Statistic/ShowcasesStats/index.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -4346,6 +4347,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function Statistic(_ref) {
   var user = _ref.user;
 
@@ -4354,46 +4356,49 @@ function Statistic(_ref) {
       statsData = _useState2[0],
       setStatsData = _useState2[1];
 
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      loading = _useState4[0],
+      setLoading = _useState4[1];
+
   Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
-    var getUserStats = /*#__PURE__*/function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/users/".concat(user.id, "?api_token=").concat(localStorage.getItem('authenticatedUserToken'))).then(function (response) {
-                  var stats = response.data.stats;
-                  setStatsData(_objectSpread({}, stats));
-                  console.log(stats);
-                })["catch"](function (error) {
-                  console.log(error.response);
-                });
+    _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              setLoading(true);
+              _context.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/public/api/community/resources/users/".concat(user.id, "?api_token=").concat(localStorage.getItem('authenticatedUserToken'))).then(function (response) {
+                var stats = response.data.stats;
+                setStatsData(_objectSpread({}, stats));
+                setLoading(false);
+              })["catch"](function (error) {
+                console.log(error.response);
+              });
 
-              case 2:
-              case "end":
-                return _context.stop();
-            }
+            case 3:
+            case "end":
+              return _context.stop();
           }
-        }, _callee);
-      }));
-
-      return function getUserStats() {
-        return _ref2.apply(this, arguments);
-      };
-    }();
-
-    getUserStats();
+        }
+      }, _callee);
+    }))();
   }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_Etc_Loading__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    isLoading: loading,
+    width: "50px",
+    height: "50px",
+    type: "spinner"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "statistic"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ArtsStats__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ArtsStats__WEBPACK_IMPORTED_MODULE_5__["default"], {
     data: statsData.arts
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ShowcasesStats__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ShowcasesStats__WEBPACK_IMPORTED_MODULE_7__["default"], {
     data: statsData.showcases
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_CommentsStats__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_CommentsStats__WEBPACK_IMPORTED_MODULE_6__["default"], {
     data: statsData.comments
-  }));
+  })));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Statistic);
@@ -5087,6 +5092,54 @@ function TextareaField(props) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (TextareaField);
+
+/***/ }),
+
+/***/ "./resources/js/src/components/Etc/Loading/index.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/src/components/Etc/Loading/index.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+
+
+Loading.propTypes = {
+  type: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
+  width: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
+  height: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
+  isLoading: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool
+};
+Loading.defaultProps = {
+  type: 'spinner',
+  width: '50px',
+  height: '50px',
+  isLoading: false
+};
+
+function Loading(_ref) {
+  var children = _ref.children,
+      type = _ref.type,
+      width = _ref.width,
+      height = _ref.height,
+      isLoading = _ref.isLoading;
+  return isLoading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("center", {
+    className: "loading-wrapper"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: "loading",
+    src: "https://4.bp.blogspot.com/-a4arXx0z1xQ/VuM0S587YfI/AAAAAAAAAOk/jQf7UpsN93ol-qZYM4CuibUSCG8deiejg/s1600/loading.gif",
+    width: width,
+    height: height
+  })) : children;
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Loading);
 
 /***/ }),
 
