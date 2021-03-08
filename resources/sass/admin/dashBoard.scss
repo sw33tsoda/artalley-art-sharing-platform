@@ -1,0 +1,86 @@
+@mixin dashBoard {
+    .dashboard {
+        .top-nav {
+            border-bottom: 0.5px solid silver;
+            height: 50px;
+            width: 100%;
+            background:white;
+            display: flex;
+            justify-content: space-between;
+            // align-items: center;
+            .flex-box {
+                padding: 0 10px 0 10px;
+                display: flex;
+                column-gap: 10px;
+                .title {
+                    color:crimson;
+                    font-size: 10pt;
+                    padding-top: 10px;
+                }
+
+                .control {
+                    display: flex;
+                    column-gap: 10px;
+                    .admin-info {
+                        cursor: pointer;
+                        &:hover {
+                            transition: 0.15s;
+                            & {
+                                background:crimson;
+                            }
+                            .username {
+                                color:white;
+                            }
+                        }
+                        padding: 0 10px 0 10px;
+                        display: flex;
+                        align-items: center;
+                        column-gap: 5px;
+                        .username {
+                            
+                        }
+
+                        .profile-picture {
+                            width: 35px;
+                            height: 35px;
+                            overflow: hidden;
+                            border-radius: 0.25em;
+                            img {
+                                height: 100%;
+                                object-fit: cover;
+                            }
+                        }
+                    }
+
+                    .sidebar-toggle {
+                        display: flex;
+                        align-items: center;
+                        // padding-top: 6px;
+                        .toggle-button {
+                            padding: 5px;
+                            // box-sizing: border-box;
+                            cursor: pointer;
+                            border-radius: 0.25em;
+                            i {
+                                font-size: calc(10pt * 2);
+                                color:crimson;
+                            }
+        
+                            &:active {
+                                i {
+                                    color:white !important;
+                                }
+                                background: crimson;
+                            }
+                        }
+                    }
+                }
+            }
+
+            * {
+                padding:0;
+                margin:0;
+            }
+        }
+    }
+}

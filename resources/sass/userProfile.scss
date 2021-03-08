@@ -342,23 +342,11 @@
 
                 .arts {
                     .arts-list {
-                        @include desktop {
-                            padding: 5px 5px 0 5px;
-                        }
+                        padding: 5px 5px 0 5px;
                         // line-height: 0;
                         display: grid;
-                        grid-template-columns: repeat(6,1fr);
-                        grid-gap: 5px 5px;
-                        // column-count: 7;
-                        justify-items: center;
-                        @include mobile {
-                            grid-template-columns: repeat(3,1fr);
-                            // column-count:2;
-                        }
-                        @include tablet {
-                            grid-template-columns: repeat(6,1fr);
-                            // column-count:4;
-                        }
+                        grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+                        grid-gap: 5px;
                         // column-gap: 5px;
                         // padding: 5px;
                         // background-image: linear-gradient(#212121,#313131);  
@@ -370,7 +358,7 @@
                             // overflow: hidden;
                             display: flex;
                             justify-content: center;
-                            max-width: 150px;
+                            // max-width: 150px;
                             height: 150px;
                             img {
                                 cursor: pointer;

@@ -57163,10 +57163,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 // import Admin from './components/Admin';
 
 var Community = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["lazy"])(function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(6), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ./components/Community */ "./resources/js/src/components/Community/index.js"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./components/Community */ "./resources/js/src/components/Community/index.js"));
 });
 var Admin = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["lazy"])(function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(4), __webpack_require__.e(1), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./components/Admin */ "./resources/js/src/components/Admin/index.js"));
+  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./components/Admin */ "./resources/js/src/components/Admin/index.js"));
 }); // const history = createBrowserHisory
 
 function Main() {
@@ -57536,8 +57536,8 @@ var store = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["configureStore
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\laravelproject\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\laravelproject\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\XAMPP\htdocs\laravelproject\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\XAMPP\htdocs\laravelproject\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

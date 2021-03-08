@@ -206,7 +206,7 @@ function Showcase() {
                                 </div>
                                 <div className="view-more">
                                     {editMode ? (
-                                        <a className="delete-btn" onClick={() => handleAddItemToRemovalList(showcase_id)}>{removalList.includes(showcase_id) ? "BỎ GỠ" : "GỠ"}</a>
+                                        <a className="delete-btn" onClick={() => handleAddItemToRemovalList(art.id)}>{removalList.includes(art.id) ? "BỎ GỠ" : "GỠ"}</a>
                                     ) : (
                                         <Link to={`/public/community/art/${art.id}`}>XEM THÊM</Link>
                                     )}

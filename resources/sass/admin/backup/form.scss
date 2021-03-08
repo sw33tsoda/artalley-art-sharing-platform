@@ -1,0 +1,143 @@
+
+
+.user-crud {
+    animation: 1s fadeIn;
+    width: auto;
+    background:#1e3799;
+    padding: 20px 20px 0 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.3);
+    z-index: 1000;
+    margin: 0;
+    // position: absolute;
+    // top: 5%;
+    // left: 37%;
+    // transform: translate(-50%, -50%);
+    border-radius: 0.25em;
+
+    h1 {
+        text-align: center; 
+    }
+
+    button {
+        margin-right: 25px;
+        &:first-child {
+            float:left;
+        }
+
+        &:last-child {
+            float:right;
+        }
+    }
+
+    .form-buttons-group {
+        margin-top: 25px;
+    }
+
+    .first-last-name, .password-and-confirmation {
+        display: grid;
+        grid-template-columns: auto auto;
+        column-gap: 10px;
+
+        @include mobile {
+            display: block;
+        }
+    }
+
+    .upload-button {
+        text-align: center;
+    }
+
+    .no-file {
+        text-align: center;
+    }
+
+    .profile-picture-preview {
+        width: 100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.admin-form {
+    
+    h1 {
+        margin-bottom: 25px;
+        text-align: center; 
+        text-shadow: 0px 2px 3px #101010;
+    }
+
+    label {
+        color:#b2bec3;
+        font-weight: bold;
+        font-size: 0.85em !important;
+    }
+    
+    label,button {
+        margin:0;
+        text-shadow: 0px 2px 3px #101010;
+    }
+
+    input {
+        margin: 5px 0 0 0;
+    }
+
+    .form-buttons-group {
+        height: 50px;
+    }
+
+    button {
+        margin-right: 25px;
+        text-shadow: 0px 2px 3px #101010;
+        color: #b2bec3;
+        margin:0;
+        font-size: 1.5em;
+        font-weight: bolder;
+        text-decoration: none;
+        background:none;
+        border:0;
+        outline:0;
+        box-shadow:0;
+        padding: 0;
+        margin:0;
+        &.active {
+            color:white !important;
+        }
+        cursor: pointer;
+        &:hover {
+            color:white;
+        }
+    }
+    
+    .upload-button {
+        text-transform: uppercase;
+    }
+    
+    .no-file {
+        font-style: italic;
+    }
+    
+    .profile-picture-preview {
+        animation: 1s fadeIn;
+        display: block;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+        &:hover {
+            label {
+                color:white;
+            }
+        }
+
+        select {
+            height: 35px;
+            width: 100%;
+            border-radius: 0.25em;
+        }
+
+        small {
+            top:48.5% !important;
+            background:#1e3799;
+        }
+    }
+}

@@ -85,7 +85,7 @@ class UsersController extends Controller
                 })(),
             ],
             'showcases' => Showcase::where('user_id',$request->user()->id)->count(),
-            'comments' => Comment::where('user_id',$request->user()->id)->count() + Reply::where('user_id')->count(),
+            'comments' => Comment::where('user_id',$request->user()->id)->count() + Reply::where('user_id',$request->user()->id)->count(),
         ];
         return response()->json([
             'stats' => $stats,

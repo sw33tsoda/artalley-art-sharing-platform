@@ -100,9 +100,10 @@
         margin:auto;
         @include mobile {
             width: 100%;
-            .description {
+            .description, .upload-date, .edit-form, .more, .action-wrapper {
                 // padding: 0 5px 0 5px;
-            }
+                width: 100% !important;
+            }   
         }
 
         @include tablet {
@@ -118,7 +119,6 @@
             text-indent: 25px;
             width: 1150px;
             margin:auto;
-
         }
 
         .full-showcases-list {

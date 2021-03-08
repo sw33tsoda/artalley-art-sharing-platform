@@ -53,8 +53,10 @@ function Comment({info,authenticatedUserId,setAction,currentAction,refreshList,r
             <div className="content">
                 <div className="user-info">
                     <Link to={`/public/community/user/${info.users.id}/arts`}>{info.users.username}</Link>
-                    {(info.is_edited == true || newInfo) && <p className="edited">(Bình luận đã được chỉnh sửa)</p>}
-                    <p className="date"><Moment format="H:mm A - D/MM/yyyy">{info.created_at}</Moment></p>
+                    <div className="extra">
+                        {(info.is_edited == true || newInfo) && <p className="edited">(Bình luận đã được chỉnh sửa)</p>}
+                        <p className="date"><Moment format="H:mm A - D/MM/yyyy">{info.created_at}</Moment></p>
+                    </div>
                 </div>
                 <div className="callout-box">
                     <div className={classnames("callout",{edit_mode: currentAction.type == type && currentAction.id == info.id && currentAction.action == 'edit'})}>

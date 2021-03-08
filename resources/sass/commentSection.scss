@@ -52,6 +52,16 @@
 
     .comment-list {
         max-width: 1150px;
+        @include mobile {
+            width: auto;
+            .action-controls {
+                justify-content: flex-start !important;
+            }
+
+            .edit_mode {
+                width: auto !important;
+            }
+        }
         p {
             margin:0;
         }
@@ -61,7 +71,8 @@
 
         .reply {
             .action-controls {
-                width: calc(1150px - (60px * 2)) !important;
+                max-width: calc(1150px - (60px * 2)) !important;
+                // width: calc(100% - 60px) !important;
             }
         }
 
@@ -100,7 +111,7 @@
                 display: block;
             }
             .content {
-                width: calc(1150px - 60px);
+                width: calc(100% - 60px);
                 // display: flex;
                 // flex-direction: column;
 
@@ -110,17 +121,24 @@
                     display: flex;
                     column-gap: 5px;
                     align-items: center;
-                    .edited {
-                        font-weight: normal;
-                        font-style: italic;
-                        font-size: 0.75em;
-                        color:crimson;
-                    }
-
-                    .date {
-                        font-weight: normal;
-                        font-size: 0.75em;
-                        display: none;
+                    justify-content: space-between;
+                    
+                    .extra {
+                        display: flex;
+                        justify-content: flex-end;
+                        column-gap: 15px;
+                        .edited {
+                            font-weight: normal;
+                            font-style: italic;
+                            font-size: 0.75em;
+                            color:crimson;
+                        }
+    
+                        .date {
+                            font-weight: normal;
+                            font-size: 0.75em;
+                            display: block;
+                        }
                     }
 
 
@@ -155,9 +173,9 @@
                 .action-controls {
                     margin-top: 5px;
                     display: flex;
-                    justify-content: space-between;
+                    justify-content: flex-start;
                     column-gap: 5px;
-                    width: calc(1150px - 60px);
+                    max-width: calc(1150px - 60px);
                     
                     a {
                         box-shadow: -43px 2px 0px -45px #ff810c inset;

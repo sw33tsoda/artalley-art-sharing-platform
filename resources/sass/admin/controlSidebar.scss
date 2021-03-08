@@ -1,0 +1,101 @@
+@mixin controlSidebar {
+
+    .sidebar_hidden {
+        width:0 !important;
+        border-right: none !important;
+    }
+
+    .control-sidebar {
+        overflow: hidden;
+        position: fixed;
+        transition: all 0.25s;
+        width: 300px;
+        @include mobile {
+            width: 100%;
+        }
+        height: 100vh;
+        background:crimson;
+        // box-shadow: -19px 1px 12px 19px rgba(0,0,0,0.75);
+        border-right: 0.5px solid silver;
+        * {
+            padding:0;
+            margin:0;
+            white-space: nowrap;
+        }
+
+        .header {
+            height: 50px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            border-bottom: 0.5px solid #b80303;
+
+            > div {
+                padding:10px;
+            }
+
+            .title {
+                font-size: 10pt;
+                color:white;
+            }
+
+            .sidebar-toggle {
+                padding: 6px;
+
+                
+                .toggle-button {
+                    padding: 5px;
+                    cursor: pointer;
+                    border-radius: 0.25em;
+                    i {
+                        font-size: calc(10pt * 2);
+                        color:white;
+                    }
+
+                    &:active {
+                        i {
+                            color:crimson !important;
+                        }
+                        background: white;
+                    }
+                }
+            }
+        }
+
+        .body {
+            .resources {
+                padding:5px;
+                a {
+                    font-size: 14pt;
+                    text-decoration: none;
+                    color: white;
+
+                    &:hover {
+                        color:crimson;
+                        font-weight: bold;
+                        .control {
+                            background: white;
+                            transition: 0.15s;
+                        }
+                    }
+                }
+
+                .control {
+                    padding: 5px;
+                    border-radius: 0.25em;
+                    cursor: pointer;
+                    .name {
+                        display: flex;
+                        column-gap: 15px;
+                        align-items: center;
+                        flex-direction: row;
+                        i {
+                            flex-basis: 25px;
+                            // width: 52z;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
