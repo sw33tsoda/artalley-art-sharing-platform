@@ -1,7 +1,11 @@
 @import './controlSidebar.scss';
 @import './dashBoard.scss';
+@import './form.scss';
+@import './loadingSpinner.scss';
 
 .admin {
     @include controlSidebar;
     @include dashBoard;
+    @include form;
+    @include loadingSpinner;
 }

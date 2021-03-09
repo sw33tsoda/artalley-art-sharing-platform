@@ -21,7 +21,7 @@ function ControlSidebar({sideBarToggle,setSideBarToggle}) {
 
             <div className="body">
                 <div className="resources">
-                    <Link to="/public/admin/users">
+                    <Link to="/public/admin/users/list">
                         <div className="control">
                             <div className="name">
                                 <i className="fas fa-users"></i><p>NGƯỜI DÙNG</p>

@@ -1,0 +1,24 @@
+@mixin loadingSpinner {
+    .loading-spinner {
+        width: 100%;
+        .shape {
+            margin:auto;
+            height: 25px;
+            width: 25px;
+            border: 3px solid #212121;
+            border-radius: 50%;
+            border-top: 3px solid crimson;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text {
+            font-weight: bold;
+            text-align: center;
+        }
+    }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

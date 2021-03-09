@@ -1,5 +1,9 @@
 @mixin dashBoard {
     .dashboard {
+        * {
+            padding:0;
+            margin:0;
+        }
         .top-nav {
             border-bottom: 0.5px solid silver;
             height: 50px;
@@ -8,7 +12,7 @@
             display: flex;
             justify-content: space-between;
             // align-items: center;
-            .flex-box {
+            > .flex-box {
                 padding: 0 10px 0 10px;
                 display: flex;
                 column-gap: 10px;
@@ -77,9 +81,193 @@
                 }
             }
 
-            * {
-                padding:0;
-                margin:0;
+        }
+
+        .content {
+            background:rgb(247, 247, 247);
+            height: calc(100vh - 50px);
+            padding: 10px;
+            .resources {
+                .users {
+                    .controls {
+                        display: flex;
+                        column-gap: 5px;
+                    }
+                    .list {
+                        background:white;
+                        border-radius: 0.25em;
+                        border: 0.5px solid silver;
+                        margin-top: 5px;
+                        .header {
+                            padding: 0 5px 0 5px;
+                            height: 40px;
+                            width: 100%;
+                            display: flex;
+                            border-bottom: 0.5px solid silver;
+                            box-sizing: border-box;
+                            .flex-box {
+                                display: flex;
+                                align-items: center;
+                                column-gap: 5px;
+
+                                .search-bar {
+                                    display: flex;
+                                    column-gap: 5px;
+
+                                    input {
+                                        overflow: hidden;
+                                        transition: 0.25s;
+                                        width: 300px;
+                                    }
+                                }
+
+                                .search_hidden {
+                                    input, .button-wrapper:last-child {
+                                        opacity: 0;
+                                        visibility: hidden;
+                                    }
+
+                                    input {
+                                        width: 0 !important;
+                                    }
+                                }
+                            }
+                        }
+
+                        .body {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            > .flex-box {
+                                // height: 500px;
+                                padding: 5px;
+                                .user {
+                                    display: flex;
+                                    column-gap: 5px;
+                                    padding: 5px;
+                                    justify-content: space-between;
+                                    border-radius: 0.25em;
+                                    border:0.5px solid silver;
+                                    margin-bottom: 5px;
+                                    &:hover {
+                                        background: crimson;
+                                        color: white;
+
+                                        .button {
+                                            background:white;
+                                            color:crimson;
+                                            // font-weight: bold;
+                                            cursor: pointer;
+                                        }
+                                    }
+                                    
+                                    .user-info {
+                                        column-gap: 5px;
+                                        display: flex;
+                                        .profile-picture {
+                                            width: 35px;
+                                            height: 35px;
+                                            overflow: hidden;
+                                            border-radius: 0.25em;
+                                            img {
+                                                height: 100%;
+                                                object-fit: contain;
+                                            }
+                                            flex-basis: 35px;
+                                        }
+                                        
+                                        .group-info {
+                                            display: grid;
+                                            grid-template-columns: 75px 75px;
+                                            
+                                            
+                                            .info {
+                                                display: flex;
+                                                align-items: center;
+                                                font-size: 0.75em;
+                                                overflow: hidden;
+                                                
+                                                &:hover {
+                                                    overflow:initial !important;
+                                                    p {
+                                                        background: crimson !important;
+                                                        z-index: 1000;
+                                                    }
+                                                }
+                                            }
+                                            
+                                            .firstname, .lastname {
+                                                font-weight: bold;
+                                            }
+                                        }
+                                        .extra {
+                                            grid-template-columns: 75px !important;
+                                        }
+                                    }
+                                    
+                                    .action {
+                                        display: flex;
+                                        column-gap: 5px;
+                                        align-items: center;
+                                        .button {
+                                            height: 35px;
+                                        }
+                                    }
+                                }
+
+                                .selected {
+                                    background: crimson;
+                                    color: white;
+                                    border-color: crimson !important;
+
+                                    .button {
+                                        background:white;
+                                        color:crimson;
+                                        // font-weight: bold;
+                                        cursor: pointer;
+                                    }
+                                }
+                            }
+                            
+                            > .flex-box:first-child {
+                                border-right: 0.5px solid silver;
+                            }
+
+                            > .flex-box:last-child {
+                                .full-user-info {
+                                    .wrapper {
+                                        border:0.5px solid silver;
+                                        border-radius: 0.25em;
+                                        .outer-group {
+                                            display: grid;
+                                            grid-template-columns: 1fr;
+                                            .inner-group {
+                                                border-bottom: 0.5px solid silver;
+                                                display: grid;
+                                                grid-template-columns: 0.25fr 0.75fr;
+                                                
+                                                > div {
+                                                    padding: 5px;
+                                                    overflow: hidden;
+                                                    word-wrap: break-word;
+                                                    font-size: 0.85em;
+                                                }
+
+                                                > div:first-child {
+                                                    font-weight: bold;
+                                                    border-right: 0.5px solid silver;
+                                                }
+                                            }
+
+                                            .last {
+                                                border-bottom: 0;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

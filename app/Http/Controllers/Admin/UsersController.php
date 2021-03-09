@@ -5,6 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
+use App\Models\Comment;
+use App\Models\Reply;
+use App\Models\Art;
+use App\Models\ArtChannel;
+use App\Models\Dimension;
+use App\Models\Showcase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -107,7 +113,37 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        $by_channels = [];
+        foreach (ArtChannel::all() as $channel) {
+            array_push($by_channels,[
+                'name' => $channel->channel_name,
+                'slug' => $channel->channel_slug,
+                'count' => Art::where('user_id',$id)->where('art_channel_id',$channel->id)->count(),
+            ]);
+        }
+
+        $by_dimensions = [];
+        foreach (Dimension::all() as $dimension) {
+            array_push($by_dimensions,[
+                'name' => $dimension->dimensional,
+                'count' => Art::where('user_id',$id)->where('dimension_id',$dimension->id)->count(),
+            ]);
+        }
+
+        $user = User::find($id);
+        $user['stats'] = [
+            'arts' => [
+                'total' => Art::where('user_id',$id)->count(),
+                'by_channels' => $by_channels,
+                'by_dimensions' => $by_dimensions,
+            ],
+            'showcases' => Showcase::where('user_id',$id)->count(),
+            'comments' => Comment::where('user_id',$id)->count() + Reply::where('user_id',$id)->count(),
+        ];
+        
+        return response()->json([
+            'user_info' => $user,
+        ]);
     }
 
     /**

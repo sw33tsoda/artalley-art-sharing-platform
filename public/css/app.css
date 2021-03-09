@@ -3662,6 +3662,26 @@
   height: inherit;
 }
 
+@-webkit-keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .admin .sidebar_hidden {
   width: 0 !important;
   border-right: none !important;
@@ -3767,6 +3787,11 @@
   flex-basis: 25px;
 }
 
+.admin .dashboard * {
+  padding: 0;
+  margin: 0;
+}
+
 .admin .dashboard .top-nav {
   border-bottom: 0.5px solid silver;
   height: 50px;
@@ -3776,26 +3801,26 @@
   justify-content: space-between;
 }
 
-.admin .dashboard .top-nav .flex-box {
+.admin .dashboard .top-nav > .flex-box {
   padding: 0 10px 0 10px;
   display: flex;
   -moz-column-gap: 10px;
        column-gap: 10px;
 }
 
-.admin .dashboard .top-nav .flex-box .title {
+.admin .dashboard .top-nav > .flex-box .title {
   color: crimson;
   font-size: 10pt;
   padding-top: 10px;
 }
 
-.admin .dashboard .top-nav .flex-box .control {
+.admin .dashboard .top-nav > .flex-box .control {
   display: flex;
   -moz-column-gap: 10px;
        column-gap: 10px;
 }
 
-.admin .dashboard .top-nav .flex-box .control .admin-info {
+.admin .dashboard .top-nav > .flex-box .control .admin-info {
   cursor: pointer;
   padding: 0 10px 0 10px;
   display: flex;
@@ -3804,58 +3829,294 @@
        column-gap: 5px;
 }
 
-.admin .dashboard .top-nav .flex-box .control .admin-info:hover {
+.admin .dashboard .top-nav > .flex-box .control .admin-info:hover {
   transition: 0.15s;
 }
 
-.admin .dashboard .top-nav .flex-box .control .admin-info:hover {
+.admin .dashboard .top-nav > .flex-box .control .admin-info:hover {
   background: crimson;
 }
 
-.admin .dashboard .top-nav .flex-box .control .admin-info:hover .username {
+.admin .dashboard .top-nav > .flex-box .control .admin-info:hover .username {
   color: white;
 }
 
-.admin .dashboard .top-nav .flex-box .control .admin-info .profile-picture {
+.admin .dashboard .top-nav > .flex-box .control .admin-info .profile-picture {
   width: 35px;
   height: 35px;
   overflow: hidden;
   border-radius: 0.25em;
 }
 
-.admin .dashboard .top-nav .flex-box .control .admin-info .profile-picture img {
+.admin .dashboard .top-nav > .flex-box .control .admin-info .profile-picture img {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
 
-.admin .dashboard .top-nav .flex-box .control .sidebar-toggle {
+.admin .dashboard .top-nav > .flex-box .control .sidebar-toggle {
   display: flex;
   align-items: center;
 }
 
-.admin .dashboard .top-nav .flex-box .control .sidebar-toggle .toggle-button {
+.admin .dashboard .top-nav > .flex-box .control .sidebar-toggle .toggle-button {
   padding: 5px;
   cursor: pointer;
   border-radius: 0.25em;
 }
 
-.admin .dashboard .top-nav .flex-box .control .sidebar-toggle .toggle-button i {
+.admin .dashboard .top-nav > .flex-box .control .sidebar-toggle .toggle-button i {
   font-size: calc(10pt * 2);
   color: crimson;
 }
 
-.admin .dashboard .top-nav .flex-box .control .sidebar-toggle .toggle-button:active {
+.admin .dashboard .top-nav > .flex-box .control .sidebar-toggle .toggle-button:active {
   background: crimson;
 }
 
-.admin .dashboard .top-nav .flex-box .control .sidebar-toggle .toggle-button:active i {
+.admin .dashboard .top-nav > .flex-box .control .sidebar-toggle .toggle-button:active i {
   color: white !important;
 }
 
-.admin .dashboard .top-nav * {
-  padding: 0;
-  margin: 0;
+.admin .dashboard .content {
+  background: #f7f7f7;
+  height: calc(100vh - 50px);
+  padding: 10px;
+}
+
+.admin .dashboard .content .resources .users .controls {
+  display: flex;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+}
+
+.admin .dashboard .content .resources .users .list {
+  background: white;
+  border-radius: 0.25em;
+  border: 0.5px solid silver;
+  margin-top: 5px;
+}
+
+.admin .dashboard .content .resources .users .list .header {
+  padding: 0 5px 0 5px;
+  height: 40px;
+  width: 100%;
+  display: flex;
+  border-bottom: 0.5px solid silver;
+  box-sizing: border-box;
+}
+
+.admin .dashboard .content .resources .users .list .header .flex-box {
+  display: flex;
+  align-items: center;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+}
+
+.admin .dashboard .content .resources .users .list .header .flex-box .search-bar {
+  display: flex;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+}
+
+.admin .dashboard .content .resources .users .list .header .flex-box .search-bar input {
+  overflow: hidden;
+  transition: 0.25s;
+  width: 300px;
+}
+
+.admin .dashboard .content .resources .users .list .header .flex-box .search_hidden input,
+.admin .dashboard .content .resources .users .list .header .flex-box .search_hidden .button-wrapper:last-child {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.admin .dashboard .content .resources .users .list .header .flex-box .search_hidden input {
+  width: 0 !important;
+}
+
+.admin .dashboard .content .resources .users .list .body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box {
+  padding: 5px;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box .user {
+  display: flex;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+  padding: 5px;
+  justify-content: space-between;
+  border-radius: 0.25em;
+  border: 0.5px solid silver;
+  margin-bottom: 5px;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box .user:hover {
+  background: crimson;
+  color: white;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box .user:hover .button {
+  background: white;
+  color: crimson;
+  cursor: pointer;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info {
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+  display: flex;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info .profile-picture {
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
+  border-radius: 0.25em;
+  flex-basis: 35px;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info .profile-picture img {
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info .group-info {
+  display: grid;
+  grid-template-columns: 75px 75px;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info .group-info .info {
+  display: flex;
+  align-items: center;
+  font-size: 0.75em;
+  overflow: hidden;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info .group-info .info:hover {
+  overflow: initial !important;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info .group-info .info:hover p {
+  background: crimson !important;
+  z-index: 1000;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info .group-info .firstname,
+.admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info .group-info .lastname {
+  font-weight: bold;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info .extra {
+  grid-template-columns: 75px !important;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box .user .action {
+  display: flex;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+  align-items: center;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box .user .action .button {
+  height: 35px;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box .selected {
+  background: crimson;
+  color: white;
+  border-color: crimson !important;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box .selected .button {
+  background: white;
+  color: crimson;
+  cursor: pointer;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:first-child {
+  border-right: 0.5px solid silver;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .wrapper {
+  border: 0.5px solid silver;
+  border-radius: 0.25em;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .wrapper .outer-group {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .wrapper .outer-group .inner-group {
+  border-bottom: 0.5px solid silver;
+  display: grid;
+  grid-template-columns: 0.25fr 0.75fr;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .wrapper .outer-group .inner-group > div {
+  padding: 5px;
+  overflow: hidden;
+  word-wrap: break-word;
+  font-size: 0.85em;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .wrapper .outer-group .inner-group > div:first-child {
+  font-weight: bold;
+  border-right: 0.5px solid silver;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .wrapper .outer-group .last {
+  border-bottom: 0;
+}
+
+.admin .button {
+  height: 25px;
+  padding: 0 5px 0 5px;
+  border: none;
+  border-radius: 0.25em;
+}
+
+.admin .button-crimson {
+  background: crimson;
+  color: white;
+}
+
+.admin .text-input {
+  height: 25px;
+  font-size: 1.25em;
+  border: 1px solid grey;
+  border-radius: 0.15em;
+  text-indent: 2.5px;
+}
+
+.admin .text-input:focus {
+  outline: none;
+}
+
+.admin .loading-spinner {
+  width: 100%;
+}
+
+.admin .loading-spinner .shape {
+  margin: auto;
+  height: 25px;
+  width: 25px;
+  border: 3px solid #212121;
+  border-radius: 50%;
+  border-top: 3px solid crimson;
+  -webkit-animation: spin 1s linear infinite;
+          animation: spin 1s linear infinite;
+}
+
+.admin .loading-spinner .loading-text {
+  font-weight: bold;
+  text-align: center;
 }
 
 var map = {
