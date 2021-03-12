@@ -11,14 +11,36 @@
         color:white;
     }
 
+    .label {
+        font-size: 0.75em;
+        color: crimson;
+        font-weight: bold;
+    }
+
     .text-input {
         height: 25px;
         font-size: 1.25em;
         border:1px solid grey;
         border-radius: 0.15em;
         text-indent: 2.5px;
+        width: 100%;
+
+        &::placeholder {
+            font-size: 0.5em !important;
+            text-indent: 5px !important;
+            // font-style: italic;
+        }
+
         &:focus {
             outline: none;
+        }
+    }
+
+    .admin-form {
+        .grid-box {
+            display: grid;
+            column-gap: 5px;
+            grid-template-columns: 1fr 1fr;
         }
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
-import AddEditForm from './AddEditForm';
+// import AddEditForm from './List/AddEditForm';
 import List from './List';
 
 function Users() {
@@ -17,7 +17,7 @@ function Users() {
                     </Link>
                 </div>
                 <div className="flex-box">
-                    <Link to={url + '/add'}>
+                    <Link to={url + '/list/add'}>
                         <button className="button button-crimson">
                             <i className="fas fa-plus"></i> Thêm
                         </button>
@@ -28,9 +28,6 @@ function Users() {
             <Switch>
                 <Route path={url + '/list'}>
                     <List/>
-                </Route>
-                <Route path={url + '/add'}>
-                    <AddEditForm/>
                 </Route>
             </Switch>
         </div>

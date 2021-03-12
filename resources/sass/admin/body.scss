@@ -2,10 +2,13 @@
 @import './dashBoard.scss';
 @import './form.scss';
 @import './loadingSpinner.scss';
+@import './resources/users.scss';
+@import './announcement.scss';
 
 .admin {
     @include controlSidebar;
     @include dashBoard;
     @include form;
     @include loadingSpinner;
+    @include announcement;
 }

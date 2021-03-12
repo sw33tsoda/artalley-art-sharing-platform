@@ -9,7 +9,7 @@ FileUploader.propTypes = {
     labelClassName: PropTypes.string,
     className:  PropTypes.string,
     disabled:   PropTypes.bool,
-    setFile: PropTypes.func.isRequired,
+    setFile: PropTypes.func,
     hidden: PropTypes.bool,
     fieldName: PropTypes.string.isRequired,
 }
@@ -36,7 +36,7 @@ function FileUploader(props) {
     }
 
     return (
-        <div className="form-group">
+        <div className="form-group" hidden={hidden}>
             {label && <label className={labelClassName}>{label}</label>}
             <br></br>
             {label && <div className="upload-button">
@@ -50,7 +50,6 @@ function FileUploader(props) {
                 disabled={disabled}
                 type='file'
                 onChange={handleSetFile}
-                hidden={hidden}
             />
         </div>
     );

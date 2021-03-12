@@ -13,8 +13,8 @@ function Announcer() {
     }
 
     return (
-        <div className="announcer">
-            {announcer.message && <div className="message"><p><span>Thông báo từ Server</span> - {announcer.message}</p></div>}
+        announcer.message && <div className="announcement">
+            <div className="message"><p>{announcer.message}</p></div>
         </div>
     );
 }

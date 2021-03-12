@@ -3913,6 +3913,20 @@
        column-gap: 5px;
 }
 
+@media (max-width: 479px) {
+  .admin .dashboard .content .resources .users .list .header .flex-box {
+    width: 100%;
+  }
+
+  .admin .dashboard .content .resources .users .list .header .flex-box .search-bar {
+    width: 100%;
+  }
+
+  .admin .dashboard .content .resources .users .list .header .flex-box .search-bar input {
+    width: 100% !important;
+  }
+}
+
 .admin .dashboard .content .resources .users .list .header .flex-box .search-bar {
   display: flex;
   -moz-column-gap: 5px;
@@ -3938,6 +3952,18 @@
 .admin .dashboard .content .resources .users .list .body {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 479px) {
+  .admin .dashboard .content .resources .users .list .body {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .admin .dashboard .content .resources .users .list .body {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 .admin .dashboard .content .resources .users .list .body > .flex-box {
@@ -3972,11 +3998,19 @@
   display: flex;
 }
 
+@media (max-width: 479px) {
+  .admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info {
+    display: grid;
+    grid-template-columns: 35px auto;
+  }
+}
+
 .admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info .profile-picture {
   width: 35px;
   height: 35px;
   overflow: hidden;
   border-radius: 0.25em;
+  flex-basis: 35px;
   flex-basis: 35px;
 }
 
@@ -3989,6 +4023,18 @@
 .admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info .group-info {
   display: grid;
   grid-template-columns: 75px 75px;
+}
+
+@media (max-width: 479px) {
+  .admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info .group-info {
+    grid-template-columns: auto !important;
+  }
+
+  .admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info .group-info .firstname,
+  .admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info .group-info .lastname,
+  .admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info .group-info .email {
+    display: none !important;
+  }
 }
 
 .admin .dashboard .content .resources .users .list .body > .flex-box .user .user-info .group-info .info {
@@ -4043,36 +4089,193 @@
   border-right: 0.5px solid silver;
 }
 
-.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .wrapper {
+@media (max-width: 479px) {
+  .admin .dashboard .content .resources .users .list .body > .flex-box:first-child {
+    border-right: none !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .admin .dashboard .content .resources .users .list .body > .flex-box:first-child {
+    border-right: none !important;
+  }
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .add-edit-form {
+  background: white;
+  border-radius: 0.25em;
   border: 0.5px solid silver;
+  padding: 5px;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .add-edit-form .admin-form > * {
+  margin-bottom: 5px;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .add-edit-form .admin-form textarea {
+  width: 100% !important;
+  font-family: "Roboto", sans-serif;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .add-edit-form .admin-form textarea::-moz-placeholder {
+  font-family: "Roboto", sans-serif;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .add-edit-form .admin-form textarea:-ms-input-placeholder {
+  font-family: "Roboto", sans-serif;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .add-edit-form .admin-form textarea::placeholder {
+  font-family: "Roboto", sans-serif;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .add-edit-form .admin-form .pics .preview {
+  border: 0.5px silver solid;
+  border-radius: 0.25em;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  max-width: 100%;
+  height: 100px;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .add-edit-form .admin-form .pics .preview .add-pic {
+  color: silver;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .add-edit-form .admin-form .pics .preview img {
+  height: 100%;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .add-edit-form .admin-form .pics .preview:hover .overlay {
+  display: flex;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .add-edit-form .admin-form .pics .preview .overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(220, 20, 60, 0.1);
+  position: absolute;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .add-edit-form .admin-form .pics .preview .overlay label {
+  font-weight: bold;
+  background: crimson;
+  color: white;
+  padding: 5px;
   border-radius: 0.25em;
 }
 
-.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .wrapper .outer-group {
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .add-edit-form .admin-form .submit {
+  width: 100%;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .pics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 5px;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .pics > div {
+  border: 0.5px silver solid;
+  border-radius: 0.25em;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  max-width: 100%;
+  height: 100px;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .pics > div img {
+  height: 100%;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .pics .no_pic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .pics .no_pic .text {
+  color: silver;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info > .wrapper {
+  border: 0.5px solid silver;
+  border-radius: 0.25em;
+  margin-bottom: 5px;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info > .wrapper .outer-group {
   display: grid;
   grid-template-columns: 1fr;
 }
 
-.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .wrapper .outer-group .inner-group {
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info > .wrapper .outer-group .inner-group {
   border-bottom: 0.5px solid silver;
   display: grid;
   grid-template-columns: 0.25fr 0.75fr;
 }
 
-.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .wrapper .outer-group .inner-group > div {
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info > .wrapper .outer-group .inner-group > div {
   padding: 5px;
   overflow: hidden;
   word-wrap: break-word;
   font-size: 0.85em;
 }
 
-.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .wrapper .outer-group .inner-group > div:first-child {
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info > .wrapper .outer-group .inner-group > div:first-child {
   font-weight: bold;
   border-right: 0.5px solid silver;
 }
 
-.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .wrapper .outer-group .last {
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info > .wrapper .outer-group .last {
   border-bottom: 0;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .stats {
+  border-radius: 0.25em;
+  max-width: 100%;
+  border: 0.5px solid silver;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .stats .grid-box {
+  border-right: 0.5px solid silver;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .stats .grid-box > div {
+  padding: 5px;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .stats .grid-box .main-stats p:first-child {
+  font-weight: bold;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .stats .grid-box .extra-stats {
+  border-top: 0.5px solid silver;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)) !important;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .stats .grid-box .extra-stats .name {
+  font-size: 0.75em;
+}
+
+.admin .dashboard .content .resources .users .list .body > .flex-box:last-child .full-user-info .stats .grid-box:last-child {
+  border-right: none;
 }
 
 .admin .button {
@@ -4087,16 +4290,45 @@
   color: white;
 }
 
+.admin .label {
+  font-size: 0.75em;
+  color: crimson;
+  font-weight: bold;
+}
+
 .admin .text-input {
   height: 25px;
   font-size: 1.25em;
   border: 1px solid grey;
   border-radius: 0.15em;
   text-indent: 2.5px;
+  width: 100%;
+}
+
+.admin .text-input::-moz-placeholder {
+  font-size: 0.5em !important;
+  text-indent: 5px !important;
+}
+
+.admin .text-input:-ms-input-placeholder {
+  font-size: 0.5em !important;
+  text-indent: 5px !important;
+}
+
+.admin .text-input::placeholder {
+  font-size: 0.5em !important;
+  text-indent: 5px !important;
 }
 
 .admin .text-input:focus {
   outline: none;
+}
+
+.admin .admin-form .grid-box {
+  display: grid;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+  grid-template-columns: 1fr 1fr;
 }
 
 .admin .loading-spinner {
@@ -4117,6 +4349,24 @@
 .admin .loading-spinner .loading-text {
   font-weight: bold;
   text-align: center;
+}
+
+.admin .announcement {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  height: 25px;
+  padding: 5px 10px 5px 10px;
+  border-radius: 0.25em;
+  font-size: 0.75em;
+  display: flex;
+  align-items: center;
+  color: white;
+  background: crimson;
+}
+
+.admin .announcement p {
+  margin: 0;
 }
 
 var map = {

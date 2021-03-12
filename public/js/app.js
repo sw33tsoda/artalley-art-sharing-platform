@@ -57163,10 +57163,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 // import Admin from './components/Admin';
 
 var Community = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["lazy"])(function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ./components/Community */ "./resources/js/src/components/Community/index.js"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(5), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ./components/Community */ "./resources/js/src/components/Community/index.js"));
 });
 var Admin = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["lazy"])(function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ./components/Admin */ "./resources/js/src/components/Admin/index.js"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(8), __webpack_require__.e(1), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./components/Admin */ "./resources/js/src/components/Admin/index.js"));
 }); // const history = createBrowserHisory
 
 function Main() {

@@ -4,6 +4,7 @@ import Axios from 'axios';
 import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
 import FullUserInfo from './FullUserInfo';
 import LoadingSpinner from '../../../../../LoadingSpinner';
+import AddEditForm from './AddEditForm';
 
 function List() {
 
@@ -140,6 +141,12 @@ function List() {
                         <Route path={url + `/show/:id`}>
                             <FullUserInfo/>
                         </Route>
+                        <Route path={url + `/add`}>
+                            <AddEditForm type="add"/>
+                        </Route>
+                        <Route path={url + `/edit/:id`}>
+                            <AddEditForm type="edit" userInfo={selectedUser}/>
+                        </Route>    
                     </Switch>
                 </div>
             </div>
