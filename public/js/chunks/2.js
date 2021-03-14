@@ -2174,7 +2174,7 @@ function ShowArt() {
     }();
 
     getArt();
-  }, [refresh]);
+  }, [refresh, id]);
 
   var handleEditSubmit = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(values) {

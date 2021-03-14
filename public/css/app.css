@@ -4115,6 +4115,7 @@
 .admin .dashboard .content .resources .users .list .body > .flex-box:last-child .add-edit-form .admin-form textarea {
   width: 100% !important;
   font-family: "Roboto", sans-serif;
+  height: 250px;
 }
 
 .admin .dashboard .content .resources .users .list .body > .flex-box:last-child .add-edit-form .admin-form textarea::-moz-placeholder {
@@ -4298,25 +4299,25 @@
 
 .admin .text-input {
   height: 25px;
-  font-size: 1.25em;
+  font-size: 0.8em;
   border: 1px solid grey;
   border-radius: 0.15em;
-  text-indent: 2.5px;
+  text-indent: 5px;
   width: 100%;
 }
 
 .admin .text-input::-moz-placeholder {
-  font-size: 0.5em !important;
+  font-size: 1em !important;
   text-indent: 5px !important;
 }
 
 .admin .text-input:-ms-input-placeholder {
-  font-size: 0.5em !important;
+  font-size: 1em !important;
   text-indent: 5px !important;
 }
 
 .admin .text-input::placeholder {
-  font-size: 0.5em !important;
+  font-size: 1em !important;
   text-indent: 5px !important;
 }
 
@@ -4352,6 +4353,7 @@
 }
 
 .admin .announcement {
+  z-index: 9999999999;
   position: fixed;
   bottom: 25px;
   right: 25px;
@@ -4363,6 +4365,7 @@
   align-items: center;
   color: white;
   background: crimson;
+  border: 1px solid white;
 }
 
 .admin .announcement p {

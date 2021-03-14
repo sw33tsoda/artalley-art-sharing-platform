@@ -116,7 +116,7 @@ function ShowArt() {
             })
         }
         getArt();
-    },[refresh]);
+    },[refresh,id]);
 
     const handleEditSubmit = async (values) => {
         setIsSubmitting(true);

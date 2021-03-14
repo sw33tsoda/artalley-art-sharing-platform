@@ -175,6 +175,15 @@ class UsersController extends Controller
                 $getUser->profile_picture = $request->file('profile_picture')->hashName();
                 $request->file('profile_picture')->store('/public/profilePictures');
             }
+
+            if ($request->hasFile('banner')) {
+                if (!is_null($getUser->banner)) {
+                    Storage::delete("/public/banners/$getUser->banner");
+                }
+                $getUser->banner = $request->file('banner')->hashName();
+                $request->file('banner')->store('/public/banners');
+            }
+            
             if (is_null($request->password)) {
                 $getUser->password = Hash::make($request->password);
             }
@@ -183,11 +192,13 @@ class UsersController extends Controller
             $getUser->username = $request->username;
             $getUser->email = $request->email;
             $getUser->role = $request->role;
+            $getUser->facebook = $request->facebook;
+            $getUser->twitter = $request->twitter;
 
             $save = $getUser->save();
 
             if ($save) {
-                return response()->json(['message' => 'Sửa thành công'],200);
+                return response()->json(['message' => 'Sửa thành công','request' => $request->all()],200);
             }
         }
         return response()->json(['message' => 'Sửa thất bại'],500);

@@ -19,14 +19,14 @@
 
     .text-input {
         height: 25px;
-        font-size: 1.25em;
+        font-size: 0.8em;
         border:1px solid grey;
         border-radius: 0.15em;
-        text-indent: 2.5px;
+        text-indent: 5px;
         width: 100%;
 
         &::placeholder {
-            font-size: 0.5em !important;
+            font-size: 1em !important;
             text-indent: 5px !important;
             // font-style: italic;
         }
