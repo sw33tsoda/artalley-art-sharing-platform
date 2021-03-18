@@ -18,6 +18,7 @@
                 display: flex;
                 border-bottom: 0.5px solid silver;
                 box-sizing: border-box;
+                justify-content: space-between;
                 .flex-box {
                     display: flex;
                     align-items: center;
@@ -66,6 +67,14 @@
                 @include tablet {
                     grid-template-columns: 1fr !important;
                 }
+
+                .pagination {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    column-gap: 5px;
+                    margin-bottom: 5px;
+                }
+
                 > .flex-box {
                     // height: 500px;
                     padding: 5px;
@@ -104,6 +113,9 @@
                                 overflow: hidden;
                                 border-radius: 0.25em;
                                 flex-basis: 35px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
                                 img {
                                     height: 100%;
                                     object-fit: contain;
@@ -113,8 +125,8 @@
                             
                             .group-info {
                                 display: grid;
-                                grid-template-columns: 75px 75px;
-                                
+                                grid-template-columns: auto auto;
+                                column-gap: 5px;
                                 @include mobile {
                                     grid-template-columns: auto !important;
                                     .firstname, .lastname, .email {
@@ -198,7 +210,7 @@
                             textarea {
                                 width: 100% !important;
                                 font-family: "Roboto", sans-serif;
-                                height: 250px;
+                                height: 100px;
                                 &::placeholder {
                                     font-family: "Roboto", sans-serif;
                                 }
@@ -285,7 +297,7 @@
                                 }
                             }
                         }
-                        > .wrapper {
+                        .wrapper {
                             border:0.5px solid silver;
                             border-radius: 0.25em;
                             margin-bottom: 5px;
@@ -336,6 +348,10 @@
                                 }   
 
                                 .extra-stats {
+
+                                    .wrapper {
+                                        border:none;
+                                    }
                                     .name {
                                         font-size: 0.75em;
                                     }

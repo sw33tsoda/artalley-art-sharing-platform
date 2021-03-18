@@ -1,18 +1,28 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import classnames from 'classnames';
 import Axios from 'axios';
 import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
 import FullUserInfo from './FullUserInfo';
 import LoadingSpinner from '../../../../../LoadingSpinner';
 import AddEditForm from './AddEditForm';
+import { useDispatch } from 'react-redux';
+import { setAnnouncerMessage } from '../../../../../../../store/admin/announcer';
+import { showConfirmationBox } from '../../../../../../../store/admin/confirmation_box';
 
 function List() {
-
+    // url hiện tại
     const { url } = useRouteMatch();
 
+    // input ref
     const inputRef = useRef();
 
+    // input debouncing
     let debounce = null;
+
+    // dispatch
+    const dispatch = useDispatch();
+
+    const [_, forceUpdate] = useReducer((x) => x + 1, 0);
 
     // Toggle tìm kiếm 
     const [searchToggle,setSearchToggle] = useState(false);
@@ -22,6 +32,9 @@ function List() {
         date:'desc',
         role:'',
     });
+
+    const [currentPage,setCurrentPage] = useState(1);
+    const [maxPage,setMaxPage] = useState(null);
 
     // dữ liệu danh sách
     const [list,setList] = useState([]);
@@ -54,21 +67,83 @@ function List() {
         inputRef.current.value = '';
     }
 
-    console.log(selectedUser);
+    const handleSelectFilter = (event) => {
+        switch (event.target.id) {
+            case 'role': {
+                setFilter({
+                    ...filter,
+                    role:event.target.value,
+                });
+                break;
+            }
+
+            case 'order': {
+                setFilter({
+                    ...filter,
+                    date:event.target.value,
+                });
+                break;
+            }
+
+            default: break;
+        }
+    }
 
     useEffect(() => {
         setIsLoading(true);
         (async function() {
-            await Axios.get(`/public/api/admin/resources/users?api_token=${localStorage.authenticatedUserToken}&role=${filter.role}&date=${filter.date}&searchInput=${searchInputValue}`).then(response => {
-                const { list:{data} } = response.data;
+            // console.log(pagination.currentPage,pagination.maxPage)
+            await Axios.get(`/public/api/admin/resources/users?api_token=${localStorage.authenticatedUserToken}&role=${filter.role}&date=${filter.date}&searchInput=${searchInputValue}&page=${currentPage}`).then(response => {
+                const { list:{data,last_page} } = response.data;
+                setMaxPage(last_page);
+                if (last_page == 1) {
+                    setCurrentPage(1);
+                }
+
                 setList([...data]);
                 setIsLoading(false);
             }).catch(error => {
                 console.log(error.response);
             })
         })();
-    },[filter,searchInputValue]);
+    },[filter,searchInputValue,currentPage,_]);
 
+    const handleDeleteUser = (id) => {
+        dispatch(showConfirmationBox({
+            title:'Thông báo',
+            description: 'Bạn có muốn xóa người dùng này',
+            callback: async () => {
+                await Axios.delete(`/public/api/admin/resources/users/${id}?api_token=${localStorage.getItem('authenticatedUserToken')}`).then(response => {
+                    const { message } = response.data;
+                    dispatch(setAnnouncerMessage(message));
+                    forceUpdate();
+                }).catch(error => {
+                    const { message } = error.response.data;
+                    dispatch(setAnnouncerMessage(message));
+                })
+            }
+        }));
+    }
+
+    const handlePageChange = (action) => {
+        switch (action) {
+            case 'prev': {
+                if (currentPage > 1)
+                setCurrentPage(currentPage - 1);
+                break;
+            }
+            
+            case 'next': {
+                if (currentPage < maxPage)
+                setCurrentPage(currentPage + 1);
+                break;
+            }
+            
+            default: break;
+        }
+    }
+    
+    // console.log(currentPage);
     return (
         <div className="list">
             <div className="header">
@@ -87,16 +162,41 @@ function List() {
                         </div>
                     </div>
                 </div>
+
+                <div className="flex-box">
+                    <div className="select">
+                        <select id="role" onChange={handleSelectFilter}>
+                            <option value="" defaultChecked>Tất cả</option>
+                            <option value="user">Thành viên</option>
+                            <option value="admin">Quản trị viên</option>
+                        </select>
+                    </div>
+                    <div className="select">
+                        <select id="order" onChange={handleSelectFilter}>
+                            <option value="desc" defaultChecked>Mới nhất</option>
+                            <option value="asc">Cũ nhất</option>
+                        </select>
+                    </div>
+                </div>
             </div>
+
 
             <div className="body">
                 <div className="flex-box">
+                    <div className="pagination">
+                        <button className="button button-crimson" style={currentPage == 1 ? {
+                            backgroundColor:'silver',
+                        } : {}} onClick={() => handlePageChange('prev')}>Trước</button>
+                        <button className="button button-crimson" style={currentPage == maxPage ? {
+                            backgroundColor:'silver',
+                        } : {}} onClick={() => handlePageChange('next')}>Sau</button>
+                    </div>
                     <LoadingSpinner isLoading={isLoading}>
                         {list && list.map((user,index) => (
                             <div className={classnames('user',{selected:selectedUser.id == user.id})} key={index}>
                                 <div className="user-info">
                                     <div className="profile-picture">
-                                        <img src={`/storage/app/public/profilePictures/${user.profile_picture}`}/>
+                                        {user.profile_picture == null ? <i className="fas fa-user"></i> : <img src={`/storage/app/public/profilePictures/${user.profile_picture}`}/>}
                                     </div>
                                     <div className="group-info">
                                         <div className="info firstname"><p>{user.firstname}</p></div>
@@ -120,11 +220,11 @@ function List() {
                                             <i className="fas fa-cog"></i>
                                         </button>
                                     </Link>
-                                    <Link to={`/public/admin/users/delete/${user.id}`}>
-                                        <button className="button button-crimson">
-                                            <i className="fas fa-trash-alt"></i>
-                                        </button>
-                                    </Link>
+
+                                    <button className="button button-crimson" onClick={() => handleDeleteUser(user.id)}>
+                                        <i className="fas fa-trash-alt"></i>
+                                    </button>
+                                    
                                     <Link to={url + `/show/${user.id}`}>
                                         <button className="button button-crimson" onClick={() => handleSetSelectedUser(user)}>
                                             <i className="fas fa-ellipsis-h"></i>

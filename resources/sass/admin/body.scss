@@ -4,6 +4,7 @@
 @import './loadingSpinner.scss';
 @import './resources/users.scss';
 @import './announcement.scss';
+@import './confirmationBox.scss';
 
 .admin {
     @include controlSidebar;
@@ -11,4 +12,5 @@
     @include form;
     @include loadingSpinner;
     @include announcement;
+    @include confirmationBox;
 }

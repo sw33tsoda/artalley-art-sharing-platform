@@ -1,5 +1,7 @@
 @mixin loadingSpinner {
     .loading-spinner {
+        padding: 50px;
+        box-sizing: border-box;
         width: 100%;
         .shape {
             margin:auto;

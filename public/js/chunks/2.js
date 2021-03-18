@@ -2751,7 +2751,7 @@ function Showcase() {
     }();
 
     getSpecificShowcase();
-  }, [refresh]);
+  }, [id, refresh]);
 
   var handleAddItemToRemovalList = function handleAddItemToRemovalList(id) {
     var newList = removalList;

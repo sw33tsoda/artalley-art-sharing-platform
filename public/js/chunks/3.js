@@ -41,6 +41,72 @@ function Announcer() {
 
 /***/ }),
 
+/***/ "./resources/js/src/components/Admin/ConfirmationBox/index.js":
+/*!********************************************************************!*\
+  !*** ./resources/js/src/components/Admin/ConfirmationBox/index.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_admin_confirmation_box__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../store/admin/confirmation_box */ "./resources/js/src/store/admin/confirmation_box.js");
+
+
+
+
+
+function ConfirmationBox() {
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
+
+  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(function (state) {
+    return state.admin_confirmation_box;
+  }),
+      title = _useSelector.title,
+      description = _useSelector.description,
+      callback = _useSelector.callback;
+
+  var handleSubmit = function handleSubmit() {
+    callback();
+    dispatch(Object(_store_admin_confirmation_box__WEBPACK_IMPORTED_MODULE_3__["closeConfirmationBox"])());
+  };
+
+  var close = function close() {
+    dispatch(Object(_store_admin_confirmation_box__WEBPACK_IMPORTED_MODULE_3__["closeConfirmationBox"])());
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "confirmation-box-wrapper"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "confirmation-box"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "header"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "title"
+  }, title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "content"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "description"
+  }, description)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "footer"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "button",
+    onClick: close
+  }, "H\u1EE7y"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "button",
+    onClick: handleSubmit
+  }, "Ch\u1EA5p nh\u1EADn"))));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (ConfirmationBox);
+
+/***/ }),
+
 /***/ "./resources/js/src/components/Admin/ControlSidebar/index.js":
 /*!*******************************************************************!*\
   !*** ./resources/js/src/components/Admin/ControlSidebar/index.js ***!
@@ -798,6 +864,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FullUserInfo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FullUserInfo */ "./resources/js/src/components/Admin/Dashboard/Content/Resources/Users/List/FullUserInfo/index.js");
 /* harmony import */ var _LoadingSpinner__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../LoadingSpinner */ "./resources/js/src/components/Admin/LoadingSpinner/index.js");
 /* harmony import */ var _AddEditForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./AddEditForm */ "./resources/js/src/components/Admin/Dashboard/Content/Resources/Users/List/AddEditForm/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_admin_announcer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../../../store/admin/announcer */ "./resources/js/src/store/admin/announcer.js");
+/* harmony import */ var _store_admin_confirmation_box__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../../../../store/admin/confirmation_box */ "./resources/js/src/store/admin/confirmation_box.js");
 
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -838,12 +907,28 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-function List() {
-  var _useRouteMatch = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["useRouteMatch"])(),
-      url = _useRouteMatch.url;
 
-  var inputRef = Object(react__WEBPACK_IMPORTED_MODULE_1__["useRef"])();
-  var debounce = null; // Toggle tìm kiếm 
+
+
+function List() {
+  // url hiện tại
+  var _useRouteMatch = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["useRouteMatch"])(),
+      url = _useRouteMatch.url; // input ref
+
+
+  var inputRef = Object(react__WEBPACK_IMPORTED_MODULE_1__["useRef"])(); // input debouncing
+
+  var debounce = null; // dispatch
+
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_8__["useDispatch"])();
+
+  var _useReducer = Object(react__WEBPACK_IMPORTED_MODULE_1__["useReducer"])(function (x) {
+    return x + 1;
+  }, 0),
+      _useReducer2 = _slicedToArray(_useReducer, 2),
+      _ = _useReducer2[0],
+      forceUpdate = _useReducer2[1]; // Toggle tìm kiếm 
+
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -857,31 +942,41 @@ function List() {
   }),
       _useState4 = _slicedToArray(_useState3, 2),
       filter = _useState4[0],
-      setFilter = _useState4[1]; // dữ liệu danh sách
+      setFilter = _useState4[1];
 
-
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(1),
       _useState6 = _slicedToArray(_useState5, 2),
-      list = _useState6[0],
-      setList = _useState6[1]; // loading
+      currentPage = _useState6[0],
+      setCurrentPage = _useState6[1];
 
-
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(null),
       _useState8 = _slicedToArray(_useState7, 2),
-      isLoading = _useState8[0],
-      setIsLoading = _useState8[1]; // keywords tìm kiếm
+      maxPage = _useState8[0],
+      setMaxPage = _useState8[1]; // dữ liệu danh sách
 
 
-  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(''),
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
       _useState10 = _slicedToArray(_useState9, 2),
-      searchInputValue = _useState10[0],
-      setSearchInputValue = _useState10[1]; // người dùng được chọn
+      list = _useState10[0],
+      setList = _useState10[1]; // loading
 
 
-  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({}),
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
       _useState12 = _slicedToArray(_useState11, 2),
-      selectedUser = _useState12[0],
-      setSelectedUser = _useState12[1]; // xử lý cập nhật state tìm kiếm
+      isLoading = _useState12[0],
+      setIsLoading = _useState12[1]; // keywords tìm kiếm
+
+
+  var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(''),
+      _useState14 = _slicedToArray(_useState13, 2),
+      searchInputValue = _useState14[0],
+      setSearchInputValue = _useState14[1]; // người dùng được chọn
+
+
+  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({}),
+      _useState16 = _slicedToArray(_useState15, 2),
+      selectedUser = _useState16[0],
+      setSelectedUser = _useState16[1]; // xử lý cập nhật state tìm kiếm
 
 
   var handleSetInputValue = function handleSetInputValue(_ref) {
@@ -902,7 +997,29 @@ function List() {
     inputRef.current.value = '';
   };
 
-  console.log(selectedUser);
+  var handleSelectFilter = function handleSelectFilter(event) {
+    switch (event.target.id) {
+      case 'role':
+        {
+          setFilter(_objectSpread(_objectSpread({}, filter), {}, {
+            role: event.target.value
+          }));
+          break;
+        }
+
+      case 'order':
+        {
+          setFilter(_objectSpread(_objectSpread({}, filter), {}, {
+            date: event.target.value
+          }));
+          break;
+        }
+
+      default:
+        break;
+    }
+  };
+
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     setIsLoading(true);
 
@@ -912,8 +1029,16 @@ function List() {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("/public/api/admin/resources/users?api_token=".concat(localStorage.authenticatedUserToken, "&role=").concat(filter.role, "&date=").concat(filter.date, "&searchInput=").concat(searchInputValue)).then(function (response) {
-                var data = response.data.list.data;
+              return axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("/public/api/admin/resources/users?api_token=".concat(localStorage.authenticatedUserToken, "&role=").concat(filter.role, "&date=").concat(filter.date, "&searchInput=").concat(searchInputValue, "&page=").concat(currentPage)).then(function (response) {
+                var _response$data$list = response.data.list,
+                    data = _response$data$list.data,
+                    last_page = _response$data$list.last_page;
+                setMaxPage(last_page);
+
+                if (last_page == 1) {
+                  setCurrentPage(1);
+                }
+
                 setList(_toConsumableArray(data));
                 setIsLoading(false);
               })["catch"](function (error) {
@@ -927,7 +1052,65 @@ function List() {
         }
       }, _callee);
     }))();
-  }, [filter, searchInputValue]);
+  }, [filter, searchInputValue, currentPage, _]);
+
+  var handleDeleteUser = function handleDeleteUser(id) {
+    dispatch(Object(_store_admin_confirmation_box__WEBPACK_IMPORTED_MODULE_10__["showConfirmationBox"])({
+      title: 'Thông báo',
+      description: 'Bạn có muốn xóa người dùng này',
+      callback: function () {
+        var _callback = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+            while (1) {
+              switch (_context2.prev = _context2.next) {
+                case 0:
+                  _context2.next = 2;
+                  return axios__WEBPACK_IMPORTED_MODULE_3___default.a["delete"]("/public/api/admin/resources/users/".concat(id, "?api_token=").concat(localStorage.getItem('authenticatedUserToken'))).then(function (response) {
+                    var message = response.data.message;
+                    dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_9__["setAnnouncerMessage"])(message));
+                    forceUpdate();
+                  })["catch"](function (error) {
+                    var message = error.response.data.message;
+                    dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_9__["setAnnouncerMessage"])(message));
+                  });
+
+                case 2:
+                case "end":
+                  return _context2.stop();
+              }
+            }
+          }, _callee2);
+        }));
+
+        function callback() {
+          return _callback.apply(this, arguments);
+        }
+
+        return callback;
+      }()
+    }));
+  };
+
+  var handlePageChange = function handlePageChange(action) {
+    switch (action) {
+      case 'prev':
+        {
+          if (currentPage > 1) setCurrentPage(currentPage - 1);
+          break;
+        }
+
+      case 'next':
+        {
+          if (currentPage < maxPage) setCurrentPage(currentPage + 1);
+          break;
+        }
+
+      default:
+        break;
+    }
+  }; // console.log(currentPage);
+
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "list"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -960,11 +1143,53 @@ function List() {
     className: "button button-crimson"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
     className: "fas fa-times"
-  })))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+  }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "flex-box"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "select"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+    id: "role",
+    onChange: handleSelectFilter
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+    value: "",
+    defaultChecked: true
+  }, "T\u1EA5t c\u1EA3"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+    value: "user"
+  }, "Th\xE0nh vi\xEAn"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+    value: "admin"
+  }, "Qu\u1EA3n tr\u1ECB vi\xEAn"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "select"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+    id: "order",
+    onChange: handleSelectFilter
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+    value: "desc",
+    defaultChecked: true
+  }, "M\u1EDBi nh\u1EA5t"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+    value: "asc"
+  }, "C\u0169 nh\u1EA5t"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "body"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "flex-box"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_LoadingSpinner__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "pagination"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+    className: "button button-crimson",
+    style: currentPage == 1 ? {
+      backgroundColor: 'silver'
+    } : {},
+    onClick: function onClick() {
+      return handlePageChange('prev');
+    }
+  }, "Tr\u01B0\u1EDBc"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+    className: "button button-crimson",
+    style: currentPage == maxPage ? {
+      backgroundColor: 'silver'
+    } : {},
+    onClick: function onClick() {
+      return handlePageChange('next');
+    }
+  }, "Sau")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_LoadingSpinner__WEBPACK_IMPORTED_MODULE_6__["default"], {
     isLoading: isLoading
   }, list && list.map(function (user, index) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -976,7 +1201,9 @@ function List() {
       className: "user-info"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "profile-picture"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+    }, user.profile_picture == null ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+      className: "fas fa-user"
+    }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
       src: "/storage/app/public/profilePictures/".concat(user.profile_picture)
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "group-info"
@@ -1008,13 +1235,14 @@ function List() {
       className: "button button-crimson"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
       className: "fas fa-cog"
-    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
-      to: "/public/admin/users/delete/".concat(user.id)
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-      className: "button button-crimson"
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+      className: "button button-crimson",
+      onClick: function onClick() {
+        return handleDeleteUser(user.id);
+      }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
       className: "fas fa-trash-alt"
-    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
       to: url + "/show/".concat(user.id)
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
       className: "button button-crimson",
@@ -1291,6 +1519,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Announcer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Announcer */ "./resources/js/src/components/Admin/Announcer/index.js");
 /* harmony import */ var _Dashboard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Dashboard */ "./resources/js/src/components/Admin/Dashboard/index.js");
 /* harmony import */ var _ControlSidebar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ControlSidebar */ "./resources/js/src/components/Admin/ControlSidebar/index.js");
+/* harmony import */ var _ConfirmationBox__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ConfirmationBox */ "./resources/js/src/components/Admin/ConfirmationBox/index.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -1310,9 +1539,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function Admin() {
   var authenticatedUser = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
     return state.auth.authenticatedUser;
+  });
+  var confirmationBoxToggle = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) {
+    return state.admin_confirmation_box.toggle;
   });
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
@@ -1338,7 +1571,7 @@ function Admin() {
     setSideBarToggle: handleSetSideBarToggle
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Dashboard__WEBPACK_IMPORTED_MODULE_4__["default"], {
     setSideBarToggle: handleSetSideBarToggle
-  }));
+  }), confirmationBoxToggle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ConfirmationBox__WEBPACK_IMPORTED_MODULE_6__["default"], null));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Admin);

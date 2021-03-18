@@ -57302,6 +57302,57 @@ var setAnnouncerMessage = actions.setAnnouncerMessage,
 
 /***/ }),
 
+/***/ "./resources/js/src/store/admin/confirmation_box.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/src/store/admin/confirmation_box.js ***!
+  \**********************************************************/
+/*! exports provided: showConfirmationBox, closeConfirmationBox, admin_confirmationBoxReducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showConfirmationBox", function() { return showConfirmationBox; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeConfirmationBox", function() { return closeConfirmationBox; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "admin_confirmationBoxReducer", function() { return admin_confirmationBoxReducer; });
+var _require = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js"),
+    createSlice = _require.createSlice;
+
+var admin_confirmationBoxSlice = createSlice({
+  name: 'admin_confirmation_box',
+  initialState: {
+    toggle: false,
+    title: 'Thông báo',
+    description: 'Bạn có chắc chắn?',
+    callback: null
+  },
+  reducers: {
+    showConfirmationBox: function showConfirmationBox(state, _ref) {
+      var _ref$payload = _ref.payload,
+          title = _ref$payload.title,
+          description = _ref$payload.description,
+          callback = _ref$payload.callback;
+      state.toggle = true;
+      state.title = title;
+      state.description = description;
+      state.callback = callback;
+    },
+    closeConfirmationBox: function closeConfirmationBox(state, payload) {
+      state.toggle = false;
+      state.title = 'Thông báo';
+      state.description = 'Bạn có chắc chắn?';
+      state.callback = null;
+    }
+  }
+});
+var admin_confirmationBoxReducer = admin_confirmationBoxSlice.reducer,
+    actions = admin_confirmationBoxSlice.actions;
+var showConfirmationBox = actions.showConfirmationBox,
+    closeConfirmationBox = actions.closeConfirmationBox;
+
+
+
+/***/ }),
+
 /***/ "./resources/js/src/store/admin/users.js":
 /*!***********************************************!*\
   !*** ./resources/js/src/store/admin/users.js ***!
@@ -57493,10 +57544,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _admin_announcer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./admin/announcer */ "./resources/js/src/store/admin/announcer.js");
-/* harmony import */ var _admin_users__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./admin/users */ "./resources/js/src/store/admin/users.js");
-/* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./auth */ "./resources/js/src/store/auth.js");
-/* harmony import */ var _community_announcer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./community/announcer */ "./resources/js/src/store/community/announcer.js");
-/* harmony import */ var _community_filter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./community/filter */ "./resources/js/src/store/community/filter.js");
+/* harmony import */ var _admin_confirmation_box__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./admin/confirmation_box */ "./resources/js/src/store/admin/confirmation_box.js");
+/* harmony import */ var _admin_users__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./admin/users */ "./resources/js/src/store/admin/users.js");
+/* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./auth */ "./resources/js/src/store/auth.js");
+/* harmony import */ var _community_announcer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./community/announcer */ "./resources/js/src/store/community/announcer.js");
+/* harmony import */ var _community_filter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./community/filter */ "./resources/js/src/store/community/filter.js");
+
 
 
 
@@ -57505,11 +57558,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_1__["combineReducers"])({
-  auth: _auth__WEBPACK_IMPORTED_MODULE_4__["default"],
-  admin_users: _admin_users__WEBPACK_IMPORTED_MODULE_3__["default"],
+  auth: _auth__WEBPACK_IMPORTED_MODULE_5__["default"],
+  admin_users: _admin_users__WEBPACK_IMPORTED_MODULE_4__["default"],
   admin_announcer: _admin_announcer__WEBPACK_IMPORTED_MODULE_2__["admin_announcerReducer"],
-  community_announcement: _community_announcer__WEBPACK_IMPORTED_MODULE_5__["community_announcementReducer"],
-  community_filter: _community_filter__WEBPACK_IMPORTED_MODULE_6__["community_filterReducer"]
+  admin_confirmation_box: _admin_confirmation_box__WEBPACK_IMPORTED_MODULE_3__["admin_confirmationBoxReducer"],
+  community_announcement: _community_announcer__WEBPACK_IMPORTED_MODULE_6__["community_announcementReducer"],
+  community_filter: _community_filter__WEBPACK_IMPORTED_MODULE_7__["community_filterReducer"]
 });
 var store = Object(_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__["configureStore"])({
   reducer: rootReducer

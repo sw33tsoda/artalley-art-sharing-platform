@@ -88,7 +88,7 @@ function Showcase() {
             })
         };
         getSpecificShowcase();
-    },[refresh]);
+    },[id,refresh]);
 
     const handleAddItemToRemovalList = (id) => {
         let newList = removalList;
