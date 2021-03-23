@@ -5,9 +5,10 @@ import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
 import FullUserInfo from './FullUserInfo';
 import LoadingSpinner from '../../../../../LoadingSpinner';
 import AddEditForm from './AddEditForm';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAnnouncerMessage } from '../../../../../../../store/admin/announcer';
 import { showConfirmationBox } from '../../../../../../../store/admin/confirmation_box';
+import { userListRefresh } from '../../../../../../../store/admin/users';
 
 function List() {
     // url hiện tại
@@ -22,8 +23,6 @@ function List() {
     // dispatch
     const dispatch = useDispatch();
 
-    const [_, forceUpdate] = useReducer((x) => x + 1, 0);
-
     // Toggle tìm kiếm 
     const [searchToggle,setSearchToggle] = useState(false);
 
@@ -32,6 +31,9 @@ function List() {
         date:'desc',
         role:'',
     });
+
+    // trigger refresh list
+    const {listRefreshTimes} = useSelector(state => state.admin_users);
 
     const [currentPage,setCurrentPage] = useState(1);
     const [maxPage,setMaxPage] = useState(null);
@@ -106,7 +108,7 @@ function List() {
                 console.log(error.response);
             })
         })();
-    },[filter,searchInputValue,currentPage,_]);
+    },[filter,searchInputValue,currentPage,listRefreshTimes]);
 
     const handleDeleteUser = (id) => {
         dispatch(showConfirmationBox({
@@ -116,7 +118,7 @@ function List() {
                 await Axios.delete(`/public/api/admin/resources/users/${id}?api_token=${localStorage.getItem('authenticatedUserToken')}`).then(response => {
                     const { message } = response.data;
                     dispatch(setAnnouncerMessage(message));
-                    forceUpdate();
+                    dispatch(userListRefresh());
                 }).catch(error => {
                     const { message } = error.response.data;
                     dispatch(setAnnouncerMessage(message));
@@ -140,6 +142,17 @@ function List() {
             }
             
             default: break;
+        }
+    }
+
+    const handleRevokeToken = async (user_id,token) => {
+        if (token) {
+            await Axios.post(`/public/api/admin/resources/users/revoke_token?api_token=${localStorage.getItem('authenticatedUserToken')}`, {id:user_id}).then(response => {
+                const {data:{message}} = response;
+                dispatch(setAnnouncerMessage(message));
+            }).catch(error => {
+                dispatch(setAnnouncerMessage(error.response.data.message));
+            })
         }
     }
     
@@ -210,11 +223,12 @@ function List() {
                                     </div>
                                 </div>
                                 <div className="action">
-                                    <Link to={url + `/revoke/${user.id}`}>
-                                        <button className="button button-crimson">
+                                    {user.api_token && (
+                                        <button className="button button-crimson" onClick={() => handleRevokeToken(user.id,user.api_token)}>
                                             <i className="fas fa-unlink"></i> Token
                                         </button>
-                                    </Link>
+                                    )}
+
                                     <Link to={url + `/edit/${user.id}`}>
                                         <button className="button button-crimson">
                                             <i className="fas fa-cog"></i>

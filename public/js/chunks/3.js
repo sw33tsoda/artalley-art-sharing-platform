@@ -867,6 +867,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_admin_announcer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../../../store/admin/announcer */ "./resources/js/src/store/admin/announcer.js");
 /* harmony import */ var _store_admin_confirmation_box__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../../../../store/admin/confirmation_box */ "./resources/js/src/store/admin/confirmation_box.js");
+/* harmony import */ var _store_admin_users__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../../../../store/admin/users */ "./resources/js/src/store/admin/users.js");
 
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -910,6 +911,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function List() {
   // url hiện tại
   var _useRouteMatch = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["useRouteMatch"])(),
@@ -920,15 +922,7 @@ function List() {
 
   var debounce = null; // dispatch
 
-  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_8__["useDispatch"])();
-
-  var _useReducer = Object(react__WEBPACK_IMPORTED_MODULE_1__["useReducer"])(function (x) {
-    return x + 1;
-  }, 0),
-      _useReducer2 = _slicedToArray(_useReducer, 2),
-      _ = _useReducer2[0],
-      forceUpdate = _useReducer2[1]; // Toggle tìm kiếm 
-
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_8__["useDispatch"])(); // Toggle tìm kiếm 
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -942,7 +936,13 @@ function List() {
   }),
       _useState4 = _slicedToArray(_useState3, 2),
       filter = _useState4[0],
-      setFilter = _useState4[1];
+      setFilter = _useState4[1]; // trigger refresh list
+
+
+  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_8__["useSelector"])(function (state) {
+    return state.admin_users;
+  }),
+      listRefreshTimes = _useSelector.listRefreshTimes;
 
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(1),
       _useState6 = _slicedToArray(_useState5, 2),
@@ -1052,7 +1052,7 @@ function List() {
         }
       }, _callee);
     }))();
-  }, [filter, searchInputValue, currentPage, _]);
+  }, [filter, searchInputValue, currentPage, listRefreshTimes]);
 
   var handleDeleteUser = function handleDeleteUser(id) {
     dispatch(Object(_store_admin_confirmation_box__WEBPACK_IMPORTED_MODULE_10__["showConfirmationBox"])({
@@ -1068,7 +1068,7 @@ function List() {
                   return axios__WEBPACK_IMPORTED_MODULE_3___default.a["delete"]("/public/api/admin/resources/users/".concat(id, "?api_token=").concat(localStorage.getItem('authenticatedUserToken'))).then(function (response) {
                     var message = response.data.message;
                     dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_9__["setAnnouncerMessage"])(message));
-                    forceUpdate();
+                    dispatch(Object(_store_admin_users__WEBPACK_IMPORTED_MODULE_11__["userListRefresh"])());
                   })["catch"](function (error) {
                     var message = error.response.data.message;
                     dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_9__["setAnnouncerMessage"])(message));
@@ -1108,7 +1108,41 @@ function List() {
       default:
         break;
     }
-  }; // console.log(currentPage);
+  };
+
+  var handleRevokeToken = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(user_id, token) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              if (!token) {
+                _context3.next = 3;
+                break;
+              }
+
+              _context3.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/public/api/admin/resources/users/revoke_token?api_token=".concat(localStorage.getItem('authenticatedUserToken')), {
+                id: user_id
+              }).then(function (response) {
+                var message = response.data.message;
+                dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_9__["setAnnouncerMessage"])(message));
+              })["catch"](function (error) {
+                dispatch(Object(_store_admin_announcer__WEBPACK_IMPORTED_MODULE_9__["setAnnouncerMessage"])(error.response.data.message));
+              });
+
+            case 3:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function handleRevokeToken(_x, _x2) {
+      return _ref3.apply(this, arguments);
+    };
+  }(); // console.log(currentPage);
 
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -1223,13 +1257,14 @@ function List() {
       className: "info lastname"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, user.api_token == null ? 'Chưa cấp' : 'Đã cấp')))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "action"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
-      to: url + "/revoke/".concat(user.id)
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-      className: "button button-crimson"
+    }, user.api_token && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+      className: "button button-crimson",
+      onClick: function onClick() {
+        return handleRevokeToken(user.id, user.api_token);
+      }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
       className: "fas fa-unlink"
-    }), " Token")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+    }), " Token"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
       to: url + "/edit/".concat(user.id)
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
       className: "button button-crimson"

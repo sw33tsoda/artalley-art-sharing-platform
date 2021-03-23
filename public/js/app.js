@@ -57357,12 +57357,13 @@ var showConfirmationBox = actions.showConfirmationBox,
 /*!***********************************************!*\
   !*** ./resources/js/src/store/admin/users.js ***!
   \***********************************************/
-/*! exports provided: setList, default */
+/*! exports provided: setList, userListRefresh, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setList", function() { return setList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userListRefresh", function() { return userListRefresh; });
 var _require = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js"),
     createSlice = _require.createSlice;
 
@@ -57376,14 +57377,15 @@ var admin_usersSlice = createSlice({
     setList: function setList(state, action) {
       state.list = action.payload;
     },
-    refreshList: function refreshList(state, action) {
+    userListRefresh: function userListRefresh(state, action) {
       state.listRefreshTimes += 1;
     }
   }
 });
 var admin_usersReducer = admin_usersSlice.reducer,
     actions = admin_usersSlice.actions;
-var setList = actions.setList;
+var setList = actions.setList,
+    userListRefresh = actions.userListRefresh;
 
 /* harmony default export */ __webpack_exports__["default"] = (admin_usersReducer);
 

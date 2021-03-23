@@ -10,12 +10,12 @@ const admin_usersSlice = createSlice({
         setList: (state,action) => {
             state.list = action.payload;
         },
-        refreshList: (state,action) => {
+        userListRefresh: (state,action) => {
             state.listRefreshTimes += 1;
         }
     }
 });
 
 const { reducer:admin_usersReducer, actions } = admin_usersSlice;
-export const { setList } = actions;
+export const { setList,userListRefresh } = actions;
 export default admin_usersReducer;

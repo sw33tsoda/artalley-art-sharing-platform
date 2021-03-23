@@ -30,6 +30,7 @@ Route::group(['prefix' => '/auth'],function(){
 Route::group(['prefix' => '/admin/resources','middleware' => 'auth:api'],function(){
     Route::middleware('admin_only')->apiResource('users', \App\Http\Controllers\Admin\UsersController::class);
     Route::middleware('admin_only')->apiResource('art_channels', \App\Http\Controllers\Admin\ArtChannelsController::class);
+    Route::middleware('admin_only')->post('/users/revoke_token', [\App\Http\Controllers\Admin\TokenController::class,'revokeTokenFromAUser']);
 });
 
 
